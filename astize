@@ -1,0 +1,14 @@
+#!/bin/sh
+# generate AST as JSON for an Essence spec
+f=$1
+if [ 'x' = "x$f" ]; then
+  echo "Usage: $0 spec.essence > spec.astjson"
+  exit 2
+fi
+if [ ! -r $f ]; then
+  echo "Cannot access $f, quitting"
+  exit 1
+fi
+g=`basename $f .essence`
+# if spec is called spec.bla then just make spec.bla.astjson
+conjure pretty --output-format=astjson $f > $g.astjson

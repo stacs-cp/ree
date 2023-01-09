@@ -1,0 +1,16 @@
+given n : int
+letting vertices be domain int(1..n)
+given E : set of set (size 2) of vertices
+
+find connected : bool
+find C : set of vertices
+such that
+  true
+  , 1 in C
+$  , forAll {u,v} in E . u in C -> v in C
+$ much slower due to n*n unification in SR:
+$ , forAll e in E . min(e) in C <-> max(e) in C
+  , forAll e in E . min(e) in C -> max(e) in C
+  , forAll e in E . max(e) in C -> min(e) in C
+  , connected = and([ u in C | u : vertices])
+minimising |C|

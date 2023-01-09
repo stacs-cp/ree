@@ -1,0 +1,82 @@
+{"mInfo":
+     {"finds": [], "givens": [], "enumGivens": [], "enumLettings": [], "lettings": [], "unnameds": [],
+      "strategyQ": {"Auto": {"Interactive": []}}, "strategyA": {"Auto": {"Interactive": []}}, "trailCompact": [],
+      "trailVerbose": [], "trailRewrites": [], "nameGenState": [], "nbExtraGivens": 0, "representations": [],
+      "representationsTree": [], "originalDomains": [], "trailGeneralised": []},
+ "mLanguage": {"language": {"Name": "Essence"}, "version": [1, 3]},
+ "mStatements":
+     [{"Declaration": {"FindOrGiven": ["Given", {"Name": "n"}, {"DomainInt": [{"TagInt": []}, []]}]}},
+      {"Declaration":
+           {"Letting":
+                [{"Name": "vertices"},
+                 {"Domain":
+                      {"DomainInt":
+                           [{"TagInt": []},
+                            [{"RangeBounded":
+                                  [{"Constant": {"ConstantInt": [{"TagInt": []}, 1]}},
+                                   {"Reference": [{"Name": "n"}, null]}]}]]}}]}},
+      {"Declaration":
+           {"FindOrGiven":
+                ["Given", {"Name": "E"},
+                 {"DomainSet":
+                      [[], {"SizeAttr_None": []},
+                       {"DomainSet":
+                            [[], {"SizeAttr_Size": {"Constant": {"ConstantInt": [{"TagInt": []}, 2]}}},
+                             {"DomainReference": [{"Name": "vertices"}, null]}]}]}]}},
+      {"Declaration": {"FindOrGiven": ["Find", {"Name": "connected"}, {"DomainBool": []}]}},
+      {"Declaration":
+           {"FindOrGiven":
+                ["Find", {"Name": "C"},
+                 {"DomainSet": [[], {"SizeAttr_None": []}, {"DomainReference": [{"Name": "vertices"}, null]}]}]}},
+      {"SuchThat":
+           [{"Constant": {"ConstantBool": true}},
+            {"Op":
+                 {"MkOpIn":
+                      [{"Constant": {"ConstantInt": [{"TagInt": []}, 1]}}, {"Reference": [{"Name": "C"}, null]}]}},
+            {"Op":
+                 {"MkOpAnd":
+                      {"Comprehension":
+                           [{"Op":
+                                 {"MkOpImply":
+                                      [{"Op":
+                                            {"MkOpIn":
+                                                 [{"Op": {"MkOpMin": {"Reference": [{"Name": "e"}, null]}}},
+                                                  {"Reference": [{"Name": "C"}, null]}]}},
+                                       {"Op":
+                                            {"MkOpIn":
+                                                 [{"Op": {"MkOpMax": {"Reference": [{"Name": "e"}, null]}}},
+                                                  {"Reference": [{"Name": "C"}, null]}]}}]}},
+                            [{"Generator":
+                                  {"GenInExpr":
+                                       [{"Single": {"Name": "e"}}, {"Reference": [{"Name": "E"}, null]}]}}]]}}},
+            {"Op":
+                 {"MkOpAnd":
+                      {"Comprehension":
+                           [{"Op":
+                                 {"MkOpImply":
+                                      [{"Op":
+                                            {"MkOpIn":
+                                                 [{"Op": {"MkOpMax": {"Reference": [{"Name": "e"}, null]}}},
+                                                  {"Reference": [{"Name": "C"}, null]}]}},
+                                       {"Op":
+                                            {"MkOpIn":
+                                                 [{"Op": {"MkOpMin": {"Reference": [{"Name": "e"}, null]}}},
+                                                  {"Reference": [{"Name": "C"}, null]}]}}]}},
+                            [{"Generator":
+                                  {"GenInExpr":
+                                       [{"Single": {"Name": "e"}}, {"Reference": [{"Name": "E"}, null]}]}}]]}}},
+            {"Op":
+                 {"MkOpEq":
+                      [{"Reference": [{"Name": "connected"}, null]},
+                       {"Op":
+                            {"MkOpAnd":
+                                 {"Comprehension":
+                                      [{"Op":
+                                            {"MkOpIn":
+                                                 [{"Reference": [{"Name": "u"}, null]},
+                                                  {"Reference": [{"Name": "C"}, null]}]}},
+                                       [{"Generator":
+                                             {"GenDomainNoRepr":
+                                                  [{"Single": {"Name": "u"}},
+                                                   {"DomainReference": [{"Name": "vertices"}, null]}]}}]]}}}]}}]},
+      {"Objective": ["Minimising", {"Op": {"MkOpTwoBars": {"Reference": [{"Name": "C"}, null]}}}]}]}

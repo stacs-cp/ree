@@ -1,0 +1,161 @@
+{"mInfo":
+     {"finds": [], "givens": [], "enumGivens": [], "enumLettings": [], "lettings": [], "unnameds": [],
+      "strategyQ": {"Auto": {"Interactive": []}}, "strategyA": {"Auto": {"Interactive": []}}, "trailCompact": [],
+      "trailVerbose": [], "trailRewrites": [], "nameGenState": [], "nbExtraGivens": 0, "representations": [],
+      "representationsTree": [], "originalDomains": [], "trailGeneralised": []},
+ "mLanguage": {"language": {"Name": "Essence"}, "version": [1, 3]},
+ "mStatements":
+     [{"Declaration":
+           {"FindOrGiven":
+                ["Given", {"Name": "n"},
+                 {"DomainInt":
+                      [{"TagInt": []}, [{"RangeLowerBounded": {"Constant": {"ConstantInt": [{"TagInt": []}, 1]}}}]]}]}},
+      {"Declaration":
+           {"FindOrGiven":
+                ["Given", {"Name": "k"},
+                 {"DomainInt":
+                      [{"TagInt": []}, [{"RangeLowerBounded": {"Constant": {"ConstantInt": [{"TagInt": []}, 1]}}}]]}]}},
+      {"Declaration":
+           {"Letting":
+                [{"Name": "vertices"},
+                 {"Domain":
+                      {"DomainInt":
+                           [{"TagInt": []},
+                            [{"RangeBounded":
+                                  [{"Constant": {"ConstantInt": [{"TagInt": []}, 1]}},
+                                   {"Reference": [{"Name": "n"}, null]}]}]]}}]}},
+      {"Declaration":
+           {"Letting":
+                [{"Name": "edge"},
+                 {"Domain":
+                      {"DomainTuple":
+                           [{"DomainReference": [{"Name": "vertices"}, null]},
+                            {"DomainReference": [{"Name": "vertices"}, null]}]}}]}},
+      {"Declaration":
+           {"FindOrGiven":
+                ["Given", {"Name": "w"},
+                 {"DomainFunction":
+                      [[], [{"SizeAttr_None": []}, "PartialityAttr_Partial", "JectivityAttr_None"],
+                       {"DomainReference": [{"Name": "edge"}, null]}, {"DomainInt": [{"TagInt": []}, []]}]}]}},
+      {"Declaration":
+           {"Letting":
+                [{"Name": "path"},
+                 {"Domain":
+                      {"DomainMatrix":
+                           [{"DomainInt":
+                                 [{"TagInt": []},
+                                  [{"RangeBounded":
+                                        [{"Constant": {"ConstantInt": [{"TagInt": []}, 0]}},
+                                         {"Reference": [{"Name": "k"}, null]}]}]]},
+                            {"DomainReference": [{"Name": "vertices"}, null]}]}}]}},
+      {"Declaration": {"FindOrGiven": ["Find", {"Name": "p"}, {"DomainReference": [{"Name": "path"}, null]}]}},
+      {"Declaration":
+           {"FindOrGiven":
+                ["Find", {"Name": "cost"},
+                 {"DomainInt":
+                      [{"TagInt": []},
+                       [{"RangeBounded":
+                             [{"Op":
+                                   {"MkOpNegate":
+                                        {"Op":
+                                             {"MkOpProduct":
+                                                  {"AbstractLiteral":
+                                                       {"AbsLitMatrix":
+                                                            [{"DomainInt":
+                                                                  [{"TagInt": []},
+                                                                   [{"RangeBounded":
+                                                                         [{"Constant":
+                                                                               {"ConstantInt": [{"TagInt": []}, 1]}},
+                                                                          {"Constant":
+                                                                               {"ConstantInt":
+                                                                                    [{"TagInt": []}, 2]}}]}]]},
+                                                             [{"Reference": [{"Name": "k"}, null]},
+                                                              {"Op":
+                                                                   {"MkOpMin":
+                                                                        {"Op":
+                                                                             {"MkOpRange":
+                                                                                  {"Reference":
+                                                                                       [{"Name": "w"},
+                                                                                        null]}}}}}]]}}}}}},
+                              {"Op":
+                                   {"MkOpProduct":
+                                        {"AbstractLiteral":
+                                             {"AbsLitMatrix":
+                                                  [{"DomainInt":
+                                                        [{"TagInt": []},
+                                                         [{"RangeBounded":
+                                                               [{"Constant": {"ConstantInt": [{"TagInt": []}, 1]}},
+                                                                {"Constant": {"ConstantInt": [{"TagInt": []}, 2]}}]}]]},
+                                                   [{"Reference": [{"Name": "k"}, null]},
+                                                    {"Op":
+                                                         {"MkOpMax":
+                                                              {"Op":
+                                                                   {"MkOpRange":
+                                                                        {"Reference":
+                                                                             [{"Name": "w"}, null]}}}}}]]}}}}]}]]}]}},
+      {"SuchThat":
+           [{"Op":
+                 {"MkOpAnd":
+                      {"Comprehension":
+                           [{"Op":
+                                 {"MkOpIn":
+                                      [{"AbstractLiteral":
+                                            {"AbsLitTuple":
+                                                 [{"Op":
+                                                       {"MkOpIndexing":
+                                                            [{"Reference": [{"Name": "p"}, null]},
+                                                             {"Op":
+                                                                  {"MkOpMinus":
+                                                                       [{"Reference": [{"Name": "j"}, null]},
+                                                                        {"Constant":
+                                                                             {"ConstantInt":
+                                                                                  [{"TagInt": []}, 1]}}]}}]}},
+                                                  {"Op":
+                                                       {"MkOpIndexing":
+                                                            [{"Reference": [{"Name": "p"}, null]},
+                                                             {"Reference": [{"Name": "j"}, null]}]}}]}},
+                                       {"Op": {"MkOpDefined": {"Reference": [{"Name": "w"}, null]}}}]}},
+                            [{"Generator":
+                                  {"GenDomainNoRepr":
+                                       [{"Single": {"Name": "j"}},
+                                        {"DomainInt":
+                                             [{"TagInt": []},
+                                              [{"RangeBounded":
+                                                    [{"Constant": {"ConstantInt": [{"TagInt": []}, 1]}},
+                                                     {"Reference": [{"Name": "k"}, null]}]}]]}]}}]]}}}]},
+      {"SuchThat":
+           [{"Op":
+                 {"MkOpEq":
+                      [{"Reference": [{"Name": "cost"}, null]},
+                       {"Op":
+                            {"MkOpSum":
+                                 {"Comprehension":
+                                      [{"Op":
+                                            {"MkOpRelationProj":
+                                                 [{"Reference": [{"Name": "w"}, null]},
+                                                  [{"AbstractLiteral":
+                                                        {"AbsLitTuple":
+                                                             [{"Op":
+                                                                   {"MkOpIndexing":
+                                                                        [{"Reference": [{"Name": "p"}, null]},
+                                                                         {"Op":
+                                                                              {"MkOpMinus":
+                                                                                   [{"Reference":
+                                                                                         [{"Name": "i"}, null]},
+                                                                                    {"Constant":
+                                                                                         {"ConstantInt":
+                                                                                              [{"TagInt": []},
+                                                                                               1]}}]}}]}},
+                                                              {"Op":
+                                                                   {"MkOpIndexing":
+                                                                        [{"Reference": [{"Name": "p"}, null]},
+                                                                         {"Reference": [{"Name": "i"}, null]}]}}]}}]]}},
+                                       [{"Generator":
+                                             {"GenDomainNoRepr":
+                                                  [{"Single": {"Name": "i"}},
+                                                   {"DomainInt":
+                                                        [{"TagInt": []},
+                                                         [{"RangeBounded":
+                                                               [{"Constant": {"ConstantInt": [{"TagInt": []}, 1]}},
+                                                                {"Reference": [{"Name": "k"}, null]}]}]]}]}}]]}}}]}}]},
+      {"Objective": ["Minimising", {"Reference": [{"Name": "cost"}, null]}]}]}

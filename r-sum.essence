@@ -1,0 +1,4 @@
+given a : int
+find c : int(a..a+1)
+such that
+  c = 1 + a
