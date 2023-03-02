@@ -1,5 +1,5 @@
 # EMini: a miniscule fragment of Essence
-## András Salamon and Chris Stone
+## András Salamon and Christopher Stone
 ### 20230302
 
 # Introduction
