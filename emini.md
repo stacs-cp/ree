@@ -12,26 +12,30 @@ This is similar to the fragment $E_{FO}$ which is studied by Mitchell and Ternov
 
 An EMini specification consists of three parts.
 
-## Given
+## Letting
 
-The `given` part consists of a sequence of statements of the form
+The `letting` part consists of a sequence of statements of the form
 ```
-given D : int(a..b)
+letting D be domain int(a..b)
 ```
-defining finite integer domains, or
+defining finite integer domains, where `a` and `b` are integer constants,
 ```
-given f : function D -> E
+letting R be relation of (D * E * F)
 ```
-where `D` and `E` are integer domains.
+where `D` and `E` are integer domains, or
+```
+letting R be relation((1,2),(1,3))
+```
+as an example relation.
 
 
 ## Find
 
 The `find` part consists of a sequence of statements of the form
 ```
-find f : function D -> E
+find R : relation of (D * E * F)
 ```
-where `D` and `E` are integer domains declared as `given`.
+where `D`, `E`, and `F` are integer domains declared as `letting`, where the list of domains contains at least one element and the elements are separated by `*`.
 
 
 ## Such that
@@ -40,7 +44,7 @@ The `such that` part consists of a sequence of statements of the form
 ```
 such that P
 ```
-where `P` is an expression which is a formula of first-order logic over functions and integers, such that all quantifiers are of the form
+where `P` is an expression which is a formula of first-order logic over relations and integers, such that all quantifiers are of the form
 ```
 forAll i : D .
 ```
@@ -48,5 +52,5 @@ or
 ```
 exists i : D .
 ```
-where `D` is an integer domain declared as `given`.
+where `D` is an integer domain declared by a `letting` statement.
 
