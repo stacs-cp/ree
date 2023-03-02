@@ -68,7 +68,6 @@ The following EMini spec (which is also valid Essence) defines an instance of $\
 The vertices are denoted by positive integers.
 We use the relation `C` to map a colour to each vertex.
 The three constraints require `C` to be a function, which is total, and which is a proper colouring.
-
 ```
 letting vertices be domain int(1..3)
 letting colours be domain int(1..3)
@@ -84,5 +83,9 @@ such that
 such that
   forAll (u,v) in G .
      forAll c,d : colours . (C(u,c) /\ C(v,d) -> (c != d))
+```
+`conjure solve` returns the following solution:
+```
+letting C be relation((1, 3), (2, 2), (3, 1))
 ```
 
