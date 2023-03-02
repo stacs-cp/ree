@@ -9,9 +9,29 @@ The `given` part consists of a sequence of statements of the form
 ```
 given D : int(a..b)
 ```
-or
+defining finite integer domains, or
 ```
 given f : function D -> E
 ```
-where `D` and `E` are functions 
+where `D` and `E` are integer domains.
+
+The `find` part consists of a sequence of statements of the form
+```
+find f : function D -> E
+```
+where `D` and `E` are integer domains declared as `given`.
+
+The `such that` part consists of a sequence of statements of the form
+```
+such that P
+```
+where `P` is an expression which is a formula of first-order logic over functions and integers, such that all quantifiers are of the form
+```
+forAll i : D .
+```
+or
+```
+exists i : D .
+```
+where `D` is an integer domain declared as `given`.
 
