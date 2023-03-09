@@ -1,4 +1,4 @@
-# EMini: a miniscule fragment of Essence
+# EMini: a miniscule fragment of Essence (v1.0)
 ## András Salamon and Christopher Stone
 ### 20230302
 Bibtex: emini.bib
