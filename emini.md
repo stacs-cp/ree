@@ -1,6 +1,6 @@
-# EMini: a miniscule fragment of Essence (v1.0)
+# EMini: a miniscule fragment of Essence (v1.1)
 ## András Salamon and Christopher Stone
-### 20230302
+### 20230309
 Bibtex: emini.bib
 Bibliostyle: plainurl.bst
 
@@ -19,28 +19,47 @@ An EMini specification consists of three parts.
 
 ## Letting
 
-The `letting` part consists of a sequence of statements of the form
+The `letting` part consists of a sequence of domain declaration statements or definitions of constants.
+
+Example constant definitions are of the form
+```
+letting a be 3
+```
+defining an integer constant `a`,
+```
+letting t be (1,2)
+```
+defining a constant tuple `t` of arity 2 with integer components, or
+```
+letting R be relation ((1,2),(1,3),(2,3))
+```
+defining a constant relation `R` of arity 2 containing 3 tuples.
+
+Example domain declarations are of the form
 ```
 letting D be domain int(a..b)
 ```
 defining finite integer domains, where `a` and `b` are integer constants,
 ```
-letting R be relation of (D * E * F)
+letting T be domain tuple (D,E,F)
 ```
-where `D` and `E` are integer domains, or
+where `D`, `E`, and `F` are integer domains declared as `letting`, the list of domains contains at least one element and is bracketed by parentheses, and the elements in the list are separated by `,`, or
 ```
-letting R be relation((1,2),(1,3))
+letting Rtype be domain relation of (D * E * F)
 ```
-as an example relation.
+where `D`, `E`, and `F` are integer domains declared as `letting`, the list of domains contains at least one element and is bracketed by parentheses, and the elements in the list are separated by `*` (note the syntactic disparity between tuples and relations).
+
+At present we do not support the semantically equivalent declaration ``letting Rtype be domain relation of T`` which uses the notion that a relation is a set of tuples.
+(Doing so would diverge from the existing syntax of Essence.)
 
 
 ## Find
 
 The `find` part consists of a sequence of statements of the form
 ```
-find R : relation of (D * E * F)
+find R : relation of Rtype
 ```
-where `D`, `E`, and `F` are integer domains declared as `letting`, the list of domains contains at least one element and is bracketed by parentheses, and the elements in the list are separated by `*`.
+where `Rtype` was declared as `letting`.
 
 
 ## Such that
@@ -55,11 +74,10 @@ forAll i : D .
 ```
 or
 ```
-exists i : D .
+exists i in D .
 ```
 where `D` is an integer domain declared by a `letting` statement.
-
-Expressions may contain `->` (implication), $\verb#/\#$ (logical and), $\verb#\/#$ (logical or), `!` (logical negation), `=` (equality), `!=` (inequality), `<` (less-than), `>` (greater-than), `<=` (less-than-or-equal), `>=` (greater-than-or-equal), and should be bracketed using parentheses to avoid problems with non-associative operators such as `->`.
+The quantification is either over all elements in a domain, or all elements (tuples) in a relation.
 
 
 # Example
@@ -72,7 +90,10 @@ The three constraints require `C` to be a function, which is total, and which is
 letting vertices be domain int(1..3)
 letting colours be domain int(1..3)
 letting G be relation((1,2),(1,3),(2,3))
-find C : relation of (vertices * colours)
+letting map be domain relation of (vertices * colours)
+letting T be domain tuple (vertices,colours)
+find C : map
+find t : T
 such that
   forAll (u,c) in C .
      forAll (v,d) in C .
@@ -83,9 +104,72 @@ such that
 such that
   forAll (u,v) in G .
      forAll c,d : colours . (C(u,c) /\ C(v,d) -> (c != d))
+such that
+  t in C
+such that
+  t[1] = t[2]
 ```
-`conjure solve` returns the following solution:
+
+Then `conjure solve` returns the following solution:
 ```
 letting C be relation((1, 3), (2, 2), (3, 1))
+letting t be (2, 2)
 ```
+
+
+# Tokens
+
+Spaces are not significant.
+
+Here are the tokens used in our language:
+
+`letting`
+`be`
+`such that`
+`domain`
+`tuple`
+`int`
+`relation`
+`forAll`
+`exists`
+`in`
+`.`
+`,`
+`:`
+`*`
+`(`
+`)`
+`[`
+`]`
+`->`
+/\\
+\\/
+`!`
+`=`
+`!=`
+`<`
+`>`
+`<=`
+`>=`
+
+
+# Expressions
+
+Parentheses `(` and `)` are used to bracket expressions and to disambiguate.
+Expressions should be bracketed using parentheses to avoid problems with non-associative operators such as `->`.
+
+The table shows the operators.
+
+| operator    | description           |
+| ----------- | --------------------- |
+| `->`        | implication           |
+| /\\         | logical and           |
+| \\/         | logical or            |
+| `!`         | logical negation      |
+| `=`         | equality              |
+| `!=`        | inequality            |
+| `<`         | less-than             |
+| `>`         | greater-than          |
+| `<=`        | less-than-or-equal    |
+| `>=`        | greater-than-or-equal |
 
