@@ -1,0 +1,53 @@
+Statement := DeclarationStatement
+            | SuchThatStatement
+
+DeclarationStatement := LettingStatement
+                      | FindingStatement
+
+LettingStatement := NameLettingStatement
+                  | DomainNameLettingStatement
+
+NameLettingStatement := "letting" Name "be" Expression 
+
+DomainNameLettingStatement := "letting" NameDomain "be domain" Domain
+
+FindStatement := "find" Name ":" Domain
+
+SuchThatStatement := "such that" Expression
+
+Expression := Literal 
+            | Name 
+            | Quantification 
+            | "(" Expression ")"
+            | Expression Operator Expression
+            | Operator Expression 
+            | Name "in" Name
+
+Literal := integerConstant 
+         | relationConstant
+         | tupleConstant
+
+Domain := "int" list(Range, ",", "()") 
+        | "tuple" list(Domain, ",", "()")
+        | "relation" "of" list(Domain, "*", "()")
+        | NameDomain 
+
+Range := integerConstant ".." integerConstant
+
+Operator := BooleanBinaryOperator 
+          | IntegerOperator
+          | "!"
+          | "="
+          | "!="
+          
+BooleanBinaryOperator := "->"
+                       | "/\"
+                       | "\/"
+
+IntegerOperator := "<"
+                | ">"
+                | "<="
+                | ">="
+    
+
+
