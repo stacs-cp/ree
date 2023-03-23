@@ -27,10 +27,42 @@ print(args.spec, args.param, args.rewrite)
 
 import pathlib
 from pathlib import Path
-specfile = Path(args.spec)
-paramfile = Path(args.param)
+if args.spec:
+    specfile = Path(args.spec)
+else:
+    sys.exit('A spec file must be provided, quitting')
 if specfile.is_file():
     print('found spec file', specfile)
-if paramfile.is_file():
+else:
+    sys.exit('A spec file must be provided, quitting')
+doParam = False
+if args.param:
+    paramfile = Path(args.param)
+    doParam = paramfile.is_file()
+if doParam:
     print('found param file', paramfile)
+    filenames = [paramfile, specfile]
+else:
+    filenames = [specfile]
+
+# generate temp file name
+tmpfile = './temp-042.essence'
+with open(tmpfile, 'w') as outfile:
+    for fname in filenames:
+        with open(fname, 'r') as infile:
+            outfile.write(infile.read())
+
+# ask conjure to generate AST
+# from spec.bla make spec.bla.astjson
+astfilename = '{0}.astjson'.format(specfile)
+import subprocess
+with open(astfilename, 'w') as astfile:
+    if subprocess.run(['conjure',
+                       'pretty', '--output-format=astjson', tmpfile],
+                      shell=False, stdout=astfile).returncode != 0:
+        sys.exit('Something went wrong with calling conjure, quitting')
+
+import json
+with open(astfilename, 'r') as astfile:
+    A = json.load(astfile)
 
