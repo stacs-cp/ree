@@ -1,6 +1,6 @@
-# EMini: a miniscule fragment of Essence (v1.1)
+# EMini: a miniscule fragment of Essence (v1.2)
 ## András Salamon and Christopher Stone
-### 20230309
+### 20230327
 Bibtex: emini.bib
 Bibliostyle: plainurl.bst
 
@@ -160,16 +160,21 @@ Expressions should be bracketed using parentheses to avoid problems with non-ass
 
 The table shows the operators.
 
-| operator    | description           |
-| ----------- | --------------------- |
-| `->`        | implication           |
-| /\\         | logical and           |
-| \\/         | logical or            |
-| `!`         | logical negation      |
-| `=`         | equality              |
-| `!=`        | inequality            |
-| `<`         | less-than             |
-| `>`         | greater-than          |
-| `<=`        | less-than-or-equal    |
-| `>=`        | greater-than-or-equal |
+| operator    | description                |
+| ----------- | -------------------------- |
+| `forAll`    | universal quantification   |
+| `exists`    | existential quantification |
+| `->`        | implication                |
+| /\\         | logical and                |
+| \\/         | logical or                 |
+| `!`         | logical negation           |
+| `=`         | equality                   |
+| `!=`        | inequality                 |
+| `<`         | less-than                  |
+| `>`         | greater-than               |
+| `<=`        | less-than-or-equal         |
+| `>=`        | greater-than-or-equal      |
+
+The quantifiers have special syntax: `Q X . E` where `Q` is either `forAll` or `exists`, `E` is an expression, and `X` is a typed variable specification.
+A typed variable specification is either of the form `A : D` where `A` is a variable name and `D` is a finite integer domain, or of the form `A in D` where `D` is a name of a constant relation defined by `letting`.
 
