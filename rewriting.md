@@ -1,6 +1,6 @@
 # Rewriting survey
 ## András Salamon
-### 20230116
+### started 20230116
 
 This document surveys the landscape of practical rewriting systems and part of the prior work on graph and term rewriting, higher-order rewriting, and similar notions as these might apply to rewriting Essence specifications.
 
@@ -34,4 +34,8 @@ We just want to rewrite some expression tree to another expression tree in some 
 A big issue seems to be how to deal with term graphs up to isomorphism: using the isomorphism classes directly leads to a loss of the relationship with specific vertices and edges.
 The paper uses standard term graphs which are canonical representatives of the isomorphism classes (I think this requires occasionally relabelling a standard term graph).
 Lemma 3.4 is the thing that most rewriting people seem to want, isomorphism checking collapses to equality of the canonical representatives.
+
+[GP2](https://uoycs-plasma.github.io/GP2) or [GP2@github](https://github.com/UoYCS-plasma/GP2/) is a graph rewriting language developed at York, and might be suitable for rewriting ASTs off the shelf.
+This relies on an old HP library called Judy, which luckily can be built on MacOS by bypassing the GNU automake system and using the original build script.
+It should be possible to make a brew formula for GP2 without too much effort.
 
