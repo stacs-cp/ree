@@ -1,0 +1,8 @@
+Main = {swap}
+
+swap(op, a, b, l, r: list)
+[ (n0, op) (n1, a) (n2, b) | (e0, n0, n1, l) (e0, n0, n2, r) ]
+=>
+[ (n0, op) (n2, b) (n1, a) | (e0, n0, n2, l) (e0, n0, n1, r) ]
+
+interface = { n0, n1, n2 }
