@@ -62,7 +62,47 @@ with open(astfilename, 'w') as astfile:
                       shell=False, stdout=astfile).returncode != 0:
         sys.exit('Something went wrong with calling conjure, quitting')
 
+# read conjure JSON output representing an Essence spec
+
 import json
 with open(astfilename, 'r') as astfile:
     A = json.load(astfile)
 
+# print(A['mLanguage']['language']['Name']) # Essence
+# print(A['mLanguage']['version']) # 1.3
+statements = A['mStatements']
+print(len(statements), "statements")
+for s in statements:
+    for keyword in s:
+        print(keyword, '=', s[keyword])
+    if not 'SuchThat' in s: continue
+    c = s['SuchThat']
+    if not c: continue
+    for constraint in c:
+        if not 'Op' in constraint: continue
+        d = constraint['Op']
+        if not d: continue
+        if not 'MkOpEq' in d: continue
+        e = d['MkOpEq']
+        if len(e) != 2: continue
+        lhs = e[0]
+        rhs = e[1]
+        # print(lhs, '=', rhs)
+        if len(lhs) == 1 and 'Op' in rhs:
+             rhs = rhs['Op']
+             if 'MkOpSum' in rhs:
+                 rhs = rhs['MkOpSum']
+                 if not 'AbstractLiteral' in rhs: continue
+                 rhs = rhs['AbstractLiteral']['AbsLitMatrix']
+                 if len(rhs) == 2:
+                     lhs = rhs[0]
+                     rhs = rhs[1]
+                     print(lhs, '+', rhs)
+
+# want to rewrite:
+# X '+' Y -> Y '+' X
+# if X > Y lexically and they are both non-constant expressions
+# X + Y -> value(X) + value(Y)
+# if they are both constants
+
+#print(A)
