@@ -1,0 +1,7 @@
+letting D be domain int(1..3)
+letting Rtype be domain relation of (D * D)
+letting R be relation((1,2),(1,3))
+find i : D
+such that
+  exists j : D . (i,j) in R
+, forAll k : D . forAll j : D . ((k,j) in R -> (i,j) in R)

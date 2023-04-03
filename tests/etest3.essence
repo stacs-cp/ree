@@ -1,0 +1,5 @@
+letting D be domain int(1..2)
+letting R be domain relation of (D * D)
+find i : D
+such that
+exists j : D . (i,j) in R
