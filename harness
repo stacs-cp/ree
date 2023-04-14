@@ -68,6 +68,62 @@ import json
 with open(astfilename, 'r') as astfile:
     A = json.load(astfile)
 
+ni = 0
+nodeLabel = []
+
+def makeNode(label):
+    global ni, nodeLabel
+    nodeLabel.append(label)
+    rv = ni
+    ni += 1
+    return rv
+
+ei = 0
+edgeLabel = []
+edgeFrom = []
+edgeTo = []
+
+def makeEdge(u,v,label):
+    global ei, edgeLabel, edgeFrom, edgeTo
+    edgeLabel.append(label)
+    edgeFrom.append(u)
+    edgeTo.append(v)
+    rv = ei
+    ei += 1
+    return rv
+
+def processSubtree(label,value):
+    u = makeNode(label)
+    if isinstance(value, list):
+        nodeType = 'firstChild'
+        prev = u
+        for s in value:
+            v = makeNode(s)
+            makeEdge(prev, v, nodeType)
+            nodeType = 'nextChild'
+            prev = v
+    elif isinstance(value, dict):
+        for s in value:
+            v = makeNode(s)
+            makeEdge(u, v, 'Child')
+    else:
+        print('error, cannot determine type of', value)
+    return u
+
+r = makeNode('root')
+for label in A:
+    u = processSubtree(label,A[label])
+    makeEdge(r, u, label)
+
+print('nodeLabel=', nodeLabel)
+for l,f,t in zip(edgeLabel, edgeFrom, edgeTo):
+    print('(', f, ',', t, ':', l, ')')
+#print('edgeLabel=', edgeLabel)
+#print('edgeFrom=', edgeFrom)
+#print('edgeTo=', edgeTo)
+
+# main ::= letting | given | such_that | where | find
+
 # print(A['mLanguage']['language']['Name']) # Essence
 # print(A['mLanguage']['version']) # 1.3
 statements = A['mStatements']
@@ -75,6 +131,31 @@ print(len(statements), "statements")
 for s in statements:
     for keyword in s:
         print(keyword, '=', s[keyword])
+    if 'Declaration' in s:
+        s2 = s['Declaration']
+        print('processing declaration')
+        if 'FindOrGiven' in s2:
+            print('processing FindOrGiven')
+            s3 = s2['FindOrGiven']
+            if 'Find' == s3[0]:
+                nameBlob = s3[1]
+                domainBlob = s3[2]
+                print('find', '<', nameBlob['Name'], '>', '<', domainBlob, '>')
+            else:
+                print('not find')
+        elif 'Letting' in s2:
+            print('processing Letting')
+        else:
+            print('not FindOrGiven or Letting')
+    elif 'SuchThat' in s:
+        print('processing such that')
+    elif 'Where' in s:
+        print('processing where')
+    elif 'Find' in s:
+        print('processing find')
+
+    print()
+
     if not 'SuchThat' in s: continue
     c = s['SuchThat']
     if not c: continue
