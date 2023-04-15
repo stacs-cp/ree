@@ -16,6 +16,7 @@
 import sys
 import argparse
 p = argparse.ArgumentParser()
+p.add_argument('-d', '--debug', action='store_true')
 p.add_argument('-s', '--spec', action='store')
 p.add_argument('-p', '--param', action='store')
 p.add_argument('-r', '--rewrite', action='store')
@@ -23,7 +24,8 @@ args = p.parse_args(args=sys.argv[1:])
 # args.spec is the input spec filename
 # args.param is the input param filename
 # args.rewrite is the kind of rewrite to perform
-print(args.spec, args.param, args.rewrite)
+debug = args.debug
+if debug: print(args.spec, args.param, args.rewrite)
 
 import pathlib
 from pathlib import Path
@@ -32,7 +34,7 @@ if args.spec:
 else:
     sys.exit('A spec file must be provided, quitting')
 if specfile.is_file():
-    print('found spec file', specfile)
+    if debug: print('found spec file', specfile)
 else:
     sys.exit('A spec file must be provided, quitting')
 doParam = False
@@ -40,7 +42,7 @@ if args.param:
     paramfile = Path(args.param)
     doParam = paramfile.is_file()
 if doParam:
-    print('found param file', paramfile)
+    if debug: print('found param file', paramfile)
     filenames = [paramfile, specfile]
 else:
     filenames = [specfile]
@@ -51,6 +53,13 @@ with open(tmpfile, 'w') as outfile:
     for fname in filenames:
         with open(fname, 'r') as infile:
             outfile.write(infile.read())
+
+import os
+def cleanup():
+    os.remove(tmpfile)
+
+import atexit
+atexit.register(cleanup)
 
 # ask conjure to generate AST
 # from spec.bla make spec.bla.astjson
@@ -92,98 +101,134 @@ def makeEdge(u,v,label):
     ei += 1
     return rv
 
+'''
+Here are some intended GP2 graphs:
+
+{'a': {'b': 'c'}} -> (0,a) (1,b) (2,c) | (0,0,1,child) (1,1,2,child)
+
+{'a': {'b': 'c'}} -> (0,dict) (1,a) (2,dict) (3,b) (4,c)
+                   | (0,0,1,child) (1,1,2,value) (2,2,3,child) (3,3,4,value)
+
+{a:{b:c}, d:[]} -> (0,dict) (1,a) (2,dict) (3,b) (4,c) (5,d) (6,list)
+                 | (0,0,1,child) (1,1,2,value) (2,2,3,child) (3,3,4,value)
+                   (4,0,5,child) (5,5,6,value)
+'''
+
 def processSubtree(label,value):
     u = makeNode(label)
     if isinstance(value, list):
+        w = makeNode('list')
+        makeEdge(u, w, 'child')
         nodeType = 'firstChild'
-        prev = u
+        prev = w
+        n = 0
         for s in value:
-            v = makeNode(s)
+            v = processSubtree(n, s)
             makeEdge(prev, v, nodeType)
             nodeType = 'nextChild'
             prev = v
     elif isinstance(value, dict):
-        for s in value:
-            v = makeNode(s)
-            makeEdge(u, v, 'Child')
+        w = makeNode('dict')
+        makeEdge(u, w, 'child')
+        for s,val in value.items():
+            v = processSubtree(s, val)
+            makeEdge(w, v, 'child')
+    elif isinstance(value, (int, str)):
+        v = makeNode(value)
+        makeEdge(u, v, 'child')
+    elif value == None:
+        v = makeNode(value)
+        makeEdge(u, v, 'child')
     else:
         print('error, cannot determine type of', value)
     return u
 
-r = makeNode('root')
-for label in A:
-    u = processSubtree(label,A[label])
-    makeEdge(r, u, label)
+processSubtree('root', A)
 
-print('nodeLabel=', nodeLabel)
+print('[') # nodes
+n = 0
+for nl in nodeLabel:
+    print('(', n, ',', nl, ')')
+    n += 1
+print('|') # edges
+n = 0
 for l,f,t in zip(edgeLabel, edgeFrom, edgeTo):
-    print('(', f, ',', t, ':', l, ')')
-#print('edgeLabel=', edgeLabel)
-#print('edgeFrom=', edgeFrom)
-#print('edgeTo=', edgeTo)
+    if debug:
+        print('(', n, ',', f, ':', nodeLabel[f], ',', t, ':', nodeLabel[t], ',', l, ')')
+    else:
+        print('(', n, ',', f, ',', t, ',', l, ')')
+    n += 1
+print(']')
+
+
+if debug: print('nodeLabel=', nodeLabel)
+if debug: print('edgeLabel=', edgeLabel)
+if debug: print('edgeFrom=', edgeFrom)
+if debug: print('edgeTo=', edgeTo)
 
 # main ::= letting | given | such_that | where | find
 
-# print(A['mLanguage']['language']['Name']) # Essence
-# print(A['mLanguage']['version']) # 1.3
-statements = A['mStatements']
-print(len(statements), "statements")
-for s in statements:
-    for keyword in s:
-        print(keyword, '=', s[keyword])
-    if 'Declaration' in s:
-        s2 = s['Declaration']
-        print('processing declaration')
-        if 'FindOrGiven' in s2:
-            print('processing FindOrGiven')
-            s3 = s2['FindOrGiven']
-            if 'Find' == s3[0]:
-                nameBlob = s3[1]
-                domainBlob = s3[2]
-                print('find', '<', nameBlob['Name'], '>', '<', domainBlob, '>')
+if debug:
+    print(A['mLanguage']['language']['Name']) # Essence
+    print(A['mLanguage']['version']) # 1.3
+    statements = A['mStatements']
+    print(len(statements), "statements")
+    for s in statements:
+        for keyword in s:
+            print(keyword, '=', s[keyword])
+        if 'Declaration' in s:
+            s2 = s['Declaration']
+            print('processing declaration')
+            if 'FindOrGiven' in s2:
+                print('processing FindOrGiven')
+                s3 = s2['FindOrGiven']
+                if 'Find' == s3[0]:
+                    nameBlob = s3[1]
+                    domainBlob = s3[2]
+                    print('find', '<', nameBlob['Name'], '>', '<', domainBlob, '>')
+                else:
+                    print('not find')
+            elif 'Letting' in s2:
+                print('processing Letting')
             else:
-                print('not find')
-        elif 'Letting' in s2:
-            print('processing Letting')
-        else:
-            print('not FindOrGiven or Letting')
-    elif 'SuchThat' in s:
-        print('processing such that')
-    elif 'Where' in s:
-        print('processing where')
-    elif 'Find' in s:
-        print('processing find')
+                print('not FindOrGiven or Letting')
+        elif 'SuchThat' in s:
+            print('processing such that')
+        elif 'Where' in s:
+            print('processing where')
+        elif 'Find' in s:
+            print('processing find')
 
-    print()
+        print()
 
-    if not 'SuchThat' in s: continue
-    c = s['SuchThat']
-    if not c: continue
-    for constraint in c:
-        if not 'Op' in constraint: continue
-        d = constraint['Op']
-        if not d: continue
-        if not 'MkOpEq' in d: continue
-        e = d['MkOpEq']
-        if len(e) != 2: continue
-        lhs = e[0]
-        rhs = e[1]
-        # print(lhs, '=', rhs)
-        if len(lhs) == 1 and 'Op' in rhs:
-             rhs = rhs['Op']
-             if 'MkOpSum' in rhs:
-                 rhs = rhs['MkOpSum']
-                 if not 'AbstractLiteral' in rhs: continue
-                 rhs = rhs['AbstractLiteral']['AbsLitMatrix']
-                 if len(rhs) == 2:
-                     lhs = rhs[0]
-                     rhs = rhs[1]
-                     print(lhs, '+', rhs)
+        if not 'SuchThat' in s: continue
+        c = s['SuchThat']
+        if not c: continue
+        for constraint in c:
+            if not 'Op' in constraint: continue
+            d = constraint['Op']
+            if not d: continue
+            if not 'MkOpEq' in d: continue
+            e = d['MkOpEq']
+            if len(e) != 2: continue
+            lhs = e[0]
+            rhs = e[1]
+            # print(lhs, '=', rhs)
+            if len(lhs) == 1 and 'Op' in rhs:
+                 rhs = rhs['Op']
+                 if 'MkOpSum' in rhs:
+                     rhs = rhs['MkOpSum']
+                     if not 'AbstractLiteral' in rhs: continue
+                     rhs = rhs['AbstractLiteral']['AbsLitMatrix']
+                     if len(rhs) == 2:
+                         lhs = rhs[0]
+                         rhs = rhs[1]
+                         print(lhs, '+', rhs)
 
-# want to rewrite:
-# X '+' Y -> Y '+' X
-# if X > Y lexically and they are both non-constant expressions
-# X + Y -> value(X) + value(Y)
-# if they are both constants
+    # want to rewrite:
+    # X '+' Y -> Y '+' X
+    # if X > Y lexically and they are both non-constant expressions
+    # X + Y -> value(X) + value(Y)
+    # if they are both constants
 
-#print(A)
+    #print(A)
