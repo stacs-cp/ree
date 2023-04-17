@@ -2,12 +2,51 @@
 ## András Salamon and Christopher Stone
 ### 2023-04-03
 
-# Parser
+# 20230327
+
+The Essence parser is coming along, it is still a rough prototype.
+Currently we parse:
+letting and find. Both constants and domains (named and implicit) for:
+- int
+- tuples
+- relations
+
+Named domains are stored in a dictionary. This means that at this point in time named domains have to be declared before using them, but it could be changed easily.
+There is no type-checking. 
+
+Arithmetic expressions and inequalities with operator precedence seem to work correctly.
+Next in-line features (taken care by Chris):
+- Quantifiers: forAll and exists
+- Expression concatenation with " . "
+
+
+After some brainstorming, we decided to boil down the structure of the Abstract Syntax Tree to its minimal normalised structure. At the moment, due to the way we construct the graph, it may turn into an Abstract Syntax Graph(DAG) with a bit of syntactic sugar still around. This could cause some complications. One of the reasons is that minimal essential structure will make rewriting rules simpler.
+
+Something that was discussed is how to go back from AST to proper Essence.
+There are two candidate approaches:
+- Inverse-parsing rules. Each parsing rule basically describes how to add back all the parenthesis, commas and so on. There are many and it will be very verbose, but very easy to write.
+- Extra rewriting rules. Basically, in the same way we change the spec we can add all the Essence syntactic sugar in the right places post-model transformation. This operation has already been named "Icing". There is some aesthetic beauty to this approach. Possibly easy?
+
+The above will be decided at the next iteration.
+
+Normalisation rules that will be implemented first:
+- Small blob before large blob (via node degree or subtree size)
+- Small numbers before large
+- Lexicographic (alphabetic `a->z`)
+- Equalities before inequalities
+
+Regarding the actual rewriting, the next-in-line test will investigate GP2 (taken care of by Andras), a graph transformation program and language developed in York.
+First we will look at basic arithmetic rewriting and De Morgan transformations.
+
+
+# 20230403
+
+## Parser
 
 A bug remains in the parser relating to ``))+`` and indexed array elements.
 
 
-# Replacing icing on expressions
+## Replacing icing on expressions
 
 Discussed at length how to deal with "icing" on "raw" ASTs.
 The idea is that the "raw" AST contains only the AST which is necessary to preserve semantics, while the "iced" version contains parentheses, whitespace, comments, and other elements needed for human readability.
@@ -56,7 +95,7 @@ If this hypothesis is right then we should keep the AST decorated so that it can
 If the hypothesis is wrong then we should only store the raw AST and make it clear to the user that the parser will discard icing so a pretty printer based on it will be lossy.
 
 
-# Project proposal: teaching small language models small languages via instance generation
+## Project proposal: teaching small language models small languages via instance generation
 
 András has applied to Meta for access to the Llama weights.
 Christopher has looked at using [Google T5](https://github.com/google-research/t5x) which might be a better set of base models.
@@ -67,9 +106,34 @@ This takes the form of an automated procedure which takes a formal description o
 The hope would be that for synthetic computer languages even a small LLM with a relatively poor grasp of English would be able to learn the language well, at least for IDE code completion tasks, and due to small size would be continuously trainable using CPU only or limited GPU resources.
 
 
-# Unrelated questions about deep learning
+## Unrelated questions about deep learning
 
 1. Which activation functions are used in common network architectures?
 1. Modified ReLU is one of these, what is it called?
 1. Has anyone done a comparison of different activation functions for same architecture?
+
+
+# 20230417
+
+## Harness
+
+The `harness` Python script now:
+1. runs Conjure to parse a spec (and optionally a parameter file),
+1. reads the resulting JSON representation of the internal abstract syntax tree (AST), 
+1. translates the AST into a GP2-style labelled graph,
+1. prints the GP2-style graph.
+
+The current graph representation of the AST is based on the following schema, that is similar to the XML style representation of trees with ordered children.
+Every edge is labelled with one of the labels `child`, `firstChild`, or `nextChild`.
+A node representing a dictionary is linked to all its elements by `child` edges.
+The node representing an entry in a dictionary is labelled with its dictionary key, and linked to the node for its value by a `child` edge.
+A parent node representing a list is linked to the first element in the list by a `firstChild` edge, and entries in the list link to the next element by `nextChild` edges.
+(There are no links from the parent node of a list to the second and subsequent children.)
+Integers and strings are stored.
+`None` values are represented as null values.
+
+The semantics of nulls are not clear (what is their purpose?), probably need to check with Oz.
+
+Once the Python parser output is stable it can be integrated into the harness as another way to create the GP2 instance graph.
+
 

@@ -77,6 +77,8 @@ import json
 with open(astfilename, 'r') as astfile:
     A = json.load(astfile)
 
+# globals, really a class, for nodes
+
 ni = 0
 nodeLabel = []
 
@@ -86,6 +88,8 @@ def makeNode(label):
     rv = ni
     ni += 1
     return rv
+
+# globals, really a class, for edges
 
 ei = 0
 edgeLabel = []
@@ -105,6 +109,7 @@ def makeEdge(u,v,label):
 Here are some intended GP2 graphs:
 
 {'a': {'b': 'c'}} -> (0,a) (1,b) (2,c) | (0,0,1,child) (1,1,2,child)
+No, this is too limited.
 
 {'a': {'b': 'c'}} -> (0,dict) (1,a) (2,dict) (3,b) (4,c)
                    | (0,0,1,child) (1,1,2,value) (2,2,3,child) (3,3,4,value)
@@ -115,6 +120,9 @@ Here are some intended GP2 graphs:
 '''
 
 def processSubtree(label,value):
+    '''
+    make a tree with a labelled root node, and deal with its value
+    '''
     u = makeNode(label)
     if isinstance(value, list):
         w = makeNode('list')
@@ -143,29 +151,35 @@ def processSubtree(label,value):
         print('error, cannot determine type of', value)
     return u
 
-processSubtree('root', A)
 
-print('[') # nodes
-n = 0
-for nl in nodeLabel:
-    print('(', n, ',', nl, ')')
-    n += 1
-print('|') # edges
-n = 0
-for l,f,t in zip(edgeLabel, edgeFrom, edgeTo):
-    if debug:
-        print('(', n, ',', f, ':', nodeLabel[f], ',', t, ':', nodeLabel[t], ',', l, ')')
-    else:
-        print('(', n, ',', f, ',', t, ',', l, ')')
-    n += 1
-print(']')
+def printGP2():
+    '''
+    print graph object in GP2 format
+    '''
+    print('[') # nodes
+    n = 0
+    for nl in nodeLabel:
+        print('(', n, ',', nl, ')')
+        n += 1
+    print('|') # edges
+    n = 0
+    for l,f,t in zip(edgeLabel, edgeFrom, edgeTo):
+        if debug:
+            print('(', n, ',', f, ':', nodeLabel[f], ',', t, ':', nodeLabel[t], ',', l, ')')
+        else:
+            print('(', n, ',', f, ',', t, ',', l, ')')
+        n += 1
+    print(']')
+
+
+processSubtree('root', A)
+printGP2()
 
 
 if debug: print('nodeLabel=', nodeLabel)
 if debug: print('edgeLabel=', edgeLabel)
 if debug: print('edgeFrom=', edgeFrom)
 if debug: print('edgeTo=', edgeTo)
-
 # main ::= letting | given | such_that | where | find
 
 if debug:
@@ -200,7 +214,6 @@ if debug:
             print('processing find')
 
         print()
-
         if not 'SuchThat' in s: continue
         c = s['SuchThat']
         if not c: continue
@@ -224,11 +237,9 @@ if debug:
                          lhs = rhs[0]
                          rhs = rhs[1]
                          print(lhs, '+', rhs)
-
     # want to rewrite:
     # X '+' Y -> Y '+' X
     # if X > Y lexically and they are both non-constant expressions
     # X + Y -> value(X) + value(Y)
     # if they are both constants
-
     #print(A)
