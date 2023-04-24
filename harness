@@ -18,7 +18,7 @@ import argparse
 p = argparse.ArgumentParser()
 p.add_argument('-d', '--debug', action='store_true')
 p.add_argument('-s', '--spec', action='store')
-p.add_argument('-p', '--param', action='store')
+p.add_argument('-p', '--param', action='append')
 p.add_argument('-r', '--rewrite', action='store')
 args = p.parse_args(args=sys.argv[1:])
 # args.spec is the input spec filename
@@ -37,15 +37,16 @@ if specfile.is_file():
     if debug: print('found spec file', specfile)
 else:
     sys.exit('A spec file must be provided, quitting')
-doParam = False
+filenames = []
 if args.param:
-    paramfile = Path(args.param)
-    doParam = paramfile.is_file()
-if doParam:
-    if debug: print('found param file', paramfile)
-    filenames = [paramfile, specfile]
-else:
-    filenames = [specfile]
+    for param in args.param:
+        paramfile = Path(param)
+        if paramfile.is_file():
+            if debug: print('found param file', paramfile)
+            filenames.append(paramfile)
+        else:
+            sys.exit('param file', paramfile, 'not found, quitting')
+filenames.append(specfile)
 
 # generate temp file name
 tmpfile = './temp-042.essence'
@@ -56,7 +57,7 @@ with open(tmpfile, 'w') as outfile:
 
 import os
 def cleanup():
-    os.remove(tmpfile)
+    if not debug: os.remove(tmpfile)
 
 import atexit
 atexit.register(cleanup)
