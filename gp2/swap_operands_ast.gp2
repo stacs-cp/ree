@@ -1,0 +1,28 @@
+// X + Y -> Y + X
+// MkOpSum -child- dict -child- AbstractLiteral -child- dict -child- AbsLitMatrix -child- list -firstChild- X -nextChild- Y
+
+Main = {swap}
+
+// op == MkOpSum
+swap(op, a, b: list)
+[
+(n0, op)
+(n1, dict)
+(n2, AbstractLiteral)
+(n3, dict)
+(n4, AbsLitMatrix)
+(n5, list)
+(n6, a)
+(n7, b)
+|
+(e0, n0, n1, child) (e1, n1, n2, child) (e2, n2, n3, child) (e3, n3, n4, child) (e4, n4, n5, child) (e5, n5, n6, firstChild) (e6, n6, n7, nextChild)
+]
+
+=>
+[
+(n0, op) (n1, dict) (n2, AbstractLiteral) (n3, dict) (n4, AbsLitMatrix) (n5, list) (n6, b) (n7, a)
+|
+(e0, n0, n1, child) (e1, n1, n2, child) (e2, n2, n3, child) (e3, n3, n4, child) (e4, n4, n5, child) (e5, n5, n6, firstChild) (e6, n6, n7, nextChild)
+]
+
+interface = { n0, n1, n2, n3, n4, n5, n6, n7 }
