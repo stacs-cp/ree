@@ -1,0 +1,13 @@
+
++++++++++++++++++++++++++++++++++++++ 
+2023-04-27 16:03:17.329152
+ 
+egraph3col3.essence
+Invalid statement:$ Token Num: 53
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 

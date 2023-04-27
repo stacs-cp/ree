@@ -1,5 +1,6 @@
 import eminipyparser.eminipyparser as ep
 import os
+from datetime import datetime
 
 input_str = """
 
@@ -41,12 +42,18 @@ def prettyPrintFile(filename):
     ep.printTree(rootTree)
 
 directory = "./tests/"
+errorslogfile = open('./eminipyparser/testlogs/errorslog.txt', 'a')
+errorslogfile.write("+++++++++++++++++++++++++++++++++++++ \n")
+errorslogfile.write(str(datetime.now()) + '\n \n')
 for filename in os.listdir(directory):
     if filename.endswith(".essence"): 
         try:
           prettyPrintFile(os.path.join(directory, filename))
-        except:
+        except Exception as e:
+          errorslogfile.write(filename + '\n')
+          errorslogfile.write(str(e) + '\n')
+          errorslogfile.write("----------------------------- \n")
+          print("--------------------------------------")
           print("ERROR in: " + filename)
-
-
-## TODO add test logging
+          print(str(e))
+errorslogfile.close()
