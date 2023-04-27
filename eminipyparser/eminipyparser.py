@@ -1,10 +1,6 @@
 import re
-import matplotlib.pyplot as plt
 import networkx as nx
-import pydot
 import copy
-from networkx.drawing.nx_pydot import graphviz_layout
-from collections import deque
 
 class Node:
     def __init__(self, name, children=[]):
@@ -504,7 +500,7 @@ def add_nodes_edges(graph, node, parent=None, index=None):
        add_nodes_edges(graph, node.element, parent=node)
 
         
-def createASG(ast):
+def createNXAST(ast):
     G = nx.DiGraph()
 
     for item in ast:
