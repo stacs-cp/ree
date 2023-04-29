@@ -11,3 +11,12 @@ Invalid statement:given Token Num: 0
 r-sum.essence
 Invalid statement:given Token Num: 0
 ----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-04-29 14:16:37.430079
+ 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 

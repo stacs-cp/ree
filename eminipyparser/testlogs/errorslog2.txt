@@ -1,0 +1,279 @@
++++++++++++++++++++++++++++++++++++++ 
+2023-04-29 15:20:57.265415
+ 
+egraph3col.essence
+'Node' object has no attribute 'domain'
+----------------------------- 
+egraph3col2.essence
+'Node' object has no attribute 'domain'
+----------------------------- 
+egraph3col3.essence
+'Node' object has no attribute 'domain'
+----------------------------- 
+egraph3col4.essence
+'Node' object has no attribute 'domain'
+----------------------------- 
+emini-example1.essence
+'Node' object has no attribute 'domain'
+----------------------------- 
+emini-example2.essence
+'Node' object has no attribute 'domain'
+----------------------------- 
+etest.essence
+'Node' object has no attribute 'domain'
+----------------------------- 
+etest2.essence
+'Node' object has no attribute 'domain'
+----------------------------- 
+etest3.essence
+'Node' object has no attribute 'domain'
+----------------------------- 
+etest4.essence
+'Node' object has no attribute 'domain'
+----------------------------- 
+etest5.essence
+'Node' object has no attribute 'domain'
+----------------------------- 
+etmp.essence
+'Node' object has no attribute 'domain'
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-04-29 15:22:42.466446
+ 
+egraph3col.essence
+'Node' object has no attribute 'name_of_domain'
+----------------------------- 
+egraph3col2.essence
+'Node' object has no attribute 'name_of_domain'
+----------------------------- 
+egraph3col3.essence
+'Node' object has no attribute 'name_of_domain'
+----------------------------- 
+egraph3col4.essence
+'Node' object has no attribute 'name_of_domain'
+----------------------------- 
+emini-example1.essence
+'Node' object has no attribute 'name_of_domain'
+----------------------------- 
+emini-example2.essence
+'Node' object has no attribute 'name_of_domain'
+----------------------------- 
+etest.essence
+'Node' object has no attribute 'name_of_domain'
+----------------------------- 
+etest2.essence
+'Node' object has no attribute 'name_of_domain'
+----------------------------- 
+etest3.essence
+'Node' object has no attribute 'name_of_domain'
+----------------------------- 
+etest4.essence
+'Node' object has no attribute 'name_of_domain'
+----------------------------- 
+etest5.essence
+'Node' object has no attribute 'name_of_domain'
+----------------------------- 
+etmp.essence
+'Node' object has no attribute 'name_of_domain'
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-04-29 15:23:52.993348
+ 
+egraph3col.essence
+'Node' object has no attribute 'expression'
+----------------------------- 
+egraph3col2.essence
+'Node' object has no attribute 'expression'
+----------------------------- 
+egraph3col3.essence
+'Node' object has no attribute 'expression'
+----------------------------- 
+egraph3col4.essence
+'Node' object has no attribute 'expression'
+----------------------------- 
+emini-example1.essence
+'Node' object has no attribute 'expression'
+----------------------------- 
+emini-example2.essence
+'Node' object has no attribute 'expression'
+----------------------------- 
+etest.essence
+'Node' object has no attribute 'expression'
+----------------------------- 
+etest2.essence
+'Node' object has no attribute 'expression'
+----------------------------- 
+etest3.essence
+append() takes no keyword arguments
+----------------------------- 
+etest4.essence
+'Node' object has no attribute 'expression'
+----------------------------- 
+etest5.essence
+'Node' object has no attribute 'expression'
+----------------------------- 
+etmp.essence
+'Node' object has no attribute 'expression'
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-04-29 15:28:21.295409
+ 
+egraph3col3.essence
+append() takes no keyword arguments
+----------------------------- 
+egraph3col4.essence
+append() takes no keyword arguments
+----------------------------- 
+emini-example1.essence
+append() takes no keyword arguments
+----------------------------- 
+emini-example2.essence
+append() takes no keyword arguments
+----------------------------- 
+etest.essence
+append() takes no keyword arguments
+----------------------------- 
+etest3.essence
+append() takes no keyword arguments
+----------------------------- 
+etest4.essence
+append() takes no keyword arguments
+----------------------------- 
+etest5.essence
+append() takes no keyword arguments
+----------------------------- 
+etmp.essence
+append() takes no keyword arguments
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-04-29 16:43:00.504380
+ 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-04-29 16:46:45.767017
+ 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-04-29 18:51:23.638359
+ 
+egraph3col.essence
+__init__() takes 1 positional argument but 2 were given
+----------------------------- 
+egraph3col2.essence
+__init__() takes 1 positional argument but 2 were given
+----------------------------- 
+egraph3col3.essence
+__init__() takes 1 positional argument but 2 were given
+----------------------------- 
+egraph3col4.essence
+__init__() takes 1 positional argument but 2 were given
+----------------------------- 
+emini-example1.essence
+__init__() takes 1 positional argument but 2 were given
+----------------------------- 
+emini-example2.essence
+__init__() takes 1 positional argument but 2 were given
+----------------------------- 
+etest.essence
+__init__() takes 1 positional argument but 2 were given
+----------------------------- 
+etest2.essence
+__init__() takes 1 positional argument but 2 were given
+----------------------------- 
+etest3.essence
+__init__() takes 1 positional argument but 2 were given
+----------------------------- 
+etest4.essence
+__init__() takes 1 positional argument but 2 were given
+----------------------------- 
+etest5.essence
+__init__() takes 1 positional argument but 2 were given
+----------------------------- 
+etmp.essence
+__init__() takes 1 positional argument but 2 were given
+----------------------------- 
+r-sum-0.essence
+__init__() takes 1 positional argument but 2 were given
+----------------------------- 
+r-sum-1.essence
+__init__() takes 1 positional argument but 2 were given
+----------------------------- 
+r-sum-2.essence
+__init__() takes 1 positional argument but 2 were given
+----------------------------- 
+r-sum.essence
+__init__() takes 1 positional argument but 2 were given
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-04-29 18:51:56.285982
+ 
+egraph3col.essence
+'Node' object is not iterable
+----------------------------- 
+egraph3col2.essence
+'Node' object is not iterable
+----------------------------- 
+egraph3col3.essence
+'Node' object is not iterable
+----------------------------- 
+egraph3col4.essence
+'Node' object is not iterable
+----------------------------- 
+emini-example1.essence
+'Node' object is not iterable
+----------------------------- 
+emini-example2.essence
+'Node' object is not iterable
+----------------------------- 
+etest2.essence
+'Node' object is not iterable
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-04-29 19:07:50.020500
+ 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
