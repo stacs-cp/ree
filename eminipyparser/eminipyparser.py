@@ -110,13 +110,23 @@ class MemberExpression(Node):
 
 class EssenceParser:
     def __init__(self, input_str):
-        self.tokens = re.findall(r'\.\.|\->|\\\/|\/\\|>=|<=|!=|[^\s\w]|[\w]+', input_str.replace('\n', ' '))
+        commentlessStr = self.removeComments(input_str)
+        self.tokens = re.findall(r'\.\.|\->|\\\/|\/\\|>=|<=|!=|[^\s\w]|[\w]+', commentlessStr.replace('\n', ' '))
         print(self.tokens)
         self.index = 0
         self.named_domains = {} 
         self.named_constants = {}
         self.binary_operators = ["<",">", "<=", ">=", "+", "-", "*", "/", "%", "=","!=", "->", "/\\", "xor","\\/" , "and" , "in"]
 
+    def removeComments(self, spec):
+        lines = spec.split('\n')
+        newSpec = ""
+        for line in lines:
+
+            newSpec += line.split('$',1)[0] + " "
+        print(newSpec)
+        return newSpec
+    
     def parse(self):
       statements = []
       while self.index < len(self.tokens):
