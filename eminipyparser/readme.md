@@ -17,7 +17,7 @@ Returns:
 
 ## TODO 27-04-2023
 
-* Parse tuples with a single item in member expression
+* ~~Parse tuples with a single item in member expression~~
 * Unitary operation ( minus and negation)
 * ~~Add proper test log files~~
 * AST-> Json
