@@ -37,6 +37,8 @@ class EssenceParser:
             if statement.info == "FindStatement":    
                 self.named_domains[statement.children[0].name] = statement.children[0]                
             self.statements.append(statement)
+        if self.index < len(self.tokens):
+            raise Exception("Something went wrong. Parsed until: " + str(self.tokens[self.index]) + " at Token Num: " + str(self.index))
         return self.statements
 
     def consume(self):
@@ -91,7 +93,9 @@ class EssenceParser:
     def parse_such_that_statement(self):
         such_that_list = []
         such_that = self.consume()  # "such"
-        self.consume()  # "that"
+        that = self.consume()
+        if that != "that": # "that"
+            raise SyntaxError("Expected \"that\" but got: " + that + " .Token Num: " + str(self.index-1))
         expression = self.parse_expression()
 
         while self.match_any([".", ',']):
@@ -150,11 +154,16 @@ class EssenceParser:
     def parse_constant(self):
         # tuple - relation - int 
         if self.match("(") and self.tokens[self.index + 2] == ",":
-            return self.parse_tuple_constant()
+            return self.parse_tuple_constant()        
         elif self.match("relation"):
             return self.parse_relation_constant()
         elif self.tokens[self.index].isdigit():
             return Node(self.consume(),info = "Integer") ## should it be parse_expression?
+        elif self.index + 2 < len(self.tokens):
+            if self.match("(") and self.tokens[self.index + 2] == ")":
+                return self.parse_tuple_constant()
+            else:
+                raise SyntaxError("Invalid constant: " + str(self.tokens[self.index]))
         else:
             raise SyntaxError("Invalid constant: " + str(self.tokens[self.index]))
 
@@ -172,6 +181,15 @@ class EssenceParser:
                     element = self.parse_literal()
                     self.consume() # ]
                     return Node(identifier, [element], "MemberExpression")
+                if self.tokens[self.index] == '(' and self.tokens[self.index +2] == ')':
+                    self.consume()  # "("
+                    tuple_elements = []
+                    while not self.match(")"):
+                        tuple_elements.append(Node(self.consume(), info="Literal"))
+                        if self.match(","):
+                            self.consume()  # ","
+                    self.consume()  # ")"
+                    return Node(identifier, tuple_elements, "MemberExpression")
             if self.match("(") and self.tokens[self.index + 2] == ",":
                 return Node(identifier, [self.parse_tuple_constant()], "MemberExpression") 
             if identifier in self.named_domains:
@@ -309,7 +327,7 @@ class EssenceParser:
            domain = self.parse_domain()
         else:
            domain = self.parse_literal() ## NEEDS REVISION
-        return Node(quantifier, [*variables, Node(preposition, [domain])], "QuantificationExpression")     
+        return Node(quantifier, [*variables, Node(preposition, [domain], "Preposition")], "QuantificationExpression")     
     
 
 def buildTree(node, Tree, nodeIndex=None, parent=None):                

@@ -277,3 +277,39 @@ Invalid statement:given Token Num: 0
 r-sum.essence
 Invalid statement:given Token Num: 0
 ----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-04-29 19:21:54.379593
+ 
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-04-29 19:54:17.036974
+ 
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-04-29 20:24:32.882801
+ 
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
