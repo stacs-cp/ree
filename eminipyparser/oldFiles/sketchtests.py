@@ -1,4 +1,4 @@
-import eminipyparser.eminipyparser2 as ep
+import eminipyparser.oldFiles.eminipyparser as ep
 import os
 from datetime import datetime
 
@@ -36,14 +36,13 @@ such that
 def prettyPrintFile(filename):
     with open(filename, 'r') as file:
       data = file.read()
-    parser = ep.EssenceParser()
-    statements = parser.parse(data)
+    parser = ep.EssenceParser(data)
+    statements = parser.parse()
     rootTree = ep.Node(filename, statements)
-    ep.printTree(rootTree,printInfo=True)
-    ep.getNXTree(filename,statements)
+    ep.printTree(rootTree)
 
 directory = "./tests/"
-errorslogfile = open('./eminipyparser/testlogs/errorslog2.txt', 'a')
+errorslogfile = open('./eminipyparser/testlogs/errorslog.txt', 'a')
 errorslogfile.write("+++++++++++++++++++++++++++++++++++++ \n")
 errorslogfile.write(str(datetime.now()) + '\n \n')
 for filename in os.listdir(directory):

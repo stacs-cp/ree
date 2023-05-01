@@ -13,10 +13,6 @@ find C : relation of (colours)
 such that
   forAll (u,v) in G .
      C(u) != C(v)
-
-
-
-
 """
 
 parser = ep.EssenceParser()

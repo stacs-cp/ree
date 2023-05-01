@@ -14,7 +14,9 @@ class EssenceParser:
         self.index = 0
         self.named_domains = {} 
         self.named_constants = {}
+        self.decision_variables = {}
         self.binary_operators = ["<",">", "<=", ">=", "+", "-", "*", "/", "%", "=","!=", "->", "/\\", "xor","\\/" , "and" , "in"]
+        self.unary_operators = ["u-","!"]
         self.statements = []
 
     def removeComments(self, spec):
@@ -26,7 +28,8 @@ class EssenceParser:
     
     def parse(self, essenceSpec):
         commentlessStr = self.removeComments(essenceSpec)
-        self.tokens = re.findall(r'\.\.|\->|\\\/|\/\\|>=|<=|!=|[^\s\w]|[\w]+', commentlessStr.replace('\n', ' '))
+        self.tokens = re.findall(r'\.\.|\->|\\\/|\/\\|>=|<=|!=|!|==|=|\+|[^=!<>+\s\w]|[\w]+', commentlessStr.replace('\n', ' '))
+
         print(self.tokens)
         while self.index < len(self.tokens):
             statement = self.parse_statement()
@@ -35,7 +38,7 @@ class EssenceParser:
             if statement.info == "DomainNameLettingStatement":
                 self.named_domains[statement.children[0].name] = statement.children[0]
             if statement.info == "FindStatement":    
-                self.named_domains[statement.children[0].name] = statement.children[0]                
+                self.decision_variables[statement.children[0].name] = statement.children[0]                
             self.statements.append(statement)
         if self.index < len(self.tokens):
             raise Exception("Something went wrong. Parsed until: " + str(self.tokens[self.index]) + " at Token Num: " + str(self.index))
@@ -87,7 +90,7 @@ class EssenceParser:
         if column != ":":
             raise SyntaxError("Invalid Token - Expected : instead of " + column + " Token Num: " + str(self.index-1))
         domain = self.parse_domain()    
-        findVariable = Node(name,[domain], "Incognita")   
+        findVariable = Node(name,[domain], "DecisionVariable")   
         return Node(find, [findVariable],"FindStatement")
 
     def parse_such_that_statement(self):
@@ -103,7 +106,7 @@ class EssenceParser:
             if matched == "." :
                 next_expression = self.parse_expression()
                 expression = Node(" . ", [expression, next_expression], "ConcatenationExpression")
-            else: ## something not working here.
+            else: ## something not working here. maybe
                 such_that_list.append(expression)
                 expression = self.parse_expression()
 
@@ -141,6 +144,9 @@ class EssenceParser:
                     self.consume()  # "*"
             self.consume()  # ")"
             return Node(domain_name, domains, "RelationDomain")
+        elif self.match("bool"):
+            boolDomain = self.consume()  # "bool"            
+            return Node(boolDomain, [], "BoolDomain")
         elif self.tokens[self.index] in self.named_domains:
             name_of_domain = self.consume()
             #return NamedDomain(name_of_domain,self.named_domains[name_of_domain].domain) ## TEST
@@ -192,6 +198,8 @@ class EssenceParser:
                     return Node(identifier, tuple_elements, "MemberExpression")
             if self.match("(") and self.tokens[self.index + 2] == ",":
                 return Node(identifier, [self.parse_tuple_constant()], "MemberExpression") 
+            if identifier in self.decision_variables:
+                return Node(identifier, info="ReferenceToDecisionVariable")
             if identifier in self.named_domains:
                 return Node(identifier, info="ReferenceToNamedDomain")
             if identifier in self.named_constants:
@@ -231,46 +239,52 @@ class EssenceParser:
                 return 1
             if op in ["*", "/"]:
                 return 3
-            if op == "and":
-                return -1
+            if op in ["u-", "u!"]:   ## UNARY OPERATORS
+                return 8
             if op == "(":
                 return 9
             
             return 0
-
-        def greater_precedence(op1, op2):
-            return precedence(op1) > precedence(op2)
 
         output_queue = []
         operator_stack = []
 
         while not self.is_expression_terminator():
             if self.match("(") and self.tokens[self.index + 2] != ",":
-                operator_stack.append(Node(self.consume(),info="Operator"))  # "("
+                operator_stack.append(Node(self.consume(),info="Parenthesis"))  # "("
             elif self.match(")"):
                 while operator_stack[-1].name != "(":
                     output_queue.append(operator_stack.pop())
                 operator_stack.pop()  # remove the "("
                 self.consume()  # ")"
+            elif self.checkUnaryOperator(output_queue):
+                uOperator = 'u'+self.consume()
+                current_operator = Node(uOperator,info="UnaryOperator")
+                while (operator_stack and operator_stack[-1].name != "("
+                        and precedence(operator_stack[-1].name) > precedence(current_operator.name)):
+                    output_queue.append(operator_stack.pop())
+                operator_stack.append(current_operator)
             elif self.match_any(self.binary_operators):
-                current_operator = Node(self.consume(),info="Operator")
-                while (operator_stack and operator_stack[-1].name in self.binary_operators
-                        and greater_precedence(operator_stack[-1].name, current_operator.name)):
+                current_operator = Node(self.consume(),info="BinaryOperator")
+                while (operator_stack and operator_stack[-1].name != "("
+                        and precedence(operator_stack[-1].name) >= precedence(current_operator.name)):
                     output_queue.append(operator_stack.pop())
                 operator_stack.append(current_operator)
             else:
                 output_queue.append(self.parse_literal())  # Literal or Name
+            
 
         while operator_stack:
             output_queue.append(operator_stack.pop())
-
         return self.build_expression_tree(output_queue)
 
     def build_expression_tree(self, postfix_expression):
         stack = []
-
-        for token in postfix_expression:
-            if token.info == "Operator":
+        for token in postfix_expression:            
+            if token.info == "UnaryOperator":
+                right = stack.pop()              
+                stack.append(Node(token.name[-1], [right], "UnaryExpression"))
+            elif token.info == "BinaryOperator":
                 right = stack.pop()
                 left = stack.pop()
                 stack.append(Node(token.name, [left,right], "BinaryExpression"))
@@ -280,7 +294,22 @@ class EssenceParser:
                 stack.append(Node(token))
                 print("something not right at " + token + " Token Num: " + str(self.index))
         return stack[0]    
-    
+
+    def checkUnaryOperator(self,output_queue):
+        if self.match("-"):
+            if self.index>0 and self.tokens[self.index-1] in self.binary_operators:
+                return True
+            elif len(output_queue) ==0:
+                return True
+            elif self.tokens[self.index+1]== "(":
+                return True
+            else:
+                return False
+        elif self.match("!"):
+            return True
+        else:
+            return False
+        
     def parse_tuple_constant(self):
         self.consume()  # "("
         values = []
