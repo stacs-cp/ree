@@ -3,10 +3,65 @@ import networkx as nx
 import copy
 
 class Node:
-    def __init__(self, name, children=[],info = ""):
-        self.name = name
+    def __init__(self, label, children=[],info = ""):
+        self.label = label
         self.children = children
-        self.info = info
+        if info == "":
+            self.info = str(type(self)).split('.')[-1][:-2] 
+        else:
+            self.info = info
+
+### Statements
+class NameLettingStatement(Node):
+    def __init__(self, name, value):
+        super().__init__("letting", [Node(name,[value])])
+
+class DomainNameLettingStatement(Node):
+    def __init__(self, name, domain):
+        super().__init__("letting", [Node(name,[domain])])
+
+class FindStatement(Node):
+    def __init__(self, name, domain):
+        super().__init__("find", [Node(name,[domain])])
+    
+class SuchThatStatement(Node):
+    def __init__(self, constraints):
+        super().__init__("such that", constraints)
+    
+### Domains
+class IntDomain(Node):
+    def __init__(self, lower,upper):
+        super().__init__("int", [lower,upper])
+    
+class TupleDomain(Node):
+    def __init__(self, domains):
+        super().__init__("tuple", domains)
+    
+class RelationDomain(Node):
+    def __init__(self, domains):
+        super().__init__("relation", domains)
+    
+### Constants
+class IntConstant(Node):
+    def __init__(self, label):
+        super().__init__(label)
+    
+class TupleConstant(Node):
+    def __init__(self, values):
+        super().__init__("tuple", values)
+    
+class RelationConstant(Node):
+    def __init__(self, values):
+        super().__init__("relation", values)
+    
+##### Expressions
+class Expression(Node):
+    def __init__(self, label, children = []):
+        super().__init__(label, children)
+
+class QuantificationExpression(Node):
+    def __init__(self, quantifier, variables, preposition, domain):
+        super().__init__(quantifier, [*variables, Node(preposition,[domain])])
 
 # reserved words find, such, given, forAll, exists, 
 class EssenceParser:
@@ -35,7 +90,7 @@ class EssenceParser:
         while self.index < len(self.tokens):
             statement = self.parse_statement()
             if statement.info == "NameLettingStatement":
-                self.named_constants[statement.name] = statement.children[0]
+                self.named_constants[statement.label] = statement.children[0]
             if statement.info == "DomainNameLettingStatement":
                 self.named_domains[statement.children[0].name] = statement.children[0]
             if statement.info == "FindStatement":    
@@ -262,13 +317,13 @@ class EssenceParser:
                 uOperator = 'u'+self.consume()
                 current_operator = Node(uOperator,info="UnaryOperator")
                 while (operator_stack and operator_stack[-1].name != "("
-                        and precedence(operator_stack[-1].name) > precedence(current_operator.name)):
+                        and precedence(operator_stack[-1].name) > precedence(current_operator.label)):
                     output_queue.append(operator_stack.pop())
                 operator_stack.append(current_operator)
             elif self.match_any(self.binary_operators):
                 current_operator = Node(self.consume(),info="BinaryOperator")
                 while (operator_stack and operator_stack[-1].name != "("
-                        and precedence(operator_stack[-1].name) >= precedence(current_operator.name)):
+                        and precedence(operator_stack[-1].name) >= precedence(current_operator.label)):
                     output_queue.append(operator_stack.pop())
                 operator_stack.append(current_operator)
             else:
@@ -360,19 +415,19 @@ class EssenceParser:
         return Node(quantifier, [*variables, Node(preposition, [domain], "Preposition")], "QuantificationExpression")     
     
 
-def buildTree(node, Tree, nodeIndex=None, parent=None):                
+def buildTreeNX(node, Tree, nodeIndex=None, parent=None):                
     Tree.add_node(id(node), value = node.name, index = nodeIndex) 
     if parent != None: 
         Tree.add_edge(id(parent), id(node))
     for i in range(len(node.children)):
-        buildTree(node.children[i], Tree, i+1, node)
+        buildTreeNX(node.children[i], Tree, i+1, node)
 
 def getNXTree(title = None, statements = []):
     '''
     Returns a nx tree graph from a list of statements
     '''
     G = nx.DiGraph()
-    buildTree(Node(title, statements), G)
+    buildTreeNX(Node(title, statements), G)
     return G
 
 def printTree(node, indent="", last = True, printInfo = False):
@@ -388,3 +443,4 @@ def printTree(node, indent="", last = True, printInfo = False):
     indent += extension
     for i in range(len(node.children)):
         printTree(node.children[i], indent, i==len(node.children)-1,printInfo=printInfo)
+
