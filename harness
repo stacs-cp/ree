@@ -37,15 +37,16 @@ if specfile.is_file():
     if debug: print('found spec file', specfile)
 else:
     sys.exit('A spec file must be provided, quitting')
-filenames = []
+paramFilenames = []
 if args.param:
     for param in args.param:
         paramfile = Path(param)
         if paramfile.is_file():
             if debug: print('found param file', paramfile)
-            filenames.append(paramfile)
+            paramFilenames.append(paramfile)
         else:
             sys.exit('param file', paramfile, 'not found, quitting')
+filenames = paramFilenames
 filenames.append(specfile)
 
 # generate temp file name
@@ -54,11 +55,9 @@ with open(tmpfile, 'w') as outfile:
     for fname in filenames:
         with open(fname, 'r') as infile:
             outfile.write(infile.read())
-
 import os
 def cleanup():
     if not debug: os.remove(tmpfile)
-
 import atexit
 atexit.register(cleanup)
 
@@ -73,35 +72,36 @@ with open(astfilename, 'w') as astfile:
         sys.exit('Something went wrong with calling conjure, quitting')
 
 # read conjure JSON output representing an Essence spec
-
 import json
 with open(astfilename, 'r') as astfile:
     A = json.load(astfile)
 
-# globals, really a class, for nodes
+import networkx as nx
 
+# globals, really a class, for nodes
 ni = 0
 nodeLabel = []
 
-def makeNode(label):
+def makeNode(attribute):
     global ni, nodeLabel
-    nodeLabel.append(label)
+    nodeLabel.append(attribute)
+    G.add_node(ni,label=attribute)
     rv = ni
     ni += 1
     return rv
 
 # globals, really a class, for edges
-
 ei = 0
 edgeLabel = []
 edgeFrom = []
 edgeTo = []
 
-def makeEdge(u,v,label):
+def makeEdge(u,v,attribute):
     global ei, edgeLabel, edgeFrom, edgeTo
-    edgeLabel.append(label)
+    edgeLabel.append(attribute)
     edgeFrom.append(u)
     edgeTo.append(v)
+    G.add_edge(u,v,label=attribute)
     rv = ei
     ei += 1
     return rv
@@ -172,9 +172,12 @@ def printGP2():
         n += 1
     print(']')
 
-
+G = nx.DiGraph()
 processSubtree('root', A)
 printGP2()
+nx.draw(G)
+import matplotlib.pyplot as plt
+plt.savefig('tmp.pdf')
 
 
 if debug: print('nodeLabel=', nodeLabel)
