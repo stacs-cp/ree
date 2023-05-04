@@ -179,7 +179,7 @@ from networkx.drawing.nx_agraph import graphviz_layout
 pos = graphviz_layout(G, prog="dot")
 attributes = nx.get_node_attributes(G, 'label')
 #nx.draw(G)
-nx.draw(G, pos, with_labels=True, labels=attributes, node_size=300, node_color="lightblue", font_size=14)
+nx.draw(G, pos, with_labels=True, labels=attributes, arrowsize=1.5, width=0.1, node_size=2, node_color="lightblue", font_size=2)
 import matplotlib.pyplot as plt
 plt.savefig('tmp.pdf')
 
