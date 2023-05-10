@@ -31,7 +31,7 @@ Known missing features:
 * ~~Handle comments in file~~
 * Parse minisation/maximisation
 * AST-> Essence
-* Improve class names for nodes
+* ~~Improve class names for nodes~~
 
 Further desiderata
 
