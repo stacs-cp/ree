@@ -188,10 +188,9 @@ class EssenceParser:
         if self.match("int"):
             self.consume()  # "int"
             self.consume()  # "("
-            lower = self.parse_literal()  # Lower bound
+            lower = self.parse_expression()  # Lower bound
             self.consume()  # ".."
-            upper = self.parse_literal()  # Upper bound
-            self.consume()  # ")"
+            upper = self.parse_expression()  # Upper bound
             return IntDomain(lower,upper)            
         elif self.match("tuple"):
             self.consume()  # "tuple"
@@ -205,10 +204,18 @@ class EssenceParser:
             return TupleDomain(domains)
 
         elif self.match("relation"):
-            self.consume()  # "relation"
-            self.consume()  # "of"
-            self.consume()  # "("
             domains = []
+            self.consume()  # "relation"
+            if self.match("("):
+                self.consume() # (
+                if self.match("size"):
+                    self.consume() # size
+                    size = self.parse_expression() #
+                    domains.append(Node("size", [size], "RelationSize"))
+                else:
+                    SyntaxError("Relation Size Parsing Error. Expected size instead of Token: " + str(self.tokens[self.index]))
+            self.consume()  # "of"
+            self.consume()  # "("               
             while not self.match(")"):
                 domains.append(self.parse_domain())
                 if self.match("*"):
@@ -285,6 +292,8 @@ class EssenceParser:
             or self.match("such")
             or self.match("letting")
             or self.match("find")
+            or self.match("..")
+            or self.match("of")
             or self.index >= len(self.tokens)
         )    
     
@@ -293,6 +302,7 @@ class EssenceParser:
         if self.match_any(["forAll", "exists"]):
              return self.parse_quantification()
 
+        ## TODO separate quantifier and arithmetic expressions 
         ## Expression with Parentheses
         def precedence(op):
             if op == "->":
@@ -325,9 +335,10 @@ class EssenceParser:
             if self.match("(") and self.tokens[self.index + 2] != ",":
                 operator_stack.append(Node(self.consume(),info="Parenthesis"))  # "("
             elif self.match(")"):
-                while operator_stack[-1].label != "(":
+                while operator_stack and operator_stack[-1].label != "(":
                     output_queue.append(operator_stack.pop())
-                operator_stack.pop()  # remove the "("
+                if operator_stack:
+                    operator_stack.pop()  # remove the "("
                 self.consume()  # ")"
             elif self.checkUnaryOperator(output_queue):
                 uOperator = 'u'+self.consume()

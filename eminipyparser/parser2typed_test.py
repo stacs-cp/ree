@@ -62,14 +62,16 @@ such that
 
 #test 6
 test_strings.append("""
-letting r be relation((1,2),(3,4))
-
-find i : int(0..5)
-such that 
- exists a in r .
-  i = a[1]
-
+letting n be 10
+letting vertices be domain int (0..(n*n)-1) 
+find edges : relation (size 2*(n-1)*n) of (vertices * vertices)
+  such that 
+    forAll (source,target) in edges .
+      source+1 = target /\ (source+1)%n != 0 
+      \/  
+      source+n = target
 """)
+
 for i,test_str in enumerate(test_strings):
     parser = ep.EssenceParser()
     statements = parser.parse(test_str)
