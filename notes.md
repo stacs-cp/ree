@@ -136,4 +136,13 @@ The semantics of nulls are not clear (what is their purpose?), probably need to 
 
 Once the Python parser output is stable it can be integrated into the harness as another way to create the GP2 instance graph.
 
+# 20230511
+
+## rewriting meeting highlights
+
+- Handle parsing of the absolute value operator (this could conflict with list comprehension which will not be parsed yet)
+- Lattice navigation, first graph transformation will be semantically invariant
+- ModRef paper. potential story: If we have a set of transformation rules, when is it a good time to use them so that they have a positive impact? We must generate lots instances and learn about their effect on them
+- Profiling conjure and savile row. Which spec/solver combination affect the translation?
+- For the future: How to generate rewrite rules? in particular so that a specific property of the graph is preserved
 
