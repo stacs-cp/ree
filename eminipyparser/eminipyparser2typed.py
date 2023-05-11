@@ -460,13 +460,16 @@ def getNXTree(title = None, statements = []):
 def printTree(node, indent="", last = True, printInfo = False):
     info = ""
     if printInfo:
-        info = "  #"+ node.info
-    print(indent + "+- " + node.label +info)
+        info = "  #"+ node.info    
+    branch = ""
     extension = ""
     if last:
+        branch = "┕"
         extension = "   "
     else:
+        branch = "┝"
         extension = "|  "
+    print(indent + branch+"- " + node.label +info)
     indent += extension
     for i in range(len(node.children)):
         printTree(node.children[i], indent, i==len(node.children)-1,printInfo=printInfo)
