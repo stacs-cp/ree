@@ -1,4 +1,4 @@
-import eminipyparser2typed as ep
+import eminipyparser as ep
 import icing
 
 test_strings = []
