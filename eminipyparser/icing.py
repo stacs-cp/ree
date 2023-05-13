@@ -1,3 +1,5 @@
+binary_operators = ["<",">", "<=", ">=", "+", "-", "*", "/", "%", "=","!=", "->", "/\\", "xor","\\/" , "and" , "in"]
+
 def ASTtoEssence(AST):
     spec = ""
     for statement in AST.children:
@@ -37,10 +39,12 @@ def iceFind(node):
     return statement
 
 def iceSuchThat(node):
-    statement = "such that \n   "
+    statement = "such that \n  "
     constraints = []
-    [iceConstraints(expression,constraints) for expression in node.children] # get all stacks for all comma separated expressions
-    constraints = " ".join(constraints) # merge the constraints in each stack
+    for expression in node.children: # get all stacks for all comma separated expressions
+        iceConstraints(expression,constraints)
+        constraints.append("\n  ,\n  ")
+    constraints = "".join(constraints[:-1]) # merge the constraints in each stack
     statement += constraints
     return statement
 
@@ -66,6 +70,12 @@ def iceConstants(node):
             relation += ")"
         relation += ")"
         return relation
+    elif node.label == "tuple":
+        tuple = ""        
+        tuple += "("
+        tuple += ",".join(t.label for t in node.children)
+        tuple += ")"
+        return tuple
     else:
         raise Exception("Something went wrong when icing Constant:" + node.label)
     
@@ -101,14 +111,12 @@ def iceLocalVariables(variables):
 def expressionInOrderTraversal(node, stack, parent):   
     parentheses = needsParenethesis(node,parent)
 
-    if len(node.children) == 2 :  # check if it is binary subtree
-        if parentheses: stack.append("(")      
-
+    if len(node.children) == 2 and node.label in binary_operators:  # check if it is binary subtree
+        if parentheses: stack.append("(") # left parenthesis if needed
         expressionInOrderTraversal(node.children[0], stack, node) # left
         stack.append(node.label) #op
         expressionInOrderTraversal(node.children[1], stack, node) # right
-
-        if parentheses: stack.append(")")
+        if parentheses: stack.append(")") # right parenthesis if needed
 
     elif len(node.children) == 1 and node.info != "MemberExpression": # check if it has at least one child (for unary)
         if parentheses: stack.append("(")          
@@ -116,7 +124,9 @@ def expressionInOrderTraversal(node, stack, parent):
         expressionInOrderTraversal(node.children[0], stack, node)
         if parentheses: stack.append(")") 
     elif node.info == "MemberExpression":
-        stack.append(iceMemberExpression(node))     
+        stack.append(iceMemberExpression(node))   
+    elif node.label == "tuple":
+        stack.append(iceConstants(node))
     else:
         stack.append(node.label)
 

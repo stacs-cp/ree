@@ -1,5 +1,6 @@
 import eminipyparser as ep
 import os
+import icing
 from datetime import datetime
 
 def prettyPrintFile(filename):
@@ -10,9 +11,11 @@ def prettyPrintFile(filename):
     rootTree = ep.Node(filename, statements)
     ep.printTree(rootTree,printInfo=True)
     ep.getNXTree(filename,statements)
+    spec = icing.ASTtoEssence(rootTree)
+    print(spec)
 
 directory = "./tests/"
-errorslogfile = open('./eminipyparser/testlogs/errorslog2.txt', 'a')
+errorslogfile = open('./eminipyparser/testlogs/errorslog-parse+icing.txt', 'a')
 errorslogfile.write("+++++++++++++++++++++++++++++++++++++ \n")
 errorslogfile.write(str(datetime.now()) + '\n \n')
 for filename in os.listdir(directory):
@@ -26,4 +29,5 @@ for filename in os.listdir(directory):
           print("--------------------------------------")
           print("ERROR in: " + filename)
           print(str(e))
+          print("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+")
 errorslogfile.close()

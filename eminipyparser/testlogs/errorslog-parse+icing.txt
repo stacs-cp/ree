@@ -1,0 +1,204 @@
++++++++++++++++++++++++++++++++++++++ 
+2023-05-13 22:50:04.676753
+ 
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-05-13 22:53:28.007109
+ 
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-05-13 23:03:31.137608
+ 
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-05-13 23:06:09.204304
+ 
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-05-13 23:08:59.244667
+ 
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-05-13 23:12:33.559250
+ 
+egraph3col.essence
+iceConstants() takes 1 positional argument but 2 were given
+----------------------------- 
+egraph3col2.essence
+iceConstants() takes 1 positional argument but 2 were given
+----------------------------- 
+egraph3col3.essence
+iceConstants() takes 1 positional argument but 2 were given
+----------------------------- 
+egraph3col4.essence
+iceConstants() takes 1 positional argument but 2 were given
+----------------------------- 
+emini-example1.essence
+iceConstants() takes 1 positional argument but 2 were given
+----------------------------- 
+emini-example2.essence
+iceConstants() takes 1 positional argument but 2 were given
+----------------------------- 
+etest.essence
+iceConstants() takes 1 positional argument but 2 were given
+----------------------------- 
+etest2.essence
+iceConstants() takes 1 positional argument but 2 were given
+----------------------------- 
+etest3.essence
+iceConstants() takes 1 positional argument but 2 were given
+----------------------------- 
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
+----------------------------- 
+etest5.essence
+iceConstants() takes 1 positional argument but 2 were given
+----------------------------- 
+etmp.essence
+iceConstants() takes 1 positional argument but 2 were given
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+r-sum-0.essence
+iceConstants() takes 1 positional argument but 2 were given
+----------------------------- 
+r-sum-1.essence
+iceConstants() takes 1 positional argument but 2 were given
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-05-13 23:13:20.227565
+ 
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-05-13 23:15:02.374149
+ 
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-05-13 23:15:52.126762
+ 
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-05-13 23:17:46.650352
+ 
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-05-13 23:18:26.292953
+ 
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 

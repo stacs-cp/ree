@@ -30,7 +30,7 @@ Known missing features:
 * Parse GIVEN + Where statements
 * ~~Handle comments in file~~
 * Parse minisation/maximisation
-* AST-> Essence
+* ~~AST-> Essence~~
 * ~~Improve class names for nodes~~
 
 Further desiderata
