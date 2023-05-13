@@ -19,9 +19,16 @@ such that
 """)
 #test 2
 test_strings.append("""
-find i : int(0..10)
+letting D be domain int(1..3)
+letting Rtype be domain relation of (D * D)
+letting R be relation((1,2),(1,3))
+find S : Rtype
 such that
-    (-5)=i
+  forAll (x,y) in S .
+     (y,x) in R
+, forAll (x,y) in R .
+     (y,x) in S
+
 """)
 #test 3
 test_strings.append("""
@@ -75,5 +82,5 @@ find edges : relation (size 2*(n-1)*n) of (vertices * vertices)
 for i,test_str in enumerate(test_strings):
     parser = ep.EssenceParser()
     statements = parser.parse(test_str)
-    rootTree = ep.Node("Test-" + str(i) , statements)
+    rootTree = ep.Node("Test-" + str(i) , statements, "ROOT")
     ep.printTree(rootTree, printInfo=True)

@@ -326,7 +326,8 @@ class EssenceParser:
             if op == "(":
                 return 9
             
-            return 0
+            print("missing operator")
+            return 999
 
         output_queue = []
         operator_stack = []
@@ -473,4 +474,3 @@ def printTree(node, indent="", last = True, printInfo = False):
     indent += extension
     for i in range(len(node.children)):
         printTree(node.children[i], indent, i==len(node.children)-1,printInfo=printInfo)
-
