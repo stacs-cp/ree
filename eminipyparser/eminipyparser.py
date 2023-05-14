@@ -102,7 +102,7 @@ class EssenceParser:
         commentlessStr = self.removeComments(essenceSpec)
         self.tokens = re.findall(r'\.\.|\->|\\\/|\/\\|>=|<=|!=|!|==|=|\+|[^=!<>+\s\w]|[\w]+', commentlessStr.replace('\n', ' '))
 
-        print(self.tokens)
+        print(' '.join(self.tokens))
         while self.index < len(self.tokens):
             statement = self.parse_statement()
             if statement.info == "NameLettingStatement":

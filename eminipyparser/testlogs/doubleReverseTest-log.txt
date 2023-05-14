@@ -1,0 +1,209 @@
++++++++++++++++++++++++++++++++++++++ 
+2023-05-14 18:31:04.192204
+ 
++++++++++++++++++++++++++++++++++++++ 
+egraph3col.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+egraph3col2.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+egraph3col3.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+egraph3col4.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+emini-example1.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+emini-example2.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+etest.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+etest2.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+etest3.essence
+Same Spec: True
+Same Tree: False
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+etest5.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+etmp.essence
+Same Spec: True
+Same Tree: False
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+r-sum-0.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+r-sum-1.essence
+Same Spec: True
+Same Tree: False
+r-sum-2.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
+r-sum.essence
+Invalid statement:given Token Num: 0
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-05-14 18:39:47.371936
+ 
++++++++++++++++++++++++++++++++++++++ 
+egraph3col.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+egraph3col2.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+egraph3col3.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+egraph3col4.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+emini-example1.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+emini-example2.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+etest.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+etest2.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+etest3.essence
+Same Spec: True
+Same Tree: False
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++++++++++++++++++++++++++++++++++++++ 
+etest5.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+etmp.essence
+Same Spec: True
+Same Tree: False
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++++++++++++++++++++++++++++++++++++++ 
+r-sum-0.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+r-sum-1.essence
+Same Spec: True
+Same Tree: False
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+r-sum-2.essence
+Invalid statement:given Token Num: 0
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+r-sum.essence
+Invalid statement:given Token Num: 0
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++++++++++++++++++++++++++++++++++++++ 
+2023-05-14 18:40:38.895852
+ 
++++++++++++++++++++++++++++++++++++++ 
+egraph3col.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+egraph3col2.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+egraph3col3.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+egraph3col4.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+emini-example1.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+emini-example2.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+etest.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+etest2.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+etest3.essence
+Same Spec: True
+Same Tree: False
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++++++++++++++++++++++++++++++++++++++ 
+etest5.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+etmp.essence
+Same Spec: True
+Same Tree: False
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++++++++++++++++++++++++++++++++++++++ 
+r-sum-0.essence
+Same Spec: True
+Same Tree: False
++++++++++++++++++++++++++++++++++++++ 
+r-sum-1.essence
+Same Spec: True
+Same Tree: False
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+r-sum-2.essence
+Invalid statement:given Token Num: 0
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+r-sum.essence
+Invalid statement:given Token Num: 0
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 

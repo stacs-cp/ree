@@ -24,6 +24,7 @@ Known missing features:
 ## TODO 14-05-2023
 
 * Add normalisers that sort branches in trees
+* Depth measures (depth map)
 * Parse GIVEN + Where statements
 * Parse minisation/maximisation
 * Automate testing of essence specs generated via icing through conjure
