@@ -15,11 +15,11 @@
 
 import sys
 import argparse
-p = argparse.ArgumentParser(description='Rewriting Essence for efficiency')
+p = argparse.ArgumentParser(description="parse Essence via Conjure and draw AST as PDF")
 p.add_argument('-d', '--debug', action='store_true')
-p.add_argument('file', nargs='+', help='Essence spec file (or JSON AST), and optional parameter files')
+p.add_argument('file', nargs='+', help='Essence spec or JSON AST, optionally parameter files')
 p.add_argument('-r', '--rewrite', action='store')
-p.add_argument('-j', '--json', action='store_true', help='use file JSON as AST instead of calling Conjure')
+p.add_argument('-j', '--json', action='store_true', help='treat file as AST instead of Essence')
 args = p.parse_args(args=sys.argv[1:])
 debug = args.debug
 if debug: print(args.file, args.rewrite)
@@ -190,7 +190,7 @@ class AST:
         import matplotlib.pyplot as plt
         from networkx.drawing.nx_agraph import graphviz_layout
         # for looser layout:
-        #plt.figure(figsize=(20,20), dpi=40)
+        plt.figure(figsize=(20,20), dpi=40)
         pos = graphviz_layout(self._G, prog="dot")
         attributes = nx.get_node_attributes(self._G, 'label')
         nx.draw(self._G, pos, with_labels=True, labels=attributes,
@@ -198,6 +198,12 @@ class AST:
                 node_color="lightblue", font_size=2)
         plt.savefig(instanceName+'.pdf')
 
+# def read_json_file(filename):
+#    with open(filename) as f:
+#        js_graph = json.load(f)
+#    return json_graph.node_link_graph(js_graph)
+#labels = nx.get_node_attributes(G, 'label')
+#nx.draw(G,pos,with_labels=True,labels=labels, node_size=300, node_color="lightblue", font_size=14, font_weight="bold")
 
 G = AST()
 G.processSubtree('root', A)
