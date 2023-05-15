@@ -57,6 +57,10 @@ class TupleConstant(Node):
 class RelationConstant(Node):
     def __init__(self, values):
         super().__init__("relation", values)
+
+class BoolConstant(Node):
+    def __init__(self, label):
+         super().__init__(label)
     
 ##### Expressions
 class Expression(Node):
@@ -208,10 +212,10 @@ class EssenceParser:
             self.consume()  # "relation"
             if self.match("("):
                 self.consume() # (
-                if self.match("size"):
-                    self.consume() # size
+                if self.match_any(["size", "minSize","maxSize"]):
+                    boundKind = self.consume() # size
                     size = self.parse_expression() #
-                    domains.append(Node("size", [size], "RelationSize"))
+                    domains.append(Node(boundKind, [size], "RelationSize"))
                 else:
                     SyntaxError("Relation Size Parsing Error. Expected size instead of Token: " + str(self.tokens[self.index]))
             self.consume()  # "of"
