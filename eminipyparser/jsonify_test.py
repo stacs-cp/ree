@@ -45,3 +45,12 @@ data = json_graph.node_link_data(g)
 
 with open('specToNX.json', 'w') as f:
     json.dump(data,f)
+
+
+def read_json_file(filename):
+    with open(filename) as f:
+        js_graph = json.load(f)
+    return json_graph.node_link_graph(js_graph)
+
+file = read_json_file('specToNX.json')
+print(file.nodes())

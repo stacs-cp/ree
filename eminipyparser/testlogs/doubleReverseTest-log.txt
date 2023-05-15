@@ -207,3 +207,145 @@ Invalid statement:given Token Num: 0
 r-sum.essence
 Invalid statement:given Token Num: 0
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++++++++++++++++++++++++++++++++++++++ 
+2023-05-15 19:43:09.061364
+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+egraph3col.essence
+list indices must be integers or slices, not tuple
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+egraph3col2.essence
+list indices must be integers or slices, not tuple
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+egraph3col3.essence
+list indices must be integers or slices, not tuple
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+egraph3col4.essence
+list indices must be integers or slices, not tuple
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+emini-example1.essence
+list indices must be integers or slices, not tuple
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+emini-example2.essence
+list indices must be integers or slices, not tuple
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+etest.essence
+list indices must be integers or slices, not tuple
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+etest2.essence
+list indices must be integers or slices, not tuple
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+etest3.essence
+list indices must be integers or slices, not tuple
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+etest5.essence
+list indices must be integers or slices, not tuple
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+etmp.essence
+list indices must be integers or slices, not tuple
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+r-sum-0.essence
+list indices must be integers or slices, not tuple
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+r-sum-1.essence
+list indices must be integers or slices, not tuple
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+r-sum-2.essence
+Invalid statement:given Token Num: 0
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+r-sum.essence
+Invalid statement:given Token Num: 0
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++++++++++++++++++++++++++++++++++++++ 
+2023-05-15 19:44:55.927168
+ 
++++++++++++++++++++++++++++++++++++++ 
+egraph3col.essence
+Same Spec: True
+Same Tree: True
++++++++++++++++++++++++++++++++++++++ 
+egraph3col2.essence
+Same Spec: True
+Same Tree: True
++++++++++++++++++++++++++++++++++++++ 
+egraph3col3.essence
+Same Spec: True
+Same Tree: True
++++++++++++++++++++++++++++++++++++++ 
+egraph3col4.essence
+Same Spec: True
+Same Tree: True
++++++++++++++++++++++++++++++++++++++ 
+emini-example1.essence
+Same Spec: True
+Same Tree: True
++++++++++++++++++++++++++++++++++++++ 
+emini-example2.essence
+Same Spec: True
+Same Tree: True
++++++++++++++++++++++++++++++++++++++ 
+etest.essence
+Same Spec: True
+Same Tree: True
++++++++++++++++++++++++++++++++++++++ 
+etest2.essence
+Same Spec: True
+Same Tree: True
++++++++++++++++++++++++++++++++++++++ 
+etest3.essence
+Same Spec: True
+Same Tree: True
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+etest4.essence
+Expected "that" but got: thatÂ .Token Num: 43
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++++++++++++++++++++++++++++++++++++++ 
+etest5.essence
+Same Spec: True
+Same Tree: True
++++++++++++++++++++++++++++++++++++++ 
+etmp.essence
+Same Spec: True
+Same Tree: True
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++++++++++++++++++++++++++++++++++++++ 
+r-sum-0.essence
+Same Spec: True
+Same Tree: True
++++++++++++++++++++++++++++++++++++++ 
+r-sum-1.essence
+Same Spec: True
+Same Tree: True
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+r-sum-2.essence
+Invalid statement:given Token Num: 0
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+r-sum.essence
+Invalid statement:given Token Num: 0
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
