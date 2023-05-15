@@ -1,1 +1,502 @@
-{"label": "Test-spec", "children": [{"label": "letting", "children": [{"label": "vertices", "children": [{"label": "int", "children": [{"label": "1", "children": [], "info": "Integer"}, {"label": "3", "children": [], "info": "Integer"}], "info": "IntDomain"}], "info": "Node"}], "info": "DomainNameLettingStatement"}, {"label": "letting", "children": [{"label": "colours", "children": [{"label": "int", "children": [{"label": "1", "children": [], "info": "Integer"}, {"label": "3", "children": [], "info": "Integer"}], "info": "IntDomain"}], "info": "Node"}], "info": "DomainNameLettingStatement"}, {"label": "letting", "children": [{"label": "G", "children": [{"label": "relation", "children": [{"label": "tuple", "children": [{"label": "1", "children": [], "info": "Literal"}, {"label": "2", "children": [], "info": "Literal"}], "info": "TupleConstant"}, {"label": "tuple", "children": [{"label": "1", "children": [], "info": "Literal"}, {"label": "3", "children": [], "info": "Literal"}], "info": "TupleConstant"}, {"label": "tuple", "children": [{"label": "2", "children": [], "info": "Literal"}, {"label": "3", "children": [], "info": "Literal"}], "info": "TupleConstant"}], "info": "RelationConstant"}], "info": "Node"}], "info": "NameLettingStatement"}, {"label": "letting", "children": [{"label": "map", "children": [{"label": "relation", "children": [{"label": "vertices", "children": [], "info": "ReferenceToNamedDomain"}, {"label": "colours", "children": [], "info": "ReferenceToNamedDomain"}], "info": "RelationDomain"}], "info": "Node"}], "info": "DomainNameLettingStatement"}, {"label": "letting", "children": [{"label": "T", "children": [{"label": "tuple", "children": [{"label": "vertices", "children": [], "info": "ReferenceToNamedDomain"}, {"label": "colours", "children": [], "info": "ReferenceToNamedDomain"}], "info": "TupleDomain"}], "info": "Node"}], "info": "DomainNameLettingStatement"}, {"label": "find", "children": [{"label": "C", "children": [{"label": "map", "children": [], "info": "ReferenceToNamedDomain"}], "info": "DecisionVariable"}], "info": "FindStatement"}, {"label": "find", "children": [{"label": "t", "children": [{"label": "T", "children": [], "info": "ReferenceToNamedDomain"}], "info": "DecisionVariable"}], "info": "FindStatement"}, {"label": "such that", "children": [{"label": " . ", "children": [{"label": " . ", "children": [{"label": "forAll", "children": [{"label": "Tuple", "children": [{"label": "u", "children": [], "info": "LocalVariable"}, {"label": "c", "children": [], "info": "LocalVariable"}], "info": "TupleVariable"}, {"label": "in", "children": [{"label": "C", "children": [], "info": "ReferenceToDecisionVariable"}], "info": "Preposition"}], "info": "QuantificationExpression"}, {"label": "forAll", "children": [{"label": "Tuple", "children": [{"label": "v", "children": [], "info": "LocalVariable"}, {"label": "d", "children": [], "info": "LocalVariable"}], "info": "TupleVariable"}, {"label": "in", "children": [{"label": "C", "children": [], "info": "ReferenceToDecisionVariable"}], "info": "Preposition"}], "info": "QuantificationExpression"}], "info": "ConcatenationExpression"}, {"label": "->", "children": [{"label": "=", "children": [{"label": "u", "children": [], "info": "Literal"}, {"label": "v", "children": [], "info": "Literal"}], "info": "BinaryExpression"}, {"label": "=", "children": [{"label": "c", "children": [], "info": "Literal"}, {"label": "d", "children": [], "info": "Literal"}], "info": "BinaryExpression"}], "info": "BinaryExpression"}], "info": "ConcatenationExpression"}], "info": "SuchThatStatement"}, {"label": "such that", "children": [{"label": " . ", "children": [{"label": " . ", "children": [{"label": "forAll", "children": [{"label": "u", "children": [], "info": "LocalVariable"}, {"label": ":", "children": [{"label": "vertices", "children": [], "info": "ReferenceToNamedDomain"}], "info": "Preposition"}], "info": "QuantificationExpression"}, {"label": "exists", "children": [{"label": "c", "children": [], "info": "LocalVariable"}, {"label": ":", "children": [{"label": "colours", "children": [], "info": "ReferenceToNamedDomain"}], "info": "Preposition"}], "info": "QuantificationExpression"}], "info": "ConcatenationExpression"}, {"label": "C", "children": [{"label": "tuple", "children": [{"label": "u", "children": [], "info": "Literal"}, {"label": "c", "children": [], "info": "Literal"}], "info": "TupleConstant"}], "info": "MemberExpression"}], "info": "ConcatenationExpression"}], "info": "SuchThatStatement"}, {"label": "such that", "children": [{"label": " . ", "children": [{"label": " . ", "children": [{"label": "forAll", "children": [{"label": "Tuple", "children": [{"label": "u", "children": [], "info": "LocalVariable"}, {"label": "v", "children": [], "info": "LocalVariable"}], "info": "TupleVariable"}, {"label": "in", "children": [{"label": "G", "children": [], "info": "Literal"}], "info": "Preposition"}], "info": "QuantificationExpression"}, {"label": "forAll", "children": [{"label": "c", "children": [], "info": "LocalVariable"}, {"label": "d", "children": [], "info": "LocalVariable"}, {"label": ":", "children": [{"label": "colours", "children": [], "info": "ReferenceToNamedDomain"}], "info": "Preposition"}], "info": "QuantificationExpression"}], "info": "ConcatenationExpression"}, {"label": "->", "children": [{"label": "/\\", "children": [{"label": "C", "children": [{"label": "tuple", "children": [{"label": "u", "children": [], "info": "Literal"}, {"label": "c", "children": [], "info": "Literal"}], "info": "TupleConstant"}], "info": "MemberExpression"}, {"label": "C", "children": [{"label": "tuple", "children": [{"label": "v", "children": [], "info": "Literal"}, {"label": "d", "children": [], "info": "Literal"}], "info": "TupleConstant"}], "info": "MemberExpression"}], "info": "BinaryExpression"}, {"label": "!=", "children": [{"label": "c", "children": [], "info": "Literal"}, {"label": "d", "children": [], "info": "Literal"}], "info": "BinaryExpression"}], "info": "BinaryExpression"}], "info": "ConcatenationExpression"}], "info": "SuchThatStatement"}, {"label": "such that", "children": [{"label": "in", "children": [{"label": "t", "children": [], "info": "ReferenceToDecisionVariable"}, {"label": "C", "children": [], "info": "ReferenceToDecisionVariable"}], "info": "BinaryExpression"}], "info": "SuchThatStatement"}, {"label": "such that", "children": [{"label": "=", "children": [{"label": "t", "children": [{"label": "1", "children": [], "info": "Integer"}], "info": "MemberExpression"}, {"label": "t", "children": [{"label": "2", "children": [], "info": "Integer"}], "info": "MemberExpression"}], "info": "BinaryExpression"}], "info": "SuchThatStatement"}], "info": "ROOT"}
+{
+  "label": "Test-spec",
+  "children": [
+    {
+      "label": "letting",
+      "children": [
+        {
+          "label": "vertices",
+          "children": [
+            {
+              "label": "int",
+              "children": [
+                { "label": "1", "children": [], "info": "Integer" },
+                { "label": "3", "children": [], "info": "Integer" }
+              ],
+              "info": "IntDomain"
+            }
+          ],
+          "info": "Node"
+        }
+      ],
+      "info": "DomainNameLettingStatement"
+    },
+    {
+      "label": "letting",
+      "children": [
+        {
+          "label": "colours",
+          "children": [
+            {
+              "label": "int",
+              "children": [
+                { "label": "1", "children": [], "info": "Integer" },
+                { "label": "3", "children": [], "info": "Integer" }
+              ],
+              "info": "IntDomain"
+            }
+          ],
+          "info": "Node"
+        }
+      ],
+      "info": "DomainNameLettingStatement"
+    },
+    {
+      "label": "letting",
+      "children": [
+        {
+          "label": "G",
+          "children": [
+            {
+              "label": "relation",
+              "children": [
+                {
+                  "label": "tuple",
+                  "children": [
+                    { "label": "1", "children": [], "info": "Literal" },
+                    { "label": "2", "children": [], "info": "Literal" }
+                  ],
+                  "info": "TupleConstant"
+                },
+                {
+                  "label": "tuple",
+                  "children": [
+                    { "label": "1", "children": [], "info": "Literal" },
+                    { "label": "3", "children": [], "info": "Literal" }
+                  ],
+                  "info": "TupleConstant"
+                },
+                {
+                  "label": "tuple",
+                  "children": [
+                    { "label": "2", "children": [], "info": "Literal" },
+                    { "label": "3", "children": [], "info": "Literal" }
+                  ],
+                  "info": "TupleConstant"
+                }
+              ],
+              "info": "RelationConstant"
+            }
+          ],
+          "info": "Node"
+        }
+      ],
+      "info": "NameLettingStatement"
+    },
+    {
+      "label": "letting",
+      "children": [
+        {
+          "label": "map",
+          "children": [
+            {
+              "label": "relation",
+              "children": [
+                {
+                  "label": "vertices",
+                  "children": [],
+                  "info": "ReferenceToNamedDomain"
+                },
+                {
+                  "label": "colours",
+                  "children": [],
+                  "info": "ReferenceToNamedDomain"
+                }
+              ],
+              "info": "RelationDomain"
+            }
+          ],
+          "info": "Node"
+        }
+      ],
+      "info": "DomainNameLettingStatement"
+    },
+    {
+      "label": "letting",
+      "children": [
+        {
+          "label": "T",
+          "children": [
+            {
+              "label": "tuple",
+              "children": [
+                {
+                  "label": "vertices",
+                  "children": [],
+                  "info": "ReferenceToNamedDomain"
+                },
+                {
+                  "label": "colours",
+                  "children": [],
+                  "info": "ReferenceToNamedDomain"
+                }
+              ],
+              "info": "TupleDomain"
+            }
+          ],
+          "info": "Node"
+        }
+      ],
+      "info": "DomainNameLettingStatement"
+    },
+    {
+      "label": "find",
+      "children": [
+        {
+          "label": "C",
+          "children": [
+            { "label": "map", "children": [], "info": "ReferenceToNamedDomain" }
+          ],
+          "info": "DecisionVariable"
+        }
+      ],
+      "info": "FindStatement"
+    },
+    {
+      "label": "find",
+      "children": [
+        {
+          "label": "t",
+          "children": [
+            { "label": "T", "children": [], "info": "ReferenceToNamedDomain" }
+          ],
+          "info": "DecisionVariable"
+        }
+      ],
+      "info": "FindStatement"
+    },
+    {
+      "label": "such that",
+      "children": [
+        {
+          "label": " . ",
+          "children": [
+            {
+              "label": " . ",
+              "children": [
+                {
+                  "label": "forAll",
+                  "children": [
+                    {
+                      "label": "Tuple",
+                      "children": [
+                        {
+                          "label": "u",
+                          "children": [],
+                          "info": "LocalVariable"
+                        },
+                        {
+                          "label": "c",
+                          "children": [],
+                          "info": "LocalVariable"
+                        }
+                      ],
+                      "info": "TupleVariable"
+                    },
+                    {
+                      "label": "in",
+                      "children": [
+                        {
+                          "label": "C",
+                          "children": [],
+                          "info": "ReferenceToDecisionVariable"
+                        }
+                      ],
+                      "info": "Preposition"
+                    }
+                  ],
+                  "info": "QuantificationExpression"
+                },
+                {
+                  "label": "forAll",
+                  "children": [
+                    {
+                      "label": "Tuple",
+                      "children": [
+                        {
+                          "label": "v",
+                          "children": [],
+                          "info": "LocalVariable"
+                        },
+                        {
+                          "label": "d",
+                          "children": [],
+                          "info": "LocalVariable"
+                        }
+                      ],
+                      "info": "TupleVariable"
+                    },
+                    {
+                      "label": "in",
+                      "children": [
+                        {
+                          "label": "C",
+                          "children": [],
+                          "info": "ReferenceToDecisionVariable"
+                        }
+                      ],
+                      "info": "Preposition"
+                    }
+                  ],
+                  "info": "QuantificationExpression"
+                }
+              ],
+              "info": "ConcatenationExpression"
+            },
+            {
+              "label": "->",
+              "children": [
+                {
+                  "label": "=",
+                  "children": [
+                    { "label": "u", "children": [], "info": "Literal" },
+                    { "label": "v", "children": [], "info": "Literal" }
+                  ],
+                  "info": "BinaryExpression"
+                },
+                {
+                  "label": "=",
+                  "children": [
+                    { "label": "c", "children": [], "info": "Literal" },
+                    { "label": "d", "children": [], "info": "Literal" }
+                  ],
+                  "info": "BinaryExpression"
+                }
+              ],
+              "info": "BinaryExpression"
+            }
+          ],
+          "info": "ConcatenationExpression"
+        }
+      ],
+      "info": "SuchThatStatement"
+    },
+    {
+      "label": "such that",
+      "children": [
+        {
+          "label": " . ",
+          "children": [
+            {
+              "label": " . ",
+              "children": [
+                {
+                  "label": "forAll",
+                  "children": [
+                    { "label": "u", "children": [], "info": "LocalVariable" },
+                    {
+                      "label": ":",
+                      "children": [
+                        {
+                          "label": "vertices",
+                          "children": [],
+                          "info": "ReferenceToNamedDomain"
+                        }
+                      ],
+                      "info": "Preposition"
+                    }
+                  ],
+                  "info": "QuantificationExpression"
+                },
+                {
+                  "label": "exists",
+                  "children": [
+                    { "label": "c", "children": [], "info": "LocalVariable" },
+                    {
+                      "label": ":",
+                      "children": [
+                        {
+                          "label": "colours",
+                          "children": [],
+                          "info": "ReferenceToNamedDomain"
+                        }
+                      ],
+                      "info": "Preposition"
+                    }
+                  ],
+                  "info": "QuantificationExpression"
+                }
+              ],
+              "info": "ConcatenationExpression"
+            },
+            {
+              "label": "C",
+              "children": [
+                {
+                  "label": "tuple",
+                  "children": [
+                    { "label": "u", "children": [], "info": "Literal" },
+                    { "label": "c", "children": [], "info": "Literal" }
+                  ],
+                  "info": "TupleConstant"
+                }
+              ],
+              "info": "MemberExpression"
+            }
+          ],
+          "info": "ConcatenationExpression"
+        }
+      ],
+      "info": "SuchThatStatement"
+    },
+    {
+      "label": "such that",
+      "children": [
+        {
+          "label": " . ",
+          "children": [
+            {
+              "label": " . ",
+              "children": [
+                {
+                  "label": "forAll",
+                  "children": [
+                    {
+                      "label": "Tuple",
+                      "children": [
+                        {
+                          "label": "u",
+                          "children": [],
+                          "info": "LocalVariable"
+                        },
+                        {
+                          "label": "v",
+                          "children": [],
+                          "info": "LocalVariable"
+                        }
+                      ],
+                      "info": "TupleVariable"
+                    },
+                    {
+                      "label": "in",
+                      "children": [
+                        { "label": "G", "children": [], "info": "Literal" }
+                      ],
+                      "info": "Preposition"
+                    }
+                  ],
+                  "info": "QuantificationExpression"
+                },
+                {
+                  "label": "forAll",
+                  "children": [
+                    { "label": "c", "children": [], "info": "LocalVariable" },
+                    { "label": "d", "children": [], "info": "LocalVariable" },
+                    {
+                      "label": ":",
+                      "children": [
+                        {
+                          "label": "colours",
+                          "children": [],
+                          "info": "ReferenceToNamedDomain"
+                        }
+                      ],
+                      "info": "Preposition"
+                    }
+                  ],
+                  "info": "QuantificationExpression"
+                }
+              ],
+              "info": "ConcatenationExpression"
+            },
+            {
+              "label": "->",
+              "children": [
+                {
+                  "label": "/\\",
+                  "children": [
+                    {
+                      "label": "C",
+                      "children": [
+                        {
+                          "label": "tuple",
+                          "children": [
+                            { "label": "u", "children": [], "info": "Literal" },
+                            { "label": "c", "children": [], "info": "Literal" }
+                          ],
+                          "info": "TupleConstant"
+                        }
+                      ],
+                      "info": "MemberExpression"
+                    },
+                    {
+                      "label": "C",
+                      "children": [
+                        {
+                          "label": "tuple",
+                          "children": [
+                            { "label": "v", "children": [], "info": "Literal" },
+                            { "label": "d", "children": [], "info": "Literal" }
+                          ],
+                          "info": "TupleConstant"
+                        }
+                      ],
+                      "info": "MemberExpression"
+                    }
+                  ],
+                  "info": "BinaryExpression"
+                },
+                {
+                  "label": "!=",
+                  "children": [
+                    { "label": "c", "children": [], "info": "Literal" },
+                    { "label": "d", "children": [], "info": "Literal" }
+                  ],
+                  "info": "BinaryExpression"
+                }
+              ],
+              "info": "BinaryExpression"
+            }
+          ],
+          "info": "ConcatenationExpression"
+        }
+      ],
+      "info": "SuchThatStatement"
+    },
+    {
+      "label": "such that",
+      "children": [
+        {
+          "label": "in",
+          "children": [
+            {
+              "label": "t",
+              "children": [],
+              "info": "ReferenceToDecisionVariable"
+            },
+            {
+              "label": "C",
+              "children": [],
+              "info": "ReferenceToDecisionVariable"
+            }
+          ],
+          "info": "BinaryExpression"
+        }
+      ],
+      "info": "SuchThatStatement"
+    },
+    {
+      "label": "such that",
+      "children": [
+        {
+          "label": "=",
+          "children": [
+            {
+              "label": "t",
+              "children": [{ "label": "1", "children": [], "info": "Integer" }],
+              "info": "MemberExpression"
+            },
+            {
+              "label": "t",
+              "children": [{ "label": "2", "children": [], "info": "Integer" }],
+              "info": "MemberExpression"
+            }
+          ],
+          "info": "BinaryExpression"
+        }
+      ],
+      "info": "SuchThatStatement"
+    }
+  ],
+  "info": "ROOT"
+}
