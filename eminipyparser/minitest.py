@@ -1,4 +1,4 @@
-import ETransmutator as ET
+import ETransformulator as ET
 
 teststr = """
 find i : int(0..10)

@@ -11,7 +11,7 @@ class Graph:
 
     def getGP2String(self):
         '''
-        Produce GP2 representation of the graph in string format
+        Produce a GP2 representation of the graph in string format
         '''
         gp2string = ""
         gp2string += "[\n"
