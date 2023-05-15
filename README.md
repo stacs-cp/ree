@@ -14,10 +14,19 @@ Our current approach targets the [GP2](https://github.com/UoYCS-plasma/GP2) grap
 
 Noteworthy components:
 
-* ``harness`` make AST, GP2, and PDF representation from Essence files
-* ``emini.md`` description of EMini fragment of Essence
-* ``emini.bnf`` BNF description of EMini
-* ``eminipyparser/`` a Python parser for EMini
-* ``tests/`` Essence snippets for testing
-* ``astize`` creates a JSON AST from an Essence spec by invoking Conjure
+- ``harness`` make AST, GP2, and PDF representation from Essence files
+- ``emini.md`` description of EMini fragment of Essence
+- ``emini.bnf`` BNF description of EMini
+- ``eminipyparser/`` a Python parser for EMini
+- ``tests/`` Essence snippets for testing
+- ``astize`` creates a JSON AST from an Essence spec by invoking Conjure
+
+
+## Prerequisites
+
+`harness` needs the following software to be installed:
+- [networkx](https://networkx.org/) (install via pip); version 3.1 is known to work
+- [graphviz](https://gitlab.com/graphviz/graphviz.git) for graph drawing, or install via brew
+- the [GP 2](https://github.com/UoYCS-plasma/GP2) graph rewriting tool
+- GP 2 needs the [Judy](https://sourceforge.net/projects/judy/) library (on MacOS the legacy Makefile works, but the automake files are broken)
 
