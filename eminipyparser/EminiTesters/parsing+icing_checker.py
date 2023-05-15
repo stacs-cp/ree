@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../ree/eminipyparser')
 import eminipyparser as ep
 import os
 import icing

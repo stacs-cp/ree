@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../ree/eminipyparser')
 import eminipyparser as ep
 from typing import List
 import json

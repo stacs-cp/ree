@@ -1,14 +1,38 @@
+
+import sys
+sys.path.append('../ree/eminipyparser')
 import eminipyparser as ep
-import icing
 
 test_strings = []
 
 #test 0
 test_strings.append("""
-letting a be 5
-find i : int(0..(a+1)*(2+3)/-1)
+find i : int(0..10)
+such that
+    1*(2+3*4)+5-6-7=i
 """)
 #test 1
+test_strings.append("""
+find i : int(0..10)
+such that
+    1*(2+3*4)+5-6-a=i
+find b : bool
+such that
+    b != !(true \/ false)
+""")
+#test 2
+test_strings.append("""
+find i : int(0..10)
+such that
+    (-5)=i
+""")
+#test 3
+test_strings.append("""
+find i : int(0..10)
+such that
+    -(-5)=i-1
+""")
+#test 4
 test_strings.append("""
 letting vertices be domain int(1..3)
 letting colours be domain int(1..3)
@@ -32,11 +56,19 @@ such that
 such that
   t[1] = t[2]
 """)
+#test 5
+test_strings.append("""
+find b : bool
+such that
+    b != !true
+""")
+
+
+
+
 
 for i,test_str in enumerate(test_strings):
     parser = ep.EssenceParser()
     statements = parser.parse(test_str)
-    rootTree = ep.Node("Test-" + str(i) , statements, "ROOT")
+    rootTree = ep.Node("Test-" + str(i) , statements)
     ep.printTree(rootTree, printInfo=True)
-    spec = icing.ASTtoEssence(rootTree)
-    print(spec)
