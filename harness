@@ -17,11 +17,12 @@ import sys
 import argparse
 p = argparse.ArgumentParser(description='Rewriting Essence for efficiency')
 p.add_argument('-d', '--debug', action='store_true')
-p.add_argument('file', nargs='+', help='Essence spec file (and optionally, parameter files)')
+p.add_argument('file', nargs='+', help='Essence spec file (or JSON AST), and optional parameter files')
 p.add_argument('-r', '--rewrite', action='store')
+p.add_argument('-j', '--json', action='store_true', help='use file JSON as AST instead of calling Conjure')
 args = p.parse_args(args=sys.argv[1:])
 debug = args.debug
-if debug: print(args.spec, args.param, args.rewrite)
+if debug: print(args.file, args.rewrite)
 
 import pathlib
 from pathlib import Path
@@ -47,9 +48,13 @@ filenames.append(specfile)
 if debug: print('0:', filenames)
 
 import os
+import warnings
 fn = []
 instanceFileNames = [specfile]
-instanceFileNames.extend(paramFilenames)
+if args.json:
+    warnings.warn('-j specified, ignoring parameter files')
+else:
+    instanceFileNames.extend(paramFilenames)
 if debug: print('1:', instanceFileNames)
 for fname in instanceFileNames:
     bname = os.path.basename(fname)
@@ -57,6 +62,7 @@ for fname in instanceFileNames:
         sys.exit('cannot determine ' + str(fname) + ' basename, quitting')
     bname = bname.removesuffix('.essence')
     bname = bname.removesuffix('.param')
+    bname = bname.removesuffix('.json')
     fn.append(bname)
 if debug: print('2:', fn)
 instanceName = '-'.join(fn)
@@ -72,17 +78,20 @@ def cleanup():
 import atexit
 atexit.register(cleanup)
 
-# ask conjure to generate AST
+# ask conjure to generate AST unless -j was specified
 # from spec.bla make spec.bla.astjson
-astfilename = '{0}.astjson'.format(specfile)
-import subprocess
-with open(astfilename, 'w') as astfile:
-    if subprocess.run(['conjure',
-                       'pretty', '--output-format=astjson', tmpfile],
-                      shell=False, stdout=astfile).returncode != 0:
-        sys.exit('Something went wrong with calling conjure, quitting')
+if args.json:
+    astfilename = specfile
+else:
+    astfilename = '{0}.astjson'.format(specfile)
+    import subprocess
+    with open(astfilename, 'w') as astfile:
+        if subprocess.run(['conjure',
+                           'pretty', '--output-format=astjson', tmpfile],
+                          shell=False, stdout=astfile).returncode != 0:
+            sys.exit('Something went wrong with calling conjure, quitting')
 
-# read conjure JSON output representing an Essence spec
+# read JSON representing an Essence spec
 import json
 with open(astfilename, 'r') as astfile:
     A = json.load(astfile)
@@ -145,6 +154,10 @@ class AST:
                 v = self.processSubtree(s, val)
                 self.makeEdge(w, v, 'child')
         elif isinstance(value, (int, str)):
+            if value == "/\\":
+                value = "AND"
+            elif value == "\\/":
+                value = "OR"
             v = self.makeNode(value)
             self.makeEdge(u, v, 'child')
         elif value == None:
@@ -174,23 +187,26 @@ class AST:
         print(']')
 
     def draw(self):
+        import matplotlib.pyplot as plt
         from networkx.drawing.nx_agraph import graphviz_layout
+        # for looser layout:
+        #plt.figure(figsize=(20,20), dpi=40)
         pos = graphviz_layout(self._G, prog="dot")
         attributes = nx.get_node_attributes(self._G, 'label')
         nx.draw(self._G, pos, with_labels=True, labels=attributes,
                 arrowsize=1.5, width=0.1, node_size=2,
                 node_color="lightblue", font_size=2)
-        import matplotlib.pyplot as plt
         plt.savefig(instanceName+'.pdf')
 
+
+G = AST()
+G.processSubtree('root', A)
 
 if debug: print('nodeLabel=', G._nodeLabel)
 if debug: print('edgeLabel=', G._edgeLabel)
 if debug: print('edgeFrom=', G._edgeFrom)
 if debug: print('edgeTo=', G._edgeTo)
 
-G = AST()
-G.processSubtree('root', A)
 G.printGP2()
 G.draw()
 
