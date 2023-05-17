@@ -1,4 +1,5 @@
 import ETransformulator as ET
+import GP2Graph
 
 teststr = """
 find i : int(0..10)
@@ -14,3 +15,30 @@ print(gp2z.getGP2String())
 
 nxtree = ET.ASTpyToNX(ast)
 print(nxtree.edges(data=True))
+
+
+mystr = '''
+[
+    (0, "abc":"def":"ghi":"jkl")
+    (1, 2:"mnopqrstuvwxyz")
+    ('2', 1:'"one"':2:"two")
+    (3, 6:6:6:6:6:6:6:6:6:6:6:6:6)
+    (4, empty)
+|
+    (0, 0, 1, 0)
+    (1, 0, 1, 0 # red)
+    (2, 0, 2, "2" # blue)
+    (3, 1, 3, empty # dashed)
+    (4, 2, 2, empty # green)
+    (4, 2, 2, empty)
+    (5, 2, 3, 'empty # red)
+    (6, 2, 4, 6:6:6:6:5:6:6)
+    (7, 2, 4, 6:6:6:6:5:6:6 # dashed)
+] '''
+
+g = GP2Graph.Graph()
+g.graphFromGP2String(mystr)
+print(g.getGP2String())
+h = GP2Graph.Graph([],[])
+h.graphFromGP2String(g.getGP2String())
+print(h.getGP2String())
