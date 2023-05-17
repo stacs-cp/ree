@@ -42,15 +42,38 @@ def ASTpyToGP2Graph(ASTpy):
     
     def buildTree(node, Tree, index=1, parentID=None):   
         nodeID = len(gp2g.nodes)             
-        Tree.addNode(nodeID, node.label) 
+        Tree.addNode(nodeID, f'{node.label}#{node.info}') 
         if parentID != None: 
             edgeID = len(gp2g.edges)
-            Tree.addEdge(edgeID,nodeID,parentID,index)
+            Tree.addEdge(edgeID,parentID,nodeID,index)
         for i in range(len(node.children)):
             buildTree(node.children[i], Tree, i+1, nodeID)
     
     buildTree(ASTpy,gp2g)
     return gp2g
+
+def GP2GraphToASTpy(gp2graph):
+    '''
+    Turns a Graph mapped to the GP2 format to Abstract Syntax Tree of python objects. ROOT must be node 0 
+    '''
+    
+    def buildNode(gp2vertex):   
+    
+        vertex = gp2vertex[1].split('#')
+        label = vertex[0]
+        info = vertex[1]
+        edges = [edge for edge in gp2graph.edges if edge[1] == gp2vertex[0]] # create list of all the targets in the edges where the node is the source
+        sorted_edges = sorted(edges, key=lambda x:x[3])  # sort based on index label (4th element of an edge in GP2 format)
+        children = []
+        for target in sorted_edges:
+            children.append(buildNode(gp2graph.nodes[int(target[2])]))
+        node = ep.Node(label,children,info)
+
+        return node
+
+    ASTpy = buildNode(gp2graph.nodes[0])
+    return ASTpy
+
 
 def ASTpyToNX(ASTpy):
     '''
