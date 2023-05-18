@@ -16,6 +16,13 @@ print(gp2z.getGP2String())
 nxtree = ET.ASTpyToNX(ast)
 print(nxtree.edges(data=True))
 
+for v,node in nxtree.nodes(data=True):
+    print("--------")
+    print(node)
+
+for u,v,data in nxtree.edges(data = True):
+    print(u,v,data)
+
 
 mystr = '''
 [
