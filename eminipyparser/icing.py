@@ -1,6 +1,9 @@
 binary_operators = ["<",">", "<=", ">=", "+", "-", "*", "/", "%", "=","!=", "->", "/\\", "xor","\\/" , "and" , "in"]
 
 def ASTtoEssence(AST):
+    '''
+    Turns an Abstract Syntax Tree of python objects into an Essence-Mini specification (string) 
+    '''
     spec = ""
     for statement in AST.children:
         spec += iceStatement(statement)

@@ -5,6 +5,12 @@ import icing
 import json
 import re
 
+"""
+This script is a set of conversions between formats for the Abstract Syntax Tree of an Emini specification
+The name of the functions should follow the pattern Format1ToFormat2. The word "To" is used as a splitter by other functions that automatically
+grabs all functions in this script. At this point in time having the substring "To" in one of the names will cause issues.
+"""
+
 def EminiToASTpy(spec, specname="Root"):
     '''
     Turns an Essence-Mini specification (string) into an Abstract Syntax Tree of python objects 
@@ -56,7 +62,7 @@ def ASTpyToGP2Graph(ASTpy):
 def GP2GraphToASTpy(gp2graph):
     '''
     Turns a Graph mapped to the GP2 format to Abstract Syntax Tree of python objects. ROOT must be node 0 
-    This is O(V*E) time. TODO: Loop over edges instead nodes and produce adjacency list first.
+    This is O(V*E) time. TODO: Loop over edges instead of the nodes and produce adjacency list first.
     '''
 
     def buildNode(gp2vertex):   
