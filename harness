@@ -14,6 +14,7 @@
 # report comparison
 
 import sys
+sys.path.append('eminipyparser')
 import argparse
 p = argparse.ArgumentParser(description="parse Essence via Conjure and draw AST as PDF")
 p.add_argument('-d', '--debug', action='store_true')
@@ -154,6 +155,7 @@ class AST:
                 v = self.processSubtree(s, val)
                 self.makeEdge(w, v, 'child')
         elif isinstance(value, (int, str)):
+            # work around dot restrictions on labels
             if value == "/\\":
                 value = "AND"
             elif value == "\\/":
@@ -198,12 +200,11 @@ class AST:
                 node_color="lightblue", font_size=2)
         plt.savefig(instanceName+'.pdf')
 
-# def read_json_file(filename):
+#def read_json_file(filename):
 #    with open(filename) as f:
 #        js_graph = json.load(f)
 #    return json_graph.node_link_graph(js_graph)
-#labels = nx.get_node_attributes(G, 'label')
-#nx.draw(G,pos,with_labels=True,labels=labels, node_size=300, node_color="lightblue", font_size=14, font_weight="bold")
+#attributes = nx.get_node_attributes(G, 'label')
 
 G = AST()
 G.processSubtree('root', A)
@@ -214,8 +215,10 @@ if debug: print('edgeFrom=', G._edgeFrom)
 if debug: print('edgeTo=', G._edgeTo)
 
 G.printGP2()
+#G.rewriteGP2()
 G.draw()
 
+import ETransformulator as et
 
 if debug:
     print(A['mLanguage']['language']['Name']) # Essence
