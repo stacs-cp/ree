@@ -1,7 +1,7 @@
 Statement := DeclarationStatement
             | SuchThatStatement
 
-DeclarationStatement := LettingStatement
+DeclarationStatement := LettingStatement   
                       | FindingStatement
 
 LettingStatement := NameLettingStatement
@@ -13,41 +13,58 @@ DomainNameLettingStatement := "letting" NameDomain "be domain" Domain
 
 FindStatement := "find" Name ":" Domain
 
-SuchThatStatement := "such that" Expression
+SuchThatStatement := "such that" BooleanExpression
 
-Expression := Literal 
-            | Name 
-            | Quantification 
-            | "(" Expression ")"
-            | Expression Operator Expression
-            | Operator Expression 
-            | Name "in" Name
+BooleanExpression := bool
+                | BooleanExpression BooleanBinaryOperator BooleanExpression
+                | IntegerExpression integerBooleanBinaryOperator IntegerExpression
+                | BoolanUnitaryOperator BooleanExpression
+                | Quantification
+                | "(" BooleanExpression ")"
+                | LocalName in ??set??
+                | typedNamedConstant
+
+
+IntegerExpression := integer
+                | integerExpression integerBinaryOperator integerExpression
+                | IntegerUnitaryOperator IntegerExpression
+						
 
 Literal := integerConstant 
          | relationConstant
          | tupleConstant
+         | bool
+         | typedNamedConstant
 
 Domain := "int" list(Range, ",", "()") 
         | "tuple" list(Domain, ",", "()")
         | "relation" "of" list(Domain, "*", "()")
+        | "relation" (size integerExpression)"of" list(Domain, "*", "()")
         | NameDomain 
 
-Range := integerConstant ".." integerConstant
-
-Operator := BooleanBinaryOperator 
-          | IntegerOperator
-          | "!"
-          | "="
-          | "!="
+Range := integerExpression ".." integerExpression
           
 BooleanBinaryOperator := "->"
-                       | "/\"
-                       | "\/"
+                | "/\"
+                | "\/"
+                | "="
+                | "!="
 
-IntegerOperator := "<"
+BoolanUnitaryOperator := "!"
+
+IntegerUnitaryOperator := "-"
+
+integerBooleanBinaryOperator := "<"
                 | ">"
                 | "<="
                 | ">="
-    
+                | "="
+		| "!="
 
+Quantification := quantifier name preposition+finiteCollection
 
+quantifier := forAll
+	| exists
+
+preposition+finiteCollection := "in" Set
+			| ":" Domain
