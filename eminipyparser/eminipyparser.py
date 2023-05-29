@@ -69,7 +69,7 @@ class Expression(Node):
 
 class QuantificationExpression(Node):
     def __init__(self, quantifier, variables, preposition, domain):
-        super().__init__(quantifier, [*variables, Node(preposition,[domain], "Preposition")])
+        super().__init__(quantifier, [*variables, Node(preposition,[domain], "Preposition")]) ## require ad hoc normalisation rule for variables that exclude last element of list (preposition)
 
 class UnaryExpression(Node):
     def __init__(self, label, child):
@@ -77,7 +77,7 @@ class UnaryExpression(Node):
 
 class BinaryExpression(Node):
     def __init__(self, label, left,right):
-        super().__init__(label, [left,right])
+        super().__init__(label, [left,right]) ## normalisation operator dependant 
 
 class MemberExpression(Node):
     def __init__(self, identifier, elements):
