@@ -1,0 +1,35 @@
+Root (spec): Yes
+	Ordering of statements: Given-> Letting const ->letting domain-> find -> such that
+	Statement Nodes(all 4): No
+
+Domains 
+
+	Int domain: No
+	tupleDomain : No
+	RelationDomain: Yes
+	boolDomain: No
+
+Constants
+
+	Int : No
+	Tuples: No
+	Relations: Yes
+	bool : No
+
+Expressions
+
+	Unary : No
+		Binary
+			* Yes
+			+ Yes
+			- No
+			/ No
+			% No
+			-> No
+			< > <= >= No?
+			= Yes
+			And Yes
+			Or Yes
+			in No		
+	Quantification: Yes
+	MemberExpression: No
