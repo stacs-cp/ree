@@ -1,5 +1,6 @@
 import ETransformulator as ET
 import GP2Graph
+import json
 
 teststr = """
 find i : int(0..10)
@@ -9,15 +10,24 @@ such that
 
 ast = ET.EminiToASTpy(teststr)
 ET.ep.printTree(ast)
-    
+
+j = ET.ASTpyToJson(ast)
+print(j)
+
+with open('jsons/data.json', 'w') as f:
+    f.write(j)
+
+astfj = ET.JsonToASTpy('jsons/data.json')
+ET.ep.printTree(astfj)
+
 gp2z = ET.ASTpyToGP2Graph(ast)
-print(gp2z.getGP2String())
 
-GP2String = gp2z.getGP2String()
 
-gp2g = GP2Graph.Graph([],[])
+GP2String = ET.GP2GraphToGP2String(gp2z)# gp2z.getGP2String()
+print(GP2String)
+gp2g = ET.GP2StringToGP2Graph(GP2String)# GP2Graph.Graph([],[])
 
-gp2g.graphFromGP2String(GP2String)
+#gp2g.graphFromGP2String(GP2String)
 
 ast2 = ET.GP2GraphToASTpy(gp2g)
 ET.ep.printTree(ast2, printInfo = True)

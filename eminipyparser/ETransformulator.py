@@ -33,11 +33,11 @@ def ASTpyToJson(ASTpy):
     '''
     return json.dumps(ASTpy, default=lambda o: o.__dict__)
 
-def JsonToASTpy(json):
+def JsonToASTpy(jsonFile):
     '''
     Turns a JSON File of an AST into an Abstract Syntax Tree of python objects
     '''
-    with open(json) as f:
+    with open(jsonFile) as f:
         ASTpy = json.load(f, object_hook=lambda ASTpy: ep.Node(**ASTpy))
     return ASTpy
 
