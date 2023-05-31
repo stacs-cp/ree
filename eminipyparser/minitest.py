@@ -11,7 +11,7 @@ ast = ET.EminiToASTpy(teststr)
 ET.ep.printTree(ast)
     
 gp2z = ET.ASTpyToGP2Graph(ast)
-print(gp2z.getGP2String())
+
 
 nxtree = ET.ASTpyToNX(ast)
 print(nxtree.edges(data=True))
@@ -44,8 +44,8 @@ mystr = '''
 ] '''
 
 g = GP2Graph.Graph()
-g.graphFromGP2String(mystr)
-print(g.getGP2String())
-h = GP2Graph.Graph([],[])
-h.graphFromGP2String(g.getGP2String())
-print(h.getGP2String())
+g = ET.GP2StringToGP2Graph(mystr)
+gp2string = ET.GP2GraphToGP2String(g)
+h = ET.GP2StringToGP2Graph(gp2string)
+h2 = ET.GP2GraphToGP2String(h)
+print(h2)

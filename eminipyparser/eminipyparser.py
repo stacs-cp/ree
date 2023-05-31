@@ -463,6 +463,9 @@ def getNXTree(title = None, statements = []):
     return G
 
 def printTree(node, indent="", last = True, printInfo = False):
+    '''
+    Draw the provided tree as console text recursively from a starting node
+    '''
     info = ""
     if printInfo:
         info = "  #"+ node.info    
