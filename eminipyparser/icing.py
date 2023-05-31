@@ -52,7 +52,7 @@ def iceSuchThat(node):
     return statement
 
 def iceConstraints(node, constraints):
-    if node.label == " . ":
+    if node.label == " . " or node.label == ". " or node.label == ".":
         iceConstraints(node.children[0], constraints)
         constraints.append(node.label + "\n  ")
         iceConstraints(node.children[1], constraints)

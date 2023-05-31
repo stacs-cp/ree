@@ -70,7 +70,7 @@ def GP2GraphToASTpy(gp2graph):
         label = vertex[0]
         info = vertex[1]
         edges = [edge for edge in gp2graph.edges if edge[1] == gp2vertex[0]] # create list of all the targets in the edges where the node is the source
-        sorted_edges = sorted(edges, key=lambda x:x[3])  # sort based on index label (4th element of an edge in GP2 format)
+        sorted_edges = sorted(edges, key=lambda x:int(x[3]))  # sort based on index label (4th element of an edge in GP2 format)
         children = []
         for target in sorted_edges:
             children.append(buildNode(gp2graph.nodes[int(target[2])]))
@@ -165,7 +165,7 @@ def GP2StringToGP2Graph(gp2string):
     # parse nodes
     index =0
     while index < len(rightParentheses) and rightParentheses[index] < nodeEdgeDivider[0]:
-        node = tuple([s.strip() for s in gp2string[leftParentheses[index]+1:rightParentheses[index]].split(',')])         
+        node = tuple([s for s in gp2string[leftParentheses[index]+1:rightParentheses[index]].split(',')])         
         if len(node) != 2:
             raise Exception("Some issue parsing nodes, found this node: " + str(node))
         else:
