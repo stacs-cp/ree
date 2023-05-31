@@ -20,6 +20,10 @@ with open('jsons/data.json', 'w') as f:
 astfj = ET.JsonToASTpy('jsons/data.json')
 ET.ep.printTree(astfj)
 
+astj = json.loads(j, object_hook=lambda ASTpy: ET.ep.Node(**ASTpy))
+print("Withoutfilesave")
+ET.ep.printTree(astj)
+
 gp2z = ET.ASTpyToGP2Graph(ast)
 
 

@@ -33,12 +33,11 @@ def ASTpyToJson(ASTpy):
     '''
     return json.dumps(ASTpy, default=lambda o: o.__dict__)
 
-def JsonToASTpy(jsonFile):
+def JsonToASTpy(jsonString):
     '''
-    Turns a JSON File of an AST into an Abstract Syntax Tree of python objects
-    '''
-    with open(jsonFile) as f:
-        ASTpy = json.load(f, object_hook=lambda ASTpy: ep.Node(**ASTpy))
+    Turns a JSON String of an AST into an Abstract Syntax Tree of python objects
+    '''  
+    ASTpy = json.loads(jsonString, object_hook=lambda ASTpy: ep.Node(**ASTpy))
     return ASTpy
 
 def ASTpyToGP2Graph(ASTpy):

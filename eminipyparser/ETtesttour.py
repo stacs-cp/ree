@@ -17,7 +17,7 @@ def plotFormatsGraph():
 
     plt.figure(figsize=(8,8),dpi=80)
 
-    nx.draw_circular(formsGraph,with_labels=True, node_size=300)
+    nx.draw_circular(formsGraph,with_labels=True, node_size=300, connectionstyle="arc3,rad=-0.1" )
     plt.show()
 
 def createFormatsGraph():  
@@ -29,3 +29,6 @@ def createFormatsGraph():
             formsGraph.add_edge(fromTo[0],fromTo[1], func = val.__name__)
 
     return formsGraph
+
+## TODO: create graph, add function from ANY1 to ANY2 that find shortest path. Transform node list into edge list and call each function in the edge "func" attribute
+plotFormatsGraph()
