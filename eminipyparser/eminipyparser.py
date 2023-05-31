@@ -106,7 +106,7 @@ class EssenceParser:
         commentlessStr = self.removeComments(essenceSpec)
         self.tokens = re.findall(r'\.\.|\->|\\\/|\/\\|>=|<=|!=|!|==|=|\+|[^=!<>+\s\w]|[\w]+', commentlessStr.replace('\n', ' '))
 
-        print(' '.join(self.tokens))
+        #print(' '.join(self.tokens))
         while self.index < len(self.tokens):
             statement = self.parse_statement()
             if statement.info == "NameLettingStatement":
@@ -481,3 +481,17 @@ def printTree(node, indent="", last = True, printInfo = False):
     indent += extension
     for i in range(len(node.children)):
         printTree(node.children[i], indent, i==len(node.children)-1,printInfo=printInfo)
+
+def treeEquality(subTree1, subTree2):                
+  if subTree1.label != subTree2.label:
+      return False
+  
+  if len(subTree1.children) != len(subTree2.children):
+      return False
+  elif len(subTree1.children) > 0 and len(subTree2.children) > 0:
+    isEqual = True
+    for i in range(len(subTree1.children)):
+      isEqual = isEqual and treeEquality(subTree1.children[i],subTree1.children[i])
+    return isEqual
+  elif len(subTree1.children) == 0 and len(subTree2.children) == 0:
+      return True

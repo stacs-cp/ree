@@ -149,7 +149,7 @@ class ETGraph:
         while there are elements in the stack
             pick an edge in the stack
             compute shortest path to target of edge
-            traverse the path transforming the AST with at each step and remove all edges in the stack encoundered on the way
+            traverse the path transforming the AST with each step and remove all edges encoundered on the way from the stack
         when stack is empty return to origin
         '''
         if not nx.is_strongly_connected(self.formsGraph):
@@ -160,15 +160,16 @@ class ETGraph:
         currentNode = origin
         cycle = []
         cycle.append(origin)
+
         while len(unvisitedEdges) > 0:
             targetEdge = random.choice(unvisitedEdges)
             ETpath = nx.shortest_path(self.formsGraph, source=currentNode, target=targetEdge[1])
             
             for formIndex in range(0,len(ETpath)-1):
-                print("FROM " +ETpath[formIndex]+ " TO " + ETpath[formIndex+1] )
-                print(AST)
-                if type(AST) == ET.ep.Node:
-                    print(ET.ep.printTree(AST,printInfo=True))
+               # print("FROM " +ETpath[formIndex]+ " TO " + ETpath[formIndex+1] )
+                #print(AST)
+                #if type(AST) == ET.ep.Node:
+                    #print(ET.ep.printTree(AST,printInfo=True))
                 AST = self.formsGraph[ETpath[formIndex]][ETpath[formIndex+1]]["func"](AST)
                 if (ETpath[formIndex],ETpath[formIndex+1]) in unvisitedEdges:
                     unvisitedEdges.remove((ETpath[formIndex],ETpath[formIndex+1]))                
@@ -177,14 +178,14 @@ class ETGraph:
             currentNode = targetEdge[1]
 
         if currentNode == origin:
-            return cycle
+            return AST,cycle
         else:
             ETpath = nx.shortest_path(self.formsGraph, source=currentNode, target=origin)
             for formIndex in range(0,len(ETpath)-1):
                 AST = self.formsGraph[ETpath[formIndex]][ETpath[formIndex+1]]["func"](AST)           
                 cycle.append(ETpath[formIndex+1])
 
-        return cycle
+        return AST,cycle
 
 
 def funcTests():
@@ -260,7 +261,8 @@ def postMantest():
 
     ast = ET.EminiToASTpy(teststr)
     ETG = ETGraph()
-    cycle = ETG.heuristicChinesePostman(ast,"ASTpy")
+    
+    newAst, cycle = ETG.heuristicChinesePostman(ast,"ASTpy")
     pos = nx.circular_layout(ETG.formsGraph)
     #nx.draw(G, pos,with_labels=True)
     #nx.draw_networkx_nodes(G, pos, with_labels=True)
