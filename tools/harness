@@ -14,7 +14,7 @@
 # report comparison
 
 import sys
-sys.path.append('eminipyparser')
+sys.path.append('tools')
 import argparse
 p = argparse.ArgumentParser(description="parse Essence via Conjure and draw AST as PDF")
 p.add_argument('-d', '--debug', action='store_true')
@@ -218,7 +218,7 @@ G.printGP2()
 #G.rewriteGP2()
 G.draw()
 
-import EFormatConverters as et
+import EFormatConverters as efc
 
 if debug:
     print(A['mLanguage']['language']['Name']) # Essence

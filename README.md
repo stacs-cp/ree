@@ -14,13 +14,16 @@ Our current approach targets the [GP2](https://github.com/UoYCS-plasma/GP2) grap
 
 Noteworthy components:
 
-- ``harness`` make AST, GP2, and PDF representation from Essence files
-- ``emini.md`` description of EMini fragment of Essence
-- ``emini.bnf`` BNF description of EMini
-- ``eminipyparser/`` a Python parser for EMini
 - ``tests/`` Essence snippets for testing
+
+In ``tools``:
+- ``EFormatConverters.py`` convert between EMini and other formats
+- ``harness`` make AST, GP2, and PDF representation from Essence files
 - ``astize`` creates a JSON AST from an Essence spec by invoking Conjure
 
+In ``emini``:
+- ``emini.md`` description of EMini fragment of Essence
+- ``emini.bnf`` BNF description of EMini
 
 ## Prerequisites
 
