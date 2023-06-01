@@ -1,4 +1,4 @@
-import tools as ep
+import eminipyparser as ep
 input_str = """
 
 letting vertices be domain int(1..3)

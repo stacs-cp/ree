@@ -1,6 +1,6 @@
 import sys
 sys.path.append('../ree/tools')
-import tools as ep
+import eminipyparser as ep
 from typing import List
 import json
 import networkx as nx

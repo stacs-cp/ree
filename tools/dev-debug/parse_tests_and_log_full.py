@@ -1,6 +1,6 @@
 import sys
 sys.path.append('../ree/tools')
-import tools as ep
+import eminipyparser as ep
 import os
 from datetime import datetime
 

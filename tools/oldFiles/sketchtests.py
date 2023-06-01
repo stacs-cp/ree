@@ -1,4 +1,4 @@
-import tools.oldFiles.eminipyparser as ep
+import eminipyparser.oldFiles.eminipyparser as ep
 import os
 from datetime import datetime
 

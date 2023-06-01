@@ -1,4 +1,4 @@
-import tools as ep
+import eminipyparser as ep
 import networkx as nx
 import GP2Graph
 import icing
