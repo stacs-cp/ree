@@ -43,3 +43,5 @@ for i in range(0,100):
     results = ETG.heuristicChinesePostman(emini2,"Emini")
     works = works and results[0] == emini
 print(works)
+
+

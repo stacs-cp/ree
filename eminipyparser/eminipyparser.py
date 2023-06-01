@@ -482,7 +482,10 @@ def printTree(node, indent="", last = True, printInfo = False):
     for i in range(len(node.children)):
         printTree(node.children[i], indent, i==len(node.children)-1,printInfo=printInfo)
 
-def treeEquality(subTree1, subTree2):                
+def treeEquality(subTree1, subTree2): 
+  '''
+  Tests if 2 trees are identical all the way down.
+  '''               
   if subTree1.label != subTree2.label:
       return False
   

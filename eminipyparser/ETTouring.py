@@ -9,7 +9,7 @@ import random
 
 class ETGraph:
     '''
-    Container for the networkx transformulator graph. Each vertex is a form, each edge a function that takes an Emini specification from one form to another. 
+    Container for the networkx Emini Format Conversion Graph. Each vertex is a form, each edge a function that takes an Emini specification from one form to another. 
     Each edge contains a callable function in its "func" attribute automatically extracted from the ET python script
     '''
     def __init__(self):
@@ -21,7 +21,10 @@ class ETGraph:
                 self.formsGraph.add_edge(fromTo[0],fromTo[1], func = val)
 
     def FormToForm(self, AST, fromForm, toForm):
-
+        '''
+        Convert an Emini spec from one form to another by specifing the end points.
+        Intermediate forms are chosen via shortest path in number of steps.
+        '''
         ETpath = nx.shortest_path(self.formsGraph, source=fromForm, target=toForm)
         for formIndex in range(0,len(ETpath)-1):
             AST = self.formsGraph[ETpath[formIndex]][ETpath[formIndex+1]]["func"](AST)
@@ -30,7 +33,7 @@ class ETGraph:
 
     def eulerTour(self, AST, origin):
         '''
-        perform all the evailable conversion and returns to the original form if the graph is eulerian
+        performs all the evailable conversions and returns to the original form if the graph is eulerian
         '''
         eulerCircuit = nx.eulerian_circuit(self.formsGraph, origin)
         for transformulation in eulerCircuit:
@@ -140,9 +143,9 @@ class ETGraph:
     
     def heuristicChinesePostman(self, AST, origin):
         '''
-        Poor man heuristic to solve the the chinese postman problem.
+        Poor man heuristic to solve the chinese postman problem.
         We need a closed cycle that passes over each edge at least once. It is ok if more than once.
-        Likely suboptical.
+        Likely suboptical. ok for very small graphs.
 
         create stack of edges in the graph
         start from origin. 
@@ -166,10 +169,6 @@ class ETGraph:
             ETpath = nx.shortest_path(self.formsGraph, source=currentNode, target=targetEdge[1])
             
             for formIndex in range(0,len(ETpath)-1):
-               # print("FROM " +ETpath[formIndex]+ " TO " + ETpath[formIndex+1] )
-                #print(AST)
-                #if type(AST) == ET.ep.Node:
-                    #print(ET.ep.printTree(AST,printInfo=True))
                 AST = self.formsGraph[ETpath[formIndex]][ETpath[formIndex+1]]["func"](AST)
                 if (ETpath[formIndex],ETpath[formIndex+1]) in unvisitedEdges:
                     unvisitedEdges.remove((ETpath[formIndex],ETpath[formIndex+1]))                

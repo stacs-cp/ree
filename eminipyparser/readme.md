@@ -26,7 +26,7 @@ Known missing features:
 * Add normalisers that sort branches in trees
 * Depth measures (depth map)
 * Parse GIVEN + Where statements
-* Parse minisation/maximisation
+* Parse minimisation/maximisation
 * Automate testing of essence specs generated via icing through conjure
 * Deal with "language" token
 * Refactor parsing of ":" and "in" in quantifications
