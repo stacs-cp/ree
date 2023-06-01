@@ -1,4 +1,4 @@
-import ETransformulator as ET
+import EFormatConverters as ET
 import GP2Graph
 import json
 

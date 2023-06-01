@@ -218,7 +218,7 @@ G.printGP2()
 #G.rewriteGP2()
 G.draw()
 
-import ETransformulator as et
+import EFormatConverters as et
 
 if debug:
     print(A['mLanguage']['language']['Name']) # Essence
