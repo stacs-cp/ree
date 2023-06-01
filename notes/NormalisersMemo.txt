@@ -6,7 +6,7 @@ Domains
 
 	Int domain: No
 	tupleDomain : No
-	RelationDomain: Yes
+	RelationDomain: No
 	boolDomain: No
 
 Constants
