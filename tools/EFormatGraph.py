@@ -1,7 +1,6 @@
 import EFormatConverters as ET
 import GP2Graph
 import networkx as nx
-from inspect import signature
 import matplotlib.pyplot as plt
 import time
 import collections

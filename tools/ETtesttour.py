@@ -30,5 +30,4 @@ def createFormatsGraph():
 
     return formsGraph
 
-## TODO: create graph, add function from ANY1 to ANY2 that find shortest path. Transform node list into edge list and call each function in the edge "func" attribute
 plotFormatsGraph()
