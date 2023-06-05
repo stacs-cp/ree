@@ -48,7 +48,7 @@ def ASTpyToGP2Graph(ASTpy):
     
     def buildTree(node, Tree, index=1, parentID=None):   
         nodeID = len(gp2g.nodes)             
-        Tree.addNode(nodeID, f'{node.label}#{node.info}') 
+        Tree.addNode(nodeID, f'{node.label}~{node.info}') 
         if parentID != None: 
             edgeID = len(gp2g.edges)
             Tree.addEdge(edgeID,parentID,nodeID,index)
@@ -66,7 +66,7 @@ def GP2GraphToASTpy(gp2graph):
 
     def buildNode(gp2vertex):   
     
-        vertex = gp2vertex[1].split('#')
+        vertex = gp2vertex[1].split('~')
         label = vertex[0]
         info = vertex[1]
         edges = [edge for edge in gp2graph.edges if edge[1] == gp2vertex[0]] # create list of all the targets in the edges where the node is the source
@@ -77,7 +77,10 @@ def GP2GraphToASTpy(gp2graph):
         node = ep.Node(label,children,info)
 
         return node
-
+    #root = [(x, y) for (x, y) in gp2graph.nodes if x == '0'][0] # this list should be of size 1 
+    #print(gp2graph.nodes)
+    #print(root)
+    gp2graph.nodes = sorted(gp2graph.nodes, key=lambda x:int(x[0]))
     ASTpy = buildNode(gp2graph.nodes[0])
     return ASTpy
 
@@ -116,7 +119,7 @@ def NXToGP2Graph(NXGraph):
     for id,node in NXGraph.nodes(data=True):
         label = node['label']
         info = node['info']
-        gp2graph.addNode(id,f'{label}#{info}')
+        gp2graph.addNode(id,f'{label}~{info}')
     for u,v,data in NXGraph.edges(data=True):
         gp2graph.addEdge(data['ID'],u,v,data['index'])
 
@@ -130,7 +133,7 @@ def GP2GraphToGP2String(GP2Graph):
     GP2String = ""
     GP2String += "[\n"
     for node in GP2Graph.nodes:
-        GP2String += f'({node[0]},{node[1]})\n'
+        GP2String += f'({node[0]},\"{node[1]}\")\n'
     GP2String += "| \n"
     for edge in GP2Graph.edges:
         GP2String += f'({edge[0]},{edge[1]},{edge[2]},{edge[3]})\n'
@@ -165,7 +168,7 @@ def GP2StringToGP2Graph(gp2string):
     # parse nodes
     index =0
     while index < len(rightParentheses) and rightParentheses[index] < nodeEdgeDivider[0]:
-        node = tuple([s for s in gp2string[leftParentheses[index]+1:rightParentheses[index]].split(',')])         
+        node = tuple([s.replace("\"","").strip() for s in gp2string[leftParentheses[index]+1:rightParentheses[index]].split(',')])         
         if len(node) != 2:
             raise Exception("Some issue parsing nodes, found this node: " + str(node))
         else:
@@ -180,5 +183,5 @@ def GP2StringToGP2Graph(gp2string):
         else:
             gp2graph.edges.append(edge)
         index += 1
-    
+    print(gp2graph)
     return gp2graph
