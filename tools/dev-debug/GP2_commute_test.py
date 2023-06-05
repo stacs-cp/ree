@@ -6,6 +6,34 @@ import os
 import icing
 from datetime import datetime
 
+gp2_program = '''
+Main = commute
+
+commute(operator,operand1, operand2:string)
+[
+    (n1, operator)
+    (n2, operand1)
+    (n3, operand2)
+    |
+    (e1, n1, n2, 1)
+    (e2, n1, n3, 2)
+]
+=>
+[
+    (n1, operator)
+    (n2, operand1)
+    (n3, operand2)
+    |
+    (e1, n1, n2, 2)
+    (e2, n1, n3, 1)
+]
+interface = 
+{
+    n1, n2, n3
+}
+where operator = "*~BinaryExpression"
+'''
+
 GP2 = """
 [ (17, "i~ReferenceToDecisionVariable") (16, "8887~Integer") (15, "4~Integer") (14, "3~Integer") (13, "+~BinaryExpression") 
   (12, "2~Integer") (11, "+~BinaryExpression") (10, "1~Integer") (9, "*~BinaryExpression") (8, "-~BinaryExpression") 
