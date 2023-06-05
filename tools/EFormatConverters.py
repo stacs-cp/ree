@@ -77,9 +77,7 @@ def GP2GraphToASTpy(gp2graph):
         node = ep.Node(label,children,info)
 
         return node
-    #root = [(x, y) for (x, y) in gp2graph.nodes if x == '0'][0] # this list should be of size 1 
-    #print(gp2graph.nodes)
-    #print(root)
+
     gp2graph.nodes = sorted(gp2graph.nodes, key=lambda x:int(x[0]))
     ASTpy = buildNode(gp2graph.nodes[0])
     return ASTpy
@@ -183,5 +181,5 @@ def GP2StringToGP2Graph(gp2string):
         else:
             gp2graph.edges.append(edge)
         index += 1
-    print(gp2graph)
+
     return gp2graph

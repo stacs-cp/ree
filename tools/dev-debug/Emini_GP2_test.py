@@ -1,8 +1,6 @@
 import sys
 sys.path.append('../ree/tools')
-
 import EFormatGraph
-
 
 
 eminiSpec = """
