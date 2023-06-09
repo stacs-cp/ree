@@ -166,7 +166,7 @@ def GP2StringToGP2Graph(gp2string):
     # parse nodes
     index =0
     while index < len(rightParentheses) and rightParentheses[index] < nodeEdgeDivider[0]:
-        node = tuple([s.replace("\"","").strip() for s in gp2string[leftParentheses[index]+1:rightParentheses[index]].split(',')])         
+        node = tuple([s.replace("\"","") for s in gp2string[leftParentheses[index]+1:rightParentheses[index]].split(',')])         
         if len(node) != 2:
             raise Exception("Some issue parsing nodes, found this node: " + str(node))
         else:
