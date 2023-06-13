@@ -78,7 +78,7 @@ def GP2GraphToASTpy(gp2graph):
 
         return node
 
-    gp2graph.nodes = sorted(gp2graph.nodes, key=lambda x:int(x[0]))
+    gp2graph.nodes = sorted(gp2graph.nodes, key=lambda x:int(x[0])) # nodes are sorted to ensure root is first
     ASTpy = buildNode(gp2graph.nodes[0])
     return ASTpy
 

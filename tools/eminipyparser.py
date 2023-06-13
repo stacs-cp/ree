@@ -127,6 +127,9 @@ class EssenceParser:
 
     def match(self, expected):
         return self.index < len(self.tokens) and self.tokens[self.index] == expected
+    
+    def match_any(self, tokens):
+        return any(self.match(token) for token in tokens)
 
     def parse_statement(self):
         if self.match("letting"):          
@@ -235,9 +238,6 @@ class EssenceParser:
             return Node(name_of_domain, info="ReferenceToNamedDomain")
         else:
             raise SyntaxError("Domain Parsing Error. Token: " + str(self.tokens[self.index]))    
-
-    def match_any(self, tokens):
-        return any(self.match(token) for token in tokens)
 
     def parse_constant(self):
         # tuple - relation - int 
