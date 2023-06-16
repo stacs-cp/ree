@@ -25,7 +25,7 @@ class ETGraph:
         Intermediate forms are chosen via shortest path in number of steps.
         '''
         ETpath = nx.shortest_path(self.formsGraph, source=fromForm, target=toForm)
-        for formIndex in range(0,len(ETpath)-1):
+        for formIndex in range(0,len(ETpath)-1):            
             AST = self.formsGraph[ETpath[formIndex]][ETpath[formIndex+1]]["func"](AST)
 
         return AST
@@ -169,6 +169,8 @@ class ETGraph:
             
             for formIndex in range(0,len(ETpath)-1):
                 AST = self.formsGraph[ETpath[formIndex]][ETpath[formIndex+1]]["func"](AST)
+                print(AST)
+                print("### FROM "+ ETpath[formIndex] + " TO " + ETpath[formIndex+1])
                 if (ETpath[formIndex],ETpath[formIndex+1]) in unvisitedEdges:
                     unvisitedEdges.remove((ETpath[formIndex],ETpath[formIndex+1]))                
                 cycle.append(ETpath[formIndex+1])

@@ -4,6 +4,7 @@ import GP2Graph
 import icing
 import json
 import re
+import random
 
 """
 This script is a set of conversions between formats for the Abstract Syntax Tree of an Emini specification
@@ -58,29 +59,46 @@ def ASTpyToGP2Graph(ASTpy):
     buildTree(ASTpy,gp2g)
     return gp2g
 
-def GP2GraphToASTpy(gp2graph):
-    '''
-    Turns a Graph mapped to the GP2 format to Abstract Syntax Tree of python objects. ROOT must be node 0 
-    This is O(V*E) time. TODO: Loop over edges instead of the nodes and produce adjacency list first.
-    '''
+# under maintenance. create ASTpy via NX in the meantime
+#def GP2GraphToASTpy(gp2graph):
+#    '''
+#    Turns a Graph mapped to the GP2 format to Abstract Syntax Tree of python objects. ROOT must be node 0 
+#    This is O(V*E) time. TODO: Loop over edges instead of the nodes and produce adjacency list first.
+#    '''
+#
+#    def buildNode(gp2vertex):   
+#    
+#        vertex = gp2vertex[1].split('~')
+#        label = vertex[0]
+#        info = vertex[1]
+#        edges = [edge for edge in gp2graph.edges if edge[1] == gp2vertex[0]] # create list of all the targets in the edges where the node is the source
+#        sorted_edges = sorted(edges, key=lambda x:int(x[3]))  # sort based on index label (4th element of an edge in GP2 format)
+#        children = []
+#        for target in sorted_edges:
+#            children.append(buildNode(gp2graph.nodes[int(target[2])]))
+#        node = ep.Node(label,children,info)
+#
+#        return node
+#
+#    gp2graph.nodes = sorted(gp2graph.nodes, key=lambda x:int(x[0])) # nodes are sorted to ensure root is first
+#    ASTpy = buildNode(gp2graph.nodes[0])
+#    return ASTpy
 
-    def buildNode(gp2vertex):   
+def GP2GraphToNX(gp2graph):
+    '''
+    Returns a NetworkX tree graph from a GP2Graph python objects
+    '''
+    G = nx.DiGraph()
     
-        vertex = gp2vertex[1].split('~')
+    for node in gp2graph.nodes:
+        vertex = node[1].split('~')
         label = vertex[0]
-        info = vertex[1]
-        edges = [edge for edge in gp2graph.edges if edge[1] == gp2vertex[0]] # create list of all the targets in the edges where the node is the source
-        sorted_edges = sorted(edges, key=lambda x:int(x[3]))  # sort based on index label (4th element of an edge in GP2 format)
-        children = []
-        for target in sorted_edges:
-            children.append(buildNode(gp2graph.nodes[int(target[2])]))
-        node = ep.Node(label,children,info)
-
-        return node
-
-    gp2graph.nodes = sorted(gp2graph.nodes, key=lambda x:int(x[0])) # nodes are sorted to ensure root is first
-    ASTpy = buildNode(gp2graph.nodes[0])
-    return ASTpy
+        info = vertex[1]               
+        G.add_node(node[0], label = label, info=info)
+    for edge in gp2graph.edges:
+        G.add_edge(edge[1], edge[2], ID=edge[0], index= edge[3])
+    #print(G.nodes)
+    return G
 
 
 def ASTpyToNX(ASTpy):
@@ -100,13 +118,27 @@ def ASTpyToNX(ASTpy):
     buildTreeNX(ASTpy, G)
     return G
 
-#def NXToASTpy(NXGraph):
+def NXToASTpy(NXGraph):
     '''
-    TODO From networkx to ASTpy
+    From networkx to ASTpy
     '''
-    #root = [n for n,d in NXGraph.in_degree() if d==0] 
-    #successorList = nx.dfs_successors(NXGraph, source=root)
-    #AST = []
+    
+
+    def buildNode(vertex, G): 
+        neighbours = sorted(G[vertex].items(), key=lambda edge: edge[1]['index'])
+
+        children = []
+        for neighbour in neighbours:
+            child = neighbour[0]
+            children.append(buildNode(child,G))
+        node = ep.Node(G.nodes[vertex]['label'],children,G.nodes[vertex]['info'])
+        return node
+
+    root = list(nx.topological_sort(NXGraph))[0]
+    #print(root)
+    ASTpy = buildNode(root, NXGraph)
+    return ASTpy
+    
 
 
 def NXToGP2Graph(NXGraph):
@@ -128,6 +160,7 @@ def GP2GraphToGP2String(GP2Graph):
     '''
     Produce a GP2 representation of the graph in string format
     '''
+    random.shuffle(GP2Graph.nodes)
     GP2String = ""
     GP2String += "[\n"
     for node in GP2Graph.nodes:

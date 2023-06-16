@@ -54,7 +54,7 @@ def iceSuchThat(node):
 def iceConstraints(node, constraints):
     if node.label == " . " or node.label == ". " or node.label == ".":
         iceConstraints(node.children[0], constraints)
-        constraints.append(node.label + "\n  ")
+        constraints.append(" . " + "\n  ")   ## BUG potential issues here
         iceConstraints(node.children[1], constraints)
     elif node.info == "QuantificationExpression":
         constraints.append(iceQuantifier(node))

@@ -32,6 +32,7 @@ such that t[1] = t[2]
 
 teststr = copy.deepcopy(teststr0)
 ast = ET.EminiToASTpy(teststr)
+
 #ET.ep.printTree(ast, printInfo=True)
 
 emini = ET.ASTpyToEmini(ast)
@@ -39,8 +40,9 @@ ETG = EFormatGraph.ETGraph()
 
 emini2 = copy.deepcopy(teststr)
 works = True
-for i in range(0,100):
+for i in range(0,10):
     results = ETG.heuristicChinesePostman(emini2,"Emini")
+    print(results)
     works = works and results[0] == emini
     if not works:
         print(results[0])

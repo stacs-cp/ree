@@ -6,9 +6,9 @@ import EFormatGraph
 import os
 
 spec = '''
-find i : int(0..10)
+find i : int(0..100)
 such that
-i = (1+2)*3'''
+i = 1 * 2 + 3 * 4'''
 
 specFilename = "./tests/testExpression.essence"
 with open(specFilename, 'w') as file:
