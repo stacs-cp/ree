@@ -125,7 +125,11 @@ def NXToASTpy(NXGraph):
     
 
     def buildNode(vertex, G): 
-        neighbours = sorted(G[vertex].items(), key=lambda edge: edge[1]['index'])
+       
+        def indexGetter(item):
+            return int(item['index'])
+        
+        neighbours = sorted(G[vertex].items(), key=lambda edge: indexGetter(edge[1]))
 
         children = []
         for neighbour in neighbours:
@@ -179,7 +183,7 @@ def GP2StringToGP2Graph(gp2string):
 
     graphStarts =  [match.start() for match in re.finditer(r'\[', gp2string)]
     if len(graphStarts) != 1:
-        raise Exception("Some issue parsing [ found"+ str(len(graphStarts)))
+        raise Exception("Some issue parsing [ found "+ str(len(graphStarts)))
     leftParentheses = [match.start() for match in re.finditer(r'\(', gp2string)]
     rightParentheses = [match.start() for match in re.finditer(r'\)', gp2string)]
     if len(leftParentheses) != len(rightParentheses):

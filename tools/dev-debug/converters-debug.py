@@ -39,14 +39,28 @@ emini = ET.ASTpyToEmini(ast)
 ETG = EFormatGraph.ETGraph()
 
 emini2 = copy.deepcopy(teststr)
-works = True
-for i in range(0,20):
-    print("TOUR Starts")
-    results = ETG.heuristicChinesePostman(emini2,"Emini")
-    print(results)
-    works = works and results[0] == emini
-    if not works:
-        print(results[0])
-print(works)
 
+nxgraph = ET.ASTpyToNX(ast)
+
+gp2g = ET.NXToGP2Graph(nxgraph)
+
+gp2str = ET.GP2GraphToGP2String(gp2g)
+
+gp2g = ET.GP2StringToGP2Graph(gp2str)
+
+nxgraph = ET.GP2GraphToNX(gp2g)
+
+ast2 = ET.NXToASTpy(nxgraph)
+
+emini3 = ET.ASTpyToEmini(ast2)
+print(emini3)
+#works = True
+#for i in range(0,2):
+#    print("TOUR Starts")
+#    results = ETG.heuristicChinesePostman(emini2,"Emini")
+#    print(results)
+#    works = works and results[0] == emini
+#    if not works:
+#        print(results[0])
+#print(works)
 

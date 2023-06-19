@@ -166,16 +166,19 @@ class ETGraph:
         while len(unvisitedEdges) > 0:
             targetEdge = random.choice(unvisitedEdges)
             ETpath = nx.shortest_path(self.formsGraph, source=currentNode, target=targetEdge[1])
+            if targetEdge[1] == currentNode: 
+                ETpath = nx.shortest_path(self.formsGraph, source=currentNode, target=targetEdge[0])
             
             for formIndex in range(0,len(ETpath)-1):
+                #print("### FROM "+ ETpath[formIndex] + " TO " + ETpath[formIndex+1])
                 AST = self.formsGraph[ETpath[formIndex]][ETpath[formIndex+1]]["func"](AST)
-                print(AST)
-                print("### FROM "+ ETpath[formIndex] + " TO " + ETpath[formIndex+1])
+                #print(AST)
+                
                 if (ETpath[formIndex],ETpath[formIndex+1]) in unvisitedEdges:
                     unvisitedEdges.remove((ETpath[formIndex],ETpath[formIndex+1]))                
                 cycle.append(ETpath[formIndex+1])
                 
-            currentNode = targetEdge[1]
+            currentNode = ETpath[-1]
 
         if currentNode == origin:
             return AST,cycle
