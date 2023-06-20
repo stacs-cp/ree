@@ -192,7 +192,7 @@ def iceDomain(node):
         domainsStart = 0
         if node.children[0].label in ["size", "minSize","maxSize"]: # bounded relation keep the size inthe first child
             domain += " ("
-            domain += {node.children[0].label} 
+            domain += f'{node.children[0].label} ' 
             domain += iceExpression(node.children[0].children[0]) # first grandchild is the value
             domain += ") "
             domainsStart = 1

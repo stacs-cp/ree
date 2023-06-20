@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../ree/tools')
 import EFormatConverters as ET
 import GP2Graph
 import json
@@ -5,7 +7,7 @@ import json
 teststr = """
 find i : int(0..10)
 such that
-    1*(2+3*4)-8887=i
+    1*(2+3*4)-8887>i
 """
 
 ast = ET.EminiToASTpy(teststr)
