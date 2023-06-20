@@ -7,16 +7,18 @@ import icing
 from datetime import datetime
 import copy
 
-teststr0 = '''
+teststr0 = r'''
 letting n be 12
 letting vertices be domain int(0..n)
 find edges : relation (size n) of (vertices * vertices)
 such that
-      forAll edge,edge2 in edges .
-        edge[2] > edge[1] /\ 
-        ((edge != edge2) -> (edge[2] != edge2[2]))
+forAll edge,edge2 in edges .
+edge[2] > edge[1] /\
+((edge != edge2) -> (edge[2] != edge2[2]))
 '''
 
+#with open('tests/treeGen.essence', 'r') as file:
+#      teststr0 = file.read()
 print(teststr0)
 teststr = copy.deepcopy(teststr0)
 ast = ET.EminiToASTpy(teststr)
