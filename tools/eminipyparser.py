@@ -105,7 +105,7 @@ class EssenceParser:
     def parse(self, essenceSpec):
         commentlessStr = self.removeComments(essenceSpec)
         commentlessStr = commentlessStr.replace(r'/\\n', '/\\')
-        self.tokens = re.findall(r'\.\.|\->|\\/|/\\|>|<|>=|<=|!=|!|==|=|\+|[^=!<>+\s\w]|[\w]+', commentlessStr.replace('\n', ' '))
+        self.tokens = re.findall(r'\.\.|\->|\\/|/\\|>=|<=|>|<|!=|!|==|=|\+|[^=!<>+\s\w]|[\w]+', commentlessStr.replace('\n', ' '))
 
         #print(' '.join(self.tokens))
         while self.index < len(self.tokens):

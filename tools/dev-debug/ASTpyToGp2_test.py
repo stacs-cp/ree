@@ -10,7 +10,7 @@ from datetime import datetime
 teststr = """
 find i : int(0..10)
 such that
-    1*(2+3*4)-8887=i
+    1*(2+3*4)-8887 >= i
 """
 
 ast = ET.EminiToASTpy(teststr)

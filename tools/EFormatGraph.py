@@ -101,12 +101,12 @@ class ETGraph:
 
             AST = timeGraph.name       
             for formIndex in range(0,len(path)-1):
-                start = time.time_ns() 
+                start = time.time_ns() /1000
                 #print(transformulation)
                 toIndex = formIndex+1
                 AST = self.formsGraph[path[formIndex]][path[toIndex]]["func"](AST)
                 #print(AST)          
-                end = time.time_ns() 
+                end = time.time_ns() /1000
                 timeGraph.add_edge(path[formIndex],path[toIndex], time = end - start)
         return AST, timeGraph
     
