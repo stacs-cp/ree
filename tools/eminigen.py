@@ -14,7 +14,7 @@ def spawnEssence():
     variables = 0
     decision = 0
 
-    lettingNum = random.randint(1,4)
+    lettingNum = random.randint(1,3)
     findsNum = random.randint(1,3)
     constraintsNum = random.randint(1,3)
     

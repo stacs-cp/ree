@@ -29,6 +29,23 @@ class ETGraph:
             AST = self.formsGraph[ETpath[formIndex]][ETpath[formIndex+1]]["func"](AST)
 
         return AST
+    
+    def timedFormToForm(self, AST, fromForm, toForm):
+        '''
+        Convert an Emini spec from one form to another by specifing the end points.
+        Intermediate forms are chosen via shortest path in number of steps.
+        returns an extra graph with the timings as edge attributes.
+        '''
+        timeGraph = nx.DiGraph()
+        ETpath = nx.shortest_path(self.formsGraph, source=fromForm, target=toForm)
+        for formIndex in range(0,len(ETpath)-1):   
+            start = time.time_ns() /1000         
+            AST = self.formsGraph[ETpath[formIndex]][ETpath[formIndex+1]]["func"](AST)                  
+            end = time.time_ns() /1000  
+
+            timeGraph.add_edge(ETpath[formIndex],ETpath[formIndex+1], time = end - start)
+
+        return AST,timeGraph
 
     def eulerTour(self, AST, origin):
         '''
