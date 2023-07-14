@@ -473,12 +473,12 @@ def printTree(node, indent="", last = True, printInfo = False):
     branch = ""
     extension = ""
     if last:
-        branch = "┕"
+        branch = "└"
         extension = "   "
     else:
-        branch = "┝"
-        extension = "|  "
-    print(indent + branch+"- " + node.label +info)
+        branch = "├"
+        extension = "│  "
+    print(indent + branch+"─ " + node.label +info)
     indent += extension
     for i in range(len(node.children)):
         printTree(node.children[i], indent, i==len(node.children)-1,printInfo=printInfo)
