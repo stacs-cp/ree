@@ -104,7 +104,7 @@ def MainTMAP():
                     Patch(facecolor='#006C84', label='GP2 Compiler')]
 
                     
-    axes.legend(handles=legend_elements, loc='upper center')
+    axes.legend(handles=legend_elements, loc='lower left')
     colors = nx.get_edge_attributes(formsGraph,'color').values()
     axes.add_artist( Drawing_uncolored_circle )
 
@@ -372,24 +372,36 @@ def bigGridPlot():
     #fig.suptitle("PaC-MAP Embedding of TSP instances", y=0.92, size=20)
     
     #plt.subplots_adjust(wspace=0.05, hspace=0.05)
+    fig.tight_layout()
+
     plt.show()
 
-#    model = FeatherGraph()
-#    model.fit(Gs)
-#    X = model.get_embedding()
-#    embedding = umap.UMAP(n_neighbors=20,
-#                      n_components=4,
-#                      min_dist=1,
-#                      metric='correlation').fit_transform(X)
-#    plt.figure(figsize=(12,12))
-#    plt.scatter(embedding[:, 0], embedding[:, 1],
-#                edgecolor='none',
-#                alpha=0.80,
-#                s=10)
-#    plt.axis('off');
-# plt.show()
+    for i in range(300):
+        spec = eminigen.spawnEssence()
+        efg = EFG.ETGraph()
+        g = efg.FormToForm(spec,"Emini","NX")
+        h = g.to_undirected()
+        Gs.append(g)
 
-bigGridPlot()
+    model = FeatherGraph()
+    model.fit(Gs)
+    X = model.get_embedding()
+    embedding = umap.UMAP(n_neighbors=20,
+                      n_components=4,
+                      min_dist=1,
+                      metric='correlation').fit_transform(X)
+    fig2 = plt.figure(figsize=(200,200))
 
+
+    plt.scatter(embedding[:, 0], embedding[:, 1],
+                edgecolor='none',
+                alpha=0.80,
+                s=14)
+    plt.axis('off');
+    fig2.tight_layout()
+    plt.show()
+
+#bigGridPlot()
+MainTMAP()
 #
 #timedMaps()
