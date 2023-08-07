@@ -1,0 +1,20 @@
+20230807
+
+Ian's high level view of work for CPAIOR:
+
+1. accept an Emini specification,
+2. apply variable introduction, and/or some simple de Morgan style rewrites,
+3. test sequences of rewrites against a test set of instances, hopefully at least one sequence works to improve performance.
+
+In PTHG paper we envisaged Monte Carlo tree search to investigate sequences of rewrites.
+
+Adding variables is powerful (as in the Steel Mill paper) because when we add a variable we also add a set of domain values that the variable can take, and this stores information that is updated when values are removed from the domain.
+Ian's hypothesis is that this storage of information in the domain of the new variables is why variable introduction allows increasing the power of a proof system (such as resolution versus extended resolution, where the domain of new variables is Boolean and yet is still enough to provably increase the power of the system).
+
+Hypothesis: reordering constraints a priori might (through introduction of variables and variable ordering heuristics) affect performance of a model.
+Can constraint ordering be ignored (which would allow normalisation), or is it important?
+
+Related issue is renaming of variables: superficially different, ideally want to identify isomorphism via renaming.
+
+If assuming a canonical constraint ordering makes no difference, we could then work with normalised formulas only.
+
