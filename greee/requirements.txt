@@ -1,0 +1,5 @@
+karateclub
+matplotlib
+networkx
+pandas
+numpy

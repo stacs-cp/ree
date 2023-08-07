@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "greee"
+version = "0.0.1"
+authors = [
+    { name = "Christopher Stone", email = "cls29@st-andrews.ac.uk" },
+    { name = "András Salamon", email = "Andras.Salamon@st-andrews.ac.uk" },
+]
+description = "Parser and things for Emini subset of Essence language"
+# random requirement, we probably use 3.x features but unsure if anything more
+requires-python = ">=3.4"
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+# FIXME: we don't have a public URL yet, these are private placeholders for now
+"Homepage" = "https://github.com/stacs-cp/ree"
+"Bug Tracker" = "https://github.com/stacs-cp/ree/issues"
+
