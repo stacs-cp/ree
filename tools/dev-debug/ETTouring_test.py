@@ -8,6 +8,8 @@ from datetime import datetime
 import copy
 
 teststr0 = r'''
+given a : int(0..5)
+where a >2
 letting n be 12
 letting vertices be domain int(0..n)
 find edges : relation (size n) of (vertices * vertices)

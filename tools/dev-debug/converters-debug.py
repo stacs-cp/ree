@@ -8,6 +8,8 @@ from datetime import datetime
 import copy
 
 teststr0 = """
+given a: int(0..10)
+    where a > 5
 letting vertices be domain int(1..3)
 letting colours be domain int(1..3)
 letting G be relation((1,2),(1,3),(2,3))

@@ -42,14 +42,14 @@ def transformSpec_u(gp2prog_file_name, spec):
     transformedGP2Spec = ""
     with open("gp2.output") as newGP2spec:
         transformedGP2Spec = newGP2spec.read()
-
+    os.remove("gp2.output")
+    os.remove("temporarySpecGraph.host")
     transformedSpec = formatsGraph.FormToForm(transformedGP2Spec,"GP2String","Emini")
     return transformedSpec
 
 def compileGP2folder():
     #TODO
     ### all programs should be compiled and then used via gp2run instead of gp2c 
-    # 
     #    
     return "TODO"
 

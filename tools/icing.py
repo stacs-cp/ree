@@ -11,6 +11,10 @@ def ASTtoEssence(AST):
     return spec
 
 def iceStatement(node):
+    if node.info == 'GivenStatement':
+        return iceGivenParameter(node)
+    if node.info == "WhereStatement":
+        return iceWhere(node)
     if node.info == "NameLettingStatement":
         return iceLettingConstant(node)
     if node.info == "DomainNameLettingStatement":
@@ -19,6 +23,24 @@ def iceStatement(node):
         return iceFind(node)
     if node.info == "SuchThatStatement":
         return iceSuchThat(node)
+    
+
+def iceGivenParameter(node):
+    statement = "given "
+    statement += node.children[0].label # The first child of a given statement is always the name
+    statement += " : " 
+    statement += iceDomain(node.children[0].children[0]) # the first grandchild is the domain 
+    return statement
+
+def iceWhere(node):
+    statement = "where \n  "
+    constraints = []
+    for expression in node.children: # get all stacks for all comma separated expressions
+        iceConstraints(expression,constraints)
+        constraints.append("\n  ,\n  ")
+    constraints = "".join(constraints[:-1]) # merge the constraints in each stack
+    statement += constraints
+    return statement
 
 def iceLettingConstant(node):
     statement = "letting "
