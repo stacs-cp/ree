@@ -49,4 +49,3 @@ subprocess.run(conjureCall2, check=True)
 with open("./conjure-output/model000001-solution000001.solution") as solution:
     print(solution.read())
 
-os.remove("gp2.output")

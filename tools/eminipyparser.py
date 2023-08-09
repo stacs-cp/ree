@@ -12,6 +12,14 @@ class Node:
             self.info = info
 
 ### Statements
+class GivenStatement(Node):
+    def __init__(self, name, domain):
+        super().__init__("given", [Node(name,[domain], "Parameter")])
+
+class WhereStatement(Node):
+    def __init__(self, constraints):
+        super().__init__("where", constraints)
+
 class NameLettingStatement(Node):
     def __init__(self, name, constant):
         super().__init__("letting", [Node(name,[constant])])
@@ -88,6 +96,7 @@ class EssenceParser:
     def __init__(self):
         self.tokens = []
         self.index = 0
+        self.parameters = {}
         self.named_domains = {} 
         self.named_constants = {}
         self.decision_variables = {}
@@ -110,6 +119,8 @@ class EssenceParser:
         #print(' '.join(self.tokens))
         while self.index < len(self.tokens):
             statement = self.parse_statement()
+            if statement.info == "GivenStatement":
+                self.parameters[statement.children[0].label] = statement.children[0]
             if statement.info == "NameLettingStatement":
                 self.named_constants[statement.label] = statement.children[0]
             if statement.info == "DomainNameLettingStatement":
@@ -133,7 +144,11 @@ class EssenceParser:
         return any(self.match(token) for token in tokens)
 
     def parse_statement(self):
-        if self.match("letting"):          
+        if self.match("given"):
+            return self.parse_given_statement()
+        elif self.match("where"):
+            return self.parse_where_statement()
+        elif self.match("letting"):          
           if self.tokens[self.index + 2] == "be" and self.tokens[self.index + 3] == "domain":
             return self.parse_domain_name_letting_statement()
           if self.tokens[self.index + 2] == "be":
@@ -146,6 +161,32 @@ class EssenceParser:
             return self.parse_such_that_statement()
         else:
             raise SyntaxError("Invalid statement:" +str( self.tokens[self.index]) + " Token Num: " + str(self.index))
+
+    def parse_given_statement(self):
+        self.consume()  # "given"
+        name = self.consume()  # Name of parameter
+        column = self.consume()
+        if column != ":":
+            raise SyntaxError("Invalid Token - Expected : instead of " + column + " Token Num: " + str(self.index-1))
+        domain = self.parse_domain()    
+        return GivenStatement(name, domain) 
+
+    def parse_where_statement(self):
+        where_list = []
+        self.consume()  # "where"
+        expression = self.parse_expression()
+
+        while self.match_any([".", ',']):
+            matched = self.consume()  # "."
+            if matched == "." :
+                next_expression = self.parse_expression()
+                expression = Node(" . ", [expression, next_expression], "ConcatenationExpression")
+            else: ## something not working here. maybe
+                where_list.append(expression)
+                expression = self.parse_expression()
+
+        where_list.append(expression)
+        return WhereStatement(where_list)  
 
     def parse_name_letting_statement(self):
         self.consume()  # "letting"
@@ -282,6 +323,8 @@ class EssenceParser:
                     return MemberExpression(identifier, tuple_elements)
             if self.match("(") and self.tokens[self.index + 2] == ",":
                 return MemberExpression(identifier, [self.parse_tuple_constant()]) 
+            if identifier in self.parameters:
+                return Node(identifier, info="ReferenceToParameter")
             if identifier in self.decision_variables:
                 return Node(identifier, info="ReferenceToDecisionVariable")
             if identifier in self.named_domains:
@@ -294,6 +337,7 @@ class EssenceParser:
         return (
             self.match(".")
             or self.match(",")
+            or self.match("where")
             or self.match("such")
             or self.match("letting")
             or self.match("find")

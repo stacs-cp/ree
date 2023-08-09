@@ -71,14 +71,13 @@ such that
 
 #test 6
 test_strings.append("""
-letting n be 10
-letting vertices be domain int (0..(n*n)-1) 
-find edges : relation (size 2*(n-1)*n) of (vertices * vertices)
-  such that 
-    forAll (source,target) in edges .
-      source+1 = target /\ (source+1)%n != 0 
-      \/  
-      source+n = target
+given x : int(0..10)                    
+where
+ x*2=12,
+ x>3                  
+find y : int(0..100)
+such that
+x > y
 """)
 
 for i,test_str in enumerate(test_strings):
