@@ -1,6 +1,6 @@
-Main = commute
+Main = lessThan!
 
-commute(operator,operand1, operand2:string)
+lessThan(operator,operand1, operand2:string)
 [
     (n1, operator)
     (n2, operand1)
@@ -11,7 +11,7 @@ commute(operator,operand1, operand2:string)
 ]
 =>
 [
-    (n1, "<")
+    (n1, "<~BinaryExpression")
     (n2, operand1)
     (n3, operand2)
     |

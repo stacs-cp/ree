@@ -54,6 +54,9 @@ def compileGP2folder():
     return "TODO"
 
 def allTransformsOnSpec_u(spec):
+    '''
+    Compile and apply all available graph rules to the input spec
+    '''
     transforms = scanPrograms()
     specs = []
     for t in transforms:

@@ -1,4 +1,7 @@
-
-find i : int(0..100)
-such that
-i = 1 * 2 + 3 * 4
+letting a be 1
+letting b be 9
+letting c be 11
+letting d be 100
+find Y : int(0..100)
+such that 
+  Y < c /\ Y < d /\ a < Y /\ b < Y
