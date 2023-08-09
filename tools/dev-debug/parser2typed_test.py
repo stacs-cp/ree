@@ -73,7 +73,7 @@ such that
 test_strings.append("""
 given x : int(0..10)                    
 where
- x*2=12,
+ x%2=2,
  x>3                  
 find y : int(0..100)
 such that

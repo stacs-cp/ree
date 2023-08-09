@@ -368,7 +368,7 @@ class EssenceParser:
                 return 0
             if op in ["+", "-"]:
                 return 1
-            if op in ["*", "/"]:
+            if op in ["*", "/","%"]:
                 return 3
             if op in ["u-", "u!"]:   ## UNARY OPERATORS
                 return 8
