@@ -4,4 +4,4 @@ letting c be 11
 letting d be 100
 find Y : int(0..100)
 such that 
-  Y < c /\ Y < d /\ a < Y /\ b < Y
+  Y < c /\ Y < d /\ Y > a /\ b < Y

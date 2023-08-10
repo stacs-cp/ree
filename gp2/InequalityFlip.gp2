@@ -1,4 +1,4 @@
-Main = lessThan!
+Main = lessThan
 
 lessThan(operator,operand1, operand2:string)
 [

@@ -164,7 +164,7 @@ def GP2GraphToGP2String(GP2Graph):
     '''
     Produce a GP2 representation of the graph in string format
     '''
-    random.shuffle(GP2Graph.nodes)
+    random.shuffle(GP2Graph.nodes) #TODO seed with parameter
     GP2String = ""
     GP2String += "[\n"
     for node in GP2Graph.nodes:
