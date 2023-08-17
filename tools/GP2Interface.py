@@ -30,6 +30,7 @@ def transformSpec_u(gp2prog_file_name, spec):
     formatsGraph = EFormatGraph.ETGraph()
 
     gp2spec = formatsGraph.FormToForm(spec,"Emini","GP2String")
+    #print(gp2spec)
     gp2hostfile = "temporarySpecGraph.host"
     with open(gp2hostfile, 'w') as file:
         file.write(gp2spec)
@@ -42,6 +43,7 @@ def transformSpec_u(gp2prog_file_name, spec):
     transformedGP2Spec = ""
     with open("gp2.output") as newGP2spec:
         transformedGP2Spec = newGP2spec.read()
+
     os.remove("gp2.output")
     os.remove("temporarySpecGraph.host")
     transformedSpec = formatsGraph.FormToForm(transformedGP2Spec,"GP2String","Emini")

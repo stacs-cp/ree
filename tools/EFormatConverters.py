@@ -49,7 +49,7 @@ def ASTpyToGP2Graph(ASTpy):
     
     def buildTree(node, Tree, index=1, parentID=None):   
         nodeID = len(gp2g.nodes)             
-        Tree.addNode(nodeID, f'{node.label}~{node.info}') 
+        Tree.addNode(nodeID, node.label,node.info) 
         if parentID != None: 
             edgeID = len(gp2g.edges)
             Tree.addEdge(edgeID,parentID,nodeID,index)
@@ -91,9 +91,9 @@ def GP2GraphToNX(gp2graph):
     G = nx.DiGraph()
     
     for node in gp2graph.nodes:
-        vertex = node[1].split('~')
-        label = vertex[0]
-        info = vertex[1]               
+        #vertex = node[1].split('~')
+        label = GP2Graph.ToEssenceHelper(node[1])
+        info = node[2]               
         G.add_node(node[0], label = label, info=info)
     for edge in gp2graph.edges:
         G.add_edge(edge[1], edge[2], ID=edge[0], index= edge[3])
@@ -123,7 +123,6 @@ def NXToASTpy(NXGraph):
     From networkx to ASTpy
     '''
     
-
     def buildNode(vertex, G): 
        
         def indexGetter(item):
@@ -153,7 +152,7 @@ def NXToGP2Graph(NXGraph):
     for id,node in NXGraph.nodes(data=True):
         label = node['label']
         info = node['info']
-        gp2graph.addNode(id,f'{label}~{info}')
+        gp2graph.addNode(id,label,info)
     for u,v,data in NXGraph.edges(data=True):
         gp2graph.addEdge(data['ID'],u,v,data['index'])
 
@@ -164,11 +163,11 @@ def GP2GraphToGP2String(GP2Graph):
     '''
     Produce a GP2 representation of the graph in string format
     '''
-    random.shuffle(GP2Graph.nodes) #TODO seed with parameter
+    #random.shuffle(GP2Graph.nodes) #TODO seed with parameter
     GP2String = ""
     GP2String += "[\n"
     for node in GP2Graph.nodes:
-        GP2String += f'({node[0]},\"{node[1]}\")\n'
+        GP2String += f'({node[0]},\"{node[1]}~{node[2]}\")\n'
     GP2String += "| \n"
     for edge in GP2Graph.edges:
         GP2String += f'({edge[0]},{edge[1]},{edge[2]},{edge[3]})\n'
@@ -208,7 +207,8 @@ def GP2StringToGP2Graph(gp2string):
         if len(node) != 2:
             raise Exception("Some issue parsing nodes, found this node: " + str(node))
         else:
-            gp2graph.nodes.append(node)
+            nodeLabelInfo = node[1].split("~")
+            gp2graph.nodes.append((node[0],nodeLabelInfo[0],nodeLabelInfo[1]))
         if index < len(rightParentheses): index += 1  ## if saveguards the case in which there are no edges in the spec
     
     # parse edges
