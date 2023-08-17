@@ -58,9 +58,12 @@ such that
 """)
 #test 5
 test_strings.append("""
+
+find a : bool
 find b : bool
+find c : bool
 such that
-    b != !true
+    a = !(b /\ c)
 """)
 
 

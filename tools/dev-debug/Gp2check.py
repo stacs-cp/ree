@@ -4,18 +4,21 @@ import EFormatGraph
 import eminipyparser as ep
 
 gp2str = '''
-[ (15, "0~Integer") (14, "4~Integer") (13, "i~DecisionVariable") (12, "3~Integer") (11, "such that~SuchThatStatement") 
-  (10, "*~BinaryExpression") (9, "1~Integer") (8, "100~Integer") (7, "=~BinaryExpression") (6, "find~FindStatement") 
-  (5, "2~Integer") (4, "i~ReferenceToDecisionVariable") (3, "*~BinaryExpression") (2, "int~IntDomain") (1, "root~Node") 
-  (0, "+~BinaryExpression") |
-  (2, 13, 2, 1) (6, 11, 7, 1) (14, 10, 14, 1) 
-  (13, 10, 12, 2) (8, 7, 0, 2) (7, 7, 4, 1) 
-  (1, 6, 13, 1) (11, 3, 5, 2) (10, 3, 9, 1) 
-  (4, 2, 8, 2) (3, 2, 15, 1) (5, 1, 11, 2) 
-  (0, 1, 6, 1) (12, 0, 10, 2) (9, 0, 3, 1) ]'''
+[ (18, "NOT~UnaryExpression") (17, "NOT~UnaryExpression") (16, "c~ReferenceToDecisionVariable") (15, "b~ReferenceToDecisionVariable") (13, "OR~BinaryExpression") 
+  (12, "a~ReferenceToDecisionVariable") (11, "=~BinaryExpression") (10, "such that~SuchThatStatement") (9, "bool~BoolDomain") (8, "c~DecisionVariable") 
+  (7, "find~FindStatement") (6, "bool~BoolDomain") (5, "b~DecisionVariable") (4, "find~FindStatement") (3, "bool~BoolDomain") 
+  (2, "a~DecisionVariable") (1, "find~FindStatement") (0, "root~Node") |
+  (19, 18, 16, 1) (18, 17, 15, 1) (17, 13, 18, 2) 
+  (16, 13, 17, 1) (12, 11, 13, 2) (11, 11, 12, 1) 
+  (10, 10, 11, 1) (8, 8, 9, 1) (7, 7, 8, 1) 
+  (5, 5, 6, 1) (4, 4, 5, 1) (2, 2, 3, 1) 
+  (1, 1, 2, 1) (9, 0, 10, 4) (6, 0, 7, 3) 
+  (3, 0, 4, 2) (0, 0, 1, 1) ]'''
 
 ETG = EFormatGraph.ETGraph()
 astpy = ETG.FormToForm(gp2str,"GP2String", "ASTpy")
 print(astpy) 
 
 ep.printTree(astpy, printInfo=True)
+spec = ETG.FormToForm(astpy,"ASTpy", "Emini")
+print(spec)
