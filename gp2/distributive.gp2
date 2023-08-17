@@ -1,0 +1,38 @@
+Main = distribute
+
+distribute(operand1,operand2,operand3:string)
+[
+    (n1, "*~BinaryExpression")
+    (n2, "+~BinaryExpression")
+    (n3, operand1)
+    (n4, operand2)
+    (n5, operand3)
+    |
+    (e1, n1, n3, 1)
+    (e2, n1, n2, 2)
+    (e3, n2, n4, 1)
+    (e4, n2, n5, 2)
+]
+=>
+[
+    
+    (n1, "+~BinaryExpression")
+    (n2, "*~BinaryExpression")
+    (n3, operand1)
+    (n4, operand2)
+    (n5, operand3)
+    (n6, "*~BinaryExpression")
+    (n7, operand1)
+    |
+    (e1, n1, n2, 1)
+    (e2, n1, n6, 2)
+    (e3, n2, n3, 1)
+    (e4, n2, n4, 2)
+    (e5, n6, n7, 1)
+    (e6, n6, n5, 2)
+    
+]
+interface = 
+{
+  n1,n3, n4,n5
+}

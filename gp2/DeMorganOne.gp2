@@ -1,0 +1,31 @@
+Main = demorgFromNOTconjunction
+
+demorgFromNOTconjunction(operator1, operator2, operand1,operand2:string)
+[
+    (n1, operator1)
+    (n2, operator2)
+    (n3, operand1)
+    (n4, operand2)
+    |
+    (e1, n1, n2, 1)
+    (e2, n2, n3, 1)
+    (e3, n2, n4, 2)
+]
+=>
+[
+    (n1, "OR~BinaryExpression")
+    (n5, "!~UnaryExpression")
+    (n6, "!~UnaryExpression")
+    (n3, operand1)
+    (n4, operand2)
+    |
+    (e1, n1, n5, 1)
+    (e2, n1, n6, 2)
+    (e3, n5, n3, 1)
+    (e4, n6, n4, 1)
+]
+interface = 
+{
+  n1,n3, n4
+}
+where (operator1 = "!~UnaryExpression") and (operator2 = "AND~BinaryExpression")
