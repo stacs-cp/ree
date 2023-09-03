@@ -28,7 +28,7 @@ AST = EFormatConverters.EminiToASTpy(spec)
 eminipyparser.printTree(AST)
 with open("./conjure-output/model000001-solution000001.solution") as solution:
     print(solution.read())
-new_spec = GP2Interface.transformSpec_u("stringTest.gp2", spec)
+new_spec = GP2Interface.transformSpec_u("DeMorganTwo.gp2", spec)
 
 print(new_spec)
 specFilename = "./tests/deMorgTestOutput.essence"

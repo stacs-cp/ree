@@ -59,11 +59,12 @@ such that
 #test 5
 test_strings.append("""
 
-find a : bool
-find b : bool
-find c : bool
+find x :int(0..100)
+
 such that
-    a = !(b /\ c)
+ x <= (5+4)+(2+1)
+
+
 """)
 
 
