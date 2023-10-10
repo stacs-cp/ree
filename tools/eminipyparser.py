@@ -111,7 +111,7 @@ class EssenceParser:
             newSpec += line.split('$',1)[0] + " "
         return newSpec
     
-    def parse(self, essenceSpec):
+    def parse(self, essenceSpec, specname = "root"):
         commentlessStr = self.removeComments(essenceSpec)
         commentlessStr = commentlessStr.replace(r'/\\n', '/\\')
         self.tokens = re.findall(r'\.\.|\->|\\/|/\\|>=|<=|>|<|!=|!|==|=|\+|[^=!<>+\s\w]|[\w]+', commentlessStr.replace('\n', ' '))
@@ -130,7 +130,8 @@ class EssenceParser:
             self.statements.append(statement)
         if self.index < len(self.tokens):
             raise Exception("Something went wrong. Parsed until: " + str(self.tokens[self.index]) + " at Token Num: " + str(self.index))
-        return self.statements
+        ASTpy = Node(specname , self.statements, "root")
+        return ASTpy
 
     def consume(self):
         token = self.tokens[self.index]
@@ -499,12 +500,12 @@ def buildTreeNX(node, Tree, nodeIndex=None, parent=None):
     for i in range(len(node.children)):
         buildTreeNX(node.children[i], Tree, i+1, node)
 
-def getNXTree(title = None, statements = []):
+def getNXTree(title = None, Root = []):
     '''
-    Returns a nx tree graph from a list of statements
+    Returns a nx tree graph from ASTpy
     '''
     G = nx.DiGraph()
-    buildTreeNX(Node(title, statements), G)
+    buildTreeNX(Root, G)
     return G
 
 def printTree(node, indent="", last = True, printInfo = False):

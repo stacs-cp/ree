@@ -33,8 +33,7 @@ such that
 """
 
 parser = ep.EssenceParser()
-statements = parser.parse(test_strings)
-rootTree = ep.Node("Test-spec" , statements, "ROOT")
+rootTree = parser.parse(test_strings,"Test-spec")
 ep.printTree(rootTree, printInfo=True)
 
 json_data = json.dumps(rootTree, default=lambda o: o.__dict__)
@@ -42,7 +41,7 @@ print(json_data)
 with open('testSpec.json', 'w') as f:
     f.write(json_data)
 
-g = ep.getNXTree("Test-spec", statements)
+g = ep.getNXTree("Test-spec", rootTree.children)
 data = json_graph.node_link_data(g)
 
 with open('specToNX.json', 'w') as f:

@@ -8,9 +8,9 @@ def prettyPrintFile(filename):
     with open(filename, 'r') as file:
       data = file.read()
     parser = ep.EssenceParser()
-    statements = parser.parse(data)
-    rootTree = ep.Node(filename, statements)
-    ep.printTree(rootTree,printInfo=True)
+    statements = parser.parse(data,filename)
+    #rootTree = ep.Node(filename, statements)
+    ep.printTree(statements,printInfo=True)
     ep.getNXTree(filename,statements)
 
 directory = "./tests/"

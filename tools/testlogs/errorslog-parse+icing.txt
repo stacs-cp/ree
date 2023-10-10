@@ -202,3 +202,84 @@ Invalid statement:given Token Num: 0
 r-sum.essence
 Invalid statement:given Token Num: 0
 ----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-10-10 18:31:17.058751
+ 
+emini-example1.essence
+object of type 'Node' has no len()
+----------------------------- 
+etest3.essence
+object of type 'Node' has no len()
+----------------------------- 
+etest4.essence
+object of type 'Node' has no len()
+----------------------------- 
+deMorgTestOutput.essence
+object of type 'Node' has no len()
+----------------------------- 
+r-sum-1.essence
+object of type 'Node' has no len()
+----------------------------- 
+etmp.essence
+object of type 'Node' has no len()
+----------------------------- 
+egraph3col2.essence
+object of type 'Node' has no len()
+----------------------------- 
+treeGen.essence
+object of type 'Node' has no len()
+----------------------------- 
+egraph3col4.essence
+object of type 'Node' has no len()
+----------------------------- 
+r-sum.essence
+object of type 'Node' has no len()
+----------------------------- 
+emini-example2.essence
+object of type 'Node' has no len()
+----------------------------- 
+etest2.essence
+object of type 'Node' has no len()
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gc-simple.essence
+Invalid statement:of Token Num: 18
+----------------------------- 
+egraph3col3.essence
+object of type 'Node' has no len()
+----------------------------- 
+testExpression.essence
+object of type 'Node' has no len()
+----------------------------- 
+r-sum-2.essence
+object of type 'Node' has no len()
+----------------------------- 
+egraph3col.essence
+object of type 'Node' has no len()
+----------------------------- 
+testExpression2.essence
+object of type 'Node' has no len()
+----------------------------- 
+etest5.essence
+object of type 'Node' has no len()
+----------------------------- 
+deMorgTest.essence
+object of type 'Node' has no len()
+----------------------------- 
+r-sum-0.essence
+object of type 'Node' has no len()
+----------------------------- 
+etest.essence
+object of type 'Node' has no len()
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2023-10-10 18:38:30.189848
+ 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gc-simple.essence
+Invalid statement:of Token Num: 18
+----------------------------- 

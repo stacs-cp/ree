@@ -5,7 +5,7 @@ statementsOrder = {"NameLettingStatement": 1,
                    "DomainNameLettingStatement" :2,
                    "FindStatement" : 3,
                    "SuchThatStatement" : 4}
-
+# Order Chars <symbols< numbers
 binaryOpNormalisable = ["*","+","=", "!=", "/\\","\\/"]
 
 def normaliseASTpy(node):

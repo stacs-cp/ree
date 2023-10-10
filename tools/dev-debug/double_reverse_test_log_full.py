@@ -19,16 +19,16 @@ def doubleReverseTest(filename):
 
     # Essence to AST 
     parser1 = ep.EssenceParser()
-    statements1 = parser1.parse(originalSpec)
-    rootTree1 = ep.Node(filename, statements1)    
+    rootTree1 = parser1.parse(originalSpec,filename)
+    #rootTree1 = ep.Node(, statements1)    
 
     # AST to Synth Essence
     synthSpec2 = icing.ASTtoEssence(rootTree1)
     
     ## Synth Essence to AST
     parser3 = ep.EssenceParser()
-    statements3 = parser3.parse(synthSpec2)
-    rootTree3 = ep.Node(filename, statements3) 
+    rootTree3 = parser3.parse(synthSpec2,filename)
+    #rootTree3 = ep.Node(filename, statements3) 
 
     ## AST to synth Essence 
     synthSpec4 = icing.ASTtoEssence(rootTree3)
@@ -105,16 +105,15 @@ def testTheTestFunction():
   """
   # Essence to AST 
   parser1 = ep.EssenceParser()
-  statements1 = parser1.parse(spec1)
-  rootTree1 = ep.Node("TestSpec1", statements1)    
+  rootTree1 = parser1.parse(spec1,"TestSpec1")
 
   # AST to Synth Essence
   synthSpec2 = icing.ASTtoEssence(rootTree1)
   
   ## Synth Essence to AST
   parser3 = ep.EssenceParser()
-  statements3 = parser3.parse(spec2)
-  rootTree3 = ep.Node("TestSpec2", statements3) 
+  rootTree3 = parser3.parse(spec2,"TestSpec2")
+  # = ep.Node(, statements3) 
 
   ## AST to synth Essence 
   synthSpec4 = icing.ASTtoEssence(rootTree3)

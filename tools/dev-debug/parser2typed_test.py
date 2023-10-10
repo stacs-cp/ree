@@ -82,6 +82,5 @@ x > y
 
 for i,test_str in enumerate(test_strings):
     parser = ep.EssenceParser()
-    statements = parser.parse(test_str)
-    rootTree = ep.Node("Test-" + str(i) , statements, "ROOT")
+    rootTree = parser.parse(test_str,"Test-" + str(i))
     ep.printTree(rootTree, printInfo=True)

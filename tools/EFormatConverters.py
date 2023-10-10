@@ -17,8 +17,7 @@ def EminiToASTpy(spec, specname="root"):
     Turns an Essence-Mini specification (string) into an Abstract Syntax Tree of python objects 
     '''
     parser = ep.EssenceParser()
-    statements = parser.parse(spec)
-    ASTpy = ep.Node(specname , statements)
+    ASTpy = parser.parse(spec, specname)
     return ASTpy
 
 def ASTpyToEmini(ASTpy):

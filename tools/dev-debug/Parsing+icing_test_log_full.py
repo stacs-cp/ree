@@ -10,10 +10,10 @@ def prettyPrintFile(filename):
     with open(filename, 'r') as file:
       data = file.read()
     parser = ep.EssenceParser()
-    statements = parser.parse(data)
-    rootTree = ep.Node(filename, statements)
+    rootTree = parser.parse(data,filename)
+    # = ep.Node(filename, statements)
     ep.printTree(rootTree,printInfo=True)
-    ep.getNXTree(filename,statements)
+    ep.getNXTree(filename,rootTree)
     spec = icing.ASTtoEssence(rootTree)
     print(spec)
 
