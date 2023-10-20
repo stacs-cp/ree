@@ -54,4 +54,4 @@ def binaryExpress(inputExp):
         exp += f' {random.choice(operators)} resource{str(binaryExpress(exp))}'
     return exp
 
-print(spawnEssence())
+#print(spawnEssence())

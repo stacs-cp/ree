@@ -69,5 +69,5 @@ def allTransformsOnSpec_u(spec):
 
 
 
-file_names = scanPrograms()
-print(file_names)
+#file_names = scanPrograms()
+#print(file_names)

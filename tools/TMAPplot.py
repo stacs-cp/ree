@@ -402,6 +402,6 @@ def bigGridPlot():
     plt.show()
 
 #bigGridPlot()
-MainTMAP()
+#MainTMAP()  <--this
 #
 #timedMaps()

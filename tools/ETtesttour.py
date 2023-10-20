@@ -31,4 +31,4 @@ def createFormatsGraph():
 
     return formsGraph
 
-plotFormatsGraph()
+#plotFormatsGraph()

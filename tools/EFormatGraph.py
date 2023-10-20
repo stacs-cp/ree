@@ -20,10 +20,18 @@ class ETGraph:
                 self.formsGraph.add_edge(fromTo[0],fromTo[1], func = val)
 
     def FormToForm(self, AST, fromForm, toForm):
-        '''
-        Convert an Emini spec from one form to another by specifing the end points.
+        """Convert an Emini spec from one form to another by specifing the end points.
         Intermediate forms are chosen via shortest path in number of steps.
-        '''
+
+        Args:
+            AST (Any): Essence Specification, in any of the formats used in EFormatConverters.
+            fromForm (Any): Starting format.
+            toForm (Any): Desired end format.
+
+        Returns:
+            Any: Returns the Essence specification in the desired format.
+        """        
+
         ETpath = nx.shortest_path(self.formsGraph, source=fromForm, target=toForm)
         for formIndex in range(0,len(ETpath)-1):            
             AST = self.formsGraph[ETpath[formIndex]][ETpath[formIndex+1]]["func"](AST)
@@ -31,11 +39,20 @@ class ETGraph:
         return AST
     
     def timedFormToForm(self, AST, fromForm, toForm):
-        '''
-        Convert an Emini spec from one form to another by specifing the end points.
+
+        """Convert an Emini spec from one form to another by specifing the end points.
         Intermediate forms are chosen via shortest path in number of steps.
         returns an extra graph with the timings as edge attributes.
-        '''
+
+        Args:
+            AST (Any): Essence Specification, in any of the formats used in EFormatConverters.
+            fromForm (Any): Starting format.
+            toForm (Any): Desired end format.
+
+        Returns:
+            Any: Returns the Essence specification in the desired format.
+            DiGraph: an extra graph with the timings as edge attributes.
+        """     
         timeGraph = nx.DiGraph()
         ETpath = nx.shortest_path(self.formsGraph, source=fromForm, target=toForm)
         for formIndex in range(0,len(ETpath)-1):   
@@ -48,9 +65,15 @@ class ETGraph:
         return AST,timeGraph
 
     def eulerTour(self, AST, origin):
-        '''
-        performs all the evailable conversions and returns to the original form if the graph is eulerian
-        '''
+        """performs all the evailable conversions and returns to the original form if the graph is eulerian
+
+         Args:
+            AST (Any): Essence Specification, in any of the formats used in EFormatConverters.
+            origin (Any): Starting format.
+
+        Returns:
+            Any: Returns the initial spec in the initial format
+        """        
         eulerCircuit = nx.eulerian_circuit(self.formsGraph, origin)
         for transformulation in eulerCircuit:
             AST = transformulation(AST)
@@ -158,19 +181,29 @@ class ETGraph:
         return AST, timeGraph
     
     def heuristicChinesePostman(self, AST, origin):
-        '''
-        Poor man heuristic to solve the chinese postman problem.
+
+        """Poor man heuristic to solve the chinese postman problem.
         We need a closed cycle that passes over each edge at least once. It is ok if more than once.
         Likely suboptical. ok for very small graphs.
 
         create stack of edges in the graph
         start from origin. 
         while there are elements in the stack
-            pick an edge in the stack
-            compute shortest path to target of edge
-            traverse the path transforming the AST with each step and remove all edges encoundered on the way from the stack
+        -pick an edge in the stack
+        -compute shortest path to target of edge
+        -traverse the path transforming the AST with each step and remove all edges encoundered on the way from the stack
         when stack is empty return to origin
-        '''
+
+        Args:
+            AST (Any): Essence Specification, in any of the formats used in EFormatConverters.
+            origin (Any): Starting format.
+
+        Raises:
+            ValueError: if some nodes are not reachable
+
+        Returns:
+             Any: Returns the initial spec in the initial format
+        """        
         if not nx.is_strongly_connected(self.formsGraph):
             raise ValueError("Unreachable nodes in the graph")
         
