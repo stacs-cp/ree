@@ -72,3 +72,4 @@ for i,test_str in enumerate(test_strings):
     parser = ep.EssenceParser()
     ASTpy = parser.parse(test_str,"Test-" + str(i))
     ep.printTree(ASTpy, printInfo=True)
+    print(ep.getNXTree("Test-" + str(i),ASTpy))

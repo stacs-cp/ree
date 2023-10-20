@@ -12,7 +12,7 @@ The name of the functions should follow the pattern Format1ToFormat2. The word "
 grabs all functions in this script. At this point in time having the substring "To" in one of the names will cause issues.
 """
 
-def EminiToASTpy(spec, specname="root"):
+def EminiToASTpy(spec, specname="unnamed"):
     '''
     Turns an Essence-Mini specification (string) into an Abstract Syntax Tree of python objects 
     '''

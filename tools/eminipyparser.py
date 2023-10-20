@@ -93,6 +93,8 @@ class MemberExpression(Node):
 
 # reserved words find, such, given, forAll, exists, 
 class EssenceParser:
+    """ Essence Parser class
+    """    
     def __init__(self):
         self.tokens = []
         self.index = 0
@@ -111,7 +113,18 @@ class EssenceParser:
             newSpec += line.split('$',1)[0] + " "
         return newSpec
     
-    def parse(self, essenceSpec, specname = "root"):
+    def parse(self, essenceSpec: str, specname: str = "unnamed") -> Node:
+        """
+        Parse an Essence specification and returns an Abstract Syntax Tree as nested Node Objects (ASTpy)        
+
+        Args:
+            essenceSpec (str): An Essence specification in string format
+            specname (str, optional): Name of the spec. Defaults to "unnamed".
+
+        Returns:
+            Node: A Node object that is the root of the Abstract Syntax Tree
+        """        
+        
         commentlessStr = self.removeComments(essenceSpec)
         commentlessStr = commentlessStr.replace(r'/\\n', '/\\')
         self.tokens = re.findall(r'\.\.|\->|\\/|/\\|>=|<=|>|<|!=|!|==|=|\+|[^=!<>+\s\w]|[\w]+', commentlessStr.replace('\n', ' '))
@@ -493,25 +506,38 @@ class EssenceParser:
         return QuantificationExpression(quantifier,variables, preposition,domain)
  
 
-def buildTreeNX(node, Tree, nodeIndex=None, parent=None):                
+def _buildTreeNX(node, Tree, nodeIndex=None, parent=None):                
     Tree.add_node(id(node), value = node.label, index = nodeIndex) 
     if parent != None: 
         Tree.add_edge(id(parent), id(node))
     for i in range(len(node.children)):
-        buildTreeNX(node.children[i], Tree, i+1, node)
+        _buildTreeNX(node.children[i], Tree, i+1, node)
 
 def getNXTree(title = None, Root = []):
-    '''
-    Returns a nx tree graph from ASTpy
-    '''
+    """Returns a NetworkX tree graph from an ASTpy Node
+
+    Args:
+        title (str, optional): Name of the spec. Defaults to None.
+        Root (list, optional): Root of the ASTpy. Defaults to [].
+
+    Returns:
+        nx.DiGraph: Abstract Syntax Tree of an Essence spec as a NetworkX DiGraph 
+    """    
+
     G = nx.DiGraph()
-    buildTreeNX(Root, G)
+    _buildTreeNX(Root, G)
     return G
 
 def printTree(node, indent="", last = True, printInfo = False):
-    '''
-    Draw the provided tree as console text recursively from a starting node
-    '''
+    """Recursively draw the provided tree as console text from a starting node
+
+    Args:
+        node (Node): Input Node object
+        indent (str, optional): Current indentation. Defaults to "".
+        last (bool, optional): Flag if current node is last child of branch. Defaults to True.
+        printInfo (bool, optional): Print addictional syntactic information. Defaults to False.
+    """    
+
     info = ""
     if printInfo:
         info = "  #"+ node.info    
@@ -528,19 +554,28 @@ def printTree(node, indent="", last = True, printInfo = False):
     for i in range(len(node.children)):
         printTree(node.children[i], indent, i==len(node.children)-1,printInfo=printInfo)
 
-def treeEquality(subTree1, subTree2): 
-  '''
-  Tests if 2 trees are identical all the way down.
-  '''               
-  if subTree1.label != subTree2.label:
-      return False
+def treeEquality(subTree1:Node, subTree2:Node) -> bool: 
   
-  if len(subTree1.children) != len(subTree2.children):
-      return False
-  elif len(subTree1.children) > 0 and len(subTree2.children) > 0:
-    isEqual = True
-    for i in range(len(subTree1.children)):
-      isEqual = isEqual and treeEquality(subTree1.children[i],subTree1.children[i])
-    return isEqual
-  elif len(subTree1.children) == 0 and len(subTree2.children) == 0:
-      return True
+    """
+    Tests if 2 trees are identical all the way down.
+
+    Args:
+        subTree1 (Node): First subtree 
+        subTree2 (Node): Second subtree 
+    Returns:
+        bool: returns true if the trees are identical
+    """  
+    
+                
+    if subTree1.label != subTree2.label:
+        return False
+    
+    if len(subTree1.children) != len(subTree2.children):
+        return False
+    elif len(subTree1.children) > 0 and len(subTree2.children) > 0:
+        isEqual = True
+        for i in range(len(subTree1.children)):
+            isEqual = isEqual and treeEquality(subTree1.children[i],subTree1.children[i])
+        return isEqual
+    elif len(subTree1.children) == 0 and len(subTree2.children) == 0:
+        return True
