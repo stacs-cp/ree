@@ -109,8 +109,15 @@
 <dt class="sig sig-object py" id="EFormatGraph.ETGraph">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">EFormatGraph.</span></span><span class="sig-name descname"><span class="pre">ETGraph</span></span><a class="headerlink" href="#EFormatGraph.ETGraph" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Container for the networkx Emini Format Conversion Graph. Each vertex is a form, each edge a function that takes an Emini specification from one form to another.
-Each edge contains a callable function in its “func” attribute automatically extracted from the ET python script</p>
+<p>Container for the networkx Emini Format Conversion Graph. Each vertex is a format, each edge a function that takes an Emini specification from one format to another.
+Each edge contains a callable function in its “func” attribute automatically extracted from the EFormatConverters python script
+Available Formats:
+* Emini: Esssence String
+* ASTpy: Abstract Syntax Tree of python objects
+* JSON
+* GP2String: Raw GP2 string
+* GP2Graph: Intermediate representation for GP2 translations
+* NX: NetworkX Graph</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="EFormatGraph.ETGraph.FormToForm">
 <span class="sig-name descname"><span class="pre">FormToForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">AST</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fromForm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">toForm</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EFormatGraph.ETGraph.FormToForm" title="Link to this definition">¶</a></dt>
@@ -267,13 +274,37 @@ Recursive expression generation (more probability of recursion-&gt; more depth)<
 <section id="module-eminipyparser">
 <span id="eminipyparser-module"></span><h2>eminipyparser module<a class="headerlink" href="#module-eminipyparser" title="Link to this heading">¶</a></h2>
 <dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.BinaryExpression">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">BinaryExpression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.BinaryExpression" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.BoolConstant">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">BoolConstant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.BoolConstant" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.BoolDomain">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">BoolDomain</span></span><a class="headerlink" href="#eminipyparser.BoolDomain" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.DomainNameLettingStatement">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">DomainNameLettingStatement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.DomainNameLettingStatement" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="eminipyparser.EssenceParser">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">EssenceParser</span></span><a class="headerlink" href="#eminipyparser.EssenceParser" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Essence Parser class</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="eminipyparser.EssenceParser.parse">
-<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">essenceSpec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'unnamed'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Node</span></span></span><a class="headerlink" href="#eminipyparser.EssenceParser.parse" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">essenceSpec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'unnamed'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><span class="pre">Node</span></a></span></span><a class="headerlink" href="#eminipyparser.EssenceParser.parse" title="Link to this definition">¶</a></dt>
 <dd><p>Parse an Essence specification and returns an Abstract Syntax Tree as nested Node Objects (ASTpy)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -286,11 +317,117 @@ Recursive expression generation (more probability of recursion-&gt; more depth)<
 <dd class="field-even"><p>A Node object that is the root of the Abstract Syntax Tree</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Node</p>
+<dd class="field-odd"><p><a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node">Node</a></p>
 </dd>
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.Expression">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">Expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">children</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.Expression" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.FindStatement">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">FindStatement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.FindStatement" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.GivenStatement">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">GivenStatement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.GivenStatement" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.IntConstant">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">IntConstant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.IntConstant" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.IntDomain">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">IntDomain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lower</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.IntDomain" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.MemberExpression">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">MemberExpression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elements</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.MemberExpression" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.NameLettingStatement">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">NameLettingStatement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.NameLettingStatement" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.Node">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">children</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.Node" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base class for the Nodes of an ASTpy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>label</strong> (<em>str</em>) – The content of the node</p></li>
+<li><p><strong>children</strong> (<em>list</em>) – children of the node</p></li>
+<li><p><strong>info</strong> (<em>str</em><em>, </em><em>optional</em>) – Syntactic information</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.QuantificationExpression">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">QuantificationExpression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quantifier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preposition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.QuantificationExpression" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.RelationConstant">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">RelationConstant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.RelationConstant" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.RelationDomain">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">RelationDomain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domains</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.RelationDomain" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.SuchThatStatement">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">SuchThatStatement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constraints</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.SuchThatStatement" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.TupleConstant">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">TupleConstant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.TupleConstant" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.TupleDomain">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">TupleDomain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domains</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.TupleDomain" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.UnaryExpression">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">UnaryExpression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">child</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.UnaryExpression" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="eminipyparser.WhereStatement">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">WhereStatement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constraints</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#eminipyparser.WhereStatement" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
 </dd></dl>
 
 <dl class="py function">
@@ -320,7 +457,7 @@ Recursive expression generation (more probability of recursion-&gt; more depth)<
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<em>Node</em>) – Input Node object</p></li>
+<li><p><strong>node</strong> (<a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><em>Node</em></a>) – Input Node object</p></li>
 <li><p><strong>indent</strong> (<em>str</em><em>, </em><em>optional</em>) – Current indentation. Defaults to “”.</p></li>
 <li><p><strong>last</strong> (<em>bool</em><em>, </em><em>optional</em>) – Flag if current node is last child of branch. Defaults to True.</p></li>
 <li><p><strong>printInfo</strong> (<em>bool</em><em>, </em><em>optional</em>) – Print addictional syntactic information. Defaults to False.</p></li>
@@ -331,13 +468,13 @@ Recursive expression generation (more probability of recursion-&gt; more depth)<
 
 <dl class="py function">
 <dt class="sig sig-object py" id="eminipyparser.treeEquality">
-<span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">treeEquality</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subTree1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subTree2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Node</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#eminipyparser.treeEquality" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">eminipyparser.</span></span><span class="sig-name descname"><span class="pre">treeEquality</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subTree1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><span class="pre">Node</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">subTree2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><span class="pre">Node</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#eminipyparser.treeEquality" title="Link to this definition">¶</a></dt>
 <dd><p>Tests if 2 trees are identical all the way down.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>subTree1</strong> (<em>Node</em>) – First subtree</p></li>
-<li><p><strong>subTree2</strong> (<em>Node</em>) – Second subtree</p></li>
+<li><p><strong>subTree1</strong> (<a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><em>Node</em></a>) – First subtree</p></li>
+<li><p><strong>subTree2</strong> (<a class="reference internal" href="#eminipyparser.Node" title="eminipyparser.Node"><em>Node</em></a>) – Second subtree</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -409,7 +546,7 @@ Recursive expression generation (more probability of recursion-&gt; more depth)<
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2023, András Salamon and Christopher Stone.
+      &copy;.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
