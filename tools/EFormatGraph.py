@@ -8,8 +8,15 @@ import random
 
 class ETGraph:
     '''
-    Container for the networkx Emini Format Conversion Graph. Each vertex is a form, each edge a function that takes an Emini specification from one form to another. 
-    Each edge contains a callable function in its "func" attribute automatically extracted from the ET python script
+    Container for the networkx Emini Format Conversion Graph. Each vertex is a format, each edge a function that takes an Emini specification from one format to another. 
+    Each edge contains a callable function in its "func" attribute automatically extracted from the EFormatConverters python script
+    Available Formats:
+    * Emini: Esssence String
+    * ASTpy: Abstract Syntax Tree of python objects
+    * JSON
+    * GP2String: Raw GP2 string
+    * GP2Graph: Intermediate representation for GP2 translations
+    * NX: NetworkX Graph    
     '''
     def __init__(self):
         self.formsGraph = nx.DiGraph()

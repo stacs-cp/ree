@@ -3,6 +3,13 @@ import networkx as nx
 import copy
 
 class Node:
+    """ Base class for the Nodes of an ASTpy.
+
+        Args:
+            label (str): The content of the node
+            children (list): children of the node
+            info(str, optional): Syntactic information
+    """
     def __init__(self, label, children=[],info = ""):
         self.label = label
         self.children = children

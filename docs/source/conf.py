@@ -11,11 +11,11 @@ import os
 import sys
 #sys.path.insert(0, os.path.abspath('../..'))
 sys.path.append('../../ree/tools/')
-#import eminipyparser 
+
 
 project = 'REE: Rewriting Essence Expressions'
-copyright = '2023, András Salamon and Christopher Stone'
-author = 'András Salamon and Christopher Stone'
+copyright = ''
+author = ''
 release = '0.01'
 
 # -- General configuration ---------------------------------------------------
