@@ -36,6 +36,9 @@
 </section>
 <section id="module-EFormatConverters">
 <span id="eformatconverters-module"></span><h2>EFormatConverters module<a class="headerlink" href="#module-EFormatConverters" title="Link to this heading">¶</a></h2>
+<p>This module contains a set of conversions between formats for the Abstract Syntax Tree of an Emini specification
+The name of the functions should follow the pattern Format1ToFormat2. The word “To” is used as a splitter by other functions, currently EFormatGraph, that automatically
+grabs all functions in this script. At this point in time having the substring “To” in one of the names will cause issues.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="EFormatConverters.ASTpyToEmini">
 <span class="sig-prename descclassname"><span class="pre">EFormatConverters.</span></span><span class="sig-name descname"><span class="pre">ASTpyToEmini</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ASTpy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EFormatConverters.ASTpyToEmini" title="Link to this definition">¶</a></dt>

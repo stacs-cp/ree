@@ -1,3 +1,9 @@
+"""
+This module contains a set of conversions between formats for the Abstract Syntax Tree of an Emini specification
+The name of the functions should follow the pattern Format1ToFormat2. The word "To" is used as a splitter by other functions, currently EFormatGraph, that automatically
+grabs all functions in this script. At this point in time having the substring "To" in one of the names will cause issues.
+"""
+
 import eminipyparser as ep
 import networkx as nx
 import GP2Graph
@@ -5,12 +11,6 @@ import icing
 import json
 import re
 import random
-
-"""
-This script is a set of conversions between formats for the Abstract Syntax Tree of an Emini specification
-The name of the functions should follow the pattern Format1ToFormat2. The word "To" is used as a splitter by other functions that automatically
-grabs all functions in this script. At this point in time having the substring "To" in one of the names will cause issues.
-"""
 
 def EminiToASTpy(spec, specname="unnamed"):
     '''
