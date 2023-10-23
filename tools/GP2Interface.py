@@ -1,10 +1,12 @@
 import os
 import sys
+import shutil
 sys.path.append('../ree/tools')
 import subprocess
 import EFormatGraph
 
 folder_path = "gp2"
+lib_dir = os.path.join(folder_path, "lib")
 
 def scanPrograms():
     '''
@@ -25,7 +27,7 @@ def scanPrograms():
 
 def transformSpec_u(gp2prog_file_name, spec):
     ''' 
-    Transform a spec using an uncompiled gp2 program.
+    (deprecated)Transform a spec using an uncompiled gp2 program.
     '''
     formatsGraph = EFormatGraph.ETGraph()
 
@@ -49,6 +51,36 @@ def transformSpec_u(gp2prog_file_name, spec):
     transformedSpec = formatsGraph.FormToForm(transformedGP2Spec,"GP2String","Emini")
     return transformedSpec
 
+def compileGP2Program(gp2prog_file_name):
+    """Compile a GP2 program.
+
+    It creates a directory with the same name as the program file, then creates a gp2run executable and copies inside it all the .h and .c files from gp2/lib
+    
+
+    Args:
+        gp2prog_file_name (str): .gp2 file name
+    """    
+    programDir = os.path.join(folder_path, gp2prog_file_name[:-4])
+    if not os.path.exists(programDir):
+        os.mkdir(programDir)
+    gp2prog =  os.path.join(folder_path, gp2prog_file_name)    
+    gp2CompilerCall = ["gp2","-o", programDir,gp2prog]
+    subprocess.run(gp2CompilerCall, check=True)
+
+    gp2libFiles= os.listdir(lib_dir)
+    for file in gp2libFiles:
+        shutil.copy2(os.path.join(lib_dir,file), programDir)
+
+    makeCall = ["make", "-C", programDir]
+    subprocess.run(makeCall, check=True)
+
+def runPrecompiledProg(gp2prog_file_name, host):
+    programDir = os.path.join(folder_path, gp2prog_file_name[:-4])
+
+    gp2call = [os.path.join(programDir,"gp2run"), host]
+    subprocess.run(gp2call, check=True)
+
+
 def compileGP2folder():
     #TODO
     ### all programs should be compiled and then used via gp2run instead of gp2c 
@@ -57,7 +89,7 @@ def compileGP2folder():
 
 def allTransformsOnSpec_u(spec):
     '''
-    Compile and apply all available graph rules to the input spec
+    (deprecated)Compile and apply all available graph rules to the input spec
     '''
     transforms = scanPrograms()
     specs = []
