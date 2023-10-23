@@ -25,6 +25,42 @@ def scanPrograms():
     return gp2_files
 
 
+def compileGP2Program(gp2prog_file_name):
+    """Compile a GP2 program.
+
+    It creates a directory with the same name as the program file, then creates a gp2run executable and copies inside it all the .h and .c files from gp2/lib
+    
+
+    Args:
+        gp2prog_file_name (str): .gp2 file name
+    """    
+    programDir = os.path.join(folder_path, gp2prog_file_name[:-4])
+    if not os.path.exists(programDir):
+        os.mkdir(programDir)
+    gp2prog =  os.path.join(folder_path, gp2prog_file_name)    
+    gp2CompilerCall = ["gp2","-o", programDir,gp2prog]
+    subprocess.run(gp2CompilerCall, check=True)
+
+    gp2libFiles= os.listdir(lib_dir)
+    for file in gp2libFiles:
+        shutil.copy2(os.path.join(lib_dir,file), programDir)
+
+    makeCall = ["make", "-C", programDir]
+    subprocess.run(makeCall, check=True)
+
+def runPrecompiledProg(gp2prog_file_name, host):
+    """Run graph program on host graph
+
+    Args:
+        gp2prog_file_name (str): .gp2 file name
+        host (str): .host graph file name
+    """    
+    programDir = os.path.join(folder_path, gp2prog_file_name[:-4])
+
+    gp2call = [os.path.join(programDir,"gp2run"), host]
+    subprocess.run(gp2call, check=True)
+
+
 def transformSpec_u(gp2prog_file_name, spec):
     ''' 
     (deprecated)Transform a spec using an uncompiled gp2 program.
@@ -50,36 +86,6 @@ def transformSpec_u(gp2prog_file_name, spec):
     os.remove("temporarySpecGraph.host")
     transformedSpec = formatsGraph.FormToForm(transformedGP2Spec,"GP2String","Emini")
     return transformedSpec
-
-def compileGP2Program(gp2prog_file_name):
-    """Compile a GP2 program.
-
-    It creates a directory with the same name as the program file, then creates a gp2run executable and copies inside it all the .h and .c files from gp2/lib
-    
-
-    Args:
-        gp2prog_file_name (str): .gp2 file name
-    """    
-    programDir = os.path.join(folder_path, gp2prog_file_name[:-4])
-    if not os.path.exists(programDir):
-        os.mkdir(programDir)
-    gp2prog =  os.path.join(folder_path, gp2prog_file_name)    
-    gp2CompilerCall = ["gp2","-o", programDir,gp2prog]
-    subprocess.run(gp2CompilerCall, check=True)
-
-    gp2libFiles= os.listdir(lib_dir)
-    for file in gp2libFiles:
-        shutil.copy2(os.path.join(lib_dir,file), programDir)
-
-    makeCall = ["make", "-C", programDir]
-    subprocess.run(makeCall, check=True)
-
-def runPrecompiledProg(gp2prog_file_name, host):
-    programDir = os.path.join(folder_path, gp2prog_file_name[:-4])
-
-    gp2call = [os.path.join(programDir,"gp2run"), host]
-    subprocess.run(gp2call, check=True)
-
 
 def compileGP2folder():
     #TODO
