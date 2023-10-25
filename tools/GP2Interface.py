@@ -1,3 +1,7 @@
+'''
+Helper functions used to interact with GP2
+'''
+
 import os
 import sys
 import shutil
@@ -88,6 +92,10 @@ def transformSpec_u(gp2prog_file_name, spec):
     return transformedSpec
 
 def compileGP2folder():
+    '''
+    Compiles all the graph programs in the gp2 folder.
+    NB: this currently creates a lot of redundant files.
+    '''
     #TODO
     ### all programs should be compiled and then used via gp2run instead of gp2c 
     #    

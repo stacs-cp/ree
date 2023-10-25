@@ -242,6 +242,7 @@ DiGraph: an extra graph with the timings as edge attributes.</p>
 </section>
 <section id="module-GP2Interface">
 <span id="gp2interface-module"></span><h2>GP2Interface module<a class="headerlink" href="#module-GP2Interface" title="Link to this heading">¶</a></h2>
+<p>Helper functions used to interact with GP2</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="GP2Interface.allTransformsOnSpec_u">
 <span class="sig-prename descclassname"><span class="pre">GP2Interface.</span></span><span class="sig-name descname"><span class="pre">allTransformsOnSpec_u</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GP2Interface.allTransformsOnSpec_u" title="Link to this definition">¶</a></dt>
@@ -252,12 +253,19 @@ DiGraph: an extra graph with the timings as edge attributes.</p>
 <dt class="sig sig-object py" id="GP2Interface.compileGP2Program">
 <span class="sig-prename descclassname"><span class="pre">GP2Interface.</span></span><span class="sig-name descname"><span class="pre">compileGP2Program</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gp2prog_file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GP2Interface.compileGP2Program" title="Link to this definition">¶</a></dt>
 <dd><p>Compile a GP2 program.</p>
-<p>It creates a directory with the same name as the program file, then creates a gp2run executable and copies inside it all the .h and .c files from gp2/lib</p>
+<p>It creates a directory with the same name as the program file, then creates a gp2run executable and copies inside the folder all the .h and .c files from gp2/lib</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>gp2prog_file_name</strong> (<em>str</em>) – .gp2 file name</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="GP2Interface.compileGP2folder">
+<span class="sig-prename descclassname"><span class="pre">GP2Interface.</span></span><span class="sig-name descname"><span class="pre">compileGP2folder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GP2Interface.compileGP2folder" title="Link to this definition">¶</a></dt>
+<dd><p>Compiles all the graph programs in the gp2 folder.
+NB: this currently creates a lot of redundant files.</p>
 </dd></dl>
 
 <dl class="py function">
