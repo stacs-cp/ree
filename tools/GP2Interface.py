@@ -28,7 +28,7 @@ def scanPrograms():
 def compileGP2Program(gp2prog_file_name):
     """Compile a GP2 program.
 
-    It creates a directory with the same name as the program file, then creates a gp2run executable and copies inside it all the .h and .c files from gp2/lib
+    It creates a directory with the same name as the program file, then creates a gp2run executable and copies inside the folder all the .h and .c files from gp2/lib
     
 
     Args:
