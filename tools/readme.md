@@ -1,7 +1,11 @@
+# Rewriting Essence expressions
 
-# Emini python parser
+This Python module includes a parser for the Emini subset of the Essence constraint programming language, as well as supporting infrastructure to translate the AST to and from other formats such as GP2, networkx, and the JSON format of Conjure.
 
-## Currently parsing
+
+## Emini python parser
+
+### Currently parsing
 
 * Statements: Given, where, letting constant, letting domains, find, such that.
 * Domains: bool,int, tuples, relation
@@ -9,7 +13,7 @@
 * Quantifiers: forAll, exists
 * Concatenation
 
-Returns:
+### Returns:
 
 * AST as Networkx attributed tree
 * Tree of Nodes
@@ -17,7 +21,7 @@ Returns:
 * AST -> Essence via icing functions
 * GP2 Graph
 
-Known missing features:
+## Known missing features:
 
 * no type checking
 * in some places variables can be accepted even if not declared
@@ -31,7 +35,8 @@ Known missing features:
 * Montecarlo tree exploration
 
 
-Further desiderata
+## Further desiderata
 
 * exponentials
 * Improve error messages
+
