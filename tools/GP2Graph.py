@@ -18,7 +18,7 @@ def ToGP2Helper(label):
     '''
     if label == '/\\':
         return "AND"
-    if label == '\/':
+    if label == '\\/':
         return "OR"
     if label == '!':
         return "NOT"
@@ -31,7 +31,7 @@ def ToEssenceHelper(label):
     if label == "AND":
         return "/\\"
     if label == "OR":
-        return "\/"
+        return "\\/"
     if label == "NOT":
         return "!"
     return label
