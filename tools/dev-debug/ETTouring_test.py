@@ -8,6 +8,21 @@ from datetime import datetime
 import copy
 
 teststr0 = r'''
+find b : bool such that b = exists i : int(0..4) . i*i=i
+'''
+teststr2 = r'''
+letting a be domain int(0..10)
+find b : int(0..100)
+find c : int(0..100)
+letting G be relation((1,2),(1,3),(2,3))
+
+such that
+ b = sum i : a .1
+such that
+ c = forAll v in G . v[1] *2
+'''
+
+teststr1 = r'''
 given a : int(0..5)
 where a >2
 letting n be 12

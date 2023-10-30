@@ -64,10 +64,22 @@ find x :int(0..100)
 such that
  x <= (5+4)+(2+1)
 such that
-  forAll (u,c) in G .
+  forAll (u,c) in G . 3
 such that
 5=5
+find b : bool such that b = exists i : int(0..4) . i*i=i
+""")
+#test 6
+test_strings.append("""
+letting a be domain int(0..10)
+find b : int(0..100)
+find c : int(0..100)
+letting G be relation((1,2),(1,3),(2,3))
 
+such that
+ b = sum i : a .1
+such that
+ c = forAll v in G . v[1] *2
 """)
 
 

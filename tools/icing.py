@@ -115,7 +115,10 @@ def iceQuantifier(node):
     quantifier = node.label + " "
     quantifier += iceLocalVariables(node.children[:-1]) + " "
     quantifier += node.children[-1].label + " " # preposition
-    quantifier += node.children[-1].children[0].label # set or expression TODO fix
+    if node.children[-1].label == ":":
+        quantifier += iceDomain(node.children[-1].children[0])
+    else:
+        quantifier += node.children[-1].children[0].label # set or expression TODO fix
     return quantifier
 
 def iceLocalVariables(variables):
@@ -152,6 +155,8 @@ def expressionInOrderTraversal(node, stack, parent):
         stack.append(iceMemberExpression(node))   
     elif node.label == "tuple":
         stack.append(iceConstants(node))
+    elif node.info == "QuantificationExpression":
+        stack.append(iceQuantifier(node))
     else:
         stack.append(node.label)
 

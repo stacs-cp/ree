@@ -136,7 +136,7 @@ class EssenceParser:
         commentlessStr = commentlessStr.replace(r'/\\n', '/\\')
         self.tokens = re.findall(r'\.\.|\->|\\/|/\\|>=|<=|>|<|!=|!|==|=|\+|[^=!<>+\s\w]|[\w]+', commentlessStr.replace('\n', ' '))
 
-        #print(' '.join(self.tokens))
+        print(' '.join(self.tokens))
         while self.index < len(self.tokens):
             statement = self.parse_statement()
             if statement.info == "GivenStatement":
@@ -369,7 +369,7 @@ class EssenceParser:
     
     def parse_expression(self):
         ## Quantification
-        if self.match_any(["forAll", "exists"]):
+        if self.match_any(["forAll", "exists","sum"]):
              return self.parse_quantification()
 
         ## TODO separate quantifier and arithmetic expressions 
@@ -424,6 +424,8 @@ class EssenceParser:
                         and precedence(operator_stack[-1].label) >= precedence(current_operator.label)):
                     output_queue.append(operator_stack.pop())
                 operator_stack.append(current_operator)
+            elif self.match_any(["forAll", "exists","sum"]):
+                output_queue.append(self.parse_quantification())
             else:
                 output_queue.append(self.parse_literal())  # Literal or Name
             
@@ -490,7 +492,7 @@ class EssenceParser:
         return RelationConstant(values)
 
     def parse_quantification(self):
-        quantifier = self.consume()  # "forAll" or "exists"
+        quantifier = self.consume()  # "forAll" or "exists" or "sum"
         variables = []
 
         while not self.match_any([":", "in"]):
