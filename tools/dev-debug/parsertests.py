@@ -58,12 +58,15 @@ such that
 """)
 #test 5
 test_strings.append("""
-
+letting G be relation((1,2),(1,3),(2,3))
 find x :int(0..100)
 
 such that
  x <= (5+4)+(2+1)
-
+such that
+  forAll (u,c) in G .
+such that
+5=5
 
 """)
 

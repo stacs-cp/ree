@@ -447,7 +447,10 @@ class EssenceParser:
             else:
                 stack.append(Node(token))
                 print("something not right at " + token + " Token Num: " + str(self.index))
-        return stack[0]    
+        if len(stack) >0:
+            return stack[0]    
+        else:
+            raise Exception("Missing Expression at: " + str(self.index))
 
     def checkUnaryOperator(self,output_queue):
         if self.match("-"):
@@ -510,7 +513,10 @@ class EssenceParser:
            domain = self.parse_domain()
         else:
            domain = self.parse_literal() ## NEEDS REVISION
-        return QuantificationExpression(quantifier,variables, preposition,domain)
+        if self.match("."):
+            return QuantificationExpression(quantifier,variables, preposition,domain)
+        else:
+            raise SyntaxError("Expected . but got: " + str(self.tokens[self.index]))
  
 
 def _buildTreeNX(node, Tree, nodeIndex=None, parent=None):                
