@@ -7,10 +7,10 @@ import icing
 from datetime import datetime
 import copy
 
-teststr0 = r'''
+teststr1 = r'''
 find b : bool such that b = exists i : int(0..4) . i*i=i
 '''
-teststr2 = r'''
+teststr0 = r'''
 letting a be domain int(0..10)
 find b : int(0..100)
 find c : int(0..100)

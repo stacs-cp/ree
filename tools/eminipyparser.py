@@ -136,7 +136,7 @@ class EssenceParser:
         commentlessStr = commentlessStr.replace(r'/\\n', '/\\')
         self.tokens = re.findall(r'\.\.|\->|\\/|/\\|>=|<=|>|<|!=|!|==|=|\+|[^=!<>+\s\w]|[\w]+', commentlessStr.replace('\n', ' '))
 
-        print(' '.join(self.tokens))
+        #print(' '.join(self.tokens))
         while self.index < len(self.tokens):
             statement = self.parse_statement()
             if statement.info == "GivenStatement":
@@ -368,12 +368,8 @@ class EssenceParser:
         )    
     
     def parse_expression(self):
-        ## Quantification
-        if self.match_any(["forAll", "exists","sum"]):
-             return self.parse_quantification()
 
-        ## TODO separate quantifier and arithmetic expressions 
-        ## Expression with Parentheses
+        ## operators precedence
         def precedence(op):
             if op == "->":
                 return -4
