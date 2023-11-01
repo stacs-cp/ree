@@ -110,7 +110,7 @@ class EssenceParser:
         self.named_constants = {}
         self.decision_variables = {}
         self.binary_operators = ["<",">", "<=", ">=", "+", "-", "*", "/", "%", "=","!=", "->", "/\\", "xor","\\/" , "and" , "in"]
-        self.unary_operators = ["u-","!"]
+        self.unary_operators = ["u-","!","utoInt"]
         self.statements = []
 
     def removeComments(self, spec):
@@ -303,13 +303,15 @@ class EssenceParser:
             raise SyntaxError("Domain Parsing Error. Token: " + str(self.tokens[self.index]))    
 
     def parse_constant(self):
-        # tuple - relation - int 
+        # tuple - relation - int - bool
         if self.match("(") and self.tokens[self.index + 2] == ",":
             return self.parse_tuple_constant()        
         elif self.match("relation"):
             return self.parse_relation_constant()
         elif self.tokens[self.index].isdigit():
             return Node(self.consume(),info = "Integer") ## should it be parse_expression?
+        elif self.match_any(['true','false']):
+            return Node(self.consume(), info="Boolean")
         elif self.index + 2 < len(self.tokens):
             if self.match("(") and self.tokens[self.index + 2] == ")":
                 return self.parse_tuple_constant()
@@ -387,7 +389,7 @@ class EssenceParser:
                 return 1
             if op in ["*", "/","%"]:
                 return 3
-            if op in ["u-", "u!"]:   ## UNARY OPERATORS
+            if op in ["u-", "u!","utoInt"]:   ## UNARY OPERATORS
                 return 8
             if op == "(":
                 return 9
@@ -435,7 +437,7 @@ class EssenceParser:
         for token in postfix_expression:            
             if token.info == "UnaryOperator":
                 right = stack.pop()              
-                stack.append(UnaryExpression(token.label[-1], right))
+                stack.append(UnaryExpression(token.label[1:], right))
             elif token.info == "BinaryOperator":
                 right = stack.pop()
                 left = stack.pop()
@@ -461,6 +463,8 @@ class EssenceParser:
             else:
                 return False
         elif self.match("!"):
+            return True
+        elif self.match("toInt"):
             return True
         else:
             return False

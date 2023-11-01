@@ -84,7 +84,7 @@ def iceConstraints(node, constraints):
         constraints.append(iceExpression(node))      
 
 def iceConstants(node):
-    if node.info == "Integer" or node.info == "Literal":
+    if node.info == "Integer" or node.info == "Literal" or node.info == "Boolean":
         return node.label
     elif node.label == "relation":
         relation = node.label

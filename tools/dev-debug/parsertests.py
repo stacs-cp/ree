@@ -82,6 +82,14 @@ such that
  c = forAll v in G . v[1] *2
 """)
 
+test_strings.append("""
+letting a be true
+letting b be false
+find c : int(0..10)
+such that
+  c = toInt(a /\ b)
+""")
+
 
 for i,test_str in enumerate(test_strings):
     parser = ep.EssenceParser()
