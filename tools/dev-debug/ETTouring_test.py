@@ -10,7 +10,7 @@ import copy
 teststr1 = r'''
 find b : bool such that b = exists i : int(0..4) . i*i=i
 '''
-teststr0 = r'''
+teststr1 = r'''
 letting a be true
 letting b be false
 find c : int(0..10)
@@ -18,16 +18,25 @@ such that
    c = 2* (toInt(a\/b/\(a \/ false))+2)
 '''
 
-teststr1 = r'''
-given a : int(0..5)
-where a >2
-letting n be 12
-letting vertices be domain int(0..n)
-find edges : relation (size n) of (vertices * vertices)
-such that
-forAll edge,edge2 in edges .
-edge[2] > edge[1] /\
-((edge != edge2) -> (edge[2] != edge2[2]))
+teststr0 = r'''
+letting vertices be domain int(1..5)
+given edges : relation of ( vertices * vertices )
+given numberColours : int(1..n)
+given coloursPerNode : int(1..n)
+
+letting colours be domain int(1..numberColours)
+find c : relation (size n*coloursPerNode) of ( vertices * colours )
+such that true
+
+$ endpoints of edges do not share colours
+,  forAll (u,v) in edges .
+      (forAll colourAssignment in c .
+         (colourAssignment[1] = u) -> !((v,colourAssignment[2]) in c))
+
+$ enforce number of colours per node, another version
+,  forAll u in vertices .
+      coloursPerNode = sum colourAssignment in c .
+         toInt(colourAssignment[1] = u)
 '''
 
 #with open('tests/treeGen.essence', 'r') as file:

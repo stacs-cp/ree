@@ -261,6 +261,7 @@ class EssenceParser:
             lower = self.parse_expression()  # Lower bound
             self.consume()  # ".."
             upper = self.parse_expression()  # Upper bound
+            #self.consume() # ")"
             return IntDomain(lower,upper)            
         elif self.match("tuple"):
             self.consume()  # "tuple"
@@ -360,6 +361,7 @@ class EssenceParser:
         return (
             self.match(".")
             or self.match(",")
+            or self.match("given")
             or self.match("where")
             or self.match("such")
             or self.match("letting")
@@ -473,7 +475,7 @@ class EssenceParser:
         self.consume()  # "("
         values = []
         while not self.match(")"):
-            values.append(Node(self.consume(), info="Literal"))  # Literal 
+            values.append(self.parse_literal())  # Literal 
             if self.match(","):
                 self.consume()  # ","
         self.consume()  # ")"
