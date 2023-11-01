@@ -11,15 +11,11 @@ teststr1 = r'''
 find b : bool such that b = exists i : int(0..4) . i*i=i
 '''
 teststr0 = r'''
-letting a be domain int(0..10)
-find b : int(0..100)
-find c : int(0..100)
-letting G be relation((1,2),(1,3),(2,3))
-
+letting a be true
+letting b be false
+find c : int(0..10)
 such that
- b = sum i : a .1
-such that
- c = forAll v in G . v[1] *2
+   c = 2* (toInt(a\/b/\(a \/ false))+2)
 '''
 
 teststr1 = r'''

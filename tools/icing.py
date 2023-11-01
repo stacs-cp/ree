@@ -151,6 +151,11 @@ def expressionInOrderTraversal(node, stack, parent):
         stack.append(node.label)
         expressionInOrderTraversal(node.children[0], stack, node)
         if parentheses: stack.append(")") 
+    elif node.label == "toInt":        
+        stack.append(node.label)
+        stack.append("(")
+        expressionInOrderTraversal(node.children[0], stack, node)
+        stack.append(")") 
     elif node.info == "MemberExpression":
         stack.append(iceMemberExpression(node))   
     elif node.label == "tuple":
