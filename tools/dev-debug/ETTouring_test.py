@@ -6,6 +6,7 @@ import os
 import icing
 from datetime import datetime
 import copy
+import eminipyparser
 
 teststr1 = r'''
 find b : bool such that b = exists i : int(0..4) . i*i=i
@@ -60,5 +61,9 @@ for i in range(0,1):
     if not works:
         print(results[0])
 print(works)
+
+ast2 = ET.EminiToASTpy(results[0])
+print("tree equality")
+print(eminipyparser.treeEquality(ast,ast2))
 
 

@@ -589,10 +589,8 @@ def treeEquality(subTree1:Node, subTree2:Node) -> bool:
     
     if len(subTree1.children) != len(subTree2.children):
         return False
-    elif len(subTree1.children) > 0 and len(subTree2.children) > 0:
+    else:
         isEqual = True
         for i in range(len(subTree1.children)):
             isEqual = isEqual and treeEquality(subTree1.children[i],subTree1.children[i])
         return isEqual
-    elif len(subTree1.children) == 0 and len(subTree2.children) == 0:
-        return True
