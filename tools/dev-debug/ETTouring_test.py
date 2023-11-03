@@ -40,6 +40,12 @@ $ enforce number of colours per node, another version
          toInt(colourAssignment[1] = u)
 '''
 
+teststr0 = r'''
+find s : int(1..200)
+such that s = (5+
+, s = 15
+'''
+
 #with open('tests/treeGen.essence', 'r') as file:
 #      teststr0 = file.read()
 print(teststr0)

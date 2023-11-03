@@ -275,6 +275,7 @@ class EssenceParser:
             return TupleDomain(domains)
 
         elif self.match("relation"):
+            #refactor notes: add comma separated attributes
             domains = []
             self.consume()  # "relation"
             if self.match("("):
@@ -404,6 +405,7 @@ class EssenceParser:
 
         while not self.is_expression_terminator():
             if self.match("(") and self.tokens[self.index + 2] != ",":
+                #refactor notes: add recursion here
                 operator_stack.append(Node(self.consume(),info="Parenthesis"))  # "("
             elif self.match(")"):
                 while operator_stack and operator_stack[-1].label != "(":
