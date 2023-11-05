@@ -275,25 +275,24 @@ class EssenceParser:
             return TupleDomain(domains)
 
         elif self.match("relation"):
-            #refactor notes: add comma separated attributes
-            domains = []
+            relation = []
             self.consume()  # "relation"
             if self.match("("):
                 self.consume() # (
-                if self.match_any(["size", "minSize","maxSize"]):
-                    boundKind = self.consume() # size
-                    size = self.parse_expression() #
-                    domains.append(Node(boundKind, [size], "RelationSize"))
-                else:
-                    SyntaxError("Relation Size Parsing Error. Expected size instead of Token: " + str(self.tokens[self.index]))
+                relation.append(self.parse_relation_attribute())
+                while self.match(","):
+                    self.consume() # ,
+                    relation.append(self.parse_relation_attribute())
+                if self.match(")"):
+                    self.consume() # )  # BUGGY PATCHY TODO fix expression and this will not be needed
             self.consume()  # "of"
             self.consume()  # "("               
             while not self.match(")"):
-                domains.append(self.parse_domain())
+                relation.append(self.parse_domain())
                 if self.match("*"):
                     self.consume()  # "*"
             self.consume()  # ")"
-            return RelationDomain(domains)
+            return RelationDomain(relation)
         elif self.match("bool"):
             self.consume()  # "bool"            
             return BoolDomain()
@@ -302,7 +301,20 @@ class EssenceParser:
             #return NamedDomain(name_of_domain,self.named_domains[name_of_domain].domain) ## TEST
             return Node(name_of_domain, info="ReferenceToNamedDomain")
         else:
-            raise SyntaxError("Domain Parsing Error. Token: " + str(self.tokens[self.index]))    
+            raise SyntaxError("Domain Parsing Error. Token: " + str(self.tokens[self.index])) 
+
+    def parse_relation_attribute(self):
+        if self.match_any(["size", "minSize","maxSize"]):
+            boundKind = self.consume() # size
+            size = self.parse_expression() #
+            return Node(boundKind, [size], "Attribute")
+        elif self.match_any(["reflexive", "irreflexive", "coreflexive", "symmetric", "antiSymmetric", "aSymmetric", 
+                             "transitive", "total", "connex", "Euclidean", "serial", "equivalence", "partialOrder"]):
+            attribute = self.consume() # 
+            return Node(attribute, [], "Attribute")
+        else:
+            SyntaxError("Relation's Attribute Parsing Error. Current Token: " + str(self.tokens[self.index]))
+    
 
     def parse_constant(self):
         # tuple - relation - int - bool

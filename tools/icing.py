@@ -222,12 +222,20 @@ def iceDomain(node):
     if node.info == "RelationDomain":
         domain += "relation"
         domainsStart = 0
-        if node.children[0].label in ["size", "minSize","maxSize"]: # bounded relation keep the size inthe first child
-            domain += " ("
-            domain += f'{node.children[0].label} ' 
-            domain += iceExpression(node.children[0].children[0]) # first grandchild is the value
-            domain += ") "
-            domainsStart = 1
+        for child in node.children:            
+            if child.info== "Attribute":
+                if domainsStart == 0:
+                    domain += " ("
+                if domainsStart >0:
+                    domain += ", "
+                if child.label in ["size", "minSize","maxSize"]: # bounded relation keep the size inthe first child                    
+                    domain += f'{child.label} ' 
+                    domain += iceExpression(child.children[0]) # first grandchild is the value                    
+                else:
+                    domain += f'{child.label} ' 
+                domainsStart += 1
+        if domainsStart >0:
+            domain += ")"
         domains = [iceDomain(d) for d in node.children[domainsStart:]]
         domain += " of (" + "*".join(domains)+")"   
     if node.info == "TupleDomain":

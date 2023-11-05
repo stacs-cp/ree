@@ -81,13 +81,20 @@ such that
 such that
  c = forAll v in G . v[1] *2
 """)
-
+#test 7
 test_strings.append("""
 letting a be true
 letting b be false
 find c : int(0..10)
 such that
   c = toInt(a /\ b)
+""")
+#test 8
+test_strings.append("""
+letting a be domain int(0..10)
+find g: relation (size 10) of (a*a)
+such that
+   5 = 3+2
 """)
 
 

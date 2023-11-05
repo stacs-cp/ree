@@ -45,6 +45,12 @@ find s : int(1..200)
 such that s = (5+
 , s = 15
 '''
+teststr0 = r'''
+letting a be domain int(0..10)
+find g: relation (minSize 10, maxSize 20, irreflexive) of (a*a)
+such that
+   5 = 3+2
+'''
 
 #with open('tests/treeGen.essence', 'r') as file:
 #      teststr0 = file.read()
@@ -63,9 +69,10 @@ for i in range(0,1):
     print("TOUR Starts")
     results = ETG.heuristicChinesePostman(emini2,"Emini")
     #print(results)
-    works = works and results[0] == emini
+    works = (works and results[0] == emini)
     if not works:
         print(results[0])
+print("String equality")
 print(works)
 
 ast2 = ET.EminiToASTpy(results[0])
