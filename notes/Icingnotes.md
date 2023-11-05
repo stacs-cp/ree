@@ -11,7 +11,7 @@ letting statements:
 Domains:
 
 - int  **( .. )**
-- relation  **of**  ( * )
+- relation  (","[attributes])**of**  ( * )
 - tuple **( , , , ,)**
 
 Quantifiers:

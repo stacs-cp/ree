@@ -530,7 +530,7 @@ class EssenceParser:
         if preposition == ":":
            domain = self.parse_domain()
         else:
-           domain = self.parse_literal() ## NEEDS REVISION
+           domain = self.parse_literal() ## TODO NEEDS REVISION
         if self.match("."):
             return QuantificationExpression(quantifier,variables, preposition,domain)
         else:

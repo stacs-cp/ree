@@ -1,5 +1,5 @@
 """
-This module contains a set of conversions between formats for the Abstract Syntax Tree of an Emini specification
+This module contains a set of conversions between formats for the Abstract Syntax Tree of an Emini specification.
 The name of the functions should follow the pattern Format1ToFormat2. The word "To" is used as a splitter by other functions, currently EFormatGraph, that automatically
 grabs all functions in this script. At this point in time having the substring "To" in one of the names will cause issues.
 """
@@ -14,7 +14,7 @@ import random
 
 def EminiToASTpy(spec, specname="unnamed"):
     '''
-    Turns an Essence-Mini specification (string) into an Abstract Syntax Tree of python objects 
+    Turns an Essence-Mini specification (string) into an Abstract Syntax Tree of python objects.
     '''
     parser = ep.EssenceParser()
     ASTpy = parser.parse(spec, specname)
@@ -22,27 +22,27 @@ def EminiToASTpy(spec, specname="unnamed"):
 
 def ASTpyToEmini(ASTpy):
     '''
-    Turns an Abstract Syntax Tree of python objects into an Essence-Mini specification (string) 
+    Turns an Abstract Syntax Tree of python objects into an Essence-Mini specification (string). 
     '''
     return icing.ASTtoEssence(ASTpy)
 
 
 def ASTpyToJson(ASTpy):
     '''
-    Turns an Abstract Syntax Tree of python objects into JSON format
+    Turns an Abstract Syntax Tree of python objects into JSON format.
     '''
     return json.dumps(ASTpy, default=lambda o: o.__dict__)
 
 def JsonToASTpy(jsonString):
     '''
-    Turns a JSON String of an AST into an Abstract Syntax Tree of python objects
+    Turns a JSON String of an AST into an Abstract Syntax Tree of python objects.
     '''  
     ASTpy = json.loads(jsonString, object_hook=lambda ASTpy: ep.Node(**ASTpy))
     return ASTpy
 
 def ASTpyToGP2Graph(ASTpy):
     '''
-    Turns an Abstract Syntax Tree of python objects into a Graph mapped to the GP2 format
+    Turns an Abstract Syntax Tree of python objects into a Graph mapped to the GP2 format.
     '''
     gp2g = GP2Graph.Graph([],[])
     
@@ -85,7 +85,7 @@ def ASTpyToGP2Graph(ASTpy):
 
 def GP2GraphToNX(gp2graph):
     '''
-    Returns a NetworkX tree graph from a GP2Graph python objects
+    Returns a NetworkX tree graph from a GP2Graph python objects.
     '''
     G = nx.DiGraph()
     
@@ -102,7 +102,7 @@ def GP2GraphToNX(gp2graph):
 
 def ASTpyToNX(ASTpy):
     '''
-    Returns a NetworkX tree graph from an Abstract Syntax Tree of python objects
+    Returns a NetworkX tree graph from an Abstract Syntax Tree of python objects.
     '''
     G = nx.DiGraph()
     def buildTreeNX(node, Tree, index=1, parentID=None): 
@@ -119,7 +119,7 @@ def ASTpyToNX(ASTpy):
 
 def NXToASTpy(NXGraph):
     '''
-    From networkx to ASTpy
+    From networkx to ASTpy.
     '''
     
     def buildNode(vertex, G): 
@@ -145,7 +145,7 @@ def NXToASTpy(NXGraph):
 
 def NXToGP2Graph(NXGraph):
     '''
-    Converts a NetworkX Graph into a GP2Graph
+    Converts a NetworkX Graph into a GP2Graph.
     '''
     gp2graph = GP2Graph.Graph([],[])
     for id,node in NXGraph.nodes(data=True):
@@ -160,7 +160,7 @@ def NXToGP2Graph(NXGraph):
 
 def GP2GraphToGP2String(GP2Graph):
     '''
-    Produce a GP2 representation of the graph in string format
+    Produce a GP2 representation of the graph in string format.
     '''
     #random.shuffle(GP2Graph.nodes) #TODO seed with parameter
     GP2String = ""

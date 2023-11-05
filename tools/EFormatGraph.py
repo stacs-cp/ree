@@ -9,7 +9,8 @@ import random
 class ETGraph:
     '''
     Container for the networkx Emini Format Conversion Graph. Each vertex is a format, each edge a function that takes an Emini specification from one format to another. 
-    Each edge contains a callable function in its "func" attribute automatically extracted from the EFormatConverters python script
+    Each edge contains a callable function in its "func" attribute automatically extracted from the EFormatConverters python script.
+    
     Available Formats:
 
     * Emini: Esssence String
