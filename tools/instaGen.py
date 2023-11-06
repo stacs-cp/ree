@@ -2,6 +2,11 @@ import eminipyparser as ep
 import networkx as nx
 
 def specToInstaGen(AST):
+    '''
+    From Emini AST spec to Instance Generator
+
+    TODO: improve this eye sore
+    '''
     parameters ={}
     AST.children = [child for child in AST.children if not(isinstance(child, ep.FindStatement) or isinstance(child, ep.SuchThatStatement))]
     #AST.children = [givenIntTOfindInt(child) for child in AST.children if (isinstance(child, ep.GivenStatement) and isinstance(child.children[0], ep.IntDomain))]
@@ -35,8 +40,12 @@ def givenTOfind(statement):
     return ep.FindStatement(statement.children[0].label,statement.children[0].children[0])
 
 def NXtoEssenceRelation(NXgraph):
-  edges = ""
-  for e in nx.generate_edgelist(NXgraph, data=False):
-    edges += f'({e[0]},{e[2]})'
-  return f'''letting vertices be domain int(0..{len(NXgraph.nodes())-1})
-letting edges be relation({edges})'''
+    '''
+    From networkx graph to Emini relation
+    '''
+    # TODO store vertices labels somewhere
+    edges = ""
+    for e in nx.generate_edgelist(NXgraph, data=False):
+        edges += f'({e[0]},{e[2]})'
+    return f'''letting vertices be domain int(0..{len(NXgraph.nodes())-1})
+    letting edges be relation({edges})'''

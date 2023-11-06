@@ -16,12 +16,14 @@ such that
 #test 1
 test_strings.append(r'''
 $ graph multicolouring for directed graphs
-$ uses exactly coloursPerNode colours for each vertex
+$ uses exactly coloursPerNode colours for each vert
+                    
+given lowerBound : int(2..7)
 given n : int(1..100)
 letting vertices be domain int(1..n)
 given edges : relation (irreflexive) of ( vertices * vertices )
 given numberColours : int(1..n)
-given coloursPerNode : int(1..numberColours)
+given coloursPerNode : int(lowerBound..numberColours)
 letting colours be domain int(1..numberColours)
 find c : relation (size n*coloursPerNode) of ( vertices * colours )
 such that true

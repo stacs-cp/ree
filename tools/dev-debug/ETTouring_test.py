@@ -53,6 +53,27 @@ find g: relation (minSize 10, maxSize 20, irreflexive) of (a*a)
 such that
    5 = 3+2
 '''
+teststr2 = r'''
+letting a be domain int(0..10 sliufadlfhua
+find b: int(0..100)
+'''
+
+teststr2 = r'''
+letting a be domain int(0..10 sliufadlfhua
+find b: int(0..100)
+such that
+   sum 1 : int(1..3) . x : int(1..3)
+'''
+teststr2 = r'''
+find f : int(0..10)
+such that f = sum x,: int(1..3) . 1
+'''
+teststr2 = r'''
+letting vertices be domain int(0..10)
+find R : relation (symmetric) of (vertices * vertices)
+such that
+forAll x,y,z : vertices . (((x!=y) /\ (y!=z) /\ (z!=x)) -> (!R(x,y) \/ !R(y,z)  \/ !R(z,x)))
+'''
 
 #with open('tests/treeGen.essence', 'r') as file:
 #      teststr0 = file.read()
