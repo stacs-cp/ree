@@ -48,4 +48,6 @@ def NXtoEssenceRelation(NXgraph):
     for e in nx.generate_edgelist(NXgraph, data=False):
         edges += f'({e[0]},{e[2]})'
     return f'''letting vertices be domain int(0..{len(NXgraph.nodes())-1})
-    letting edges be relation({edges})'''
+letting edges be relation({edges})'''
+
+    
