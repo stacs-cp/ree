@@ -36,49 +36,49 @@
 </section>
 <section id="module-EFormatConverters">
 <span id="eformatconverters-module"></span><h2>EFormatConverters module<a class="headerlink" href="#module-EFormatConverters" title="Link to this heading">¶</a></h2>
-<p>This module contains a set of conversions between formats for the Abstract Syntax Tree of an Emini specification
+<p>This module contains a set of conversions between formats for the Abstract Syntax Tree of an Emini specification.
 The name of the functions should follow the pattern Format1ToFormat2. The word “To” is used as a splitter by other functions, currently EFormatGraph, that automatically
 grabs all functions in this script. At this point in time having the substring “To” in one of the names will cause issues.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="EFormatConverters.ASTpyToEmini">
 <span class="sig-prename descclassname"><span class="pre">EFormatConverters.</span></span><span class="sig-name descname"><span class="pre">ASTpyToEmini</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ASTpy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EFormatConverters.ASTpyToEmini" title="Link to this definition">¶</a></dt>
-<dd><p>Turns an Abstract Syntax Tree of python objects into an Essence-Mini specification (string)</p>
+<dd><p>Turns an Abstract Syntax Tree of python objects into an Essence-Mini specification (string).</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EFormatConverters.ASTpyToGP2Graph">
 <span class="sig-prename descclassname"><span class="pre">EFormatConverters.</span></span><span class="sig-name descname"><span class="pre">ASTpyToGP2Graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ASTpy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EFormatConverters.ASTpyToGP2Graph" title="Link to this definition">¶</a></dt>
-<dd><p>Turns an Abstract Syntax Tree of python objects into a Graph mapped to the GP2 format</p>
+<dd><p>Turns an Abstract Syntax Tree of python objects into a Graph mapped to the GP2 format.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EFormatConverters.ASTpyToJson">
 <span class="sig-prename descclassname"><span class="pre">EFormatConverters.</span></span><span class="sig-name descname"><span class="pre">ASTpyToJson</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ASTpy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EFormatConverters.ASTpyToJson" title="Link to this definition">¶</a></dt>
-<dd><p>Turns an Abstract Syntax Tree of python objects into JSON format</p>
+<dd><p>Turns an Abstract Syntax Tree of python objects into JSON format.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EFormatConverters.ASTpyToNX">
 <span class="sig-prename descclassname"><span class="pre">EFormatConverters.</span></span><span class="sig-name descname"><span class="pre">ASTpyToNX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ASTpy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EFormatConverters.ASTpyToNX" title="Link to this definition">¶</a></dt>
-<dd><p>Returns a NetworkX tree graph from an Abstract Syntax Tree of python objects</p>
+<dd><p>Returns a NetworkX tree graph from an Abstract Syntax Tree of python objects.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EFormatConverters.EminiToASTpy">
 <span class="sig-prename descclassname"><span class="pre">EFormatConverters.</span></span><span class="sig-name descname"><span class="pre">EminiToASTpy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'unnamed'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EFormatConverters.EminiToASTpy" title="Link to this definition">¶</a></dt>
-<dd><p>Turns an Essence-Mini specification (string) into an Abstract Syntax Tree of python objects</p>
+<dd><p>Turns an Essence-Mini specification (string) into an Abstract Syntax Tree of python objects.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EFormatConverters.GP2GraphToGP2String">
 <span class="sig-prename descclassname"><span class="pre">EFormatConverters.</span></span><span class="sig-name descname"><span class="pre">GP2GraphToGP2String</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GP2Graph</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EFormatConverters.GP2GraphToGP2String" title="Link to this definition">¶</a></dt>
-<dd><p>Produce a GP2 representation of the graph in string format</p>
+<dd><p>Produce a GP2 representation of the graph in string format.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EFormatConverters.GP2GraphToNX">
 <span class="sig-prename descclassname"><span class="pre">EFormatConverters.</span></span><span class="sig-name descname"><span class="pre">GP2GraphToNX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gp2graph</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EFormatConverters.GP2GraphToNX" title="Link to this definition">¶</a></dt>
-<dd><p>Returns a NetworkX tree graph from a GP2Graph python objects</p>
+<dd><p>Returns a NetworkX tree graph from a GP2Graph python objects.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -90,19 +90,19 @@ grabs all functions in this script. At this point in time having the substring �
 <dl class="py function">
 <dt class="sig sig-object py" id="EFormatConverters.JsonToASTpy">
 <span class="sig-prename descclassname"><span class="pre">EFormatConverters.</span></span><span class="sig-name descname"><span class="pre">JsonToASTpy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jsonString</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EFormatConverters.JsonToASTpy" title="Link to this definition">¶</a></dt>
-<dd><p>Turns a JSON String of an AST into an Abstract Syntax Tree of python objects</p>
+<dd><p>Turns a JSON String of an AST into an Abstract Syntax Tree of python objects.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EFormatConverters.NXToASTpy">
 <span class="sig-prename descclassname"><span class="pre">EFormatConverters.</span></span><span class="sig-name descname"><span class="pre">NXToASTpy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">NXGraph</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EFormatConverters.NXToASTpy" title="Link to this definition">¶</a></dt>
-<dd><p>From networkx to ASTpy</p>
+<dd><p>From networkx to ASTpy.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EFormatConverters.NXToGP2Graph">
 <span class="sig-prename descclassname"><span class="pre">EFormatConverters.</span></span><span class="sig-name descname"><span class="pre">NXToGP2Graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">NXGraph</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EFormatConverters.NXToGP2Graph" title="Link to this definition">¶</a></dt>
-<dd><p>Converts a NetworkX Graph into a GP2Graph</p>
+<dd><p>Converts a NetworkX Graph into a GP2Graph.</p>
 </dd></dl>
 
 </section>
@@ -113,8 +113,8 @@ grabs all functions in this script. At this point in time having the substring �
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">EFormatGraph.</span></span><span class="sig-name descname"><span class="pre">ETGraph</span></span><a class="headerlink" href="#EFormatGraph.ETGraph" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Container for the networkx Emini Format Conversion Graph. Each vertex is a format, each edge a function that takes an Emini specification from one format to another.
-Each edge contains a callable function in its “func” attribute automatically extracted from the EFormatConverters python script
-Available Formats:</p>
+Each edge contains a callable function in its “func” attribute automatically extracted from the EFormatConverters python script.</p>
+<p>Available Formats:</p>
 <ul class="simple">
 <li><p>Emini: Esssence String</p></li>
 <li><p>ASTpy: Abstract Syntax Tree of python objects</p></li>
@@ -148,7 +148,7 @@ Intermediate forms are chosen via shortest path in number of steps.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="EFormatGraph.ETGraph.eulerTour">
 <span class="sig-name descname"><span class="pre">eulerTour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">AST</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EFormatGraph.ETGraph.eulerTour" title="Link to this definition">¶</a></dt>
-<dd><p>performs all the evailable conversions and returns to the original form if the graph is eulerian</p>
+<dd><p>performs all the available conversions and returns to the original form if the graph is eulerian</p>
 <blockquote>
 <div><dl class="simple">
 <dt>Args:</dt><dd><p>AST (Any): Essence Specification, in any of the formats used in EFormatConverters.
@@ -172,13 +172,14 @@ origin (Any): Starting format.</p>
 <dd><p>Poor man heuristic to solve the chinese postman problem.
 We need a closed cycle that passes over each edge at least once. It is ok if more than once.
 Likely suboptical. ok for very small graphs.</p>
-<p>create stack of edges in the graph
-start from origin.
-while there are elements in the stack
--pick an edge in the stack
--compute shortest path to target of edge
--traverse the path transforming the AST with each step and remove all edges encoundered on the way from the stack
-when stack is empty return to origin</p>
+<p>create stack of edges in the graph, start from origin.
+while there are elements in the stack:</p>
+<ul class="simple">
+<li><p>pick an edge in the stack</p></li>
+<li><p>compute shortest path to target of edge</p></li>
+<li><p>traverse the path transforming the AST with each step and remove all edges encoundered on the way from the stack</p></li>
+</ul>
+<p>when stack is empty return to origin</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

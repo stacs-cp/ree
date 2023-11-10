@@ -39,7 +39,7 @@ def givenTOfind(statement):
     #print(statement)
     return ep.FindStatement(statement.children[0].label,statement.children[0].children[0])
 
-def NXtoEssenceRelation(NXgraph):
+def NXtoEssenceRelation(NXgraph, vertices_name="vertices", relation_name = "edges"):
     '''
     From networkx graph to Emini relation
     '''
@@ -47,7 +47,7 @@ def NXtoEssenceRelation(NXgraph):
     edges = ""
     for e in nx.generate_edgelist(NXgraph, data=False):
         edges += f'({e[0]},{e[2]})'
-    return f'''letting vertices be domain int(0..{len(NXgraph.nodes())-1})
-letting edges be relation({edges})'''
+    return f'''letting {vertices_name} be domain int(0..{len(NXgraph.nodes())-1})
+letting {relation_name} be relation({edges})'''
 
     

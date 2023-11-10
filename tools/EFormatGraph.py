@@ -75,7 +75,7 @@ class ETGraph:
         return AST,timeGraph
 
     def eulerTour(self, AST, origin):
-        """performs all the evailable conversions and returns to the original form if the graph is eulerian
+        """performs all the available conversions and returns to the original form if the graph is eulerian
 
          Args:
             AST (Any): Essence Specification, in any of the formats used in EFormatConverters.
@@ -196,12 +196,13 @@ class ETGraph:
         We need a closed cycle that passes over each edge at least once. It is ok if more than once.
         Likely suboptical. ok for very small graphs.
 
-        create stack of edges in the graph
-        start from origin. 
-        while there are elements in the stack
-        -pick an edge in the stack
-        -compute shortest path to target of edge
-        -traverse the path transforming the AST with each step and remove all edges encoundered on the way from the stack
+        create stack of edges in the graph, start from origin. 
+        while there are elements in the stack:
+        
+        * pick an edge in the stack
+        * compute shortest path to target of edge
+        * traverse the path transforming the AST with each step and remove all edges encoundered on the way from the stack
+
         when stack is empty return to origin
 
         Args:
