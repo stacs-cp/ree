@@ -44,3 +44,15 @@ This script would be easy to turn into a project file.
 On MacOS 12 `sh_build` can be used to build the library, although the shipped `configure` build system also works and will install man pages as well.
 (However, the automake files appear to be incompatible with recent versions of automake, so avoid regenerating the makefiles and the configure script.)
 
+
+### List of transformations
+
+We currently consider the following kinds of transformations.
+1. Swap the operands of a symmetric binary relation (or commutative binary operation).
+1. De Morgan rules for logical expressions.
+1. Lex ordering of constraints.
+
+We also need to look at:
+1. Distributivity.
+1. Reordering of bracketing for associative operations.
+
