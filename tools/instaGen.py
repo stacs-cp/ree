@@ -32,12 +32,17 @@ def specToInstaGen(AST):
             child.children[0].children[0] = ep.IntDomain(ep.IntConstant(bounds[0]),ep.IntConstant(bounds[1]))
         if isinstance(child, ep.GivenStatement):            
             AST.children[i] = givenTOfind(child)
+        if isinstance(child, ep.WhereStatement):
+            AST.children[i] = whereTOsuchthat(child)
     print(parameters)
     return AST
 
 def givenTOfind(statement):
     #print(statement)
     return ep.FindStatement(statement.children[0].label,statement.children[0].children[0])
+
+def whereTOsuchthat(statement):
+    return ep.SuchThatStatement(statement.children)
 
 def NXtoEssenceRelation(NXgraph, vertices_name="vertices", relation_name = "edges"):
     '''

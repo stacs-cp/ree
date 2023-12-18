@@ -39,6 +39,16 @@ $ enforce number of colours per node, another version
          toInt(colourAssignment[1] = u)
 ''')
 
+#test 2
+test_strings.append(r'''
+
+                    
+
+given n : int(1..100)
+where n%2=0
+find x : int(0..50)
+''')
+
 
 ETG = EFormatGraph.ETGraph()
 
