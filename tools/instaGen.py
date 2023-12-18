@@ -8,6 +8,7 @@ def specToInstaGen(AST):
     TODO: improve this eye sore
     '''
     parameters ={}
+    # remove find and such that statements
     AST.children = [child for child in AST.children if not(isinstance(child, ep.FindStatement) or isinstance(child, ep.SuchThatStatement))]
     #AST.children = [givenIntTOfindInt(child) for child in AST.children if (isinstance(child, ep.GivenStatement) and isinstance(child.children[0], ep.IntDomain))]
     for i,child in enumerate(AST.children):
@@ -38,10 +39,13 @@ def specToInstaGen(AST):
     return AST
 
 def givenTOfind(statement):
-    #print(statement)
+    ''' Turn a GIVEN statement into a FIND statement
+    '''
     return ep.FindStatement(statement.children[0].label,statement.children[0].children[0])
 
 def whereTOsuchthat(statement):
+    ''' turn a WHERE statement into a SUCH THAT statement
+    '''
     return ep.SuchThatStatement(statement.children)
 
 def NXtoEssenceRelation(NXgraph, vertices_name="vertices", relation_name = "edges"):
@@ -54,5 +58,17 @@ def NXtoEssenceRelation(NXgraph, vertices_name="vertices", relation_name = "edge
         edges += f'({e[0]},{e[2]})'
     return f'''letting {vertices_name} be domain int(0..{len(NXgraph.nodes())-1})
 letting {relation_name} be relation({edges})'''
+
+def injectGraphByName(AST, vertices_name, relation_name, verticesAST,graphAST):
+    for i,child in enumerate(AST.children):
+        if isinstance(child, ep.NameLettingStatement):
+            if child.children[0].label == vertices_name:
+                AST.children[i] = verticesAST
+            if child.children[0].label == relation_name:
+                AST.children[i] = graphAST
+            
+
+
+
 
     
