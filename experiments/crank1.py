@@ -8,6 +8,7 @@ Baseline experiment 1
     - Essence to GP2
     - Select Transform Sequence
     - Apply transforms (check if transform rule is applied)
+    - Store old-new spec pair as edge
     - GP2 to Essence
     - Check equality or diff
     - Solve new Instance
@@ -26,6 +27,8 @@ import GP2Interface
 
 def main() -> int:
 
+## Create Reformulation Graph
+    
     # test spec update to generator call
     spec = '''
     find i : int(0..100)
@@ -37,23 +40,23 @@ def main() -> int:
     such that
         a = !(b /\ c)'''
 
-    # save spec to file
+    # save spec to file. store file size + time
     specFilename = "./tests/testExpression.essence"
     with open(specFilename, 'w') as file:
         file.write(spec)
 
-    # call conjure and solve spec
+    # call conjure and solve spec.
     params = ""
     conjureCall = ['conjure','solve', specFilename]
     subprocess.run(conjureCall, check=True)
 
-    # TODO upgrade to log solution
+    # TODO upgrade to log solution. time, size, number of nodes traversed
     with open("./conjure-output/model000001-solution000001.solution") as solution:
         print(solution.read())
 
     formatsGraph = EFG.ETGraph()
 
-    # Translate to GP2
+    # Translate to GP2 (could be done in parallel)
     gp2spec = formatsGraph.FormToForm(spec,"Emini","GP2String")
     gp2hostfile = "./gp2/testExpression.host"
     with open(gp2hostfile, 'w') as file:
