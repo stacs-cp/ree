@@ -84,7 +84,7 @@ def iceConstraints(node, constraints):
         constraints.append(iceExpression(node))      
 
 def iceConstants(node):
-    if node.info == "Integer" or node.info == "Literal":
+    if node.info == "Integer" or node.info == "Literal" or node.info == "Boolean":
         return node.label
     elif node.label == "relation":
         relation = node.label
@@ -115,7 +115,10 @@ def iceQuantifier(node):
     quantifier = node.label + " "
     quantifier += iceLocalVariables(node.children[:-1]) + " "
     quantifier += node.children[-1].label + " " # preposition
-    quantifier += node.children[-1].children[0].label # set or expression TODO fix
+    if node.children[-1].label == ":":
+        quantifier += iceDomain(node.children[-1].children[0])
+    else:
+        quantifier += node.children[-1].children[0].label # set or expression TODO fix
     return quantifier
 
 def iceLocalVariables(variables):
@@ -148,10 +151,17 @@ def expressionInOrderTraversal(node, stack, parent):
         stack.append(node.label)
         expressionInOrderTraversal(node.children[0], stack, node)
         if parentheses: stack.append(")") 
+    elif node.label == "toInt":        
+        stack.append(node.label)
+        stack.append("(")
+        expressionInOrderTraversal(node.children[0], stack, node)
+        stack.append(")") 
     elif node.info == "MemberExpression":
         stack.append(iceMemberExpression(node))   
     elif node.label == "tuple":
         stack.append(iceConstants(node))
+    elif node.info == "QuantificationExpression":
+        stack.append(iceQuantifier(node))
     else:
         stack.append(node.label)
 
@@ -212,12 +222,20 @@ def iceDomain(node):
     if node.info == "RelationDomain":
         domain += "relation"
         domainsStart = 0
-        if node.children[0].label in ["size", "minSize","maxSize"]: # bounded relation keep the size inthe first child
-            domain += " ("
-            domain += f'{node.children[0].label} ' 
-            domain += iceExpression(node.children[0].children[0]) # first grandchild is the value
-            domain += ") "
-            domainsStart = 1
+        for child in node.children:            
+            if child.info== "Attribute":
+                if domainsStart == 0:
+                    domain += " ("
+                if domainsStart >0:
+                    domain += ", "
+                if child.label in ["size", "minSize","maxSize"]: # bounded relation keep the size inthe first child                    
+                    domain += f'{child.label} ' 
+                    domain += iceExpression(child.children[0]) # first grandchild is the value                    
+                else:
+                    domain += f'{child.label} ' 
+                domainsStart += 1
+        if domainsStart >0:
+            domain += ")"
         domains = [iceDomain(d) for d in node.children[domainsStart:]]
         domain += " of (" + "*".join(domains)+")"   
     if node.info == "TupleDomain":

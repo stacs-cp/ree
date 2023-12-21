@@ -6,7 +6,7 @@ from inspect import signature
 import matplotlib.pyplot as plt
 import math
 from networkx.drawing.nx_pydot import graphviz_layout
-from karateclub import FeatherGraph
+from karateclub import FeatherGraph ## Prune
 #forms = ["EminiSpec","ASTpy","1DTokens","ASTNX","ASTpyJson","GP2Graph","Neo4j"]
 import pandas as pd
 import umap.umap_ as umap
@@ -402,6 +402,6 @@ def bigGridPlot():
     plt.show()
 
 #bigGridPlot()
-MainTMAP()
+#MainTMAP()  <--this
 #
 #timedMaps()

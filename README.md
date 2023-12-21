@@ -44,6 +44,9 @@ This script would be easy to turn into a project file.
 On MacOS 12 `sh_build` can be used to build the library, although the shipped `configure` build system also works and will install man pages as well.
 (However, the automake files appear to be incompatible with recent versions of automake, so avoid regenerating the makefiles and the configure script.)
 
+To create the `greee` module, we use `setuptools`.
+The documentation in `docs` is built using `make html` and requires Sphinx to be installed (`brew install sphinx-doc` or follow the Sphinx official documentation).
+
 
 ### List of transformations
 

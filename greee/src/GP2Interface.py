@@ -1,10 +1,16 @@
+'''
+Helper functions used to interact with GP2
+'''
+
 import os
 import sys
+import shutil
 sys.path.append('../ree/tools')
 import subprocess
 import EFormatGraph
 
 folder_path = "gp2"
+lib_dir = os.path.join(folder_path, "lib")
 
 def scanPrograms():
     '''
@@ -23,13 +29,50 @@ def scanPrograms():
     return gp2_files
 
 
+def compileGP2Program(gp2prog_file_name):
+    """Compile a GP2 program.
+
+    It creates a directory with the same name as the program file, then creates a gp2run executable and copies inside the folder all the .h and .c files from gp2/lib
+    
+
+    Args:
+        gp2prog_file_name (str): .gp2 file name
+    """    
+    programDir = os.path.join(folder_path, gp2prog_file_name[:-4])
+    if not os.path.exists(programDir):
+        os.mkdir(programDir)
+    gp2prog =  os.path.join(folder_path, gp2prog_file_name)    
+    gp2CompilerCall = ["gp2","-o", programDir,gp2prog]
+    subprocess.run(gp2CompilerCall, check=True)
+
+    gp2libFiles= os.listdir(lib_dir)
+    for file in gp2libFiles:
+        shutil.copy2(os.path.join(lib_dir,file), programDir)
+
+    makeCall = ["make", "-C", programDir]
+    subprocess.run(makeCall, check=True)
+
+def runPrecompiledProg(gp2prog_file_name, host):
+    """Run graph program on host graph
+
+    Args:
+        gp2prog_file_name (str): .gp2 file name
+        host (str): .host graph file name
+    """    
+    programDir = os.path.join(folder_path, gp2prog_file_name[:-4])
+
+    gp2call = [os.path.join(programDir,"gp2run"), host]
+    subprocess.run(gp2call, check=True)
+
+
 def transformSpec_u(gp2prog_file_name, spec):
     ''' 
-    Transform a spec using an uncompiled gp2 program.
+    (deprecated)Transform a spec using an uncompiled gp2 program.
     '''
     formatsGraph = EFormatGraph.ETGraph()
 
     gp2spec = formatsGraph.FormToForm(spec,"Emini","GP2String")
+    #print(gp2spec)
     gp2hostfile = "temporarySpecGraph.host"
     with open(gp2hostfile, 'w') as file:
         file.write(gp2spec)
@@ -42,12 +85,17 @@ def transformSpec_u(gp2prog_file_name, spec):
     transformedGP2Spec = ""
     with open("gp2.output") as newGP2spec:
         transformedGP2Spec = newGP2spec.read()
+
     os.remove("gp2.output")
     os.remove("temporarySpecGraph.host")
     transformedSpec = formatsGraph.FormToForm(transformedGP2Spec,"GP2String","Emini")
     return transformedSpec
 
 def compileGP2folder():
+    '''
+    Compiles all the graph programs in the gp2 folder.
+    NB: this currently creates a lot of redundant files.
+    '''
     #TODO
     ### all programs should be compiled and then used via gp2run instead of gp2c 
     #    
@@ -55,7 +103,7 @@ def compileGP2folder():
 
 def allTransformsOnSpec_u(spec):
     '''
-    Compile and apply all available graph rules to the input spec
+    (deprecated)Compile and apply all available graph rules to the input spec
     '''
     transforms = scanPrograms()
     specs = []
@@ -67,5 +115,5 @@ def allTransformsOnSpec_u(spec):
 
 
 
-file_names = scanPrograms()
-print(file_names)
+#file_names = scanPrograms()
+#print(file_names)

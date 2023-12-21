@@ -3,6 +3,13 @@ import networkx as nx
 import copy
 
 class Node:
+    """ Base class for the Nodes of an ASTpy.
+
+        Args:
+            label (str): The content of the node
+            children (list): children of the node
+            info(str, optional): Syntactic information
+    """
     def __init__(self, label, children=[],info = ""):
         self.label = label
         self.children = children
@@ -93,6 +100,8 @@ class MemberExpression(Node):
 
 # reserved words find, such, given, forAll, exists, 
 class EssenceParser:
+    """ Essence Parser class
+    """    
     def __init__(self):
         self.tokens = []
         self.index = 0
@@ -101,7 +110,7 @@ class EssenceParser:
         self.named_constants = {}
         self.decision_variables = {}
         self.binary_operators = ["<",">", "<=", ">=", "+", "-", "*", "/", "%", "=","!=", "->", "/\\", "xor","\\/" , "and" , "in"]
-        self.unary_operators = ["u-","!"]
+        self.unary_operators = ["u-","!","utoInt"]
         self.statements = []
 
     def removeComments(self, spec):
@@ -111,7 +120,18 @@ class EssenceParser:
             newSpec += line.split('$',1)[0] + " "
         return newSpec
     
-    def parse(self, essenceSpec):
+    def parse(self, essenceSpec: str, specname: str = "unnamed") -> Node:
+        """
+        Parse an Essence specification and returns an Abstract Syntax Tree as nested Node Objects (ASTpy)        
+
+        Args:
+            essenceSpec (str): An Essence specification in string format
+            specname (str, optional): Name of the spec. Defaults to "unnamed".
+
+        Returns:
+            Node: A Node object that is the root of the Abstract Syntax Tree
+        """        
+        
         commentlessStr = self.removeComments(essenceSpec)
         commentlessStr = commentlessStr.replace(r'/\\n', '/\\')
         self.tokens = re.findall(r'\.\.|\->|\\/|/\\|>=|<=|>|<|!=|!|==|=|\+|[^=!<>+\s\w]|[\w]+', commentlessStr.replace('\n', ' '))
@@ -130,7 +150,8 @@ class EssenceParser:
             self.statements.append(statement)
         if self.index < len(self.tokens):
             raise Exception("Something went wrong. Parsed until: " + str(self.tokens[self.index]) + " at Token Num: " + str(self.index))
-        return self.statements
+        ASTpy = Node(specname , self.statements, "root")
+        return ASTpy
 
     def consume(self):
         token = self.tokens[self.index]
@@ -240,6 +261,7 @@ class EssenceParser:
             lower = self.parse_expression()  # Lower bound
             self.consume()  # ".."
             upper = self.parse_expression()  # Upper bound
+            #self.consume() # ")"
             return IntDomain(lower,upper)            
         elif self.match("tuple"):
             self.consume()  # "tuple"
@@ -253,24 +275,24 @@ class EssenceParser:
             return TupleDomain(domains)
 
         elif self.match("relation"):
-            domains = []
+            relation = []
             self.consume()  # "relation"
             if self.match("("):
                 self.consume() # (
-                if self.match_any(["size", "minSize","maxSize"]):
-                    boundKind = self.consume() # size
-                    size = self.parse_expression() #
-                    domains.append(Node(boundKind, [size], "RelationSize"))
-                else:
-                    SyntaxError("Relation Size Parsing Error. Expected size instead of Token: " + str(self.tokens[self.index]))
+                relation.append(self.parse_relation_attribute())
+                while self.match(","):
+                    self.consume() # ,
+                    relation.append(self.parse_relation_attribute())
+                if self.match(")"):
+                    self.consume() # )  # BUGGY PATCHY TODO fix expression and this will not be needed
             self.consume()  # "of"
             self.consume()  # "("               
             while not self.match(")"):
-                domains.append(self.parse_domain())
+                relation.append(self.parse_domain())
                 if self.match("*"):
                     self.consume()  # "*"
             self.consume()  # ")"
-            return RelationDomain(domains)
+            return RelationDomain(relation)
         elif self.match("bool"):
             self.consume()  # "bool"            
             return BoolDomain()
@@ -279,16 +301,31 @@ class EssenceParser:
             #return NamedDomain(name_of_domain,self.named_domains[name_of_domain].domain) ## TEST
             return Node(name_of_domain, info="ReferenceToNamedDomain")
         else:
-            raise SyntaxError("Domain Parsing Error. Token: " + str(self.tokens[self.index]))    
+            raise SyntaxError("Domain Parsing Error. Token: " + str(self.tokens[self.index])) 
+
+    def parse_relation_attribute(self):
+        if self.match_any(["size", "minSize","maxSize"]):
+            boundKind = self.consume() # size
+            size = self.parse_expression() #
+            return Node(boundKind, [size], "Attribute")
+        elif self.match_any(["reflexive", "irreflexive", "coreflexive", "symmetric", "antiSymmetric", "aSymmetric", 
+                             "transitive", "total", "connex", "Euclidean", "serial", "equivalence", "partialOrder"]):
+            attribute = self.consume() # 
+            return Node(attribute, [], "Attribute")
+        else:
+            SyntaxError("Relation's Attribute Parsing Error. Current Token: " + str(self.tokens[self.index]))
+    
 
     def parse_constant(self):
-        # tuple - relation - int 
+        # tuple - relation - int - bool
         if self.match("(") and self.tokens[self.index + 2] == ",":
             return self.parse_tuple_constant()        
         elif self.match("relation"):
             return self.parse_relation_constant()
         elif self.tokens[self.index].isdigit():
             return Node(self.consume(),info = "Integer") ## should it be parse_expression?
+        elif self.match_any(['true','false']):
+            return Node(self.consume(), info="Boolean")
         elif self.index + 2 < len(self.tokens):
             if self.match("(") and self.tokens[self.index + 2] == ")":
                 return self.parse_tuple_constant()
@@ -337,6 +374,7 @@ class EssenceParser:
         return (
             self.match(".")
             or self.match(",")
+            or self.match("given")
             or self.match("where")
             or self.match("such")
             or self.match("letting")
@@ -347,12 +385,8 @@ class EssenceParser:
         )    
     
     def parse_expression(self):
-        ## Quantification
-        if self.match_any(["forAll", "exists"]):
-             return self.parse_quantification()
 
-        ## TODO separate quantifier and arithmetic expressions 
-        ## Expression with Parentheses
+        ## operators precedence
         def precedence(op):
             if op == "->":
                 return -4
@@ -370,7 +404,7 @@ class EssenceParser:
                 return 1
             if op in ["*", "/","%"]:
                 return 3
-            if op in ["u-", "u!"]:   ## UNARY OPERATORS
+            if op in ["u-", "u!","utoInt"]:   ## UNARY OPERATORS
                 return 8
             if op == "(":
                 return 9
@@ -383,6 +417,7 @@ class EssenceParser:
 
         while not self.is_expression_terminator():
             if self.match("(") and self.tokens[self.index + 2] != ",":
+                #refactor notes: add recursion here
                 operator_stack.append(Node(self.consume(),info="Parenthesis"))  # "("
             elif self.match(")"):
                 while operator_stack and operator_stack[-1].label != "(":
@@ -403,6 +438,8 @@ class EssenceParser:
                         and precedence(operator_stack[-1].label) >= precedence(current_operator.label)):
                     output_queue.append(operator_stack.pop())
                 operator_stack.append(current_operator)
+            elif self.match_any(["forAll", "exists","sum"]):
+                output_queue.append(self.parse_quantification())
             else:
                 output_queue.append(self.parse_literal())  # Literal or Name
             
@@ -416,7 +453,7 @@ class EssenceParser:
         for token in postfix_expression:            
             if token.info == "UnaryOperator":
                 right = stack.pop()              
-                stack.append(UnaryExpression(token.label[-1], right))
+                stack.append(UnaryExpression(token.label[1:], right))
             elif token.info == "BinaryOperator":
                 right = stack.pop()
                 left = stack.pop()
@@ -426,7 +463,10 @@ class EssenceParser:
             else:
                 stack.append(Node(token))
                 print("something not right at " + token + " Token Num: " + str(self.index))
-        return stack[0]    
+        if len(stack) >0:
+            return stack[0]    
+        else:
+            raise Exception("Missing Expression at: " + str(self.index))
 
     def checkUnaryOperator(self,output_queue):
         if self.match("-"):
@@ -440,6 +480,8 @@ class EssenceParser:
                 return False
         elif self.match("!"):
             return True
+        elif self.match("toInt"):
+            return True
         else:
             return False
         
@@ -447,7 +489,7 @@ class EssenceParser:
         self.consume()  # "("
         values = []
         while not self.match(")"):
-            values.append(Node(self.consume(), info="Literal"))  # Literal 
+            values.append(self.parse_literal())  # Literal 
             if self.match(","):
                 self.consume()  # ","
         self.consume()  # ")"
@@ -466,7 +508,7 @@ class EssenceParser:
         return RelationConstant(values)
 
     def parse_quantification(self):
-        quantifier = self.consume()  # "forAll" or "exists"
+        quantifier = self.consume()  # "forAll" or "exists" or "sum"
         variables = []
 
         while not self.match_any([":", "in"]):
@@ -488,29 +530,45 @@ class EssenceParser:
         if preposition == ":":
            domain = self.parse_domain()
         else:
-           domain = self.parse_literal() ## NEEDS REVISION
-        return QuantificationExpression(quantifier,variables, preposition,domain)
+           domain = self.parse_literal() ## TODO NEEDS REVISION
+        if self.match("."):
+            return QuantificationExpression(quantifier,variables, preposition,domain)
+        else:
+            raise SyntaxError("Expected . but got: " + str(self.tokens[self.index]))
  
 
-def buildTreeNX(node, Tree, nodeIndex=None, parent=None):                
+def _buildTreeNX(node, Tree, nodeIndex=None, parent=None):                
     Tree.add_node(id(node), value = node.label, index = nodeIndex) 
     if parent != None: 
         Tree.add_edge(id(parent), id(node))
     for i in range(len(node.children)):
-        buildTreeNX(node.children[i], Tree, i+1, node)
+        _buildTreeNX(node.children[i], Tree, i+1, node)
 
-def getNXTree(title = None, statements = []):
-    '''
-    Returns a nx tree graph from a list of statements
-    '''
+def getNXTree(title = None, Root = []):
+    """Returns a NetworkX tree graph from an ASTpy Node
+
+    Args:
+        title (str, optional): Name of the spec. Defaults to None.
+        Root (list, optional): Root of the ASTpy. Defaults to [].
+
+    Returns:
+        nx.DiGraph: Abstract Syntax Tree of an Essence spec as a NetworkX DiGraph 
+    """    
+
     G = nx.DiGraph()
-    buildTreeNX(Node(title, statements), G)
+    _buildTreeNX(Root, G)
     return G
 
 def printTree(node, indent="", last = True, printInfo = False):
-    '''
-    Draw the provided tree as console text recursively from a starting node
-    '''
+    """Recursively draw the provided tree as console text from a starting node
+
+    Args:
+        node (Node): Input Node object
+        indent (str, optional): Current indentation. Defaults to "".
+        last (bool, optional): Flag if current node is last child of branch. Defaults to True.
+        printInfo (bool, optional): Print addictional syntactic information. Defaults to False.
+    """    
+
     info = ""
     if printInfo:
         info = "  #"+ node.info    
@@ -527,19 +585,26 @@ def printTree(node, indent="", last = True, printInfo = False):
     for i in range(len(node.children)):
         printTree(node.children[i], indent, i==len(node.children)-1,printInfo=printInfo)
 
-def treeEquality(subTree1, subTree2): 
-  '''
-  Tests if 2 trees are identical all the way down.
-  '''               
-  if subTree1.label != subTree2.label:
-      return False
+def treeEquality(subTree1:Node, subTree2:Node) -> bool: 
   
-  if len(subTree1.children) != len(subTree2.children):
-      return False
-  elif len(subTree1.children) > 0 and len(subTree2.children) > 0:
-    isEqual = True
-    for i in range(len(subTree1.children)):
-      isEqual = isEqual and treeEquality(subTree1.children[i],subTree1.children[i])
-    return isEqual
-  elif len(subTree1.children) == 0 and len(subTree2.children) == 0:
-      return True
+    """
+    Tests if 2 trees are identical all the way down.
+
+    Args:
+        subTree1 (Node): First subtree 
+        subTree2 (Node): Second subtree 
+    Returns:
+        bool: returns true if the trees are identical
+    """  
+    
+                
+    if subTree1.label != subTree2.label:
+        return False
+    
+    if len(subTree1.children) != len(subTree2.children):
+        return False
+    else:
+        isEqual = True
+        for i in range(len(subTree1.children)):
+            isEqual = isEqual and treeEquality(subTree1.children[i],subTree1.children[i])
+        return isEqual
