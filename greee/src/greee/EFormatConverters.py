@@ -4,10 +4,10 @@ The name of the functions should follow the pattern Format1ToFormat2. The word "
 grabs all functions in this script. At this point in time having the substring "To" in one of the names will cause issues.
 """
 
-import eminipyparser as ep
+import greee.eminipyparser as ep
 import networkx as nx
-import GP2Graph
-import icing
+import greee.GP2Graph as GP2Graph
+import greee.icing
 import json
 import re
 import random

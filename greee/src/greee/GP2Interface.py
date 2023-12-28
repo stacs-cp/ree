@@ -5,9 +5,9 @@ Helper functions used to interact with GP2
 import os
 import sys
 import shutil
-sys.path.append('../ree/tools')
+#sys.path.append('../ree/tools')
 import subprocess
-import EFormatGraph
+from greee import EFormatGraph
 
 folder_path = "gp2"
 lib_dir = os.path.join(folder_path, "lib")

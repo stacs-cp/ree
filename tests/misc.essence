@@ -1,0 +1,20 @@
+language Emaxi 2.0
+
+letting vertices be domain int(1..4)
+letting k be 5
+find R : relation (symmetric,irreflexive,minSize 6) of (vertices * vertices)
+such that
+$forAll x,y,z : vertices, x!=y, y!=z, z!=x . (!R(x,y) \/ !R(y,z) \/ !R(z,x))
+$forAll x,y,z : vertices, x!=y . (!R(x,y) \/ !R(y,z) \/ !R(z,x))
+$forAll x,y,z : vertices . (((x!=y) /\ (y!=z) /\ (z!=x)) -> (!R(x,y) \/ !R(y,z) \/ !R(z,x)))
+$forAll x,y,z : vertices . (allDiff([x,y,z]) -> (!R(x,y) \/ !R(y,z) \/ !R(z,x)))
+
+$ there is no K_4 induced subgraph
+$forAll x,y,z,w : vertices . (allDiff([x,y,z,w]) ->
+$   exists {u,v} subsetEq {x,y,z,w} . !R(u,v))
+
+$ there is no K_k induced subgraph
+$forAll S subsetEq toSet(`vertices`), |S| = k .
+$   (exists {u,v} subsetEq S . !R(u,v))
+true
+

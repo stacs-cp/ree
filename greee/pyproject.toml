@@ -4,13 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "greee"
-version = "0.0.4"
+version = "0.0.5"
 authors = [
     { name = "Christopher Stone", email = "cls29@st-andrews.ac.uk" },
     { name = "András Salamon", email = "Andras.Salamon@st-andrews.ac.uk" },
 ]
 description = "Parser and things for Emini subset of Essence language"
-# random requirement, we probably use 3.x features but unsure if anything more
+readme = "README.md"
+# random requirement, we use 3.x features but unsure if anything more
 requires-python = ">=3.4"
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
@@ -23,4 +24,10 @@ classifiers = [
 # FIXME: we don't have a public URL yet, these are private placeholders for now
 "Homepage" = "https://github.com/stacs-cp/ree"
 "Bug Tracker" = "https://github.com/stacs-cp/ree/issues"
+
+[project.scripts]
+emini2gp2 = "greee.emini2gp2:emini2gp2"
+gp22emini = "greee.gp22emini:gp22emini"
+gp22json = "greee.gp22json:gp22json"
+harness = "greee.harness:harness"
 

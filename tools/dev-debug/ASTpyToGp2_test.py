@@ -7,10 +7,10 @@ import icing
 from datetime import datetime
 
 
-teststr = """
+teststr = r"""
 find x : int(0..100)
 such that
-    1*(2+3)*4 = x
+    1*(2+3)*4 = x /\ (true \/ false)
 """
 
 ast = ET.EminiToASTpy(teststr)

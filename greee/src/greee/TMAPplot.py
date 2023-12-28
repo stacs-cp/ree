@@ -1,12 +1,12 @@
-import EFormatConverters as ET
-import EFormatGraph as EFG
-import GP2Graph
+import greee.EFormatConverters as ET
+import greee.EFormatGraph as EFG
+from greee import GP2Graph
 import networkx as nx
 from inspect import signature
 import matplotlib.pyplot as plt
 import math
 from networkx.drawing.nx_pydot import graphviz_layout
-from karateclub import FeatherGraph ## Prune
+#from karateclub import FeatherGraph ## Prune
 #forms = ["EminiSpec","ASTpy","1DTokens","ASTNX","ASTpyJson","GP2Graph","Neo4j"]
 import pandas as pd
 import umap.umap_ as umap
@@ -383,7 +383,7 @@ def bigGridPlot():
         h = g.to_undirected()
         Gs.append(g)
 
-    model = FeatherGraph()
+    #model = FeatherGraph()
     model.fit(Gs)
     X = model.get_embedding()
     embedding = umap.UMAP(n_neighbors=20,
