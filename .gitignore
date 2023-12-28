@@ -1,4 +1,5 @@
 conjure-output/
 tools/__pycache__/
+greee/src/__pycache__/
 GREEEvenv/
 .vscode
