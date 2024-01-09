@@ -25,9 +25,10 @@ import GP2Interface
 
 
 
-def main() -> int:
+def SolveAndTransform() -> int:
 
-## Create Reformulation Graph
+## Create Reformulation Graph (node: spec, edge:transform)
+## Actions: generate spec, generate instance, transform spec, solve instance
     
     # test spec update to generator call
     spec = '''
@@ -98,5 +99,5 @@ def main() -> int:
 
     
 if __name__ == '__main__':
-    sys.exit(main())
+    sys.exit(SolveAndTransform())
     
