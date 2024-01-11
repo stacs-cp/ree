@@ -608,3 +608,8 @@ def treeEquality(subTree1:Node, subTree2:Node) -> bool:
         for i in range(len(subTree1.children)):
             isEqual = isEqual and treeEquality(subTree1.children[i],subTree1.children[i])
         return isEqual
+
+## ADD treeEquality escluding name of variables. should be sufficient for normalised trees
+    
+## Potential optimisation: Compare HASHES in memory cache, if hits then check actual tree stored in hard drive.
+    
