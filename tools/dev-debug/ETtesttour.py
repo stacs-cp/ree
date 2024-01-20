@@ -1,5 +1,8 @@
-import EFormatConverters as ET
-import GP2Graph
+import sys
+sys.path.append('../ree/tools')
+
+import EFormatConverters as EFC
+import tools.gp2Graph as gp2Graph
 import networkx as nx
 from inspect import signature
 import matplotlib.pyplot as plt
@@ -10,7 +13,7 @@ import matplotlib.pyplot as plt
 def plotFormatsGraph():  
     formsGraph = nx.DiGraph()
 
-    for val in ET.__dict__.values():
+    for val in EFC.__dict__.values():
         if(callable(val)):
             fromTo = val.__name__.split('To')
             formsGraph.add_edge(fromTo[0],fromTo[1], func = val.__name__)
@@ -24,7 +27,7 @@ def plotFormatsGraph():
 def createFormatsGraph():  
     formsGraph = nx.DiGraph()
 
-    for val in ET.__dict__.values():
+    for val in EFC.__dict__.values():
         if(callable(val)):
             fromTo = val.__name__.split('To')
             formsGraph.add_edge(fromTo[0],fromTo[1], func = val.__name__)

@@ -12,7 +12,7 @@ find c : bool
 such that
     a = !(b /\ c)'''
 
-ETG = EFormatGraph.ETGraph()
+ETG = EFormatGraph.EFGraph()
 gp2 = ETG.FormToForm(spec,"Emini","GP2String")
 
 hostFileName = "gp2/demorgTest.host"

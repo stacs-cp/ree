@@ -1,6 +1,6 @@
 import sys
 sys.path.append('../ree/tools')
-import EFormatConverters as ET
+import EFormatConverters as EFC
 import EFormatGraph
 import os
 import icing
@@ -46,8 +46,8 @@ GP2 = """
   (3, 3, 4, 1) (2, 2, 3, 1) (1, 1, 2, 1) 
   (5, 0, 6, 2) (0, 0, 1, 1) ]
 """
-ETG = EFormatGraph.ETGraph()
+ETG = EFormatGraph.EFGraph()
 astpy = ETG.FormToForm(GP2,"GP2String","ASTpy")
-ET.ep.printTree(astpy, printInfo=True)
-Emin = ET.ASTpyToEmini(astpy)
+EFC.ep.printTree(astpy, printInfo=True)
+Emin = EFC.ASTpyToEmini(astpy)
 print(Emin)

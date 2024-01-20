@@ -1,7 +1,7 @@
 import os
 import sys
 sys.path.append('../ree/tools')
-import GP2Interface
+import tools.gp2Interface as gp2Interface
 import subprocess
 
 spec = r'''
@@ -26,7 +26,7 @@ subprocess.run(conjureCall, check=True)
 
 with open("./conjure-output/model000001-solution000001.solution") as solution:
     print(solution.read())
-new_spec = GP2Interface.transformSpec_u("InequalityFlip.gp2", spec)
+new_spec = gp2Interface.transformSpec_u("InequalityFlip.gp2", spec)
 
 print(new_spec)
 specFilename = "./tests/testExpression.essence"

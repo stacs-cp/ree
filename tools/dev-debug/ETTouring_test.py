@@ -1,6 +1,6 @@
 import sys
 sys.path.append('../ree/tools')
-import EFormatConverters as ET
+import EFormatConverters as EFC
 import EFormatGraph
 import os
 import icing
@@ -79,12 +79,12 @@ forAll x,y,z : vertices . (((x!=y) /\ (y!=z) /\ (z!=x)) -> (!R(x,y) \/ !R(y,z)  
 #      teststr0 = file.read()
 print(teststr2)
 teststr = copy.deepcopy(teststr2)
-ast = ET.EminiToASTpy(teststr)
+ast = EFC.EminiToASTpy(teststr)
 
-ET.ep.printTree(ast, printInfo=True)
+EFC.ep.printTree(ast, printInfo=True)
 
-emini = ET.ASTpyToEmini(ast)
-ETG = EFormatGraph.ETGraph()
+emini = EFC.ASTpyToEmini(ast)
+ETG = EFormatGraph.EFGraph()
 print(emini)
 emini2 = copy.deepcopy(teststr)
 works = True
@@ -98,7 +98,7 @@ for i in range(0,1):
 print("String equality")
 print(works)
 
-ast2 = ET.EminiToASTpy(results[0])
+ast2 = EFC.EminiToASTpy(results[0])
 print("tree equality")
 print(eminipyparser.treeEquality(ast,ast2))
 

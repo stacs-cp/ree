@@ -1,7 +1,7 @@
 import sys
 sys.path.append('../ree/tools')
-import EFormatConverters as ET
-import GP2Graph
+import EFormatConverters as EFC
+import tools.gp2Graph as gp2Graph
 import json
 
 teststr = """
@@ -10,43 +10,43 @@ such that
     1*(2+3*4)-8887>i
 """
 
-ast = ET.EminiToASTpy(teststr)
-ET.ep.printTree(ast)
+ast = EFC.EminiToASTpy(teststr)
+EFC.ep.printTree(ast)
 
-j = ET.ASTpyToJson(ast)
+j = EFC.ASTpyToJson(ast)
 print(j)
 
 with open('jsons/data.json', 'w') as f:
     f.write(j)
 
-astfj = ET.JsonToASTpy('jsons/data.json')
-ET.ep.printTree(astfj)
+astfj = EFC.JsonToASTpy('jsons/data.json')
+EFC.ep.printTree(astfj)
 
-astj = json.loads(j, object_hook=lambda ASTpy: ET.ep.Node(**ASTpy))
+astj = json.loads(j, object_hook=lambda ASTpy: EFC.ep.Node(**ASTpy))
 print("Withoutfilesave")
-ET.ep.printTree(astj)
+EFC.ep.printTree(astj)
 
-gp2z = ET.ASTpyToGP2Graph(ast)
+gp2z = EFC.ASTpyToGP2Graph(ast)
 
 
-GP2String = ET.GP2GraphToGP2String(gp2z)# gp2z.getGP2String()
+GP2String = EFC.GP2GraphToGP2String(gp2z)# gp2z.getGP2String()
 print(GP2String)
-gp2g = ET.GP2StringToGP2Graph(GP2String)# GP2Graph.Graph([],[])
+gp2g = EFC.GP2StringToGP2Graph(GP2String)# GP2Graph.Graph([],[])
 
 #gp2g.graphFromGP2String(GP2String)
 
-ast2 = ET.GP2GraphToASTpy(gp2g)
-ET.ep.printTree(ast2, printInfo = True)
+ast2 = EFC.GP2GraphToASTpy(gp2g)
+EFC.ep.printTree(ast2, printInfo = True)
 
-spec = ET.ASTpyToEmini(ast2)
+spec = EFC.ASTpyToEmini(ast2)
 print(spec)
 
-astnx = ET.ASTpyToNX(ast2)
+astnx = EFC.ASTpyToNX(ast2)
 
-gp2fromNX = ET.NXToGP2Graph(astnx)
+gp2fromNX = EFC.NXToGP2Graph(astnx)
 
-ast3fromGP2 = ET.GP2GraphToASTpy(gp2fromNX)
+ast3fromGP2 = EFC.GP2GraphToASTpy(gp2fromNX)
 
-ET.ep.printTree(ast3fromGP2)
-spec2 = ET.ASTpyToEmini(ast3fromGP2)
+EFC.ep.printTree(ast3fromGP2)
+spec2 = EFC.ASTpyToEmini(ast3fromGP2)
 print(spec2)

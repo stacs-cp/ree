@@ -21,7 +21,7 @@ import subprocess
 import EFormatGraph as EFG
 import eminipyparser as ep
 import os
-import GP2Interface
+import gp2Interface
 import pandas as pd
 import time
 
@@ -65,7 +65,7 @@ def SolveAndTransform() -> int:
         parentSolutionID = hash(s)
         print(s)
 
-    formatsGraph = EFG.ETGraph()
+    formatsGraph = EFG.EFGraph()
 
     start2 = time.time_ns()
     # Translate to GP2 (could be done in parallel)
@@ -77,7 +77,7 @@ def SolveAndTransform() -> int:
     # Apply Transform
     progName = "DeMorganTwo.gp2"
     hostGraph = os.path.join("gp2","testExpression.host")
-    GP2Interface.runPrecompiledProg(progName,hostGraph)
+    gp2Interface.runPrecompiledProg(progName,hostGraph)
 
     gp2specNEW = ""
     transformTime = time.time_ns() - start2

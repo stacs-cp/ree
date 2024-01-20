@@ -69,7 +69,7 @@ def transformSpec_u(gp2prog_file_name, spec):
     ''' 
     (deprecated)Transform a spec using an uncompiled gp2 program.
     '''
-    formatsGraph = EFormatGraph.ETGraph()
+    formatsGraph = EFormatGraph.EFGraph()
 
     gp2spec = formatsGraph.FormToForm(spec,"Emini","GP2String")
     #print(gp2spec)

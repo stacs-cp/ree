@@ -1,7 +1,8 @@
 import os
 import sys
 sys.path.append('../ree/tools')
-import GP2Interface
+#import tools.gp2Interface as gp2Interface
+import gp2Interface
 import subprocess
 import EFormatConverters
 import eminipyparser
@@ -28,7 +29,7 @@ AST = EFormatConverters.EminiToASTpy(spec)
 eminipyparser.printTree(AST)
 with open("./conjure-output/model000001-solution000001.solution") as solution:
     print(solution.read())
-new_spec = GP2Interface.transformSpec_u("DeMorganTwo.gp2", spec)
+new_spec = gp2Interface.transformSpec_u("DeMorganTwo.gp2", spec)
 
 print(new_spec)
 specFilename = "./tests/deMorgTestOutput.essence"

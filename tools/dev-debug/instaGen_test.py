@@ -50,7 +50,7 @@ find x : int(0..50)
 ''')
 
 
-ETG = EFormatGraph.ETGraph()
+ETG = EFormatGraph.EFGraph()
 
 for i,test_str in enumerate(test_strings):
     parser = ep.EssenceParser()

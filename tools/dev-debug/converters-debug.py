@@ -1,6 +1,6 @@
 import sys
 sys.path.append('../ree/tools')
-import EFormatConverters as ET
+import EFormatConverters as EFC
 import EFormatGraph
 import os
 import icing
@@ -33,28 +33,28 @@ such that t[1] = t[2]
 """
 
 teststr = copy.deepcopy(teststr0)
-ast = ET.EminiToASTpy(teststr)
+ast = EFC.EminiToASTpy(teststr)
 
 #ET.ep.printTree(ast, printInfo=True)
 
-emini = ET.ASTpyToEmini(ast)
-ETG = EFormatGraph.ETGraph()
+emini = EFC.ASTpyToEmini(ast)
+ETG = EFormatGraph.EFGraph()
 
 emini2 = copy.deepcopy(teststr)
 
-nxgraph = ET.ASTpyToNX(ast)
+nxgraph = EFC.ASTpyToNX(ast)
 
-gp2g = ET.NXToGP2Graph(nxgraph)
+gp2g = EFC.NXToGP2Graph(nxgraph)
 
-gp2str = ET.GP2GraphToGP2String(gp2g)
+gp2str = EFC.GP2GraphToGP2String(gp2g)
 
-gp2g = ET.GP2StringToGP2Graph(gp2str)
+gp2g = EFC.GP2StringToGP2Graph(gp2str)
 
-nxgraph = ET.GP2GraphToNX(gp2g)
+nxgraph = EFC.GP2GraphToNX(gp2g)
 
-ast2 = ET.NXToASTpy(nxgraph)
+ast2 = EFC.NXToASTpy(nxgraph)
 
-emini3 = ET.ASTpyToEmini(ast2)
+emini3 = EFC.ASTpyToEmini(ast2)
 print(emini3)
 #works = True
 #for i in range(0,2):

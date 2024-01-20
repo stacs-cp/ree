@@ -1,10 +1,10 @@
 import sys
 sys.path.append('../ree/tools')
-import EFormatConverters as ET
+import EFormatConverters as EFC
 import EFormatGraph
 import os
 import icing
-import GP2Interface
+import tools.gp2Interface as gp2Interface
 from datetime import datetime
 import subprocess
 
@@ -15,13 +15,13 @@ find b : bool
 find c : bool
 such that
     a = !(b /\ c)'''
-EFG = EFormatGraph.ETGraph()
+EFG = EFormatGraph.EFGraph()
 gp2str = EFG.FormToForm(teststr, "Emini","GP2String")
 hostFileName = "gp2/demorgTest.host"
 with open(hostFileName, 'w') as file:
     file.write(gp2str)
 
-GP2Interface.runPrecompiledProg("DeMorganTwo.gp2",hostFileName)
+gp2Interface.runPrecompiledProg("DeMorganTwo.gp2",hostFileName)
 output = "gp2.output"
 new_specGP2 = ""
 with open(output, 'r') as file:

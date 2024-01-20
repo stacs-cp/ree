@@ -15,7 +15,7 @@ gp2str = '''
   (1, 1, 2, 1) (9, 0, 10, 4) (6, 0, 7, 3) 
   (3, 0, 4, 2) (0, 0, 1, 1) ]'''
 
-ETG = EFormatGraph.ETGraph()
+ETG = EFormatGraph.EFGraph()
 astpy = ETG.FormToForm(gp2str,"GP2String", "ASTpy")
 print(astpy) 
 

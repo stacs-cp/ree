@@ -1,12 +1,12 @@
-import EFormatConverters as ET
-import GP2Graph
+import EFormatConverters as EFC
+import gp2Graph
 import networkx as nx
 import matplotlib.pyplot as plt
 import time
 import collections
 import random
 
-class ETGraph:
+class EFGraph:
     '''
     Container for the networkx Emini Format Conversion Graph. Each vertex is a format, each edge a function that takes an Emini specification from one format to another. 
     Each edge contains a callable function in its "func" attribute automatically extracted from the EFormatConverters python script.
@@ -24,7 +24,7 @@ class ETGraph:
     def __init__(self):
         self.formsGraph = nx.DiGraph()
 
-        for val in ET.__dict__.values():
+        for val in EFC.__dict__.values():
             if(callable(val)):
                 fromTo = val.__name__.split('To')
                 self.formsGraph.add_edge(fromTo[0],fromTo[1], func = val)
@@ -277,8 +277,8 @@ def funcTests():
     t[1] = t[2]
     """
 
-    ast = ET.EminiToASTpy(teststr)
-    ETG = ETGraph()
+    ast = EFC.EminiToASTpy(teststr)
+    ETG = EFGraph()
 
     ast2= ETG.allEdgesFrom(ast,"ASTpy")
     #print(ast2[0])
@@ -323,8 +323,8 @@ def postMantest():
     t[1] = t[2]
     """
 
-    ast = ET.EminiToASTpy(teststr)
-    ETG = ETGraph()
+    ast = EFC.EminiToASTpy(teststr)
+    ETG = EFGraph()
     
     newAst, cycle = ETG.heuristicChinesePostman(ast,"ASTpy")
     pos = nx.circular_layout(ETG.formsGraph)

@@ -11,7 +11,7 @@ def main() -> int:
     This is usually one spec and some associated parameter files.
     '''
     teststr = ''
-    ETG = EFormatGraph.ETGraph()
+    ETG = EFormatGraph.EFGraph()
     with fileinput.input() as f:
         for l in f:
             teststr += l

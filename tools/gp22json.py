@@ -5,7 +5,7 @@ sys.path.append('tools')
 import EFormatGraph
 
 teststr = ''
-ETG = EFormatGraph.ETGraph()
+ETG = EFormatGraph.EFGraph()
 with fileinput.input() as f:
     for l in f:
         teststr += l

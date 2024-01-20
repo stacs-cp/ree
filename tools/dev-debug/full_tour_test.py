@@ -21,7 +21,7 @@ subprocess.run(conjureCall, check=True)
 with open("./conjure-output/model000001-solution000001.solution") as solution:
     print(solution.read())
 
-formatsGraph = EFormatGraph.ETGraph()
+formatsGraph = EFormatGraph.EFGraph()
 
 gp2spec = formatsGraph.FormToForm(spec,"Emini","GP2String")
 gp2hostfile = "./gp2/testExpression.host"

@@ -10,7 +10,7 @@ such that
 """
 
 # translate to GP2
-ETG = EFormatGraph.ETGraph()
+ETG = EFormatGraph.EFGraph()
 GP2 = ETG.FormToForm(eminiSpec,"Emini","GP2String")
 print(GP2) 
 

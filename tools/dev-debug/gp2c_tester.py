@@ -4,7 +4,7 @@ sys.path.append('../ree/tools')
 import subprocess
 import EFormatGraph
 
-formatsGraph = EFormatGraph.ETGraph()
+formatsGraph = EFormatGraph.EFGraph()
 
 spec = r'''
 such that x = 3 *2

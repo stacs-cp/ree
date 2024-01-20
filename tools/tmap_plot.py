@@ -1,6 +1,6 @@
-import EFormatConverters as ET
+import EFormatConverters as EFC
 import EFormatGraph as EFG
-import GP2Graph
+import tools.gp2Graph as gp2Graph
 import networkx as nx
 from inspect import signature
 import matplotlib.pyplot as plt
@@ -18,7 +18,7 @@ def MainTMAP():
     '''
     formsGraph = nx.DiGraph()
 
-    for val in ET.__dict__.values():
+    for val in EFC.__dict__.values():
         if(callable(val)):
             fromTo = val.__name__.split('To')
             formsGraph.add_edge(fromTo[0],fromTo[1], func = val.__name__, color='w')
@@ -132,7 +132,7 @@ def polar(x, y):
 def expMapSkeleton():
     formsGraph = nx.DiGraph()
 
-    for val in ET.__dict__.values():
+    for val in EFC.__dict__.values():
         if(callable(val)):
             fromTo = val.__name__.split('To')
             formsGraph.add_edge(fromTo[0],fromTo[1], func = val.__name__)
@@ -213,7 +213,7 @@ def expMapSkeleton():
 def timedMaps():
     formsGraph = nx.DiGraph()
 
-    for val in ET.__dict__.values():
+    for val in EFC.__dict__.values():
         if(callable(val)):
             fromTo = val.__name__.split('To')
             formsGraph.add_edge(fromTo[0],fromTo[1], func = val.__name__)
@@ -322,7 +322,7 @@ def timedMaps():
         x > 1 * 2 + 3 * 4
         '''
     #spec = ""
-    efg = EFG.ETGraph()
+    efg = EFG.EFGraph()
 
     #ast, timedGraph = efg.allPathsFrom(spec,"Emini")
 
@@ -343,7 +343,7 @@ def bigGridPlot():
     for i, ax_row in enumerate(axs):
         for j, ax in enumerate(ax_row):
             spec = eminigen.spawnEssence()
-            efg = EFG.ETGraph()
+            efg = EFG.EFGraph()
             g = efg.FormToForm(spec,"Emini","NX")
             h = g.to_undirected()
             Gs.append(g)
@@ -378,7 +378,7 @@ def bigGridPlot():
 
     for i in range(300):
         spec = eminigen.spawnEssence()
-        efg = EFG.ETGraph()
+        efg = EFG.EFGraph()
         g = efg.FormToForm(spec,"Emini","NX")
         h = g.to_undirected()
         Gs.append(g)

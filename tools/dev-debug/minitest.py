@@ -1,5 +1,5 @@
-import EFormatConverters as ET
-import GP2Graph
+import EFormatConverters as EFC
+import tools.gp2Graph as gp2Graph
 
 teststr = """
 find i : int(0..10)
@@ -7,13 +7,13 @@ such that
     1*(2+3*4)-8887=i
 """
 
-ast = ET.EminiToASTpy(teststr)
-ET.ep.printTree(ast)
+ast = EFC.EminiToASTpy(teststr)
+EFC.ep.printTree(ast)
     
-gp2z = ET.ASTpyToGP2Graph(ast)
+gp2z = EFC.ASTpyToGP2Graph(ast)
 
 
-nxtree = ET.ASTpyToNX(ast)
+nxtree = EFC.ASTpyToNX(ast)
 print(nxtree.edges(data=True))
 
 for v,node in nxtree.nodes(data=True):
@@ -43,9 +43,9 @@ mystr = '''
     (7, 2, 4, 6:6:6:6:5:6:6 # dashed)
 ] '''
 
-g = GP2Graph.Graph()
-g = ET.GP2StringToGP2Graph(mystr)
-gp2string = ET.GP2GraphToGP2String(g)
-h = ET.GP2StringToGP2Graph(gp2string)
-h2 = ET.GP2GraphToGP2String(h)
+g = gp2Graph.Graph()
+g = EFC.GP2StringToGP2Graph(mystr)
+gp2string = EFC.GP2GraphToGP2String(g)
+h = EFC.GP2StringToGP2Graph(gp2string)
+h2 = EFC.GP2GraphToGP2String(h)
 print(h2)
