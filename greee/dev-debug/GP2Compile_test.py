@@ -1,7 +1,7 @@
 import os
 import sys
 sys.path.append('greee')
-import greee.gp2Interface as gp2Interface
+import gp2Interface
 
 progName = "DeMorganTwo.gp2"
 

@@ -25,13 +25,22 @@ class EssenceTransformGraph(EFGraph):
         super().__init__() # Format converters are read and initalised here
         parsers = ep.EssenceParser() # one parser one context?
     
-    def solve(emini_string):
+    def solve(self, file_name):
+        '''
+        Call conjure and return solution as string
+        '''
         params = ""
-        conjureCall = ['conjure','solve', emini_string]
+        conjureCall = ['conjure','solve', file_name]
         subprocess.run(conjureCall, check=True)
+        try:
+            with open("./conjure-output/model000001-solution000001.solution") as solution:
+                s = solution.read()
+        except:
+            print("error while reading solution")
+        return  s
     
     def transform_with_GP2(self,emini_string, program_name):
-        gp2string = self.EFG.formatsGraph.FormToForm(emini_string,"Emini","GP2String")
+        gp2string = self.FormToForm(emini_string,"Emini","GP2String")
         gp2hostfile = "emini_string.host"
         with open(gp2hostfile, 'w') as file:
             file.write(gp2string)
@@ -46,6 +55,10 @@ class EssenceTransformGraph(EFGraph):
             with open("gp2.output") as newGP2spec:
                 gp2_NEWstring = newGP2spec.read()
             emini_transformed = self.EFG.formatsGraph.FormToForm(gp2_NEWstring,"GP2String","Emini")
+              # Clear files
+            os.remove("gp2.output")
+            if os.path.isfile("gp2.log"):
+                os.remove("gp2.log")
         else:
             return emini_string # The transform has not been applied
 

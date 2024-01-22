@@ -1,5 +1,8 @@
 conjure-output/
 tools/__pycache__/
+greee/__pycache__/
 greee/src/__pycache__/
+.DS_Store
 GREEEvenv/
 .vscode
+gp2/Compiled

@@ -9,6 +9,7 @@ import subprocess
 import EFormatGraph
 
 folder_path = "gp2"
+compiled_progs_folder = "Compiled"
 lib_dir = os.path.join(folder_path, "lib")
 
 def scanPrograms():
@@ -36,8 +37,11 @@ def compileGP2Program(gp2prog_file_name):
 
     Args:
         gp2prog_file_name (str): .gp2 file name
-    """    
-    programDir = os.path.join(folder_path, gp2prog_file_name[:-4])
+    """   
+    if not os.path.isdir(os.path.join(folder_path, compiled_progs_folder)):
+        os.mkdir(os.path.join(folder_path, compiled_progs_folder))
+
+    programDir = os.path.join(folder_path,compiled_progs_folder, gp2prog_file_name[:-4])
     if not os.path.exists(programDir):
         os.mkdir(programDir)
     gp2prog =  os.path.join(folder_path, gp2prog_file_name)    
@@ -58,7 +62,7 @@ def runPrecompiledProg(gp2prog_file_name, host):
         gp2prog_file_name (str): .gp2 file name
         host (str): .host graph file name
     """    
-    programDir = os.path.join(folder_path, gp2prog_file_name[:-4])
+    programDir = os.path.join(folder_path, compiled_progs_folder, gp2prog_file_name[:-4])
 
     gp2call = [os.path.join(programDir,"gp2run"), host]
     subprocess.run(gp2call, check=True)

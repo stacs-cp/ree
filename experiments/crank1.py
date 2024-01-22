@@ -18,12 +18,12 @@ Baseline experiment 1
 import sys
 sys.path.append('greee')
 import subprocess
-import EFormatGraph as EFG
-import eminipyparser as ep
 import os
 import gp2Interface
 import pandas as pd
 import time
+
+import et_graph
 
 def SolveAndTransform() -> int:
 
@@ -32,7 +32,7 @@ def SolveAndTransform() -> int:
     # event: type, time, space,details
     # events: generate instance (abstract spec to constrete spec), translate (Format to format), transform ( spec to spec), solve (concrete spec to solution)
     # 
-    
+    etransform_graph = et_graph.EssenceTransformGraph()
     # test spec update to generator call
     start = time.time_ns() 
 
@@ -47,69 +47,39 @@ def SolveAndTransform() -> int:
         a = !(b /\ c)'''
 
     parentID = hash(spec)
+
     # save spec to file. store file size + time
     specFilename = "./tests/testExpression.essence"
     with open(specFilename, 'w') as file:
         file.write(spec)
 
     # call conjure and solve spec.
-    params = ""
-    conjureCall = ['conjure','solve', specFilename]
-    subprocess.run(conjureCall, check=True)
+    solution = etransform_graph.solve(specFilename)
     solveTime =time.time_ns() - start
+    parentSolutionID = hash(solution)
 
-
-    # TODO upgrade to log solution. time, size, number of nodes traversed
-    with open("./conjure-output/model000001-solution000001.solution") as solution:
-        s = solution.read()
-        parentSolutionID = hash(s)
-        print(s)
-
-    formatsGraph = EFG.EFGraph()
-
+    # TODO upgrade logs: solution. time, size, number of nodes traversed
+    
     start2 = time.time_ns()
+
     # Translate to GP2 (could be done in parallel)
-    gp2spec = formatsGraph.FormToForm(spec,"Emini","GP2String")
-    gp2hostfile = "./gp2/testExpression.host"
-    with open(gp2hostfile, 'w') as file:
-        file.write(gp2spec)
-
-    # Apply Transform
     progName = "DeMorganTwo.gp2"
-    hostGraph = os.path.join("gp2","testExpression.host")
-    gp2Interface.runPrecompiledProg(progName,hostGraph)
-
-    gp2specNEW = ""
+    if not os.path.isdir(os.path.join("gp2","Compiled",progName[-4])):
+        gp2Interface.compileGP2Program(progName)
+    spec2= etransform_graph.transform_with_GP2(spec,progName)
     transformTime = time.time_ns() - start2
-    # If trasform is applicable solve new spec
-    if os.path.isfile("gp2.output"):
-        with open("gp2.output") as newGP2spec:
-            gp2specNEW = newGP2spec.read()
-        print(gp2specNEW)
-        spec2 = formatsGraph.FormToForm(gp2specNEW,"GP2String","Emini")
-        instanceID = hash(spec2)
-        print(spec2)
-        spec2Filename = "./tests/testExpression2.essence"
-        with open(spec2Filename, 'w') as file:
-            file.write(spec2)
-        start3 = time.time_ns()
-        # call conjure and solve spec
-        conjureCall2 = ['conjure','solve', spec2Filename]
-        subprocess.run(conjureCall2, check=True)
 
-        # TODO upgrade to log solution
-        with open("./conjure-output/model000001-solution000001.solution") as solution:
-            s = solution.read()
-            solutionID = hash(s)
-            print(s)
-        instanceSolveTime = time.time_ns() - start3
-        # Clear files
-        os.remove("gp2.output")
-        if os.path.isfile("gp2.log"):
-            os.remove("gp2.log")
-    else:
-        # TODO add log
-        print("Transform not applied")
+    instanceID = hash(spec2)
+    print(spec2)
+    spec2Filename = "./tests/testExpression2.essence"
+    with open(spec2Filename, 'w') as file:
+        file.write(spec2)
+    start3 = time.time_ns()
+    solution2 = etransform_graph.solve(spec2Filename)
+    instanceSolveTime = time.time_ns() - start3
+    solutionID = hash(solution2)
+
+
     return {'instanceID': instanceID, 
                 'parentID': parentID, 
                 'trasform': progName, 
