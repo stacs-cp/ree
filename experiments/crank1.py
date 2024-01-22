@@ -16,7 +16,7 @@ Baseline experiment 1
 '''
 
 import sys
-sys.path.append('../ree/tools')
+sys.path.append('greee')
 import subprocess
 import EFormatGraph as EFG
 import eminipyparser as ep

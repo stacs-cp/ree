@@ -5,9 +5,8 @@ Helper functions used to interact with GP2
 import os
 import sys
 import shutil
-#sys.path.append('greee')
 import subprocess
-from greee import EFormatGraph
+import EFormatGraph
 
 folder_path = "gp2"
 lib_dir = os.path.join(folder_path, "lib")
@@ -69,7 +68,7 @@ def transformSpec_u(gp2prog_file_name, spec):
     ''' 
     (deprecated)Transform a spec using an uncompiled gp2 program.
     '''
-    formatsGraph = EFormatGraph.ETGraph()
+    formatsGraph = EFormatGraph.EFGraph()
 
     gp2spec = formatsGraph.FormToForm(spec,"Emini","GP2String")
     #print(gp2spec)
