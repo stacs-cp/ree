@@ -57,10 +57,13 @@ class EssenceTransformGraph(EFGraph):
             emini_transformed = self.EFG.formatsGraph.FormToForm(gp2_NEWstring,"GP2String","Emini")
               # Clear files
             os.remove("gp2.output")
-            if os.path.isfile("gp2.log"):
-                os.remove("gp2.log")
+            
         else:
-            return emini_string # The transform has not been applied
+            emini_transformed = emini_string # The transform has not been applied
+
+        if os.path.isfile("gp2.log"):
+                os.remove("gp2.log")
+        os.remove(gp2hostfile)
 
         return emini_transformed
     

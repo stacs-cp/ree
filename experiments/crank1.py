@@ -95,7 +95,7 @@ if __name__ == '__main__':
     # define columns
     columns = ['instanceID', 'parentID', 'trasform', 'transformTime', 'parentSolveTime', 'instanceSolveTime','parentSolutionID', 'solutionID']  
     data_rows = []
-    for i in range(20):
+    for i in range(5):
         data_rows.append(SolveAndTransform())
     print(data_rows)
     dataLogger = pd.DataFrame(data_rows,columns = columns)
