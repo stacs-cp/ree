@@ -4,10 +4,10 @@ The name of the functions should follow the pattern Format1ToFormat2. The word "
 grabs all functions in this script. At this point in time having the substring "To" in one of the names will cause issues.
 """
 
-import greee.eminipyparser as ep
+import gree.eminipyparser as ep
 import networkx as nx
-import greee.GP2Graph as GP2Graph
-import greee.icing
+import gree.gp2Graph
+import icing
 import json
 import re
 import random
@@ -44,7 +44,7 @@ def ASTpyToGP2Graph(ASTpy):
     '''
     Turns an Abstract Syntax Tree of python objects into a Graph mapped to the GP2 format.
     '''
-    gp2g = GP2Graph.Graph([],[])
+    gp2g = gp2Graph.Graph([],[])
     
     def buildTree(node, Tree, index=1, parentID=None):   
         nodeID = len(gp2g.nodes)             
@@ -91,7 +91,7 @@ def GP2GraphToNX(gp2graph):
     
     for node in gp2graph.nodes:
         #vertex = node[1].split('~')
-        label = GP2Graph.ToEssenceHelper(node[1])
+        label = gp2Graph.ToEssenceHelper(node[1])
         info = node[2]               
         G.add_node(node[0], label = label, info=info)
     for edge in gp2graph.edges:
@@ -147,7 +147,7 @@ def NXToGP2Graph(NXGraph):
     '''
     Converts a NetworkX Graph into a GP2Graph.
     '''
-    gp2graph = GP2Graph.Graph([],[])
+    gp2graph = gp2Graph.Graph([],[])
     for id,node in NXGraph.nodes(data=True):
         label = node['label']
         info = node['info']
@@ -177,7 +177,7 @@ def GP2StringToGP2Graph(gp2string):
     '''
     Create graph object from gp2 formatted string . 
     '''
-    gp2graph = GP2Graph.Graph([],[])
+    gp2graph = gp2Graph.Graph([],[])
 
     graphStarts =  [match.start() for match in re.finditer(r'\[', gp2string)]
     if len(graphStarts) != 1:
