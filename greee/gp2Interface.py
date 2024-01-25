@@ -37,23 +37,40 @@ def compileGP2Program(gp2prog_file_name):
 
     Args:
         gp2prog_file_name (str): .gp2 file name
-    """   
+    """  
+    #Create 'Compiled' folder if it does not exist
     if not os.path.isdir(os.path.join(folder_path, compiled_progs_folder)):
         os.mkdir(os.path.join(folder_path, compiled_progs_folder))
 
+    #Create program folder if it does not exist
     programDir = os.path.join(folder_path,compiled_progs_folder, gp2prog_file_name[:-4])
     if not os.path.exists(programDir):
         os.mkdir(programDir)
-    gp2prog =  os.path.join(folder_path, gp2prog_file_name)    
-    gp2CompilerCall = ["gp2","-o", programDir,gp2prog]
-    subprocess.run(gp2CompilerCall, check=True)
+    print("Compiling ", gp2prog_file_name)
+    try:
+        #Call gp2 compiler    
+        gp2prog =  os.path.join(folder_path, gp2prog_file_name)    
+        gp2CompilerCall = ["gp2","-o", programDir,gp2prog]
+        subprocess.run(gp2CompilerCall, check=True)
 
-    gp2libFiles= os.listdir(lib_dir)
-    for file in gp2libFiles:
-        shutil.copy2(os.path.join(lib_dir,file), programDir)
+        #Add all library files to prog folder
+        gp2libFiles= os.listdir(lib_dir)
+        for file in gp2libFiles:
+            shutil.copy2(os.path.join(lib_dir,file), programDir)
 
-    makeCall = ["make", "-C", programDir]
-    subprocess.run(makeCall, check=True)
+        #execute make 
+        makeCall = ["make", "-C", programDir]
+        subprocess.run(makeCall, check=True)
+
+        print("Compilation Successfull.")
+
+    except Exception as e: 
+            print("Compilation Failed.")
+            print(e)
+            print(repr(e))
+            print("Removing program folder...")
+            shutil.rmtree(programDir)
+    
 
 def runPrecompiledProg(gp2prog_file_name, host):
     """Run graph program on host graph
@@ -99,10 +116,12 @@ def compileGP2folder():
     Compiles all the graph programs in the gp2 folder.
     NB: this currently creates a lot of redundant files.
     '''
-    #TODO
     ### all programs should be compiled and then used via gp2run instead of gp2c 
     #    
-    return "TODO"
+    programs = scanPrograms()
+    for prog in programs:
+        compileGP2Program(prog)
+            
 
 def allTransformsOnSpec_u(spec):
     '''
