@@ -17,9 +17,6 @@ Baseline experiment 1
 
 import sys
 sys.path.append('greee')
-import subprocess
-import os
-import gp2Interface
 import pandas as pd
 import time
 import networkx as nx
@@ -57,36 +54,30 @@ such that
     
     start2 = time.time_ns()
 
-    # Translate to GP2 (could be done in parallel)
+    # Transform with GP2 (could be done in parallel)
     progName = "DeMorganTwo.gp2"
 
-    spec2= etransform_graph.transform_with_GP2(spec,progName)
+    spec2_ID= etransform_graph.transform_with_GP2(spec_ID,progName)
     transformTime = time.time_ns() - start2
-
-    spec2ID = etransform_graph.add_e_node(spec2)
-    print(spec2)
-    etransform_graph.add_e_edge(spec_ID,spec2ID,progName)
-    spec2Filename = "./tests/testExpression2.essence"
-    with open(spec2Filename, 'w') as file:
-        file.write(spec2)
-    start3 = time.time_ns()
-    solution2 = etransform_graph.solve_from_file(spec2Filename)
-    instanceSolveTime = time.time_ns() - start3
+    
+    # Solve new spec
+    solution2 = etransform_graph.solve(spec2_ID)
+    instanceSolveTime = time.time_ns() - transformTime
     solutionID = hash(solution2)
 
-    pos = nx.spring_layout(etransform_graph.graph)
 
-    #nx.draw(etransform_graph.graph, pos,with_labels=True)
+    # PLOT
+    pos = nx.spring_layout(etransform_graph.graph)
+    nx.draw(etransform_graph.graph, pos)
     node_labels = nx.get_node_attributes(etransform_graph.graph,'file_name')
     nx.draw_networkx_labels(etransform_graph.graph, pos, node_labels)
-    edge_labels = nx.get_edge_attributes(etransform_graph.graph,"transformation_name")
-    print("labels")
-    print(edge_labels)
+    edge_labels = dict([((n1, n2), d['transformation']) for n1, n2, d in etransform_graph.graph.edges(data=True)])
     nx.draw_networkx_edge_labels(etransform_graph.graph, pos, edge_labels=edge_labels)
-    #plt.show()
+    plt.show(block=True)
+
 
     return {'parentID': spec_ID, 
-                'childID': spec2ID, 
+                'childID': spec2_ID, 
                 'trasform': progName, 
                 'transformTime':transformTime, 
                 'parentSolveTime' : solveTime,
@@ -104,6 +95,6 @@ if __name__ == '__main__':
         data_rows.append(SolveAndTransform())
     print(data_rows)
     dataLogger = pd.DataFrame(data_rows,columns = columns)
-    dataLogger.to_csv("experiments/crankSanityCheck.csv")
+    #dataLogger.to_csv("experiments/crankSanityCheck.csv")
     sys.exit()
     

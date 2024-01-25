@@ -51,7 +51,7 @@ class EssenceTransformGraph(EFGraph):
             data (dict, optional): Optional attributes. Defaults to {}.
         """        
         attributes = {'transformation': transformation_name, **data}
-        self.graph.add_edge(source, target, attr=attributes)
+        self.graph.add_edge(source, target, None, **attributes)
     
     def solve(self, ID):
         if self.graph.nodes[ID]['file_name'] == "":
@@ -64,10 +64,11 @@ class EssenceTransformGraph(EFGraph):
         conjureCall = ['conjure','solve', self.graph.nodes[ID]['file_name']]
         subprocess.run(conjureCall, check=True)
         try:
-            with open("./conjure-output/model000001-solution000001.solution") as solution:
+            solution_file= specFilename[:-7]+'solution'
+            with open(solution_file) as solution:
                 s = solution.read()
-            solution_ID = self.add_e_node(s)
-            self.add_e_edge(ID,solution_ID,"solved")
+            solution_ID = self.add_e_node(s,solution_file)
+            self.add_e_edge(ID,solution_ID,"solution")
         except:
             print("error while reading solution")
         return  s
@@ -95,7 +96,7 @@ class EssenceTransformGraph(EFGraph):
             print("error while reading solution")
         return  s
     
-    def transform_with_GP2(self,emini_string, program_name):
+    def transform_with_GP2(self,ID, program_name):
         """Transform Emini spec using GP2. The program is compiled automatically if needed
 
         Args:
@@ -105,6 +106,7 @@ class EssenceTransformGraph(EFGraph):
         Returns:
             str: Emini string of the transformed spec. If the transformation has no effect or is not applied the input string is return.
         """        
+        emini_string = self.graph.nodes[ID]['emini']
         gp2string = self.FormToForm(emini_string,"Emini","GP2String")
         gp2hostfile = "emini_string.host"
         with open(gp2hostfile, 'w') as file:
@@ -129,12 +131,14 @@ class EssenceTransformGraph(EFGraph):
         else:
             print(f"Transform {program_name} not applied")
             emini_transformed = emini_string # The transform has not been applied
+        emini_transformed_ID = self.add_e_node(emini_transformed)
+        self.add_e_edge(ID,emini_transformed_ID,program_name)
 
         if os.path.isfile("gp2.log"):
                 os.remove("gp2.log")
         os.remove(gp2hostfile)
 
-        return emini_transformed
+        return emini_transformed_ID
     
     def IntSequence_to_Spec(sequence):
         # maybe add to format converter
