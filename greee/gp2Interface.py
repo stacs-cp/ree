@@ -28,6 +28,26 @@ def scanPrograms():
 
     return gp2_files
 
+def scanPrecompiledPrograms():
+    '''
+    Search for all available compiled GP2 programs and return them as list
+    
+    Returns:
+        list: list of all available programs
+    '''
+    folders = [f.path for f in os.scandir(os.path.join(folder_path, compiled_progs_folder)) if f.is_dir()]
+    progs = []
+    rules = scanPrograms()
+    for rule in rules:
+        folder = os.path.join(folder_path, compiled_progs_folder,rule[:-4])
+        #Only provide the programs that have a folder a gp2run file in it
+        if folder in folders and os.path.isfile(os.path.join(folder, "gp2run")):
+            progs.append(rule)
+    return progs
+
+
+
+
 
 def compileGP2Program(gp2prog_file_name):
     """Compile a GP2 program.
