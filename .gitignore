@@ -1,6 +1,7 @@
 __pycache__/
 conjure-output/
 tools/__pycache__/
+ree/greee/__pycache__/
 greee/__pycache__/
 greee/src/__pycache__/
 .DS_Store

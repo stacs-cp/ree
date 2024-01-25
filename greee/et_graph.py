@@ -31,11 +31,11 @@ class EssenceTransformGraph(EFGraph):
         """Add a node to the graph, the hash of the input emini_string is computed and used as ID
 
         Args:
-            emini_string (string): Emini specification in string format
+            emini_string (str): Emini specification in string format
             file_name (str, optional): Name of file if it exists. Defaults to "" if it doesn't.
         
         Returns:
-            Int: ID of the node
+            int: ID of the node
         """
         ID = hash(emini_string)
         self.graph.add_node(ID, emini=emini_string,file_name=file_name)
@@ -75,9 +75,16 @@ class EssenceTransformGraph(EFGraph):
 
 
     def solve_from_file(self, file_name):
-        '''
-        Call conjure and return solution as string
-        '''
+        """Call conjure and return solution as string
+
+
+        Args:
+            file_name (str): name of the file
+
+        Returns:
+            str: Emini string of the solution
+        """        
+        
         params = ""
         conjureCall = ['conjure','solve', file_name]
         subprocess.run(conjureCall, check=True)
@@ -89,11 +96,23 @@ class EssenceTransformGraph(EFGraph):
         return  s
     
     def transform_with_GP2(self,emini_string, program_name):
+        """Transform Emini spec using GP2. The program is compiled automatically if needed
+
+        Args:
+            emini_string (str): Emini spec in string format
+            program_name (str): name of the program. It should match the name of an existing .gp2 file in the gp2 folder.
+
+        Returns:
+            str: Emini string of the transformed spec. If the transformation has no effect or is not applied the input string is return.
+        """        
         gp2string = self.FormToForm(emini_string,"Emini","GP2String")
         gp2hostfile = "emini_string.host"
         with open(gp2hostfile, 'w') as file:
             file.write(gp2string)
 
+        # check if the compiled program exists, if not compiles program
+        if not os.path.isdir(os.path.join("gp2","Compiled",program_name[-4])):
+            self.compileGP2Program(program_name)
         # Apply Transform
         #hostGraph = os.path.join("gp2",gp2hostfile)
         gp2Interface.runPrecompiledProg(program_name,gp2hostfile)

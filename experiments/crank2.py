@@ -60,12 +60,8 @@ such that
     # Translate to GP2 (could be done in parallel)
     progName = "DeMorganTwo.gp2"
 
-    if not os.path.isdir(os.path.join("gp2","Compiled",progName[-4])):
-        gp2Interface.compileGP2Program(progName)
     spec2= etransform_graph.transform_with_GP2(spec,progName)
     transformTime = time.time_ns() - start2
-
-    
 
     spec2ID = etransform_graph.add_e_node(spec2)
     print(spec2)
