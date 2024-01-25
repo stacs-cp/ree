@@ -2,6 +2,7 @@
 import sys
 sys.path.append('greee')
 import eminipyparser as ep
+import time
 
 test_strings = []
 
@@ -100,6 +101,9 @@ such that
 
 for i,test_str in enumerate(test_strings):
     parser = ep.EssenceParser()
+    start = time.time_ns()
     ASTpy = parser.parse(test_str,"Test-" + str(i))
+    print(time.time_ns()-start)
     ep.printTree(ASTpy, printInfo=True)
+    print(hash(test_str))
     print(ep.getNXTree("Test-" + str(i),ASTpy))
