@@ -5,7 +5,7 @@ import os
 import gp2Interface
 import pandas as pd
 import time
-
+import matplotlib.pyplot as plt
 import et_graph
 import networkx as nx
 
@@ -55,10 +55,12 @@ solutionID = hash(solution2)
 
 pos = nx.spring_layout(etransform_graph.graph)
 
-#nx.draw(etransform_graph.graph, pos,with_labels=True)
+nx.draw(etransform_graph.graph, pos,with_labels=True)
 node_labels = nx.get_node_attributes(etransform_graph.graph,'file_name')
 nx.draw_networkx_labels(etransform_graph.graph, pos, node_labels)
 edge_labels = nx.get_edge_attributes(etransform_graph.graph,"transformation_name")
 print("labels")
 print(edge_labels)
 nx.draw_networkx_edge_labels(etransform_graph.graph, pos, edge_labels=edge_labels)
+plt.show(block=True)
+plt.savefig("testgraph.png", format="PNG")

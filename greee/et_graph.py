@@ -51,12 +51,11 @@ class EssenceTransformGraph(EFGraph):
             data (dict, optional): Optional attributes. Defaults to {}.
         """        
         attributes = {'transformation': transformation_name, **data}
-        print(attributes)
         self.graph.add_edge(source, target, attr=attributes)
     
     def solve(self, ID):
         if self.graph.nodes[ID]['file_name'] == "":
-            specFilename = f"./tests/{ID}.essence"
+            specFilename = f"./tests/{hex(ID)}.essence"
             with open(specFilename, 'w') as file:
                 file.write(self.graph.nodes[ID]['emini'])
             self.graph.nodes[ID]['file_name'] = specFilename
@@ -96,19 +95,20 @@ class EssenceTransformGraph(EFGraph):
             file.write(gp2string)
 
         # Apply Transform
-        hostGraph = os.path.join("gp2",gp2hostfile)
-        gp2Interface.runPrecompiledProg(program_name,hostGraph)
+        #hostGraph = os.path.join("gp2",gp2hostfile)
+        gp2Interface.runPrecompiledProg(program_name,gp2hostfile)
 
         gp2_NEWstring = ""
         # If trasform is applicable solve new spec
         if os.path.isfile("gp2.output"):
             with open("gp2.output") as newGP2spec:
                 gp2_NEWstring = newGP2spec.read()
-            emini_transformed = self.EFG.formatsGraph.FormToForm(gp2_NEWstring,"GP2String","Emini")
+            emini_transformed = self.FormToForm(gp2_NEWstring,"GP2String","Emini")
               # Clear files
             os.remove("gp2.output")
             
         else:
+            print(f"Transform {program_name} not applied")
             emini_transformed = emini_string # The transform has not been applied
 
         if os.path.isfile("gp2.log"):

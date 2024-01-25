@@ -39,7 +39,7 @@ def SolveAndTransform() -> int:
     # test spec update to generator call
     start = time.time_ns() 
 
-    spec = '''find i : int(0..100)
+    spec = r'''find i : int(0..100)
 such that
     i = 1 * 2 + 3 * 4
 find a : bool
@@ -111,4 +111,3 @@ if __name__ == '__main__':
     dataLogger.to_csv("experiments/crankSanityCheck.csv")
     sys.exit()
     
-# %%
