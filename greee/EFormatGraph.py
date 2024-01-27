@@ -32,10 +32,11 @@ class EFGraph:
     def FormToForm(self, AST, fromForm, toForm):
         """Convert an Emini spec from one form to another by specifing the end points.
         Intermediate forms are chosen via shortest path in number of steps.
+        Available formats: Emini, ASTpy, GP2Graph, GP2String, Json, NX.
 
         Args:
-            AST (Any): Essence Specification, in any of the formats used in EFormatConverters.
-            fromForm (Any): Starting format.
+            Emini spec (Any): Essence Specification, in any of the formats used in EFormatConverters.
+            fromForm (Any): Starting format. Must match the format provide in the first parameter.
             toForm (Any): Desired end format.
 
         Returns:
@@ -53,10 +54,11 @@ class EFGraph:
         """Convert an Emini spec from one form to another by specifing the end points.
         Intermediate forms are chosen via shortest path in number of steps.
         returns an extra graph with the timings as edge attributes.
+        Available formats: Emini, ASTpy, GP2Graph, GP2String, Json, NX.
 
         Args:
-            AST (Any): Essence Specification, in any of the formats used in EFormatConverters.
-            fromForm (Any): Starting format.
+            Emini spec (Any): Essence Specification, in any of the formats used in EFormatConverters.
+            fromForm (Any): Starting format. Must match the format provide in the first parameter.
             toForm (Any): Desired end format.
 
         Returns:

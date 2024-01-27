@@ -3,7 +3,9 @@ import EFormatConverters as EFC
 import eminipyparser as ep
 import networkx as nx
 import gp2Interface
+import normalisers
 import subprocess
+import instaGen
 import time
 import os
 
@@ -160,13 +162,13 @@ class EssenceTransformGraph(EFGraph):
         concrete_spec = ""
         return concrete_spec
     
-    def Abstract_to_InstaGen(abstract_spec):
+    def Abstract_to_InstaGen(self,abstract_spec):
         '''
         From abstract spec 
         to instagen spec
         turns Givens into Finds'''
-        insta_gen  = ""
-        return insta_gen
+        insta_gen  = instaGen.specToInstaGen(self.FormToForm(abstract_spec,"Emini","ASTpy"))
+        return self.FormToForm(insta_gen, "ASTpy","Emini")
 
 
 
