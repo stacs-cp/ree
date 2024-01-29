@@ -16,14 +16,14 @@ Baseline experiment 1
 '''
 
 import sys
-sys.path.append('greee')
+sys.path.append('.')
 import pandas as pd
 import time
 import networkx as nx
 import matplotlib.pyplot as plt
 
 
-import et_graph
+from greee import et_graph
 
 def SolveAndTransform() -> int:
 
