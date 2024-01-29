@@ -1,11 +1,11 @@
-from EFormatGraph import EFGraph
-import EFormatConverters as EFC
-import eminipyparser as ep
+from greee.EFormatGraph import EFGraph
+from greee import EFormatConverters as EFC
+from greee import eminipyparser as ep
 import networkx as nx
-import gp2Interface
-import normalisers
+from greee import gp2Interface
+from greee import normalisers
 import subprocess
-import instaGen
+from greee import instaGen
 import time
 import os
 

@@ -1,6 +1,6 @@
-import EFormatConverters as EFC
-import EFormatGraph as EFG
-import greee.gp2Graph as gp2Graph
+from greee import EFormatConverters as EFC
+from greee import EFormatGraph as EFG
+from greee import gp2Graph
 import networkx as nx
 from inspect import signature
 import matplotlib.pyplot as plt

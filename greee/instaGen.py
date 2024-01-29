@@ -1,4 +1,4 @@
-import eminipyparser as ep
+from greee import eminipyparser as ep
 import networkx as nx
 
 def specToInstaGen(AST):

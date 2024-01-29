@@ -1,5 +1,5 @@
-import EFormatConverters as EFC
-import gp2Graph
+from greee import EFormatConverters as EFC
+from greee import gp2Graph
 import networkx as nx
 import matplotlib.pyplot as plt
 import time

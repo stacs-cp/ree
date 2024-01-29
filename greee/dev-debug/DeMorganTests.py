@@ -1,11 +1,14 @@
 import os
 import sys
 sys.path.append('greee')
-#import tools.gp2Interface as gp2Interface
-import gp2Interface
+sys.path.append('.')
+sys.path.append('../..')
+sys.path.append('..')
+#import greee
+from greee import gp2Interface
 import subprocess
-import EFormatConverters
-import eminipyparser
+from greee import EFormatConverters
+from greee import eminipyparser
 spec = r'''
 find a : bool
 find b : bool

@@ -6,7 +6,7 @@ import os
 import sys
 import shutil
 import subprocess
-import EFormatGraph
+from greee import EFormatGraph
 
 folder_path = "gp2"
 compiled_progs_folder = "Compiled"

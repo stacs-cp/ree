@@ -1,12 +1,11 @@
 import sys
-sys.path.append('greee')
+sys.path.append('.')
 import subprocess
 import os
-import gp2Interface
 import pandas as pd
 import time
 import matplotlib.pyplot as plt
-import et_graph
+from greee import et_graph
 import networkx as nx
 
 
