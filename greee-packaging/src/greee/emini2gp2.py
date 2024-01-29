@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import sys
 import fileinput
-#sys.path.append('tools')
 from greee import EFormatGraph
 
 def emini2gp2() -> int:
@@ -11,7 +10,7 @@ def emini2gp2() -> int:
     This is usually one spec and some associated parameter files.
     '''
     teststr = ''
-    ETG = EFormatGraph.ETGraph()
+    ETG = EFormatGraph.EFGraph()
     with fileinput.input() as f:
         for l in f:
             teststr += l

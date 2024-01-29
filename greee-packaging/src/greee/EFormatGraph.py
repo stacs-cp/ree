@@ -1,12 +1,12 @@
-import greee.EFormatConverters as ET
-import greee.GP2Graph
+from greee import EFormatConverters as EFC
+from greee import gp2Graph
 import networkx as nx
 import matplotlib.pyplot as plt
 import time
 import collections
 import random
 
-class ETGraph:
+class EFGraph:
     '''
     Container for the networkx Emini Format Conversion Graph. Each vertex is a format, each edge a function that takes an Emini specification from one format to another. 
     Each edge contains a callable function in its "func" attribute automatically extracted from the EFormatConverters python script.
@@ -24,7 +24,7 @@ class ETGraph:
     def __init__(self):
         self.formsGraph = nx.DiGraph()
 
-        for val in ET.__dict__.values():
+        for val in EFC.__dict__.values():
             if(callable(val)):
                 fromTo = val.__name__.split('To')
                 self.formsGraph.add_edge(fromTo[0],fromTo[1], func = val)
@@ -32,10 +32,11 @@ class ETGraph:
     def FormToForm(self, AST, fromForm, toForm):
         """Convert an Emini spec from one form to another by specifing the end points.
         Intermediate forms are chosen via shortest path in number of steps.
+        Available formats: Emini, ASTpy, GP2Graph, GP2String, Json, NX.
 
         Args:
-            AST (Any): Essence Specification, in any of the formats used in EFormatConverters.
-            fromForm (Any): Starting format.
+            Emini spec (Any): Essence Specification, in any of the formats used in EFormatConverters.
+            fromForm (Any): Starting format. Must match the format provide in the first parameter.
             toForm (Any): Desired end format.
 
         Returns:
@@ -53,10 +54,11 @@ class ETGraph:
         """Convert an Emini spec from one form to another by specifing the end points.
         Intermediate forms are chosen via shortest path in number of steps.
         returns an extra graph with the timings as edge attributes.
+        Available formats: Emini, ASTpy, GP2Graph, GP2String, Json, NX.
 
         Args:
-            AST (Any): Essence Specification, in any of the formats used in EFormatConverters.
-            fromForm (Any): Starting format.
+            Emini spec (Any): Essence Specification, in any of the formats used in EFormatConverters.
+            fromForm (Any): Starting format. Must match the format provide in the first parameter.
             toForm (Any): Desired end format.
 
         Returns:
@@ -277,8 +279,8 @@ def funcTests():
     t[1] = t[2]
     """
 
-    ast = ET.EminiToASTpy(teststr)
-    ETG = ETGraph()
+    ast = EFC.EminiToASTpy(teststr)
+    ETG = EFGraph()
 
     ast2= ETG.allEdgesFrom(ast,"ASTpy")
     #print(ast2[0])
@@ -323,8 +325,8 @@ def postMantest():
     t[1] = t[2]
     """
 
-    ast = ET.EminiToASTpy(teststr)
-    ETG = ETGraph()
+    ast = EFC.EminiToASTpy(teststr)
+    ETG = EFGraph()
     
     newAst, cycle = ETG.heuristicChinesePostman(ast,"ASTpy")
     pos = nx.circular_layout(ETG.formsGraph)

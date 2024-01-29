@@ -27,8 +27,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import json
 
-#sys.path.append('tools')
-import greee.EFormatConverters as efc
+#from greee import EFormatConverters as efc
 
 class AST:
     '''

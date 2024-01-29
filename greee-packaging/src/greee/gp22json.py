@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import sys
 import fileinput
-#sys.path.append('tools')
 from greee import EFormatGraph
 
 def gp22json() -> int:
@@ -9,7 +8,7 @@ def gp22json() -> int:
     Translate GP2 to JSON.
     '''
     teststr = ''
-    ETG = EFormatGraph.ETGraph()
+    ETG = EFormatGraph.EFGraph()
     with fileinput.input() as f:
         for l in f:
             teststr += l

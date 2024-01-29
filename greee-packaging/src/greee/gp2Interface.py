@@ -5,11 +5,11 @@ Helper functions used to interact with GP2
 import os
 import sys
 import shutil
-#sys.path.append('greee')
 import subprocess
 from greee import EFormatGraph
 
 folder_path = "gp2"
+compiled_progs_folder = "Compiled"
 lib_dir = os.path.join(folder_path, "lib")
 
 def scanPrograms():
@@ -28,6 +28,26 @@ def scanPrograms():
 
     return gp2_files
 
+def scanPrecompiledPrograms():
+    '''
+    Search for all available compiled GP2 programs and return them as list
+    
+    Returns:
+        list: list of all available programs
+    '''
+    folders = [f.path for f in os.scandir(os.path.join(folder_path, compiled_progs_folder)) if f.is_dir()]
+    progs = []
+    rules = scanPrograms()
+    for rule in rules:
+        folder = os.path.join(folder_path, compiled_progs_folder,rule[:-4])
+        #Only provide the programs that have a folder a gp2run file in it
+        if folder in folders and os.path.isfile(os.path.join(folder, "gp2run")):
+            progs.append(rule)
+    return progs
+
+
+
+
 
 def compileGP2Program(gp2prog_file_name):
     """Compile a GP2 program.
@@ -37,20 +57,40 @@ def compileGP2Program(gp2prog_file_name):
 
     Args:
         gp2prog_file_name (str): .gp2 file name
-    """    
-    programDir = os.path.join(folder_path, gp2prog_file_name[:-4])
+    """  
+    #Create 'Compiled' folder if it does not exist
+    if not os.path.isdir(os.path.join(folder_path, compiled_progs_folder)):
+        os.mkdir(os.path.join(folder_path, compiled_progs_folder))
+
+    #Create program folder if it does not exist
+    programDir = os.path.join(folder_path,compiled_progs_folder, gp2prog_file_name[:-4])
     if not os.path.exists(programDir):
         os.mkdir(programDir)
-    gp2prog =  os.path.join(folder_path, gp2prog_file_name)    
-    gp2CompilerCall = ["gp2","-o", programDir,gp2prog]
-    subprocess.run(gp2CompilerCall, check=True)
+    print("Compiling ", gp2prog_file_name)
+    try:
+        #Call gp2 compiler    
+        gp2prog =  os.path.join(folder_path, gp2prog_file_name)    
+        gp2CompilerCall = ["gp2","-o", programDir,gp2prog]
+        subprocess.run(gp2CompilerCall, check=True)
 
-    gp2libFiles= os.listdir(lib_dir)
-    for file in gp2libFiles:
-        shutil.copy2(os.path.join(lib_dir,file), programDir)
+        #Add all library files to prog folder
+        gp2libFiles= os.listdir(lib_dir)
+        for file in gp2libFiles:
+            shutil.copy2(os.path.join(lib_dir,file), programDir)
 
-    makeCall = ["make", "-C", programDir]
-    subprocess.run(makeCall, check=True)
+        #execute make 
+        makeCall = ["make", "-C", programDir]
+        subprocess.run(makeCall, check=True)
+
+        print("Compilation Successfull.")
+
+    except Exception as e: 
+            print("Compilation Failed.")
+            print(e)
+            print(repr(e))
+            print("Removing program folder...")
+            shutil.rmtree(programDir)
+    
 
 def runPrecompiledProg(gp2prog_file_name, host):
     """Run graph program on host graph
@@ -59,7 +99,7 @@ def runPrecompiledProg(gp2prog_file_name, host):
         gp2prog_file_name (str): .gp2 file name
         host (str): .host graph file name
     """    
-    programDir = os.path.join(folder_path, gp2prog_file_name[:-4])
+    programDir = os.path.join(folder_path, compiled_progs_folder, gp2prog_file_name[:-4])
 
     gp2call = [os.path.join(programDir,"gp2run"), host]
     subprocess.run(gp2call, check=True)
@@ -69,7 +109,7 @@ def transformSpec_u(gp2prog_file_name, spec):
     ''' 
     (deprecated)Transform a spec using an uncompiled gp2 program.
     '''
-    formatsGraph = EFormatGraph.ETGraph()
+    formatsGraph = EFormatGraph.EFGraph()
 
     gp2spec = formatsGraph.FormToForm(spec,"Emini","GP2String")
     #print(gp2spec)
@@ -96,10 +136,12 @@ def compileGP2folder():
     Compiles all the graph programs in the gp2 folder.
     NB: this currently creates a lot of redundant files.
     '''
-    #TODO
     ### all programs should be compiled and then used via gp2run instead of gp2c 
     #    
-    return "TODO"
+    programs = scanPrograms()
+    for prog in programs:
+        compileGP2Program(prog)
+            
 
 def allTransformsOnSpec_u(spec):
     '''

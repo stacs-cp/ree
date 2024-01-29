@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import sys
 import fileinput
-#sys.path.append('bin')
 from greee import EFormatGraph
 
 def gp22emini() -> int:
@@ -9,7 +8,7 @@ def gp22emini() -> int:
     Translate GP2 to Emini.
     '''
     teststr = ''
-    ETG = EFormatGraph.ETGraph()
+    ETG = EFormatGraph.EFGraph()
     with fileinput.input() as f:
         for l in f:
             teststr += l
