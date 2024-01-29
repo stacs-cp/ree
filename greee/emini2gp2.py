@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 import sys
 import fileinput
-import EFormatGraph
+from greee import EFormatGraph
 
-def main() -> int:
+def emini2gp2() -> int:
     '''
     Translate Emini to GP2.
     Multiple files can be provided.
@@ -19,4 +19,4 @@ def main() -> int:
     return 0
 
 if __name__ == '__main__':
-    sys.exit(main())
+    sys.exit(emini2gp2())
