@@ -7,7 +7,7 @@ grabs all functions in this script. At this point in time having the substring "
 from greee import eminipyparser as ep
 import networkx as nx
 from greee import gp2Graph
-import icing
+from greee import icing
 import json
 import re
 import random
