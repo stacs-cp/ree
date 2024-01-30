@@ -22,7 +22,6 @@ import time
 import networkx as nx
 import matplotlib.pyplot as plt
 
-
 from greee import et_graph
 
 def SolveAndTransform() -> int:

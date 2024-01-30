@@ -22,7 +22,7 @@ class EssenceTransformGraph(EFGraph):
 
         TODO: Instance Generation from int sequence
         TODO: Solve parameters via int sequence
-        TODO:
+        TODO: Spec2Vec?
         """
     def __init__(self):
         super().__init__() # Format converters are read and initalised here
@@ -39,7 +39,7 @@ class EssenceTransformGraph(EFGraph):
         Returns:
             int: ID of the node
         """
-        ID = hash(emini_string)
+        ID = abs(hash(emini_string)) #change hashing function to something better
         self.graph.add_node(ID, emini=emini_string,file_name=file_name)
         return ID
     
@@ -57,7 +57,7 @@ class EssenceTransformGraph(EFGraph):
     
     def solve(self, ID):
         if self.graph.nodes[ID]['file_name'] == "":
-            specFilename = f"./tests/{hex(ID)}.essence"
+            specFilename = f"{hex(ID)}.essence"
             with open(specFilename, 'w') as file:
                 file.write(self.graph.nodes[ID]['emini'])
             self.graph.nodes[ID]['file_name'] = specFilename
@@ -115,8 +115,8 @@ class EssenceTransformGraph(EFGraph):
             file.write(gp2string)
 
         # check if the compiled program exists, if not compiles program
-        if not os.path.isdir(os.path.join("gp2","Compiled",program_name[-4])):
-            self.compileGP2Program(program_name)
+        if not gp2Interface.is_program_compiled(program_name):
+            gp2Interface.compileGP2Program(program_name)
         # Apply Transform
         #hostGraph = os.path.join("gp2",gp2hostfile)
         gp2Interface.runPrecompiledProg(program_name,gp2hostfile)
