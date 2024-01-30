@@ -14,7 +14,6 @@ compiled_progs_folder = "Compiled"
 mod_path = Path(__file__).parent
 relative_path = os.path.join('..', folder_name)
 folder_path = (mod_path / relative_path).resolve()
-print("folderpath", folder_path)
 lib_dir = os.path.join(folder_path, "lib")
 
 def scanPrograms():
