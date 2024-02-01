@@ -107,7 +107,13 @@ def runPrecompiledProg(gp2prog_file_name, host):
     programDir = os.path.join(folder_path, compiled_progs_folder, gp2prog_file_name[:-4])
 
     gp2call = [os.path.join(programDir,"gp2run"), host]
-    subprocess.run(gp2call, check=True)
+    try:
+        subprocess.run(gp2call, check=True)
+    except Exception as e: 
+            print("GP2 Transform Application Failed.")
+            print(e)
+            print(repr(e))
+
 
 
 def transformSpec_u(gp2prog_file_name, spec):

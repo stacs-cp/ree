@@ -126,7 +126,11 @@ class EssenceTransformGraph(EFGraph):
         if os.path.isfile("gp2.output"):
             with open("gp2.output") as newGP2spec:
                 gp2_NEWstring = newGP2spec.read()
-            emini_transformed = self.FormToForm(gp2_NEWstring,"GP2String","Emini")
+            if gp2_NEWstring[:15] == 'No output graph':
+                emini_transformed = emini_string # The transform is not applicable
+                print(gp2_NEWstring)
+            else:
+                emini_transformed = self.FormToForm(gp2_NEWstring,"GP2String","Emini")
               # Clear files
             os.remove("gp2.output")
             
