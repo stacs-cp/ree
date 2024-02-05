@@ -1,4 +1,5 @@
 """ Skeleton for multiarmed bandit selecting GP2 transforms
+not in use
 """
 
 from greee import et_graph
@@ -12,7 +13,7 @@ class MultiArmedBandit():
         self.essence_graph = et_graph.EssenceTransformGraph()
         self.arms = et_graph.gp2Interface.scanPrecompiledPrograms()
         print(self.arms)
-        self.epsilon = 0.5  # Exploration rate
+        self.epsilon = 0.9  # Exploration rate
         self.rewards = [0] * len(self.arms)
         self.counts = [0] * len(self.arms)
         self.total_reward = 0

@@ -6,6 +6,9 @@ from greee import gp2Interface
 from greee import normalisers
 import subprocess
 from greee import instaGen
+import operator
+import random
+import numpy as np
 import time
 import os
 
@@ -28,6 +31,8 @@ class EssenceTransformGraph(EFGraph):
         super().__init__() # Format converters are read and initalised here
         self.parser = ep.EssenceParser() # one parser one context?
         self.graph = nx.MultiDiGraph()
+        self.gp2arms = gp2Interface.scanPrecompiledPrograms()
+        self.epsilon = 0.5 # exploration parameter for multi armed bandit
 
     def add_e_node(self, emini_string, file_name=""):            
         """Add a node to the graph, the hash of the input emini_string is computed and used as ID
@@ -40,16 +45,17 @@ class EssenceTransformGraph(EFGraph):
             int: ID of the node
         """
         ID = abs(hash(emini_string)) #change hashing function to something better
-        self.graph.add_node(ID, emini=emini_string,file_name=file_name)
+        if ID not in self.graph:
+            self.graph.add_node(ID, emini=emini_string,file_name=file_name)
         return ID
     
     def add_e_edge(self, source, target, transformation_name, data ={}):
         """ add an edge to the graph, source and target are IDs of nodes.
         The transformation name is required. An arbitrary data dictionary can be appended as attributes.
         Args:
-            source (int): Source ID
-            target (int): Target ID
-            transformation_name (string): Name of the transformation
+            source (str): Source ID
+            target (str): Target ID
+            transformation_name (str): Name of the transformation
             data (dict, optional): Optional attributes. Defaults to {}.
         """        
         attributes = {'transformation': transformation_name, **data}
@@ -66,13 +72,15 @@ class EssenceTransformGraph(EFGraph):
         conjureCall = ['conjure','solve', self.graph.nodes[ID]['file_name']]
         subprocess.run(conjureCall, check=True)
         try:
-            solution_file= specFilename[:-7]+'solution'
+            solution_file= self.graph.nodes[ID]['file_name'][:-7]+'solution'
             with open(solution_file) as solution:
                 s = solution.read()
             solution_ID = self.add_e_node(s,solution_file)
             self.add_e_edge(ID,solution_ID,"solution")
         except:
+            # ADD crash node here?
             print("error while reading solution")
+            print("Spec file:", specFilename)
         return  s
             
 
@@ -95,6 +103,8 @@ class EssenceTransformGraph(EFGraph):
             with open("./conjure-output/model000001-solution000001.solution") as solution:
                 s = solution.read()
         except:
+            # add error or timeout node or edge
+            # add no solution node
             print("error while reading solution")
         return  s
     
@@ -128,7 +138,7 @@ class EssenceTransformGraph(EFGraph):
                 gp2_NEWstring = newGP2spec.read()
             if gp2_NEWstring[:15] == 'No output graph':
                 emini_transformed = emini_string # The transform is not applicable
-                print(gp2_NEWstring)
+
             else:
                 emini_transformed = self.FormToForm(gp2_NEWstring,"GP2String","Emini")
               # Clear files
@@ -173,6 +183,52 @@ class EssenceTransformGraph(EFGraph):
         turns Givens into Finds'''
         insta_gen  = instaGen.specToInstaGen(self.FormToForm(abstract_spec,"Emini","ASTpy"))
         return self.FormToForm(insta_gen, "ASTpy","Emini")
+    
+    def epsilon_greedy_arm_selection(self, rewards):
+        if random.random() < self.epsilon:  # Exploration
+            chosen_func = random.choice(self.gp2arms)
+        else:  # Exploitation
+            #pick highest scoring gp2 transformation
+            chosen_func = max(rewards.items(), key=lambda trials: trials[1][1])[0]
+        return chosen_func
+    
+    
+    def expand_from_node(self, nodeID, method="multi_armed_bandit"):
+        """ Transform the essence spec in a Node using the method provided
+
+        Args:
+            nodeID (str): node ID that will be transformed
+            method (str): method used. Currently available: "multi_armed_bandit"
+        """        
+        if method=="multi_armed_bandit":
+            # get past arms rewards inside node
+            # select an arm using heuristic
+            # use arm
+            # update rewards based on results
+
+            if "trials" not in self.graph.nodes[nodeID]:
+                 # maybe change to defaultdict
+                self.graph.nodes[nodeID]["trials"] = {}
+                for arm in self.gp2arms:
+                    self.graph.nodes[nodeID]["trials"][arm] = [0,0] # 0 number of trials and 0 rewards
+
+            chosen_func = self.epsilon_greedy_arm_selection(self.graph.nodes[nodeID]["trials"])
+            new_nodeID = self.transform_with_GP2(nodeID,chosen_func)
+            reward = 0 
+            if new_nodeID != nodeID:
+                reward = 1 # change to some function based on performance
+            num_trials, rewards = self.graph.nodes[nodeID]["trials"][chosen_func]
+            self.graph.nodes[nodeID]["trials"][chosen_func] = [num_trials+1,rewards+reward]
+
+            # Solve new spec
+            solution = []
+            if reward > 0:
+                solution = self.solve(new_nodeID)
+                print("solution ID", solution)
+                # add rewards
+
+
+
 
 
 
