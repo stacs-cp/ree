@@ -301,7 +301,8 @@ class EssenceParser:
             #return NamedDomain(name_of_domain,self.named_domains[name_of_domain].domain) ## TEST
             return Node(name_of_domain, info="ReferenceToNamedDomain")
         else:
-            raise SyntaxError("Domain Parsing Error. Token: " + str(self.tokens[self.index])) 
+            print(self.tokens)
+            raise SyntaxError("Domain Parsing Error. Token: " + str(self.tokens[self.index])+ ". Token Num: " + str(self.index)) 
 
     def parse_relation_attribute(self):
         if self.match_any(["size", "minSize","maxSize"]):

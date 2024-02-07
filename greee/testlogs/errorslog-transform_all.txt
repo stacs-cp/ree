@@ -1,0 +1,22 @@
++++++++++++++++++++++++++++++++++++++ 
++++++++++++++++++++++++++++++++++++++ 
+2024-02-07 02:36:23.850457
+ 
+gcrel.essence
+Domain Parsing Error. Token: vertices. Token Num: 23
+----------------------------- 
+misc.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gc-simple.essence
+Domain Parsing Error. Token: set. Token Num: 17
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gcmulti.essence
+Domain Parsing Error. Token: vertices. Token Num: 23
+----------------------------- 
+gc.essence
+Domain Parsing Error. Token: set. Token Num: 17
+----------------------------- 

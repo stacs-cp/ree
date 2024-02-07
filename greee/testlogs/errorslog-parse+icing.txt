@@ -283,3 +283,87 @@ Invalid statement:language Token Num: 0
 gc-simple.essence
 Invalid statement:of Token Num: 18
 ----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2024-02-07 01:25:37.480945
+ 
+gcrel.essence
+Domain Parsing Error. Token: vertices
+----------------------------- 
+misc.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gc-simple.essence
+Domain Parsing Error. Token: set
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gcmulti.essence
+Domain Parsing Error. Token: vertices
+----------------------------- 
+gc.essence
+Domain Parsing Error. Token: set
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2024-02-07 02:15:29.912384
+ 
+gcrel.essence
+Domain Parsing Error. Token: vertices. Token Num: 23
+----------------------------- 
+misc.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gc-simple.essence
+Domain Parsing Error. Token: set. Token Num: 17
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gcmulti.essence
+Domain Parsing Error. Token: vertices. Token Num: 23
+----------------------------- 
+gc.essence
+Domain Parsing Error. Token: set. Token Num: 17
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2024-02-07 02:18:59.083121
+ 
+gcrel.essence
+can only concatenate str (not "list") to str
+----------------------------- 
+misc.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gc-simple.essence
+can only concatenate str (not "list") to str
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gcmulti.essence
+can only concatenate str (not "list") to str
+----------------------------- 
+gc.essence
+can only concatenate str (not "list") to str
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2024-02-07 02:20:58.689042
+ 
+gcrel.essence
+Domain Parsing Error. Token: vertices. Token Num: 23
+----------------------------- 
+misc.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gc-simple.essence
+Domain Parsing Error. Token: set. Token Num: 17
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gcmulti.essence
+Domain Parsing Error. Token: vertices. Token Num: 23
+----------------------------- 
+gc.essence
+Domain Parsing Error. Token: set. Token Num: 17
+----------------------------- 
