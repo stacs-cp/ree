@@ -304,7 +304,8 @@ class EssenceParser:
             highlighted_token = self.tokens[:]
             highlighted_token.insert(self.index, '\033[31m \033[4m')
             highlighted_token.insert(self.index+2, '\033[0m')
-            raise SyntaxError("Domain Parsing Error. Token: " + str(self.tokens[self.index])+ ". Token Num: " + str(self.index) + "\n" +' '.join(highlighted_token)) 
+            print(' '.join(highlighted_token))
+            raise SyntaxError("Domain Parsing Error. Token: " + str(self.tokens[self.index])+ ". Token Num: " + str(self.index)) 
 
     def parse_relation_attribute(self):
         if self.match_any(["size", "minSize","maxSize"]):
