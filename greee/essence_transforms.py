@@ -6,7 +6,6 @@ from greee import gp2Interface
 from greee import normalisers
 import subprocess
 from greee import instaGen
-import operator
 import random
 import numpy as np
 import time
@@ -14,7 +13,7 @@ import os
 
 # types: Abstract specs(Given+find), instance spec(let+find), parameter or solution(let only)?
 
-class EssenceTransformGraph(EFGraph):
+class EssenceTransforms(EFGraph):
     """ Essence Transformation Graph.
         Helper function for all transformations of Essence statements.
         Nodes are Essence statemente in Emini format, edges are records of transformations.
@@ -28,7 +27,7 @@ class EssenceTransformGraph(EFGraph):
         TODO: Spec2Vec?
         """
     def __init__(self):
-        super().__init__() # Format converters are read and initalised here
+        super().__init__() # Format converters are gathered and initalised here
         self.parser = ep.EssenceParser() # one parser one context?
         self.graph = nx.MultiDiGraph()
         self.gp2arms = gp2Interface.scanPrecompiledPrograms()
@@ -191,7 +190,7 @@ class EssenceTransformGraph(EFGraph):
             #pick highest scoring gp2 transformation
             chosen_func = max(rewards.items(), key=lambda trials: trials[1][1])[0]
         return chosen_func
-    
+
     
     def expand_from_node(self, nodeID, method="multi_armed_bandit"):
         """ Transform the essence spec in a Node using the method provided
@@ -226,10 +225,7 @@ class EssenceTransformGraph(EFGraph):
                 solution = self.solve(new_nodeID)
                 print("solution ID", solution)
                 # add rewards
-
-
-
-
+            
 
 
 # Transforms: change format, from int sequence (gen), solve, transform with GP2, normalise, transform with ?.

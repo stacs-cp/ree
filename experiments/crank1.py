@@ -23,7 +23,7 @@ import gp2Interface
 import pandas as pd
 import time
 
-import et_graph
+from greee import essence_transforms
 
 def SolveAndTransform() -> int:
 
@@ -32,7 +32,7 @@ def SolveAndTransform() -> int:
     # event: type, time, space,details
     # events: generate instance (abstract spec to constrete spec), translate (Format to format), transform ( spec to spec), solve (concrete spec to solution)
     # 
-    etransform_graph = et_graph.EssenceTransformGraph()
+    etransform_graph = essence_transforms.EssenceTransforms()
     # test spec update to generator call
     start = time.time_ns() 
 

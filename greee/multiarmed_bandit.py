@@ -2,7 +2,7 @@
 not in use
 """
 
-from greee import et_graph
+from greee import essence_transforms
 import random
 import numpy as np 
 
@@ -10,8 +10,8 @@ class MultiArmedBandit():
 
     def __init__(self):
 
-        self.essence_graph = et_graph.EssenceTransformGraph()
-        self.arms = et_graph.gp2Interface.scanPrecompiledPrograms()
+        self.essence_graph = essence_transforms.EssenceTransforms()
+        self.arms = essence_transforms.gp2Interface.scanPrecompiledPrograms()
         print(self.arms)
         self.epsilon = 0.9  # Exploration rate
         self.rewards = [0] * len(self.arms)

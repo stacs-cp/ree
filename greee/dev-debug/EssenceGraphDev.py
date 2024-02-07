@@ -5,11 +5,11 @@ import os
 import pandas as pd
 import time
 import matplotlib.pyplot as plt
-from greee import et_graph
+from greee import essence_transforms
 import networkx as nx
 
 
-etransform_graph = et_graph.EssenceTransformGraph()
+etransform_graph = essence_transforms.EssenceTransforms()
 
 spec = r'''find i : int(0..100)
 such that
