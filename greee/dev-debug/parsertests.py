@@ -92,18 +92,27 @@ such that
 """)
 #test 8
 test_strings.append("""
-letting a be domain int(0..10)
-find g: relation (size 10) of (a*a)
+given n : int
+letting vertices be domain int(1..n)
+given edges : set (size 2) of vertices
+given numberColours : int(1..)
+letting colours be domain int(1..numberColours)
+find c : function (total) vertices --> colours
 such that
-   5 = 3+2
+   forAll {u,v} in edges .
+      c(u) != c(v)
 """)
 
 
 for i,test_str in enumerate(test_strings):
-    parser = ep.EssenceParser()
-    start = time.time_ns()
-    ASTpy = parser.parse(test_str,"Test-" + str(i))
-    print(time.time_ns()-start)
-    ep.printTree(ASTpy, printInfo=True)
-    print(hash(test_str))
-    print(ep.getNXTree("Test-" + str(i),ASTpy))
+    try:
+      parser = ep.EssenceParser()
+      start = time.time_ns()
+      ASTpy = parser.parse(test_str,"Test-" + str(i))
+      print(time.time_ns()-start)
+      ep.printTree(ASTpy, printInfo=True)
+      print(hash(test_str))
+      print(ep.getNXTree("Test-" + str(i),ASTpy))
+    except Exception as e:
+          print(str(e))
+        
