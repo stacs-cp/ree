@@ -11,13 +11,13 @@ import numpy as np
 import time
 import os
 
-# types: Abstract specs(Given+find), instance spec(let+find), parameter or solution(let only)?
+# types/roles: Abstract specs(Given+find), instance spec(let+find), parameter or solution(let only)?
 
 class EssenceTransforms(EFGraph):
     """ Essence Transformation Graph.
-        Helper function for all transformations of Essence statements.
+        Helper functions for all transformations of Essence statements.
         Nodes are Essence statemente in Emini format, edges are records of transformations.
-        
+       
         Change of formats via eformat_graph and eformat_converters
         Solve via conjure
         Transformations via GP2
@@ -32,6 +32,8 @@ class EssenceTransforms(EFGraph):
         self.graph = nx.MultiDiGraph()
         self.gp2arms = gp2Interface.scanPrecompiledPrograms()
         self.epsilon = 0.5 # exploration parameter for multi armed bandit
+        self.currentNode = None 
+        self.instace_specs_list = []
 
     def add_e_node(self, emini_string, file_name=""):            
         """Add a node to the graph, the hash of the input emini_string is computed and used as ID
@@ -46,6 +48,8 @@ class EssenceTransforms(EFGraph):
         ID = abs(hash(emini_string)) #change hashing function to something better
         if ID not in self.graph:
             self.graph.add_node(ID, emini=emini_string,file_name=file_name)
+            if self.determine_node_role(ID)=="instance_spec":
+                self.instace_specs_list.append(ID)
         return ID
     
     def add_e_edge(self, source, target, transformation_name, data ={}):
@@ -183,6 +187,24 @@ class EssenceTransforms(EFGraph):
         insta_gen  = instaGen.specToInstaGen(self.FormToForm(abstract_spec,"Emini","ASTpy"))
         return self.FormToForm(insta_gen, "ASTpy","Emini")
     
+    def select_current_node(self, method=""):
+        self.currentNode = random.choice(self.instace_specs_list)
+        return self.currentNode
+    
+    def determine_node_role(self, nodeID):
+        ''' stub'''
+        node_AST = self.FormToForm(self.graph.nodes[nodeID]['emini'],"Emini","ASTpy")
+        has_givens = any(isinstance(item, ep.GivenStatement) for item in node_AST.children)
+        has_lettings = any(isinstance(item, ep.NameLettingStatement) for item in node_AST.children)
+        has_finds = any(isinstance(item, ep.FindStatement) for item in node_AST.children)
+
+        if has_finds and not has_givens:
+            return "instance_spec"
+        if has_finds and has_givens:
+            return "abstract_spec"
+
+        return ""
+
     def epsilon_greedy_arm_selection(self, rewards):
         if random.random() < self.epsilon:  # Exploration
             chosen_func = random.choice(self.gp2arms)
@@ -192,7 +214,7 @@ class EssenceTransforms(EFGraph):
         return chosen_func
 
     
-    def expand_from_node(self, nodeID, method="multi_armed_bandit"):
+    def expand_from_node(self, nodeID, method="multi_armed_bandit", solve_spec=False):
         """ Transform the essence spec in a Node using the method provided
 
         Args:
@@ -221,7 +243,7 @@ class EssenceTransforms(EFGraph):
 
             # Solve new spec
             solution = []
-            if reward > 0:
+            if reward > 0 and solve_spec == True:
                 solution = self.solve(new_nodeID)
                 print("solution ID", solution)
                 # add rewards
