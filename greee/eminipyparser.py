@@ -56,6 +56,10 @@ class RelationDomain(Node):
     def __init__(self, domains):
         super().__init__("relation", domains)
 
+class SetDomain(Node):
+    def __init__(self, domain):
+        super().__init__("set", domain)
+
 class BoolDomain(Node):
     def __init__(self):
         super().__init__("bool")
@@ -72,6 +76,10 @@ class TupleConstant(Node):
 class RelationConstant(Node):
     def __init__(self, values):
         super().__init__("relation", values)
+
+class SetConstant(Node):
+    def __init__(self, values):
+        super().__init__("set", values)
 
 class BoolConstant(Node):
     def __init__(self, label):
@@ -109,7 +117,7 @@ class EssenceParser:
         self.named_domains = {} 
         self.named_constants = {}
         self.decision_variables = {}
-        self.binary_operators = ["<",">", "<=", ">=", "+", "-", "*", "/", "%", "=","!=", "->", "/\\", "xor","\\/" , "and" , "in"]
+        self.binary_operators = ["<",">", "<=", ">=", "+", "-", "*", "/", "%", "=","!=", "->", "/\\", "xor","\\/" , "and" , "in", "subset","subsetEq","intersect","union"]
         self.unary_operators = ["u-","!","utoInt"]
         self.statements = []
 
@@ -293,6 +301,21 @@ class EssenceParser:
                     self.consume()  # "*"
             self.consume()  # ")"
             return RelationDomain(relation)
+        elif self.match("set"):
+            set_domain = []
+            self.consume() # set
+            if self.match("("):
+                self.consume() # (
+                set_domain.append(self.parse_set_attribute())
+                while self.match(","):
+                    self.consume() # ,
+                    set_domain.append(self.parse_set_attribute())
+                if self.match(")"):
+                    self.consume() # )  # BUGGY PATCHY TODO fix expression and this will not be needed
+            self.consume() # of
+            set_domain.append(self.parse_domain())
+            return SetDomain(set_domain)
+        
         elif self.match("bool"):
             self.consume()  # "bool"            
             return BoolDomain()
@@ -319,6 +342,13 @@ class EssenceParser:
         else:
             SyntaxError("Relation's Attribute Parsing Error. Current Token: " + str(self.tokens[self.index]))
     
+    def parse_set_attribute(self):
+        if self.match_any(["size", "minSize","maxSize"]):
+            boundKind = self.consume() # size
+            size = self.parse_expression() #
+            return Node(boundKind, [size], "Attribute")
+        else:
+            SyntaxError("Set's Attribute Parsing Error. Current Token: " + str(self.tokens[self.index]))
 
     def parse_constant(self):
         # tuple - relation - int - bool
@@ -326,6 +356,8 @@ class EssenceParser:
             return self.parse_tuple_constant()        
         elif self.match("relation"):
             return self.parse_relation_constant()
+        elif self.match("{"):
+            return self.parse_set_constant()
         elif self.tokens[self.index].isdigit():
             return Node(self.consume(),info = "Integer") ## should it be parse_expression?
         elif self.match_any(['true','false']):
@@ -404,10 +436,14 @@ class EssenceParser:
                 return 0
             if op == "in":
                 return 0
-            if op in ["+", "-"]:
+            if op in ["subset","subsetEq"]:
                 return 1
-            if op in ["*", "/","%"]:
+            if op in ["intersect", "union"]:
+                return 2
+            if op in ["+", "-"]:
                 return 3
+            if op in ["*", "/","%"]:
+                return 4
             if op in ["u-", "u!","utoInt"]:   ## UNARY OPERATORS
                 return 8
             if op == "(":
@@ -510,6 +546,16 @@ class EssenceParser:
                 self.consume()  # ","
         self.consume()  # ")"
         return RelationConstant(values)
+    
+    def parse_set_constant(self):
+        self.consume() #  {
+        values = []
+        while not self.match("}"):
+            values.append(self.parse_literal())  # Literal 
+            if self.match(","):
+                self.consume()  # ","
+        self.consume() # }
+        return SetConstant(values)
 
     def parse_quantification(self):
         quantifier = self.consume()  # "forAll" or "exists" or "sum"

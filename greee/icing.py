@@ -1,4 +1,4 @@
-binary_operators = ["<",">", "<=", ">=", "+", "-", "*", "/", "%", "=","!=", "->", "/\\", "xor","\\/" , "and" , "in"]
+binary_operators = ["<",">", "<=", ">=", "+", "-", "*", "/", "%", "=","!=", "->", "/\\", "xor","\\/" , "and" , "in", "subset","subsetEq","intersect","union"]
 
 def ASTtoEssence(AST):
     '''
@@ -95,6 +95,12 @@ def iceConstants(node):
             relation += ")"
         relation += ")"
         return relation
+    elif node.label == "set":
+        set_constant = ""        
+        set_constant += "{"
+        set_constant += ",".join(e.label for e in node.children)
+        set_constant += "}"
+        return set_constant
     elif node.label == "tuple":
         tuple = ""        
         tuple += "("
@@ -200,10 +206,14 @@ def precedence(op):
                 return 0
             if op == "in":
                 return 0
-            if op in ["+", "-"]:
+            if op in ["subset","subsetEq"]:
                 return 1
-            if op in ["*", "/"]:
+            if op in ["intersect", "union"]:
+                return 2
+            if op in ["+", "-"]:
                 return 3
+            if op in ["*", "/","%"]:
+                return 4
             if op in ["u-", "u!"]:   ## UNARY OPERATORS
                 return 8
             if op == "(":
@@ -237,7 +247,28 @@ def iceDomain(node):
         if domainsStart >0:
             domain += ")"
         domains = [iceDomain(d) for d in node.children[domainsStart:]]
-        domain += " of (" + "*".join(domains)+")"   
+        domain += " of (" + "*".join(domains)+")"  
+    if node.info == "SetDomain":
+        domain += "set"
+        domainsStart = 0
+        for child in node.children:            
+            if child.info== "Attribute":
+                if domainsStart == 0:
+                    domain += " ("
+                if domainsStart >0:
+                    domain += ", "
+                if child.label in ["size", "minSize","maxSize"]: # bounded relation keep the size inthe first child                    
+                    domain += f'{child.label} ' 
+                    domain += iceExpression(child.children[0]) # first grandchild is the value                    
+                else:
+                    domain += f'{child.label} ' 
+                domainsStart += 1
+        if domainsStart >0:
+            domain += ")"
+        domain += " of "
+        domain += iceDomain(node.children[-1])
+
+     
     if node.info == "TupleDomain":
         domain += "tuple"
         domains = [iceDomain(d) for d in node.children]

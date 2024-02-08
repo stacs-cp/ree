@@ -92,15 +92,12 @@ such that
 """)
 #test 8
 test_strings.append("""
-given n : int
+given n : int(1..10)
 letting vertices be domain int(1..n)
 given edges : set (size 2) of vertices
-given numberColours : int(1..)
-letting colours be domain int(1..numberColours)
-find c : function (total) vertices --> colours
-such that
-   forAll {u,v} in edges .
-      c(u) != c(v)
+                    
+letting setTest be {0,3,5,n}
+
 """)
 
 

@@ -35,6 +35,28 @@ such that
   t[1] = t[2]
 """)
 
+#test 2
+test_strings.append("""
+given n : int(1..10)
+letting vertices be domain int(1..n)
+given edges : set (size 2) of vertices
+                    
+letting setTest be {0,3,5,n}
+""")
+
+test_strings.append("""
+given nnodes : int(0..200)
+letting Nodes be domain int(0..nnodes)
+given graph : set of set (size 2) of Nodes
+
+find MIS : set of Nodes
+
+such that
+forAll u,v in graph .
+  (u subset MIS) -> !(v subset MIS)
+""")
+
+                    
 for i,test_str in enumerate(test_strings):
     parser = ep.EssenceParser()
     rootTree = parser.parse(test_str,"Test-" + str(i))
