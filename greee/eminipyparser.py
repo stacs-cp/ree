@@ -169,8 +169,8 @@ class EssenceParser:
     def match(self, expected):
         return self.index < len(self.tokens) and self.tokens[self.index] == expected
     
-    def match_any(self, tokens):
-        return any(self.match(token) for token in tokens)
+    def match_any(self, options):
+        return self.index < len(self.tokens) and self.tokens[self.index] in options
 
     def parse_statement(self):
         if self.match("given"):
@@ -407,18 +407,8 @@ class EssenceParser:
             return Node(identifier, info="Literal")
 
     def is_expression_terminator(self):
-        return (
-            self.match(".")
-            or self.match(",")
-            or self.match("given")
-            or self.match("where")
-            or self.match("such")
-            or self.match("letting")
-            or self.match("find")
-            or self.match("..")
-            or self.match("of")
-            or self.index >= len(self.tokens)
-        )    
+        return (self.index >= len(self.tokens)
+            or self.match_any([".",",","given","where","such","letting","find","..","of"])) 
     
     def parse_expression(self):
 
