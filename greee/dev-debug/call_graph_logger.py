@@ -13,7 +13,7 @@ import time
 import matplotlib.pyplot as plt
 from greee import essence_transforms
 import networkx as nx
-
+from networkx.readwrite import json_graph
 
 graphviz = GraphvizOutput()
 config = Config()
@@ -59,8 +59,24 @@ with PyCallGraph(config=config,output=graphviz):
     #parentSolutionID = hash(solution)
 
 
-    for _ in range(0,100):
+    for _ in range(0,30):
         selected_node = et.select_current_node()
-        et.expand_from_node(selected_node)
+        et.expand_from_node(selected_node,solve_spec=True)
     print(et.graph.nodes(data=True))
 
+ # PLOT
+#pos = nx.spring_layout(et.graph)
+pos = nx.spectral_layout(et.graph)
+nx.draw(et.graph, pos)
+node_labels = nx.get_node_attributes(et.graph,'file_name')
+nx.draw_networkx_labels(et.graph, pos, node_labels)
+edge_labels = dict([((n1, n2), d['transformation']) for n1, n2, d in et.graph.edges(data=True)])
+nx.draw_networkx_edge_labels(et.graph, pos, edge_labels=edge_labels)
+plt.show(block=True)
+nx.write_gexf(et.graph, "transform_solve_test.gexf")
+data = json_graph.node_link_data(et.graph)
+import json
+s = json.dumps(data)
+with open("transform_solve_test.json", 'w') as file:
+        s2 = s.replace("\\n", "<br/>")
+        file.write(s2)

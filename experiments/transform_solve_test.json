@@ -1,0 +1,603 @@
+{
+    "directed": true,
+    "multigraph": true,
+    "graph": {},
+    "nodes": [
+        {
+            "emini": "find i : int(0..100)<br/>    such that<br/>        i = 1 * 2 + 3 * 4<br/>    find a : bool<br/>    find b : bool<br/>    find c : bool<br/>    such that<br/>        a = !(b /\\ c)",
+            "file_name": "StartSpec.essence",
+            "trials": {
+                "commuteMul.gp2": [
+                    8,
+                    8
+                ],
+                "DeMorganTwo.gp2": [
+                    0,
+                    0
+                ],
+                "stringTest.gp2": [
+                    0,
+                    0
+                ],
+                "InequalityFlip.gp2": [
+                    0,
+                    0
+                ],
+                "DeMorganOne.gp2": [
+                    1,
+                    0
+                ],
+                "swap_operands.gp2": [
+                    0,
+                    0
+                ],
+                "distributive.gp2": [
+                    1,
+                    0
+                ],
+                "normaliseSums.gp2": [
+                    0,
+                    0
+                ]
+            },
+            "id": 4821776620508838205
+        },
+        {
+            "emini": "find i : int(0..100)<br/>such that <br/>  i = 1 * 2 + 4 * 3<br/>find a : bool<br/>find b : bool<br/>find c : bool<br/>such that <br/>  a = ! ( b /\\ c )<br/>",
+            "file_name": "0x721beada47ef78b7.essence",
+            "trials": {
+                "commuteMul.gp2": [
+                    4,
+                    4
+                ],
+                "DeMorganTwo.gp2": [
+                    1,
+                    1
+                ],
+                "stringTest.gp2": [
+                    0,
+                    0
+                ],
+                "InequalityFlip.gp2": [
+                    0,
+                    0
+                ],
+                "DeMorganOne.gp2": [
+                    0,
+                    0
+                ],
+                "swap_operands.gp2": [
+                    1,
+                    1
+                ],
+                "distributive.gp2": [
+                    1,
+                    0
+                ],
+                "normaliseSums.gp2": [
+                    0,
+                    0
+                ]
+            },
+            "id": 8222423767925618871
+        },
+        {
+            "emini": "language Essence 1.3<br/><br/>letting a be false<br/>letting b be true<br/>letting c be true<br/>letting i be 14<br/>",
+            "file_name": "0x721beada47ef78b7.solution",
+            "id": 5349497320379696038
+        },
+        {
+            "emini": "find i : int(0..100)<br/>such that <br/>  i = 1 * 2 + 3 * 4<br/>find a : bool<br/>find b : bool<br/>find c : bool<br/>such that <br/>  a = ! ( b /\\ c )<br/>",
+            "file_name": "0x3cf5e09f16681a7a.essence",
+            "trials": {
+                "commuteMul.gp2": [
+                    5,
+                    5
+                ],
+                "DeMorganTwo.gp2": [
+                    0,
+                    0
+                ],
+                "stringTest.gp2": [
+                    0,
+                    0
+                ],
+                "InequalityFlip.gp2": [
+                    1,
+                    0
+                ],
+                "DeMorganOne.gp2": [
+                    0,
+                    0
+                ],
+                "swap_operands.gp2": [
+                    0,
+                    0
+                ],
+                "distributive.gp2": [
+                    0,
+                    0
+                ],
+                "normaliseSums.gp2": [
+                    1,
+                    0
+                ]
+            },
+            "id": 4392663985450130042
+        },
+        {
+            "emini": "find i : int(0..100)<br/>such that <br/>  i = 1 * 2 + 4 * 3<br/>find a : bool<br/>find b : bool<br/>find c : bool<br/>such that <br/>  a = ! ( c /\\ b )<br/>",
+            "file_name": "0x86ef8ec3df6d397.essence",
+            "trials": {
+                "commuteMul.gp2": [
+                    1,
+                    1
+                ],
+                "DeMorganTwo.gp2": [
+                    0,
+                    0
+                ],
+                "stringTest.gp2": [
+                    1,
+                    1
+                ],
+                "InequalityFlip.gp2": [
+                    0,
+                    0
+                ],
+                "DeMorganOne.gp2": [
+                    0,
+                    0
+                ],
+                "swap_operands.gp2": [
+                    0,
+                    0
+                ],
+                "distributive.gp2": [
+                    1,
+                    0
+                ],
+                "normaliseSums.gp2": [
+                    0,
+                    0
+                ]
+            },
+            "id": 607696693277152151
+        },
+        {
+            "emini": "find i : int(0..100)<br/>such that <br/>  i = 1 * 2 + 3 * 4<br/>find a : bool<br/>find b : bool<br/>find c : bool<br/>such that <br/>  a = ! ( c /\\ b )<br/>",
+            "file_name": "0x31ffd510171fa6e9.essence",
+            "id": 3602832492003829481
+        },
+        {
+            "emini": "find i : int(0..100)<br/>such that <br/>  i = 1 * 2 + 20<br/>find a : bool<br/>find b : bool<br/>find c : bool<br/>such that <br/>  a = ! ( c /\\ b )<br/>",
+            "file_name": "0x6c99b2470dcb2d10.essence",
+            "trials": {
+                "commuteMul.gp2": [
+                    1,
+                    1
+                ],
+                "DeMorganTwo.gp2": [
+                    0,
+                    0
+                ],
+                "stringTest.gp2": [
+                    0,
+                    0
+                ],
+                "InequalityFlip.gp2": [
+                    0,
+                    0
+                ],
+                "DeMorganOne.gp2": [
+                    0,
+                    0
+                ],
+                "swap_operands.gp2": [
+                    0,
+                    0
+                ],
+                "distributive.gp2": [
+                    0,
+                    0
+                ],
+                "normaliseSums.gp2": [
+                    0,
+                    0
+                ]
+            },
+            "id": 7825481845776788752
+        },
+        {
+            "emini": "language Essence 1.3<br/><br/>letting a be false<br/>letting b be true<br/>letting c be true<br/>letting i be 22<br/>",
+            "file_name": "0x6c99b2470dcb2d10.solution",
+            "id": 5981907982607750148
+        },
+        {
+            "emini": "find i : int(0..100)<br/>such that <br/>  i = 2 * 1 + 20<br/>find a : bool<br/>find b : bool<br/>find c : bool<br/>such that <br/>  a = ! ( c /\\ b )<br/>",
+            "file_name": "0x6689ccc3eb702b12.essence",
+            "trials": {
+                "commuteMul.gp2": [
+                    1,
+                    1
+                ],
+                "DeMorganTwo.gp2": [
+                    0,
+                    0
+                ],
+                "stringTest.gp2": [
+                    0,
+                    0
+                ],
+                "InequalityFlip.gp2": [
+                    0,
+                    0
+                ],
+                "DeMorganOne.gp2": [
+                    0,
+                    0
+                ],
+                "swap_operands.gp2": [
+                    0,
+                    0
+                ],
+                "distributive.gp2": [
+                    0,
+                    0
+                ],
+                "normaliseSums.gp2": [
+                    0,
+                    0
+                ]
+            },
+            "id": 7388661805518695186
+        },
+        {
+            "emini": "find i : int(0..100)<br/>such that <br/>  i = 1 * 2 + 4 * 3<br/>find a : bool<br/>find b : bool<br/>find c : bool<br/>such that <br/>  a = ( ! b \\/ ! c )<br/>",
+            "file_name": "0x61e99d476c5cbff0.essence",
+            "trials": {
+                "commuteMul.gp2": [
+                    0,
+                    0
+                ],
+                "DeMorganTwo.gp2": [
+                    0,
+                    0
+                ],
+                "stringTest.gp2": [
+                    0,
+                    0
+                ],
+                "InequalityFlip.gp2": [
+                    0,
+                    0
+                ],
+                "DeMorganOne.gp2": [
+                    0,
+                    0
+                ],
+                "swap_operands.gp2": [
+                    0,
+                    0
+                ],
+                "distributive.gp2": [
+                    1,
+                    0
+                ],
+                "normaliseSums.gp2": [
+                    0,
+                    0
+                ]
+            },
+            "id": 7055343221338849264
+        }
+    ],
+    "links": [
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 4821776620508838205,
+            "target": 8222423767925618871,
+            "key": 0
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 4821776620508838205,
+            "target": 8222423767925618871,
+            "key": 1
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 4821776620508838205,
+            "target": 8222423767925618871,
+            "key": 2
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 4821776620508838205,
+            "target": 8222423767925618871,
+            "key": 3
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 4821776620508838205,
+            "target": 8222423767925618871,
+            "key": 4
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 4821776620508838205,
+            "target": 8222423767925618871,
+            "key": 5
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 4821776620508838205,
+            "target": 8222423767925618871,
+            "key": 6
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 4821776620508838205,
+            "target": 8222423767925618871,
+            "key": 7
+        },
+        {
+            "transformation": "distributive.gp2",
+            "source": 4821776620508838205,
+            "target": 4821776620508838205,
+            "key": 0
+        },
+        {
+            "transformation": "DeMorganOne.gp2",
+            "source": 4821776620508838205,
+            "target": 4821776620508838205,
+            "key": 1
+        },
+        {
+            "transformation": "solution",
+            "source": 8222423767925618871,
+            "target": 5349497320379696038,
+            "key": 0
+        },
+        {
+            "transformation": "solution",
+            "source": 8222423767925618871,
+            "target": 5349497320379696038,
+            "key": 1
+        },
+        {
+            "transformation": "solution",
+            "source": 8222423767925618871,
+            "target": 5349497320379696038,
+            "key": 2
+        },
+        {
+            "transformation": "solution",
+            "source": 8222423767925618871,
+            "target": 5349497320379696038,
+            "key": 3
+        },
+        {
+            "transformation": "solution",
+            "source": 8222423767925618871,
+            "target": 5349497320379696038,
+            "key": 4
+        },
+        {
+            "transformation": "solution",
+            "source": 8222423767925618871,
+            "target": 5349497320379696038,
+            "key": 5
+        },
+        {
+            "transformation": "solution",
+            "source": 8222423767925618871,
+            "target": 5349497320379696038,
+            "key": 6
+        },
+        {
+            "transformation": "solution",
+            "source": 8222423767925618871,
+            "target": 5349497320379696038,
+            "key": 7
+        },
+        {
+            "transformation": "solution",
+            "source": 8222423767925618871,
+            "target": 5349497320379696038,
+            "key": 8
+        },
+        {
+            "transformation": "solution",
+            "source": 8222423767925618871,
+            "target": 5349497320379696038,
+            "key": 9
+        },
+        {
+            "transformation": "solution",
+            "source": 8222423767925618871,
+            "target": 5349497320379696038,
+            "key": 10
+        },
+        {
+            "transformation": "solution",
+            "source": 8222423767925618871,
+            "target": 5349497320379696038,
+            "key": 11
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 8222423767925618871,
+            "target": 4392663985450130042,
+            "key": 0
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 8222423767925618871,
+            "target": 4392663985450130042,
+            "key": 1
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 8222423767925618871,
+            "target": 4392663985450130042,
+            "key": 2
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 8222423767925618871,
+            "target": 4392663985450130042,
+            "key": 3
+        },
+        {
+            "transformation": "distributive.gp2",
+            "source": 8222423767925618871,
+            "target": 8222423767925618871,
+            "key": 0
+        },
+        {
+            "transformation": "swap_operands.gp2",
+            "source": 8222423767925618871,
+            "target": 607696693277152151,
+            "key": 0
+        },
+        {
+            "transformation": "DeMorganTwo.gp2",
+            "source": 8222423767925618871,
+            "target": 7055343221338849264,
+            "key": 0
+        },
+        {
+            "transformation": "solution",
+            "source": 4392663985450130042,
+            "target": 5349497320379696038,
+            "key": 0
+        },
+        {
+            "transformation": "solution",
+            "source": 4392663985450130042,
+            "target": 5349497320379696038,
+            "key": 1
+        },
+        {
+            "transformation": "solution",
+            "source": 4392663985450130042,
+            "target": 5349497320379696038,
+            "key": 2
+        },
+        {
+            "transformation": "solution",
+            "source": 4392663985450130042,
+            "target": 5349497320379696038,
+            "key": 3
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 4392663985450130042,
+            "target": 8222423767925618871,
+            "key": 0
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 4392663985450130042,
+            "target": 8222423767925618871,
+            "key": 1
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 4392663985450130042,
+            "target": 8222423767925618871,
+            "key": 2
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 4392663985450130042,
+            "target": 8222423767925618871,
+            "key": 3
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 4392663985450130042,
+            "target": 8222423767925618871,
+            "key": 4
+        },
+        {
+            "transformation": "normaliseSums.gp2",
+            "source": 4392663985450130042,
+            "target": 4392663985450130042,
+            "key": 0
+        },
+        {
+            "transformation": "InequalityFlip.gp2",
+            "source": 4392663985450130042,
+            "target": 4392663985450130042,
+            "key": 1
+        },
+        {
+            "transformation": "solution",
+            "source": 607696693277152151,
+            "target": 5349497320379696038,
+            "key": 0
+        },
+        {
+            "transformation": "distributive.gp2",
+            "source": 607696693277152151,
+            "target": 607696693277152151,
+            "key": 0
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 607696693277152151,
+            "target": 3602832492003829481,
+            "key": 0
+        },
+        {
+            "transformation": "stringTest.gp2",
+            "source": 607696693277152151,
+            "target": 7825481845776788752,
+            "key": 0
+        },
+        {
+            "transformation": "solution",
+            "source": 3602832492003829481,
+            "target": 5349497320379696038,
+            "key": 0
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 7825481845776788752,
+            "target": 7388661805518695186,
+            "key": 0
+        },
+        {
+            "transformation": "solution",
+            "source": 7825481845776788752,
+            "target": 5981907982607750148,
+            "key": 0
+        },
+        {
+            "transformation": "solution",
+            "source": 7388661805518695186,
+            "target": 5981907982607750148,
+            "key": 0
+        },
+        {
+            "transformation": "commuteMul.gp2",
+            "source": 7388661805518695186,
+            "target": 7825481845776788752,
+            "key": 0
+        },
+        {
+            "transformation": "solution",
+            "source": 7055343221338849264,
+            "target": 5349497320379696038,
+            "key": 0
+        },
+        {
+            "transformation": "distributive.gp2",
+            "source": 7055343221338849264,
+            "target": 7055343221338849264,
+            "key": 0
+        }
+    ]
+}
