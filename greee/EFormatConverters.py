@@ -124,10 +124,8 @@ def NXToASTpy(NXGraph):
     
     def buildNode(vertex, G): 
        
-        def indexGetter(item):
-            return int(item['index'])
-        
-        neighbours = sorted(G[vertex].items(), key=lambda edge: indexGetter(edge[1]))
+       # Sort node's children according to the index attribute stored in the edge
+        neighbours = sorted(G[vertex].items(), key=lambda edge: int(edge[1]['index']))
 
         children = []
         for neighbour in neighbours:
