@@ -100,6 +100,19 @@ letting setTest be {0,3,5,n}
 
 """)
 
+#test 9
+test_strings.append("""
+
+letting a be 3
+letting intDom be domain int(1..8)
+given w : function int(1..10) --> int(1..10)
+given g : function set of int(1..0) --> relation (size 8) of (intDom * intDom)
+letting fff be function (3-->7,2-->a)
+letting ggg be 44                 
+find f : function (minSize 2*3, maxSize 18/2+a, total) tuple(intDom,intDom) --> set of int(5..90)
+""")
+
+
 
 for i,test_str in enumerate(test_strings):
     try:

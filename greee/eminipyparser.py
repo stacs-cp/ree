@@ -60,6 +60,10 @@ class SetDomain(Node):
     def __init__(self, domain):
         super().__init__("set", domain)
 
+class FunctionDomain(Node):
+    def __init__(self, domains):
+        super().__init__("function", domains)
+
 class BoolDomain(Node):
     def __init__(self):
         super().__init__("bool")
@@ -80,6 +84,14 @@ class RelationConstant(Node):
 class SetConstant(Node):
     def __init__(self, values):
         super().__init__("set", values)
+
+class FunctionConstant(Node):
+    def __init__(self, values):
+        super().__init__("function", values)
+
+class FunctionItem(Node):
+    def __init__(self, left, right):
+        super().__init__("function", [left,right])
 
 class BoolConstant(Node):
     def __init__(self, label):
@@ -142,15 +154,16 @@ class EssenceParser:
         
         commentlessStr = self.removeComments(essenceSpec)
         commentlessStr = commentlessStr.replace(r'/\\n', '/\\')
-        self.tokens = re.findall(r'\.\.|\->|\\/|/\\|>=|<=|>|<|!=|!|==|=|\+|[^=!<>+\s\w]|[\w]+', commentlessStr.replace('\n', ' '))
+        self.tokens = re.findall(r'\.\.|-->|\->|\\/|/\\|>=|<=|>|<|!=|!|==|=|\+|[^=!<>+\s\w]|[\w]+', commentlessStr.replace('\n', ' '))
 
         #print(' '.join(self.tokens))
+        #print(len(self.tokens))
         while self.index < len(self.tokens):
             statement = self.parse_statement()
             if statement.info == "GivenStatement":
                 self.parameters[statement.children[0].label] = statement.children[0]
             if statement.info == "NameLettingStatement":
-                self.named_constants[statement.label] = statement.children[0]
+                self.named_constants[statement.children[0].label] = statement.children[0]
             if statement.info == "DomainNameLettingStatement":
                 self.named_domains[statement.children[0].label] = statement.children[0]
             if statement.info == "FindStatement":    
@@ -270,7 +283,8 @@ class EssenceParser:
             self.consume()  # ".."
             upper = self.parse_expression()  # Upper bound
             #self.consume() # ")"
-            return IntDomain(lower,upper)            
+            return IntDomain(lower,upper)     
+               
         elif self.match("tuple"):
             self.consume()  # "tuple"
             self.consume()  # "("
@@ -301,6 +315,7 @@ class EssenceParser:
                     self.consume()  # "*"
             self.consume()  # ")"
             return RelationDomain(relation)
+        
         elif self.match("set"):
             set_domain = []
             self.consume() # set
@@ -316,6 +331,22 @@ class EssenceParser:
             set_domain.append(self.parse_domain())
             return SetDomain(set_domain)
         
+        elif self.match("function"):
+            function_domain = []
+            self.consume() # function
+            if self.match("("):
+                self.consume() # (
+                function_domain.append(self.parse_function_attribute())
+                while self.match(","):
+                    self.consume() # ,
+                    function_domain.append(self.parse_function_attribute())
+                if self.match(")"):
+                    self.consume() # )  # BUGGY PATCHY TODO fix expression and this will not be needed
+            function_domain.append(self.parse_domain())
+            self.consume() # -->
+            function_domain.append(self.parse_domain())
+            return FunctionDomain(function_domain)
+
         elif self.match("bool"):
             self.consume()  # "bool"            
             return BoolDomain()
@@ -350,18 +381,33 @@ class EssenceParser:
         else:
             SyntaxError("Set's Attribute Parsing Error. Current Token: " + str(self.tokens[self.index]))
 
+    def parse_function_attribute(self):
+        if self.match_any(["size", "minSize","maxSize"]):
+            boundKind = self.consume() # size
+            size = self.parse_expression() #
+            return Node(boundKind, [size], "Attribute")
+        elif self.match_any(["injective","surjective","bijective","total"]):
+            attribute = self.consume() # 
+            return Node(attribute, [], "Attribute")
+        else:
+            SyntaxError("Function's Attribute Parsing Error. Current Token: " + str(self.tokens[self.index])) 
+
     def parse_constant(self):
-        # tuple - relation - int - bool
+        # tuple - relation - set - function - int - bool
         if self.match("(") and self.tokens[self.index + 2] == ",":
             return self.parse_tuple_constant()        
         elif self.match("relation"):
             return self.parse_relation_constant()
         elif self.match("{"):
             return self.parse_set_constant()
+        elif self.match("function"):
+            return self.parse_function_constant()
         elif self.tokens[self.index].isdigit():
             return Node(self.consume(),info = "Integer") ## should it be parse_expression?
         elif self.match_any(['true','false']):
             return Node(self.consume(), info="Boolean")
+        elif self.match_any(self.named_constants):
+            return Node(self.consume(), info="ReferenceToNamedContanst")
         elif self.index + 2 < len(self.tokens):
             if self.match("(") and self.tokens[self.index + 2] == ")":
                 return self.parse_tuple_constant()
@@ -408,7 +454,7 @@ class EssenceParser:
 
     def is_expression_terminator(self):
         return (self.index >= len(self.tokens)
-            or self.match_any([".",",","given","where","such","letting","find","..","of"])) 
+            or self.match_any([".",",","given","where","such","letting","find","..","of","-->"])) 
     
     def parse_expression(self):
 
@@ -546,6 +592,23 @@ class EssenceParser:
                 self.consume()  # ","
         self.consume() # }
         return SetConstant(values)
+    
+    def parse_function_constant(self):
+        self.consume()  # "function"
+        self.consume()  # "("
+        values = []
+        while not self.match(")"):
+            values.append(self.parse_function_item())
+            if self.match(","):
+                self.consume()
+        self.consume()  # ")"
+        return FunctionConstant(values)
+    
+    def parse_function_item(self):
+        left = self.parse_constant()
+        self.consume() # -->
+        right = self.parse_constant()
+        return FunctionItem(left,right)
 
     def parse_quantification(self):
         quantifier = self.consume()  # "forAll" or "exists" or "sum"
