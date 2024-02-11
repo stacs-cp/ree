@@ -44,8 +44,10 @@ given edges : set (size 2) of vertices
 letting setTest be {0,3,5,n}
 """)
 
-test_strings.append("""
+test_strings.append(r"""
 given nnodes : int(0..200)
+letting tup be (3,5)
+letting mySet be {tup}
 letting Nodes be domain int(0..nnodes)
 given graph : set of set (size 2) of Nodes
 
@@ -54,6 +56,18 @@ find MIS : set of Nodes
 such that
 forAll u,v in graph .
   (u subset MIS) -> !(v subset MIS)
+""")
+
+test_strings.append(r"""
+
+letting a be 3
+letting intDom be domain int(1..8)
+given w : function int(1..10) --> int(1..10)
+given g : function set of int(1..0) --> relation (size 8) of (intDom * intDom)
+letting fff be function (3-->7,2-->a)
+letting ggg be 44                 
+find f : function (minSize 2*3, maxSize 18/2+a, total) tuple(intDom,intDom) --> set of int(5..90)
+
 """)
 
                     

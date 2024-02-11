@@ -27,7 +27,7 @@ def iceStatement(node):
 
 def iceGivenParameter(node):
     statement = "given "
-    statement += node.children[0].label # The first child of a given statement is always the name
+    statement += node.children[0].label # Name. The first child of a given statement is always the name
     statement += " : " 
     statement += iceDomain(node.children[0].children[0]) # the first grandchild is the domain 
     return statement
@@ -84,31 +84,42 @@ def iceConstraints(node, constraints):
         constraints.append(iceExpression(node))      
 
 def iceConstants(node):
-    if node.info == "Integer" or node.info == "Literal" or node.info == "Boolean":
+    if node.info in ["Integer", "Literal", "Boolean", "ReferenceToNamedConstant","ReferenceToParameter"]:
         return node.label
     elif node.label == "relation":
         relation = node.label
         relation += "("
         for tuple in node.children:
             relation += "("
-            relation += ",".join(t.label for t in tuple.children)
+            relation += ",".join(iceConstants(item) for item in node.children)
             relation += ")"
         relation += ")"
         return relation
     elif node.label == "set":
         set_constant = ""        
         set_constant += "{"
-        set_constant += ",".join(e.label for e in node.children)
+        set_constant += ",".join(iceConstants(item) for item in node.children)
         set_constant += "}"
         return set_constant
+    elif node.label == "function":
+        function_constant = node.label
+        function_constant += "("
+        function_constant += ",".join(iceConstants(item) for item in node.children)
+        function_constant += ")"
+        return function_constant
+    elif node.label == "functionItem":
+        function_item = iceConstants(node.children[0])
+        function_item += " --> " 
+        function_item += iceConstants(node.children[1])
+        return function_item
     elif node.label == "tuple":
         tuple = ""        
         tuple += "("
-        tuple += ",".join(t.label for t in node.children)
+        tuple += ",".join(iceConstants(item) for item in node.children)
         tuple += ")"
         return tuple
     else:
-        raise Exception("Something went wrong when icing Constant:" + node.label)
+        raise Exception(f"Something went wrong when icing Constant: {node.label} Info:{node.info}")
     
 def iceExpression(node):
     expression = ""
@@ -247,7 +258,7 @@ def iceDomain(node):
         if domainsStart >0:
             domain += ")"
         domains = [iceDomain(d) for d in node.children[domainsStart:]]
-        domain += " of (" + "*".join(domains)+")"  
+        domain += " of (" + "*".join(domains)+")"         
     if node.info == "SetDomain":
         domain += "set"
         domainsStart = 0
@@ -266,6 +277,28 @@ def iceDomain(node):
         if domainsStart >0:
             domain += ")"
         domain += " of "
+        domain += iceDomain(node.children[-1])
+
+    if node.info == "FunctionDomain":
+        domain += "function"
+        domainsStart = 0
+        for child in node.children:            
+            if child.info== "Attribute":
+                if domainsStart == 0:
+                    domain += " ("
+                if domainsStart >0:
+                    domain += ", "
+                if child.label in ["size", "minSize","maxSize"]: # bounded relation keep the size inthe first child                    
+                    domain += f'{child.label} ' 
+                    domain += iceExpression(child.children[0]) # first grandchild is the value                    
+                else:
+                    domain += f'{child.label}' 
+                domainsStart += 1
+        if domainsStart >0:
+            domain += ") "
+        # Last 2 elements of the array are always the domain and codomain of the function
+        domain += iceDomain(node.children[-2])
+        domain += " --> "  
         domain += iceDomain(node.children[-1])
 
      

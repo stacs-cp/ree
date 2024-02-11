@@ -91,7 +91,7 @@ class FunctionConstant(Node):
 
 class FunctionItem(Node):
     def __init__(self, left, right):
-        super().__init__("function", [left,right])
+        super().__init__("functionItem", [left,right])
 
 class BoolConstant(Node):
     def __init__(self, label):
@@ -407,7 +407,7 @@ class EssenceParser:
         elif self.match_any(['true','false']):
             return Node(self.consume(), info="Boolean")
         elif self.match_any(self.named_constants):
-            return Node(self.consume(), info="ReferenceToNamedContanst")
+            return Node(self.consume(), info="ReferenceToNamedConstant")
         elif self.index + 2 < len(self.tokens):
             if self.match("(") and self.tokens[self.index + 2] == ")":
                 return self.parse_tuple_constant()
@@ -449,7 +449,7 @@ class EssenceParser:
             if identifier in self.named_domains:
                 return Node(identifier, info="ReferenceToNamedDomain")
             if identifier in self.named_constants:
-                return Node(identifier, info="ReferenceToNamedContanst")
+                return Node(identifier, info="ReferenceToNamedConstant")
             return Node(identifier, info="Literal")
 
     def is_expression_terminator(self):
