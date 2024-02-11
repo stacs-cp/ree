@@ -174,8 +174,15 @@ class EssenceParser:
         ASTpy = Node(specname , self.statements, "root")
         return ASTpy
 
-    def consume(self):
+    def consume(self, inputToken=""):
         token = self.tokens[self.index]
+        if inputToken != "" and token != inputToken:
+            highlighted_token = self.tokens[:]
+            highlighted_token.insert(self.index, '\033[31m \033[4m')
+            if len(highlighted_token) > self.index + 2:
+                highlighted_token.insert(self.index+2, '\033[0m')
+            print(' '.join(highlighted_token))
+            raise SyntaxError(f"Parsing Error! Token num {self.index}. Expected '{inputToken}', but got '{token}'.") 
         self.index += 1
         return token
 
@@ -196,7 +203,7 @@ class EssenceParser:
           if self.tokens[self.index + 2] == "be":
             return self.parse_name_letting_statement()
           else:
-              raise SyntaxError("Invalid letting statement: " + str(self.tokens[self.index]))
+              raise SyntaxError("Invalid letting statement: " + str(self.tokens[self.index +2]))
         elif self.match("find"):
             return self.parse_find_statement()
         elif self.match("such"):
@@ -207,9 +214,9 @@ class EssenceParser:
     def parse_given_statement(self):
         self.consume()  # "given"
         name = self.consume()  # Name of parameter
-        column = self.consume()
-        if column != ":":
-            raise SyntaxError("Invalid Token - Expected : instead of " + column + " Token Num: " + str(self.index-1))
+        self.consume(":")
+        #if column != ":":
+           # raise SyntaxError("Invalid Token - Expected : instead of " + column + " Token Num: " + str(self.index-1))
         domain = self.parse_domain()    
         return GivenStatement(name, domain) 
 
@@ -231,35 +238,31 @@ class EssenceParser:
         return WhereStatement(where_list)  
 
     def parse_name_letting_statement(self):
-        self.consume()  # "letting"
+        self.consume("letting")   
         name = self.consume()  # Name
-        self.consume()  # "be"
+        self.consume("be")  
         constant = self.parse_constant()
         return NameLettingStatement(name, constant)
 
     def parse_domain_name_letting_statement(self):
-        self.consume()  # "letting"
+        self.consume("letting")  
         name_of_domain = self.consume()  # NameDomain
-        self.consume()  # "be "
-        self.consume()  # "domain"
+        self.consume("be")  
+        self.consume("domain") 
         domain = self.parse_domain()
         return DomainNameLettingStatement(name_of_domain, domain)
 
     def parse_find_statement(self):
-        self.consume()  # "find"
+        self.consume("find")  # 
         name = self.consume()  # Name
-        column = self.consume()
-        if column != ":":
-            raise SyntaxError("Invalid Token - Expected : instead of " + column + " Token Num: " + str(self.index-1))
+        self.consume(":")
         domain = self.parse_domain()    
         return FindStatement(name, domain)   
 
     def parse_such_that_statement(self):
         such_that_list = []
-        self.consume()  # "such"
-        that = self.consume()
-        if that != "that": # "that"
-            raise SyntaxError("Expected \"that\" but got: " + that + " .Token Num: " + str(self.index-1))
+        self.consume("such")  
+        self.consume("that")
         expression = self.parse_expression()
 
         while self.match_any([".", ',']):
@@ -277,48 +280,50 @@ class EssenceParser:
 
     def parse_domain(self):
         if self.match("int"):
-            self.consume()  # "int"
-            self.consume()  # "("
+            self.consume("int")  
+            if not self.match("("):
+                print("Warning. Unbounded Int Domain.")
+            self.consume("(") 
             lower = self.parse_expression()  # Lower bound
-            self.consume()  # ".."
+            self.consume("..")  # 
             upper = self.parse_expression()  # Upper bound
-            #self.consume() # ")"
+            #self.consume() # 
             return IntDomain(lower,upper)     
                
         elif self.match("tuple"):
-            self.consume()  # "tuple"
-            self.consume()  # "("
+            self.consume("tuple")  # "tuple"
+            self.consume("(")  # 
             domains = []
             while not self.match(")"):
                 domains.append(self.parse_domain())
                 if self.match(","):
-                    self.consume()  # ","
-            self.consume()  # ")"
+                    self.consume(",")  # 
+            self.consume(")")
             return TupleDomain(domains)
 
         elif self.match("relation"):
             relation = []
-            self.consume()  # "relation"
+            self.consume("relation") 
             if self.match("("):
-                self.consume() # (
+                self.consume("(")
                 relation.append(self.parse_relation_attribute())
                 while self.match(","):
                     self.consume() # ,
                     relation.append(self.parse_relation_attribute())
                 if self.match(")"):
                     self.consume() # )  # BUGGY PATCHY TODO fix expression and this will not be needed
-            self.consume()  # "of"
-            self.consume()  # "("               
+            self.consume("of")
+            self.consume("(")               
             while not self.match(")"):
                 relation.append(self.parse_domain())
                 if self.match("*"):
                     self.consume()  # "*"
-            self.consume()  # ")"
+            self.consume(")") 
             return RelationDomain(relation)
         
         elif self.match("set"):
             set_domain = []
-            self.consume() # set
+            self.consume("set") # 
             if self.match("("):
                 self.consume() # (
                 set_domain.append(self.parse_set_attribute())
@@ -562,51 +567,51 @@ class EssenceParser:
             return False
         
     def parse_tuple_constant(self):
-        self.consume()  # "("
+        self.consume("(") 
         values = []
         while not self.match(")"):
             values.append(self.parse_literal())  # Literal 
             if self.match(","):
                 self.consume()  # ","
-        self.consume()  # ")"
+        self.consume(")") 
         return TupleConstant(values)
 
     def parse_relation_constant(self):
-        self.consume()  # "relation"
-        self.consume()  # "("
+        self.consume("relation") 
+        self.consume("(") 
         values = []
         while not self.match(")"):
             if self.match("("):
                 values.append(self.parse_tuple_constant())
             if self.match(","):
-                self.consume()  # ","
-        self.consume()  # ")"
+                self.consume(",")
+        self.consume(")")  
         return RelationConstant(values)
     
     def parse_set_constant(self):
-        self.consume() #  {
+        self.consume("{")   
         values = []
         while not self.match("}"):
             values.append(self.parse_literal())  # Literal 
             if self.match(","):
-                self.consume()  # ","
-        self.consume() # }
+                self.consume(",")
+        self.consume("}") 
         return SetConstant(values)
     
     def parse_function_constant(self):
-        self.consume()  # "function"
-        self.consume()  # "("
+        self.consume("function")
+        self.consume("(")  
         values = []
         while not self.match(")"):
             values.append(self.parse_function_item())
             if self.match(","):
                 self.consume()
-        self.consume()  # ")"
+        self.consume(")")  # 
         return FunctionConstant(values)
     
     def parse_function_item(self):
         left = self.parse_constant()
-        self.consume() # -->
+        self.consume("-->") # 
         right = self.parse_constant()
         return FunctionItem(left,right)
 
@@ -616,18 +621,18 @@ class EssenceParser:
 
         while not self.match_any([":", "in"]):
             if self.match("("):
-                self.consume()  # "("
+                self.consume("(") 
                 tuple_elements = []
                 while not self.match(")"):
                     tuple_elements.append(Node(self.consume(), info="LocalVariable"))
                     if self.match(","):
-                        self.consume()  # ","
-                self.consume()  # ")"
+                        self.consume(",")  
+                self.consume(")")  # 
                 variables.append(Node("Tuple", tuple_elements,"TupleVariable"))
             else:
                 variables.append(Node(self.consume(), info="LocalVariable"))
                 if self.match(","):
-                    self.consume()  # ","
+                    self.consume(",") 
 
         preposition = self.consume()  # ":" or "in"
         if preposition == ":":

@@ -2,7 +2,7 @@
 2023-05-13 22:50:04.676753
  
 etest4.essence
-Expected "that" but got: thatÂ .Token Num: 43
+Expected "that" but got: thatï¿½ .Token Num: 43
 ----------------------------- 
 graph-shortcheaptour-2017070301.essence
 Invalid statement:language Token Num: 0
@@ -17,7 +17,7 @@ Invalid statement:given Token Num: 0
 2023-05-13 22:53:28.007109
  
 etest4.essence
-Expected "that" but got: thatÂ .Token Num: 43
+Expected "that" but got: thatï¿½ .Token Num: 43
 ----------------------------- 
 graph-shortcheaptour-2017070301.essence
 Invalid statement:language Token Num: 0
@@ -32,7 +32,7 @@ Invalid statement:given Token Num: 0
 2023-05-13 23:03:31.137608
  
 etest4.essence
-Expected "that" but got: thatÂ .Token Num: 43
+Expected "that" but got: thatï¿½ .Token Num: 43
 ----------------------------- 
 graph-shortcheaptour-2017070301.essence
 Invalid statement:language Token Num: 0
@@ -47,7 +47,7 @@ Invalid statement:given Token Num: 0
 2023-05-13 23:06:09.204304
  
 etest4.essence
-Expected "that" but got: thatÂ .Token Num: 43
+Expected "that" but got: thatï¿½ .Token Num: 43
 ----------------------------- 
 graph-shortcheaptour-2017070301.essence
 Invalid statement:language Token Num: 0
@@ -62,7 +62,7 @@ Invalid statement:given Token Num: 0
 2023-05-13 23:08:59.244667
  
 etest4.essence
-Expected "that" but got: thatÂ .Token Num: 43
+Expected "that" but got: thatï¿½ .Token Num: 43
 ----------------------------- 
 graph-shortcheaptour-2017070301.essence
 Invalid statement:language Token Num: 0
@@ -104,7 +104,7 @@ etest3.essence
 iceConstants() takes 1 positional argument but 2 were given
 ----------------------------- 
 etest4.essence
-Expected "that" but got: thatÂ .Token Num: 43
+Expected "that" but got: thatï¿½ .Token Num: 43
 ----------------------------- 
 etest5.essence
 iceConstants() takes 1 positional argument but 2 were given
@@ -131,7 +131,7 @@ Invalid statement:given Token Num: 0
 2023-05-13 23:13:20.227565
  
 etest4.essence
-Expected "that" but got: thatÂ .Token Num: 43
+Expected "that" but got: thatï¿½ .Token Num: 43
 ----------------------------- 
 graph-shortcheaptour-2017070301.essence
 Invalid statement:language Token Num: 0
@@ -146,7 +146,7 @@ Invalid statement:given Token Num: 0
 2023-05-13 23:15:02.374149
  
 etest4.essence
-Expected "that" but got: thatÂ .Token Num: 43
+Expected "that" but got: thatï¿½ .Token Num: 43
 ----------------------------- 
 graph-shortcheaptour-2017070301.essence
 Invalid statement:language Token Num: 0
@@ -161,7 +161,7 @@ Invalid statement:given Token Num: 0
 2023-05-13 23:15:52.126762
  
 etest4.essence
-Expected "that" but got: thatÂ .Token Num: 43
+Expected "that" but got: thatï¿½ .Token Num: 43
 ----------------------------- 
 graph-shortcheaptour-2017070301.essence
 Invalid statement:language Token Num: 0
@@ -176,7 +176,7 @@ Invalid statement:given Token Num: 0
 2023-05-13 23:17:46.650352
  
 etest4.essence
-Expected "that" but got: thatÂ .Token Num: 43
+Expected "that" but got: thatï¿½ .Token Num: 43
 ----------------------------- 
 graph-shortcheaptour-2017070301.essence
 Invalid statement:language Token Num: 0
@@ -191,7 +191,7 @@ Invalid statement:given Token Num: 0
 2023-05-13 23:18:26.292953
  
 etest4.essence
-Expected "that" but got: thatÂ .Token Num: 43
+Expected "that" but got: thatï¿½ .Token Num: 43
 ----------------------------- 
 graph-shortcheaptour-2017070301.essence
 Invalid statement:language Token Num: 0
@@ -366,4 +366,139 @@ Domain Parsing Error. Token: vertices. Token Num: 23
 ----------------------------- 
 gc.essence
 Domain Parsing Error. Token: set. Token Num: 17
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2024-02-11 01:40:28.679670
+ 
+gcrel.essence
+Domain Parsing Error. Token: vertices. Token Num: 23
+----------------------------- 
+misc.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+etest4.essence
+Something went wrong when icing Constant: i Info:ReferenceToDecisionVariable
+----------------------------- 
+etmp.essence
+Something went wrong when icing Constant: i Info:ReferenceToDecisionVariable
+----------------------------- 
+gc-simple.essence
+Domain Parsing Error. Token: vertices. Token Num: 25
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+etest.essence
+Something went wrong when icing Constant: i Info:ReferenceToDecisionVariable
+----------------------------- 
+gcmulti.essence
+Domain Parsing Error. Token: vertices. Token Num: 23
+----------------------------- 
+etest3.essence
+Something went wrong when icing Constant: i Info:ReferenceToDecisionVariable
+----------------------------- 
+gc.essence
+Domain Parsing Error. Token: vertices. Token Num: 23
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2024-02-11 01:58:39.937097
+ 
+gcrel.essence
+Domain Parsing Error. Token: vertices. Token Num: 23
+----------------------------- 
+misc.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gc-simple.essence
+Domain Parsing Error. Token: vertices. Token Num: 25
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gcmulti.essence
+Domain Parsing Error. Token: vertices. Token Num: 23
+----------------------------- 
+gc.essence
+Domain Parsing Error. Token: vertices. Token Num: 23
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2024-02-11 02:21:44.375455
+ 
+r-sum.essence
+Parsing Error! Token num 4. Expected '(', but got 'find'.
+----------------------------- 
+gcrel.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
+----------------------------- 
+misc.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gc-simple.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
+----------------------------- 
+r-sum-2.essence
+Parsing Error! Token num 4. Expected '(', but got 'find'.
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gcmulti.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
+----------------------------- 
+gc.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2024-02-11 02:29:11.699541
+ 
+r-sum.essence
+Parsing Error! Token num 4. Expected '(', but got 'find'.
+----------------------------- 
+gcrel.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
+----------------------------- 
+misc.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gc-simple.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
+----------------------------- 
+r-sum-2.essence
+Parsing Error! Token num 4. Expected '(', but got 'find'.
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gcmulti.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
+----------------------------- 
+gc.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2024-02-11 02:37:54.346280
+ 
+r-sum.essence
+Parsing Error! Token num 4. Expected '(', but got 'find'.
+----------------------------- 
+gcrel.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
+----------------------------- 
+misc.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gc-simple.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
+----------------------------- 
+r-sum-2.essence
+Parsing Error! Token num 4. Expected '(', but got 'find'.
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gcmulti.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
+----------------------------- 
+gc.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
 ----------------------------- 

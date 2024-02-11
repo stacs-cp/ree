@@ -38,14 +38,12 @@ with PyCallGraph(config=config,output=graphviz):
     graphviz.output_type = 'svg'
     et = essence_transforms.EssenceTransforms()
 
-    spec = r'''find i : int(0..100)
-    such that
-        i = 1 * 2 + 3 * 4
-    find a : bool
-    find b : bool
-    find c : bool
-    such that
-        a = !(b /\ c)'''
+    spec = r'''letting a be 3
+    letting intDom be domain int(1..3)
+
+    letting fff be function (3-->7,2-->a)
+    letting ggg be 44                 
+    find f : function (minSize 1*2, maxSize 48/2+a, total) tuple(intDom,intDom) --> set of int(1..90)'''
     print(spec)
 
     # test spec update to generator call
@@ -79,4 +77,4 @@ import json
 s = json.dumps(data)
 with open("transform_solve_test.json", 'w') as file:
         s2 = s.replace("\\n", "<br/>")
-        file.write(s2)
+        #file.write(s2)
