@@ -70,6 +70,12 @@ find f : function (minSize 2*3, maxSize 18/2+a, total) tuple(intDom,intDom) --> 
 
 """)
 
+test_strings.append(r"""
+
+find VAR_0 : relation of (relation of (int(0..10) * int(0..10)) * int(0..10))
+
+""")
+
                     
 for i,test_str in enumerate(test_strings):
     parser = ep.EssenceParser()

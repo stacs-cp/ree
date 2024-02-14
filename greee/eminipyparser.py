@@ -285,9 +285,9 @@ class EssenceParser:
                 print("Warning. Unbounded Int Domain.")
             self.consume("(") 
             lower = self.parse_expression()  # Lower bound
-            self.consume("..")  # 
+            self.consume("..")  
             upper = self.parse_expression()  # Upper bound
-            #self.consume() # 
+            self.consume(")")  
             return IntDomain(lower,upper)     
                
         elif self.match("tuple"):
@@ -310,8 +310,7 @@ class EssenceParser:
                 while self.match(","):
                     self.consume() # ,
                     relation.append(self.parse_relation_attribute())
-                if self.match(")"):
-                    self.consume() # )  # BUGGY PATCHY TODO fix expression and this will not be needed
+                self.consume(")") 
             self.consume("of")
             self.consume("(")               
             while not self.match(")"):
@@ -330,9 +329,9 @@ class EssenceParser:
                 while self.match(","):
                     self.consume() # ,
                     set_domain.append(self.parse_set_attribute())
-                if self.match(")"):
-                    self.consume() # )  # BUGGY PATCHY TODO fix expression and this will not be needed
-            self.consume() # of
+                
+                self.consume(")") 
+            self.consume("of") 
             set_domain.append(self.parse_domain())
             return SetDomain(set_domain)
         
@@ -345,8 +344,7 @@ class EssenceParser:
                 while self.match(","):
                     self.consume() # ,
                     function_domain.append(self.parse_function_attribute())
-                if self.match(")"):
-                    self.consume() # )  # BUGGY PATCHY TODO fix expression and this will not be needed
+                self.consume(")")
             function_domain.append(self.parse_domain())
             self.consume() # -->
             function_domain.append(self.parse_domain())
@@ -495,17 +493,22 @@ class EssenceParser:
 
         output_queue = []
         operator_stack = []
-
+        parenthesisCount = 0 
         while not self.is_expression_terminator():
             if self.match("(") and self.tokens[self.index + 2] != ",":
                 #refactor notes: add recursion here
+                parenthesisCount +=1
                 operator_stack.append(Node(self.consume(),info="Parenthesis"))  # "("
             elif self.match(")"):
                 while operator_stack and operator_stack[-1].label != "(":
                     output_queue.append(operator_stack.pop())
                 if operator_stack:
                     operator_stack.pop()  # remove the "("
-                self.consume()  # ")"
+                parenthesisCount -= 1
+                if parenthesisCount < 0:
+                    break # encountering a close braket that was never opened is an expression terminator.
+                else:
+                    self.consume(")")  # ")"
             elif self.checkUnaryOperator(output_queue):
                 uOperator = 'u'+self.consume()
                 current_operator = Node(uOperator,info="UnaryOperator")
