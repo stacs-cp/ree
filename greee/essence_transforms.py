@@ -35,7 +35,7 @@ class EssenceTransforms(EFGraph):
         self.currentNode = None 
         self.instace_specs_list = []
 
-    def add_e_node(self, emini_string, file_name=""):            
+    def add_e_node(self, emini_string, file_name="", role ="",data ={}):            
         """Add a node to the graph, the hash of the input emini_string is computed and used as ID
 
         Args:
@@ -47,8 +47,13 @@ class EssenceTransforms(EFGraph):
         """
         ID = abs(hash(emini_string)) #change hashing function to something better
         if ID not in self.graph:
-            self.graph.add_node(ID, emini=emini_string,file_name=file_name)
-            if self.determine_node_role(ID)=="instance_spec":
+            
+            node_role = ""
+            if role =="":
+                node_role = self.determine_node_role(emini_string)
+            attributes = {'emini': emini_string,'file_name': file_name,'role':node_role, **data}
+            self.graph.add_node(ID, **attributes)
+            if node_role=="instance_spec":
                 self.instace_specs_list.append(ID)
         return ID
     
@@ -73,13 +78,16 @@ class EssenceTransforms(EFGraph):
 
         params = ""
         conjureCall = ['conjure','solve', self.graph.nodes[ID]['file_name']]
-        subprocess.run(conjureCall, check=True)
+        try:
+            subprocess.run(conjureCall, check=True)
+        except Exception as e:
+            print(str(e))
         try:
             solution_file= self.graph.nodes[ID]['file_name'][:-7]+'solution'
             with open(solution_file) as solution:
                 s = solution.read()
-            solution_ID = self.add_e_node(s,solution_file)
-            self.add_e_edge(ID,solution_ID,"solution")
+            solution_ID = self.add_e_node(s,solution_file,role = 'solution')
+            self.add_e_edge(ID,solution_ID,"has_solution")
         except:
             # ADD crash node here?
             print("error while reading solution")
@@ -101,11 +109,15 @@ class EssenceTransforms(EFGraph):
         
         params = ""
         conjureCall = ['conjure','solve', file_name]
-        subprocess.run(conjureCall, check=True)
+        try:
+            subprocess.run(conjureCall, check=True)
+        except Exception as e:
+            print(str(e) + '\n')
         try:
             with open("./conjure-output/model000001-solution000001.solution") as solution:
                 s = solution.read()
-        except:
+        except Exception as e:
+            print(str(e) + '\n')
             # add error or timeout node or edge
             # add no solution node
             print("error while reading solution")
@@ -191,9 +203,9 @@ class EssenceTransforms(EFGraph):
         self.currentNode = random.choice(self.instace_specs_list)
         return self.currentNode
     
-    def determine_node_role(self, nodeID):
+    def determine_node_role(self, emini_string):
         ''' stub'''
-        node_AST = self.FormToForm(self.graph.nodes[nodeID]['emini'],"Emini","ASTpy")
+        node_AST = self.FormToForm(emini_string,"Emini","ASTpy")
         has_givens = any(isinstance(item, ep.GivenStatement) for item in node_AST.children)
         has_lettings = any(isinstance(item, ep.NameLettingStatement) for item in node_AST.children)
         has_finds = any(isinstance(item, ep.FindStatement) for item in node_AST.children)
