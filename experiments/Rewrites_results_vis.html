@@ -15,9 +15,11 @@
           .graphData(data)
           .nodeId('id')
           .nodeLabel('emini')
+          .nodeAutoColorBy('role')
           .linkCurvature(0.25)
           .linkDirectionalArrowLength(4)
           .linkDirectionalArrowRelPos(1)
+          .linkAutoColorBy('transformation')
           .linkCanvasObjectMode(() => 'after')
           .linkCanvasObject((link, ctx) => {
             const MAX_FONT_SIZE = 4;
