@@ -1,0 +1,4 @@
+letting AUXFUNC be domain function (total) int(0..2) --> int(0..3)
+$find f : function AUXFUNC --> int(0..1)
+find fMatrix : matrix indexed by [int(0..63)] of int(0..2)
+$ 0 = entry maps to 0, 1 = entry maps to 1, 2 = entry not present

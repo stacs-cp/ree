@@ -1,0 +1,8 @@
+letting AUXFUNC be domain function (total) int(0..2) --> int(0..3)
+$find f : function (total) AUXFUNC --> int(0..1)
+find fSet : set (maxSize 64) of AUXFUNC
+find f : function (total) AUXFUNC --> int(0..1)
+such that
+   forAll g in fSet . (f(g) = 1)
+,  forAll g in defined(f) . ((f(g) = 0) -> !(g in fSet))
+

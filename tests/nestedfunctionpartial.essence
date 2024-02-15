@@ -1,0 +1,2 @@
+letting AUXFUNC be domain function (total) int(0..2) --> int(0..3)
+find f : function AUXFUNC --> int(0..1)
