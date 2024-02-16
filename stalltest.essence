@@ -1,0 +1,8 @@
+$$$ search for the shortest stall $$$
+$find VAR_0 : function function int(0..3) --> int(0..3) --> int(0..2)
+
+$letting AUX_0 be domain set (maxSize 4) of tuple(int(0..3),int(0..3))
+$find VAR_0 : set of tuple(AUX_0, int(0..2))
+$
+$find VAR_0 : function (total) function (total) int(0..2) --> int(0..2) --> int(0..2)
+find VAR_0 : relation of (relation of (int(0..3) * int(0..3)) * int(0..2))
