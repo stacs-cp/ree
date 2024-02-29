@@ -163,7 +163,7 @@ def expressionInOrderTraversal(node, stack, parent):
         expressionInOrderTraversal(node.children[1], stack, node) # right
         if parentheses: stack.append(")") # right parenthesis if needed
 
-    elif len(node.children) == 1 and node.info != "MemberExpression": # check if it has at least one child (for unary)
+    elif len(node.children) == 1 and node.info != "MemberExpression" and node.info != 'SetConstant': # check if it has at least one child (for unary)
         if parentheses: stack.append("(")          
         stack.append(node.label)
         expressionInOrderTraversal(node.children[0], stack, node)
@@ -175,10 +175,12 @@ def expressionInOrderTraversal(node, stack, parent):
         stack.append(")") 
     elif node.info == "MemberExpression":
         stack.append(iceMemberExpression(node))   
-    elif node.label == "tuple":
+    elif node.label in ["tuple"]:
         stack.append(iceConstants(node))
     elif node.info == "QuantificationExpression":
         stack.append(iceQuantifier(node))
+    elif node.info == 'SetConstant':
+        stack.append(iceConstants(node))
     else:
         stack.append(node.label)
 

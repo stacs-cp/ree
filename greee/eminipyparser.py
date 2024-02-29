@@ -411,13 +411,11 @@ class EssenceParser:
             return Node(self.consume(), info="Boolean")
         elif self.match_any(self.named_constants):
             return Node(self.consume(), info="ReferenceToNamedConstant")
-        elif self.index + 2 < len(self.tokens):
-            if self.match("(") and self.tokens[self.index + 2] == ")":
+        elif self.index + 2 < len(self.tokens) and self.match("(") and self.tokens[self.index + 2] == ")":
                 return self.parse_tuple_constant()
-            else:
-                raise SyntaxError("Invalid constant: " + str(self.tokens[self.index]))
         else:
-            raise SyntaxError("Invalid constant: " + str(self.tokens[self.index]))
+            return self.parse_literal()
+            #raise SyntaxError("Invalid constant: " + str(self.tokens[self.index]))
 
     def parse_literal(self):
         # single integer
@@ -524,10 +522,15 @@ class EssenceParser:
                 operator_stack.append(current_operator)
             elif self.match_any(["forAll", "exists","sum"]):
                 output_queue.append(self.parse_quantification())
-            else:
-                output_queue.append(self.parse_literal())  # Literal or Name
-            
+                self.consume(".")
 
+            elif self.match("."):
+                while operator_stack and operator_stack[-1].label != "(":
+                    output_queue.append(operator_stack.pop())
+            else:
+                output_queue.append(self.parse_constant())  # Literal or Name
+            
+        #print("terminated by:" + str( self.tokens[self.index]))
         while operator_stack:
             output_queue.append(operator_stack.pop())
         return self.build_expression_tree(output_queue)

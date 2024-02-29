@@ -72,7 +72,17 @@ find f : function (minSize 2*3, maxSize 18/2+a, total) tuple(intDom,intDom) --> 
 
 test_strings.append(r"""
 
-find VAR_0 : relation of (relation of (int(0..10) * int(0..10)) * int(0..10))
+given n : int(0..100)
+letting vertices be domain int(0..n-1)
+given edges : relation (irreflexive) of ( vertices * vertices )
+given numberColours : int(1..n)
+given coloursPerNode : int(1..n)
+letting colours be domain int(1..numberColours)
+letting coloursSet be domain set (size coloursPerNode) of colours
+find c : function (total) vertices --> coloursSet
+such that
+forAll (u,v) in edges .
+      c(v) intersect c(u) = {}
 
 """)
 
