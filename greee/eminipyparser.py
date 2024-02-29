@@ -522,11 +522,7 @@ class EssenceParser:
                 operator_stack.append(current_operator)
             elif self.match_any(["forAll", "exists","sum"]):
                 output_queue.append(self.parse_quantification())
-                self.consume(".")
 
-            elif self.match("."):
-                while operator_stack and operator_stack[-1].label != "(":
-                    output_queue.append(operator_stack.pop())
             else:
                 output_queue.append(self.parse_constant())  # Literal or Name
             
