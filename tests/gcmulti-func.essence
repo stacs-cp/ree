@@ -1,0 +1,14 @@
+$ graph multicolouring for directed graphs
+$ uses exactly coloursPerNode colours for each vertex
+given n : int(0..100)
+letting vertices be domain int(0..n-1)
+given edges : relation (irreflexive) of ( vertices * vertices )
+given numberColours : int(1..n)
+given coloursPerNode : int(1..n)
+letting colours be domain int(1..numberColours)
+letting coloursSet be domain set (size coloursPerNode) of colours
+find c : function (total) vertices --> coloursSet
+such that
+forAll (u,v) in edges .
+      c(v) intersect c(u) = {}
+

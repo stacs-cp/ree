@@ -59,6 +59,21 @@ def NXtoEssenceRelation(NXgraph, vertices_name="vertices", relation_name = "edge
     return f'''letting {vertices_name} be domain int(0..{len(NXgraph.nodes())-1})
 letting {relation_name} be relation({edges})'''
 
+def NXtoEssenceRelationForGCmulti(NXgraph, vertices_name="vertices", relation_name = "edges"):
+    '''
+    From networkx graph to Emini relation
+    '''
+    # TODO store vertices labels somewhere
+    edges = ""
+    separator = ""
+    for e in nx.generate_edgelist(NXgraph, data=False):
+        e_list = e.split(" ")
+        edges += f'{separator}({e_list[0]},{e_list[1]})'
+        separator = ","
+
+    return f'''letting {vertices_name} be {len(NXgraph.nodes())}
+letting {relation_name} be relation({edges})'''
+
 def injectGraphByName(AST, vertices_name, relation_name, verticesAST,graphAST):
     for i,child in enumerate(AST.children):
         if isinstance(child, ep.NameLettingStatement):
