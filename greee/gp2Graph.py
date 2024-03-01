@@ -22,6 +22,17 @@ def ToGP2Helper(label):
         return "OR"
     if label == '!':
         return "NOT"
+    if label == '->':
+        return "IMPLY"
+    if label == '>':
+        return "GREATER"
+    if label == '<':
+        return "SMALLER"
+    if label == '>=':
+        return "GREATERTN"
+    if label == '<=':
+        return "SMALLERTN"
+    
     return label
 
 def ToEssenceHelper(label):
@@ -34,5 +45,16 @@ def ToEssenceHelper(label):
         return "\\/"
     if label == "NOT":
         return "!"
+    if label == "IMPLY":
+        return '->'
+    if label == "GREATER":
+        return '>'
+    if label == "SMALLER":
+        return '<'
+    if label == "GREATERTN":
+        return '>='
+    if label == "SMALLERTN":
+        return '<='
+
     return label
 

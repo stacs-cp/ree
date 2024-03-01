@@ -1,12 +1,10 @@
 import sys
-sys.path.append('greee')
-import EFormatConverters as EFC
-import EFormatGraph
-import os
-import icing
+sys.path.append('.')
+from greee import EFormatConverters as EFC
+from greee import EFormatGraph
 from datetime import datetime
 import copy
-import eminipyparser
+from greee import eminipyparser
 
 teststr1 = r'''
 find b : bool such that b = exists i : int(0..4) . i*i=i
