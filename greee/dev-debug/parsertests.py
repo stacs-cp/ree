@@ -118,7 +118,21 @@ test_strings.append(r"""
 
 find VAR_0 : relation of (relation of (int(0..10) * int(0..10)) * int(0..10))
 """)
-
+#test_strings = []
+#test 11
+test_strings.append(r"""
+given n : int(1..100)
+letting vertices be domain int(1..n)
+given edges : relation (irreflexive) of ( vertices * vertices )
+given numberColours : int(1..n)
+given coloursPerNode : int(1..n)
+letting colours be domain int(1..numberColours)
+letting coloursSet be domain set (size coloursPerNode) of colours
+find c : function (total) vertices --> coloursSet
+such that
+forAll (u,v) in edges .
+      (forAll colourAssignment in c .
+         (colourAssignment[1] = u) -> !((v,colourAssignment[2]) in c) """)
 
 for i,test_str in enumerate(test_strings):
     try:

@@ -86,6 +86,31 @@ forAll (u,v) in edges .
 
 """)
 
+test_strings.append(r"""
+
+given n : int(1..100)
+letting vertices be domain int(0..n-1)
+given edges : relation (irreflexive) of ( vertices * vertices )
+given numberColours : int(1..n)
+given coloursPerNode : int(1..n)
+letting colours be domain int(1..numberColours)
+find c : relation (size n*coloursPerNode) of ( vertices * colours )
+such that
+
+$ endpoints of edges do not share colours
+forAll (u,v) in edges .
+      (forAll colourAssignment in c .
+         (colourAssignment[1] = u) -> !((v,colourAssignment[2]) in c))
+
+$ enforce number of colours per node, another version
+,  forAll u : vertices .
+      coloursPerNode = (sum colourAssignment in c .
+         toInt(colourAssignment[1] = u))
+
+""")
+
+
+
                     
 for i,test_str in enumerate(test_strings):
     parser = ep.EssenceParser()

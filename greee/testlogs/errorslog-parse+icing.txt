@@ -502,3 +502,69 @@ Parsing Error! Token num 4. Expected '(', but got 'letting'.
 gc.essence
 Parsing Error! Token num 4. Expected '(', but got 'letting'.
 ----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2024-02-29 20:21:02.973107
+ 
+r-sum.essence
+Parsing Error! Token num 4. Expected '(', but got 'find'.
+----------------------------- 
+nestedfunctionpartialmatrix.essence
+Domain Parsing Error. Token: matrix. Token Num: 24
+----------------------------- 
+gcrel.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
+----------------------------- 
+misc.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gc-simple.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
+----------------------------- 
+r-sum-2.essence
+Parsing Error! Token num 4. Expected '(', but got 'find'.
+----------------------------- 
+nestedfunctiontotalmatrix.essence
+Domain Parsing Error. Token: matrix. Token Num: 24
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gcmulti.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
+----------------------------- 
+gc.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
+----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2024-03-01 00:07:36.772773
+ 
+r-sum.essence
+Parsing Error! Token num 4. Expected '(', but got 'find'.
+----------------------------- 
+nestedfunctionpartialmatrix.essence
+Domain Parsing Error. Token: matrix. Token Num: 24
+----------------------------- 
+gcrel.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
+----------------------------- 
+misc.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gc-simple.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
+----------------------------- 
+r-sum-2.essence
+Parsing Error! Token num 4. Expected '(', but got 'find'.
+----------------------------- 
+nestedfunctiontotalmatrix.essence
+Domain Parsing Error. Token: matrix. Token Num: 24
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Invalid statement:language Token Num: 0
+----------------------------- 
+gcmulti.essence
+Missing Expression at: 41
+----------------------------- 
+gc.essence
+Parsing Error! Token num 4. Expected '(', but got 'letting'.
+----------------------------- 

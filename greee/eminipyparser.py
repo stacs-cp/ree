@@ -129,7 +129,7 @@ class EssenceParser:
         self.named_domains = {} 
         self.named_constants = {}
         self.decision_variables = {}
-        self.binary_operators = ["<",">", "<=", ">=", "+", "-", "*", "/", "%", "=","!=", "->", "/\\", "xor","\\/" , "and" , "in", "subset","subsetEq","intersect","union"]
+        self.binary_operators = [".","<",">", "<=", ">=", "+", "-", "*", "/", "%", "=","!=", "->", "/\\", "xor","\\/" , "and" , "in", "subset","subsetEq","intersect","union"]
         self.unary_operators = ["u-","!","utoInt"]
         self.statements = []
 
@@ -156,8 +156,8 @@ class EssenceParser:
         commentlessStr = commentlessStr.replace(r'/\\n', '/\\')
         self.tokens = re.findall(r'\.\.|-->|\->|\\/|/\\|>=|<=|>|<|!=|!|==|=|\+|[^=!<>+\s\w]|[\w]+', commentlessStr.replace('\n', ' '))
 
-        #print(' '.join(self.tokens))
-        #print(len(self.tokens))
+        print(' '.join(self.tokens))
+        print(len(self.tokens))
         while self.index < len(self.tokens):
             statement = self.parse_statement()
             if statement.info == "GivenStatement":
@@ -433,14 +433,7 @@ class EssenceParser:
                     return MemberExpression(identifier, [element])
                 ### TODO generalise to relation of any arity
                 if self.tokens[self.index] == '(' and self.tokens[self.index +2] == ')': ## element of relation i.e. a(b,c)
-                    self.consume()  # "("
-                    tuple_elements = []
-                    while not self.match(")"):
-                        tuple_elements.append(Node(self.consume(), info="Literal"))
-                        if self.match(","):
-                            self.consume()  # ","
-                    self.consume()  # ")"
-                    return MemberExpression(identifier, tuple_elements)
+                    return MemberExpression(identifier, [self.parse_tuple_constant()]) 
             if self.match("(") and self.tokens[self.index + 2] == ",":
                 return MemberExpression(identifier, [self.parse_tuple_constant()]) 
             if identifier in self.parameters:
@@ -455,7 +448,7 @@ class EssenceParser:
 
     def is_expression_terminator(self):
         return (self.index >= len(self.tokens)
-            or self.match_any([".",",","given","where","such","letting","find","..","of","-->"])) 
+            or self.match_any([",","given","where","such","letting","find","..","of","-->"])) 
     
     def parse_expression(self):
 
@@ -483,8 +476,10 @@ class EssenceParser:
                 return 4
             if op in ["u-", "u!","utoInt"]:   ## UNARY OPERATORS
                 return 8
+            if op ==".":
+                return -11
             if op == "(":
-                return 9
+                return 11
             
             print("missing operator")
             return 999
@@ -549,6 +544,7 @@ class EssenceParser:
         if len(stack) >0:
             return stack[0]    
         else:
+            print(self.tokens[self.index-1])
             raise Exception("Missing Expression at: " + str(self.index))
 
     def checkUnaryOperator(self,output_queue):

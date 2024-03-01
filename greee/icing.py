@@ -1,4 +1,4 @@
-binary_operators = ["<",">", "<=", ">=", "+", "-", "*", "/", "%", "=","!=", "->", "/\\", "xor","\\/" , "and" , "in", "subset","subsetEq","intersect","union"]
+binary_operators = [".","<",">", "<=", ">=", "+", "-", "*", "/", "%", "=","!=", "->", "/\\", "xor","\\/" , "and" , "in", "subset","subsetEq","intersect","union"]
 
 def ASTtoEssence(AST):
     '''
@@ -64,24 +64,30 @@ def iceFind(node):
     return statement
 
 def iceSuchThat(node):
-    statement = "such that \n  "
+    statement = "such that\n"
     constraints = []
     for expression in node.children: # get all stacks for all comma separated expressions
         iceConstraints(expression,constraints)
-        constraints.append("\n  ,\n  ")
+        constraints.append("\n   ,\n")
     constraints = "".join(constraints[:-1]) # merge the constraints in each stack
     statement += constraints
     return statement
 
-def iceConstraints(node, constraints):
+def iceConstraints(node, constraints, spacer=""):
+    
+    constraints.append(spacer)
+    spacer += " " 
     if node.label == " . " or node.label == ". " or node.label == ".":
-        iceConstraints(node.children[0], constraints)
-        constraints.append(" . " + "\n  ")   ## BUG potential issues here
-        iceConstraints(node.children[1], constraints)
+        iceConstraints(node.children[0], constraints,spacer)
+        constraints.append(" .\n")   ## BUG potential issues here
+        spacer += " "
+        iceConstraints(node.children[1], constraints,spacer)
     elif node.info == "QuantificationExpression":
         constraints.append(iceQuantifier(node))
     else:
-        constraints.append(iceExpression(node))      
+        constraints.append(spacer)
+        constraints.append(iceExpression(node)) 
+       
 
 def iceConstants(node):
     if node.info in ["Integer", "Literal", "Boolean", "ReferenceToNamedConstant","ReferenceToParameter","ReferenceToDecisionVariable"]:
@@ -115,10 +121,11 @@ def iceConstants(node):
     elif node.label == "tuple":
         tuple = ""        
         tuple += "("
-        tuple += ",".join(iceConstants(item) for item in node.children)
+        tuple += ",".join(iceExpression(item) for item in node.children)
         tuple += ")"
         return tuple
     else:
+        print(node.children[0].label)
         raise Exception(f"Something went wrong when icing Constant: {node.label} Info:{node.info}")
     
 def iceExpression(node):
@@ -229,6 +236,8 @@ def precedence(op):
                 return 4
             if op in ["u-", "u!"]:   ## UNARY OPERATORS
                 return 8
+            if op == ".":
+                return -11
             if op == "(":
                 return 9
             return 999
