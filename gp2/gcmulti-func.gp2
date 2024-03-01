@@ -1,0 +1,55 @@
+Main = FromCountingRelToFunctionsAndSets
+
+FromCountingRelToFunctionsAndSets(DecisionVariable,operand2:string)
+[
+    ####nodes that will be turned into function, n1 and n2 preserved n3 becomes function ####
+    # we need to check that there is a quantifier over the decision variable
+    (n1, "find~FindStatement")
+    (n2, DecisionVariable)
+    (n3, "relation~RelationDomain")
+
+    #### there must be a relation parameter, regardless of the names needs 2 children with the same name (vertex*vertex)###
+    ## n7 is used to check if there is a quantifier over it. These are all interfaces that will be preserved
+    
+    (n4, "given~GivenStatement")
+    (n5, EdgesParameter)
+    (n6, "relation~RelationDomain")
+    (n7, refenceToVertices)
+    (n8, refenceToVertices)
+
+    # check quantifications over n2 this is preserved up to the . concatenation 
+    (n9, "forAll~QuantificationExpression")
+    (n10, "in~Preposition)
+    (n11, ###REFERENCE TO DECISION VARIABLE n2###)
+    (12, ".~BinaryExpression")
+
+    # check quantifications over n7
+    (n12, "forAll~QuantificationExpression")
+    (n13, ":~Preposition)
+    (n14, ###REFERENCE TO DECISION VARIABLE n7###)
+
+    # check sum over pseudoboolean - counting pattern
+    (n15, "sum~QuantificationExpression")
+    (n16, "in~Preposition)
+    (n17, ###REFERENCE TO DECISION VARIABLE n2###)
+
+    # should have edge from n18 to n15 and n19
+    (n18, ".~BinaryExpression) 
+    (n19, "toInt~UnaryExpression")
+    (n20, "=~BinaryExpression)
+
+    |
+
+    (e1, n1, n2, 1)
+    (e2, n2, n3, 1)
+    (e3, n2, n4, 2)
+]
+=>
+[
+
+
+]
+interface =
+{
+  n1,n2,n7
+}
