@@ -55,7 +55,9 @@ def NXtoEssenceRelation(NXgraph, vertices_name="vertices", relation_name = "edge
     # TODO store vertices labels somewhere
     edges = ""
     for e in nx.generate_edgelist(NXgraph, data=False):
-        edges += f'({e[0]},{e[2]})'
+        e_list = e.split(" ")
+        edges += f'{separator}({e_list[0]},{e_list[1]})'
+        separator = ","
     return f'''letting {vertices_name} be domain int(0..{len(NXgraph.nodes())-1})
 letting {relation_name} be relation({edges})'''
 
