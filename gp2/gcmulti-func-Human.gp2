@@ -1,0 +1,145 @@
+Main = FromCountingRelToFunctionsAndSets
+
+
+FromCountingRelToFunctionsAndSets(decisionVariableRef,graphReference,specName,decisionVariableName,edgesParameter,referenceToVertices:string)
+[
+    // nodes that will be turned into function, Root, FindStatement and DecisionVariable preserved
+    // DecisionVariableType becomes function
+    // we need to check that there is a quantifier over the decision variable
+    (RootNode, specName)
+    (FindStatement, "find~FindStatement")
+    (DecisionVariable, decisionVariableName)
+    (DecisionVariableType, "relation~RelationDomain")
+
+    (GivenStatement, "given~GivenStatement")
+    (GivenParameter, edgesParameter)
+    (GivenParamType, "relation~RelationDomain")
+    (RelationDomain1, referenceToVertices)
+    (RelationDomain2, referenceToVertices)
+
+    // check quantifications over graphs edges this is preserved up to the . concatenation 
+    (ForAll, "forAll~QuantificationExpression")
+    (In, "in~Preposition")
+    (RefGraph, graphReference)
+    (Concatenation, ".~BinaryExpression")
+
+    // check quantifications over decision variable
+    (ForAll2, "forAll~QuantificationExpression")
+    (InDomain, ":~Preposition")
+    (RefDecisionVariable1, decisionVariableRef)
+
+    // check sum over pseudoboolean - counting pattern
+    (Sum, "sum~QuantificationExpression")
+    (In2, "in~Preposition")
+    (RefDecisionVariable2, decisionVariableRef)
+
+    // should have edges from the above summation - these will be all deleted
+    (Concatenation2, ".~BinaryExpression") 
+    (BoolToInt, "toInt~UnaryExpression")
+    (Equivalence, "=~BinaryExpression")
+
+    |
+
+    // decision variable edges
+    (e1, RootNode, FindStatement, 2)
+    (e2, FindStatement, DecisionVariable, 1)
+    (e3, DecisionVariable, DecisionVariableType, 1)
+    // parameter edges
+    (e4, GivenStatement, GivenParameter, 1)
+    (e5, GivenParameter, GivenParamType, 1)
+    (e6, GivenParamType, RelationDomain1, 2)
+    (e7, GivenParamType, RelationDomain2, 3)
+
+    // quantification over reference to graph edges
+    (e8, ForAll, In, 2)
+    (e9, In, RefGraph, 1)
+
+    // counting pattern edges
+    (e10, Sum, In2, 2)
+    (e11, In2, RefDecisionVariable2, 1)
+
+    (e12, Concatenation2, BoolToInt, 2)
+    (e13, BoolToInt, Equivalence, 1)
+    
+    // quantification over decision variable
+    (e14, ForAll2, InDomain, 2)
+    (e15, InDomain, RefDecisionVariable1, 2)
+
+    (e16, Concatenation, ForAll, 2)
+]
+=>
+[
+    (RootNode, SpecName)
+    // Create Auxiliary variable coloursSet
+    (LettingAux,"letting~DomainNameLettingStatement")
+    (VarName, "coloursSet~Node")
+    (AuxDomain, "set~SetDomain")
+    (SetSize,"size~Attribute")
+    (SetDomain,"colours~ReferenceToNamedDomain")
+    (ParamRef, "coloursPerNode~ReferenceToParameter")
+
+    // Function that replaces Relation
+    (DecisionVariableType, "function~FunctionDomain")
+
+     // Preserve quantification over graph
+    (ForAll, "forAll~QuantificationExpression")
+    (In, "in~Preposition")
+    (RefGraph, graphReference)
+    (Concatenation, ".~BinaryExpression")
+
+     // Sets Intersect that replaces the 2 constraint
+    (Equivalence2, "=~BinaryExpression")
+    (Intersect, "intersect~BinaryExpression")
+    (EmptySet, "set~SetConstant")
+    (LocalVarSet1, "c~MemberExpression")
+    (LocalTuple1,"tuple~TupleConstant")
+    (LocalName1, "v~Literal")
+
+    (LocalVarSet2, "c~MemberExpression")
+    (LocalTuple2,"tuple~TupleConstant")
+    (LocalName2, "u~Literal")
+
+    |
+
+     //preserved FindStatement edges
+    (e1, RootNode, FindStatement, 2)
+    (e2, FindStatement, DecisionVariable, 1)
+    (e3, DecisionVariable, DecisionVariableType, 1)
+    // parameter edges
+    (e4, GivenStatement, GivenParameter, 1)
+    (e5, GivenParameter, GivenParamType, 1)
+    (e6, GivenParamType, RelationDomain1, 1)
+    (e7, GivenParamType, RelationDomain2, 2)
+
+    // AUX set edges
+    (eaux0, RootNode, LettingAux, 0)
+    (eaux1, LettingAux, VarName, 1)
+    (eaux2, VarName, AuxDomain, 1)
+    (eaux3, AuxDomain, SetSize, 1)
+    (eaux4, AuxDomain, SetDomain, 2)
+    (eaux5, SetSize, ParamRef, 1)
+
+    // preserved quantification over graph
+    // quantification over reference to graph edges
+    (e19, Concatenation, ForAll, 1)
+    (e8, ForAll, In, 2)
+    (e9, In, RefGraph, 1)
+
+    // New constraint edges 
+
+    (e10, Concatenation,Equivalence2,2)
+    (e11, Equivalence2, Intersect,1)
+    (e12, Equivalence2, EmptySet, 2)
+    (e13, Intersect, LocalVarSet1, 1)
+    (e14, LocalVarSet1, LocalTuple1, 1)
+    (e15, LocalTuple1, LocalName1, 1)
+
+    (e16, Intersect, LocalVarSet2, 2)
+    (e17, LocalVarSet2, LocalTuple2, 1)
+    (e18, LocalTuple2, LocalName2, 1)
+]
+interface =
+{
+  RootNode,FindStatement, DecisionVariable, GivenStatement, GivenParameter,GivenParamType, ForAll, In, RefGraph
+}
+

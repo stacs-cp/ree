@@ -18,30 +18,55 @@ fromCountingRelToFunctionsAndSets(decisionVariableRef,graphReference,specName,de
     (n8, referenceToVertices)
 
     // check quantifications over graphs edges this is preserved up to the . concatenation 
-    (n9, "forAll~QuantificationExpression")
-    (n10, "in~Preposition")
-    (n11, graphReference)
     (n12, ".~BinaryExpression")
 
-    // check quantifications over decision variable
-    (n13, "forAll~QuantificationExpression")
-    (n14, ":~Preposition")
-    (n15, decisionVariableRef)
+    (n37,"size~Attribute")
+    (n38,"*~BinaryExpression")
+    (n39,"n~ReferenceToParameter")
+    (n40,"coloursPerNode~ReferenceToParameter")
 
-    // check sum over pseudoboolean - counting pattern
-    (n16, "sum~QuantificationExpression")
-    (n17, "in~Preposition")
-    (n18, decisionVariableRef)
+    (n43,"such that~SuchThatStatement")
+    (n52,".~BinaryExpression")
+    (n53,"forAll~QuantificationExpression")
+    (n54,"colourAssignment~LocalVariable")
+    (n55,"in~Preposition")
+    (n56,"c~ReferenceToDecisionVariable")
 
-    // should have edges from the above summation - these will be all deleted
-    (n19, ".~BinaryExpression") 
-    (n20, "toInt~UnaryExpression")
-    (n21, "=~BinaryExpression")
+    (n57,"IMPLY~BinaryExpression")
+    (n58,"=~BinaryExpression")
+    (n59,"colourAssignment~MemberExpression")
+    (n60,"1~Integer")
+    (n61,"u~Literal")
+    (n62,"NOT~UnaryExpression")
+    (n63,"in~BinaryExpression")
+    (n64,"tuple~TupleConstant")
+    (n65,"v~Literal")
+    (n66,"colourAssignment~MemberExpression")
+    (n67,"2~Integer")
+    (n68,"c~ReferenceToDecisionVariable")
+
+    (n69,".~BinaryExpression")
+    (n70,"forAll~QuantificationExpression")
+    (n71,"u~LocalVariable")
+    (n72,":~Preposition")
+    (n73,"vertices~ReferenceToNamedDomain")
+    (n74,"=~BinaryExpression")
+    (n75,"coloursPerNode~ReferenceToParameter")
+    (n76,".~BinaryExpression")
+    (n77,"sum~QuantificationExpression")
+    (n78,"colourAssignment~LocalVariable")
+    (n79,"in~Preposition")
+    (n80,"c~ReferenceToDecisionVariable")
+    (n81,"toInt~UnaryExpression")
+    (n82,"=~BinaryExpression")
+    (n83,"colourAssignment~MemberExpression")
+    (n84,"1~Integer")
+    (n85,"u~Literal")
 
     |
 
     // decision variable edges
-    (e1, n0, n1, 2)
+    (e1, n0, n1, 7)
     (e2, n1, n2, 1)
     (e3, n2, n3, 1)
     // parameter edges
@@ -51,23 +76,57 @@ fromCountingRelToFunctionsAndSets(decisionVariableRef,graphReference,specName,de
     (e7, n6, n8, 3)
 
     // quantification over reference to graph edges
-    (e8, n9, n10, 2)
-    (e9, n10, n11, 1)
 
-    // counting pattern edges
-    (e10, n16, n17, 2)
-    (e11, n17, n18, 1)
+    (e100, n0, n43, 8)
+    (e101, n0, n4, 3)
+    (e102, n43, n12, 2)
 
-    (e12, n19, n20, 2)
-    (e13, n20, n21, 1)
-    
-    // quantification over decision variable
-    (e14, n13, n14, 2)
-    (e15, n14, n15, 2)
+    (e36,n3,n37,1)
+    (e37,n37,n38,1)
+    (e38,n38,n39,1)
+    (e39,n38,n40,2)
 
-    (e16, n12, n9,2)
+    (e51,n12,n52,2)
+    (e52,n52,n53,1)
+    (e53,n53,n54,1)
+    (e54,n53,n55,2)
+    (e55,n55,n56,1)
+    (e56,n52,n57,2)
+    (e57,n57,n58,1)
+    (e58,n58,n59,1)
+    (e59,n59,n60,1)
+    (e60,n58,n61,2)
+    (e61,n57,n62,2)
+    (e62,n62,n63,1)
+    (e63,n63,n64,1)
+    (e64,n64,n65,1)
+    (e65,n64,n66,2)
+    (e66,n66,n67,1)
+    (e67,n63,n68,2)
+    (e68,n43,n69,3)
+    (e69,n69,n70,1)
+    (e70,n70,n71,1)
+    (e71,n70,n72,2)
+    (e72,n72,n73,1)
+    (e73,n69,n74,2)
+    (e74,n74,n75,1)
+    (e75,n74,n76,2)
+    (e76,n76,n77,1)
+    (e77,n77,n78,1)
+    (e78,n77,n79,2)
+    (e79,n79,n80,1)
+    (e80,n76,n81,2)
+    (e81,n81,n82,1)
+    (e82,n82,n83,1)
+    (e83,n83,n84,1)
+    (e84,n82,n85,2)
 ]
+
+
+
 =>
+
+
 [
     (n0, specName)
     (n1, "find~FindStatement")
@@ -90,10 +149,8 @@ fromCountingRelToFunctionsAndSets(decisionVariableRef,graphReference,specName,de
     (n3, "function~FunctionDomain")
 
      // Preserve quantification over graph
-    (n9, "forAll~QuantificationExpression")
-    (n10, "in~Preposition")
-    (n11, graphReference)
     (n12, ".~BinaryExpression")
+
 
      // Sets Intersect that replaces the 2 constraint
     (n28, "=~BinaryExpression")
@@ -106,6 +163,13 @@ fromCountingRelToFunctionsAndSets(decisionVariableRef,graphReference,specName,de
     (n34, "c~MemberExpression")
     (n35,"tuple~TupleConstant")
     (n36, "u~Literal")
+
+    (n43,"such that~SuchThatStatement")
+    (n52,".~BinaryExpression")
+    (n53,"forAll~QuantificationExpression")
+    (n54,"colourAssignment~LocalVariable")
+    (n55,"in~Preposition")
+    (n56,"c~ReferenceToDecisionVariable")
 
     |
 
@@ -129,9 +193,11 @@ fromCountingRelToFunctionsAndSets(decisionVariableRef,graphReference,specName,de
 
     // preserved quantification over graph
     // quantification over reference to graph edges
-    (e19, n12, n9, 1)
-    (e8, n9, n10, 2)
-    (e9, n10, n11, 1)
+    (e51,n12,n52,2)
+    (e52,n52,n53,1)
+    (e53,n53,n54,1)
+    (e54,n53,n55,2)
+    (e55,n55,n56,1)
 
     // New constraint edges 
 
@@ -145,9 +211,13 @@ fromCountingRelToFunctionsAndSets(decisionVariableRef,graphReference,specName,de
     (e16, n29, n34, 2)
     (e17, n34, n35, 1)
     (e18, n35, n36, 1)
+
+
+    (e68, n43, n12, 2)
+    (e100, n0, n43, 8)
+    (e101, n0, n4, 3)
 ]
 interface =
 {
-  n0,n1, n2, n4, n5,n6, n9, n10, n11
+  n0,n1, n2, n4, n5,n6,n7,n8, n12, n43,n52,n53,n54,n55,n56
 }
-

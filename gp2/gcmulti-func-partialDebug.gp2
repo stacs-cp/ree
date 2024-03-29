@@ -1,0 +1,28 @@
+Main = fromCountingRelToFunctionsAndSets
+
+
+fromCountingRelToFunctionsAndSets(specName:string)
+[
+    // nodes that will be turned into function, Root, FindStatement and DecisionVariable preserved
+    // DecisionVariableType becomes function
+    // we need to check that there is a quantifier over the decision variable
+    (n0, specName)
+    (n1, "find~FindStatement")
+
+|
+    (e0, n0, n1, 1)
+]
+=>
+[
+
+    (n1, "find~FindStatement")
+
+|
+
+
+]
+interface =
+{
+  n1
+}
+
