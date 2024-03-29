@@ -25,7 +25,12 @@ trace_filter = GlobbingFilter(exclude=[
     'contextlib.*',
     'itemsview.*',
     'subprocess.Popen._*',
-    '__*'
+    '__*',
+    'warnings.*',
+    'IncrementalEncoder.*',
+    'IncrementalDecoder.*',
+    'random.*',
+    'ItemsView.*'
 ])
 config.trace_filter = trace_filter
 
@@ -38,12 +43,17 @@ with PyCallGraph(config=config,output=graphviz):
     graphviz.output_type = 'svg'
     et = essence_transforms.EssenceTransforms()
 
-    spec = r'''letting a be 3
+    spec = r'''letting a be 4
     letting intDom be domain int(1..3)
 
     letting fff be function (3-->7,2-->a)
     letting ggg be 44                 
-    find f : function (minSize 1*2, maxSize 48/2+a, total) tuple(intDom,intDom) --> set of int(1..90)'''
+    find f : function (minSize 1*2, maxSize 48/2+a, total) tuple(intDom,intDom) --> set of int(1..90)
+    find d : bool
+    find b : bool
+    find c : bool
+    such that
+        d = !(b /\ c)'''
     print(spec)
 
     # test spec update to generator call
@@ -52,12 +62,13 @@ with PyCallGraph(config=config,output=graphviz):
         file.write(spec)
 
     spec_ID = et.add_e_node(spec,"StartSpec.essence")
+    et.solve(spec_ID)
     #solution = etransform_graph.solve(spec_ID)
     #solveTime =time.time_ns() - start
     #parentSolutionID = hash(solution)
 
 
-    for _ in range(0,30):
+    for _ in range(0,130):
         selected_node = et.select_current_node()
         et.expand_from_node(selected_node,solve_spec=True)
     print(et.graph.nodes(data=True))
@@ -77,4 +88,4 @@ import json
 s = json.dumps(data)
 with open("transform_solve_test.json", 'w') as file:
         s2 = s.replace("\\n", "<br/>")
-        #file.write(s2)
+        file.write(s2)
