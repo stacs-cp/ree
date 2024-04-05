@@ -54,21 +54,27 @@ def MainTMAP():
     formsGraph.add_node("GP2")
     formsGraph.add_edge("GP2String", "GP2", color ='#006C84')
     formsGraph.add_edge("GP2", "GP2String", color ='#006C84')
+
+    formsGraph.add_edge("GP2StringDT", "GP2", color ='#006C84')
+    formsGraph.add_edge("GP2", "GP2StringDT", color ='#006C84')
+
     polarPos = polar(pos["GP2String"][0],pos["GP2String"][1])
     GP2Pos = polarToCartesian(polarPos[0]+srd, polarPos[1])
     pos["GP2"] = GP2Pos
 
 
-    mapping = {"Emini": "Essence", "ASTpy": "AST", "GP2String": "GP2\nString", "GP2Graph": "GP2\nGraph"}
+    mapping = {"Emini": "Essence", "ASTpy": "AST", "GP2String": "GP2\nString", "GP2Graph": "GP2\nGraph", "GP2StringDT":"GP2\nString\nDT"}
     formsGraph = nx.relabel_nodes(formsGraph,mapping)
     pos["Essence"] = pos["Emini"]
     pos["GP2\nString"] = pos["GP2String"]
+    pos["GP2\nString\nDT"] = pos["GP2StringDT"]
     pos["GP2\nGraph"] = pos["GP2Graph"]
     pos["AST"] = pos["ASTpy"]
     pos.pop("Emini")
     pos.pop("GP2Graph")
     pos.pop("GP2String")
     pos.pop("ASTpy")
+    pos.pop("GP2StringDT")
 
     figure, axes = plt.subplots(figsize=(12,9))
 
@@ -98,7 +104,7 @@ def MainTMAP():
         text(x, y, node, fontsize=18, ha='center', va='center')
     nodes = nx.draw_networkx_nodes(formsGraph, pos,node_color='#ffffff', node_size=5500)
     nodes.set_edgecolor('#819898')
-    plt.savefig("ICGT2024map.svg")
+    plt.savefig("ICGT2024map2.png")
     plt.show()
 
 
