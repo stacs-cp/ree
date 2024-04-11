@@ -1,0 +1,32 @@
+$ turning function into sequence
+
+given n : int(1..)
+letting Index be domain int(1..n)
+letting Value be domain ...
+letting fType be domain function Index --> Value
+given f : fType
+
+$ find fSeq : sequence (size n) of Value
+$ such that forAll i : Index . (fSeq(i) = f(i))
+
+$ rewrite:
+$ (delete Index)
+$ letting fSeq be domain sequence (size n) of Value
+
+$ we can replace fType by fSeq everywhere
+$ as long as it is not part of a function-specific operation
+
+$ if transforming a type that is not a decision variable, there is no need to transform the solution back
+$ the inverse transformation is only needed if the tranformation is applied to a decision variable
+
+$ NOTE: when an auxiliary variable is introduced in rewriting the spec,
+$ we need to invert the transformation by removing it in the solution
+$ since otherwise it will not match the original spec
+
+$ vice versa, if we delete a variable in rewriting then we need to add it back
+
+$ inverse rewrite:
+$ letting Index be domain int(1..n)
+$ find f : fType such that
+$ forAll i : Index . (fSeq(i) = f(i))
+
