@@ -1,0 +1,9 @@
+letting n be 20
+letting edges be relation((0,1),(0,19),(0,10),(1,2),(1,8),(2,3),(2,6),(3,4),(3,19),(4,5),(4,17),(5,6),(5,15),(6,7),(7,8),(7,14),(8,9),(9,10),(9,13),(10,11),(11,12),(11,18),(12,13),(12,16),(13,14),(14,15),(15,16),(16,17),(17,18),(18,19)) 
+$ 13 5
+$ 15 6
+$ 15 7 no solution but relation is faster for minion
+$ 17 7 no solution, function faster than relation with kissat
+$ 18 7 has solution, discriminating, 20/7 is 10 times faster for function
+letting numberColours be 13
+letting coloursPerNode be 5
