@@ -1,0 +1,16 @@
+given n : int(0..100)
+given numberColours : int(1..n)
+given coloursPerNode : int(1..n)
+letting vertices be domain int(0..n-1)
+letting colours be domain int(1..numberColours)
+letting coloursSet be domain set (size coloursPerNode) of colours
+
+
+$$
+given solution : function (total) vertices --> coloursSet
+
+find c : relation (size n*coloursPerNode) of ( vertices * colours )
+such that
+forAll item in defined(solution) .
+    forAll colour in solution(item) .
+        c(item, colour)
