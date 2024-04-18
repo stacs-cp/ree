@@ -1,5 +1,4 @@
-$ graph multicolouring for directed graphs
-$ uses exactly coloursPerNode colours for each vertex
+$ k-fold graph colouring with k=coloursPerNode, out of numberColours
 given n : int
 letting vertices be domain int(0..n-1)
 given edges : relation (irreflexive) of ( vertices * vertices )
@@ -14,10 +13,11 @@ $ endpoints of edges do not share colours
       (forAll colourAssignment in c .
          (colourAssignment[1] = u) -> !((v,colourAssignment[2]) in c))
 
-$ enforce number of colours per node, another version
+$ enforce number of colours per node
 ,  forAll u : vertices .
       coloursPerNode = (sum colourAssignment in c .
          toInt(colourAssignment[1] = u))
+
 
 
 $ misc attempts and other discussion follows

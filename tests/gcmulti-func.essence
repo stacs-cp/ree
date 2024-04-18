@@ -1,5 +1,4 @@
-$ graph multicolouring for directed graphs
-$ uses exactly coloursPerNode colours for each vertex
+$ k-fold graph colouring with k=coloursPerNode, out of numberColours
 given n : int(0..100)
 letting vertices be domain int(0..n-1)
 given edges : relation (irreflexive) of ( vertices * vertices )
