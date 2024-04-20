@@ -19,15 +19,15 @@ such that
 forAll (u,v) in edges .
       c(v) intersect c(u) = {}
 '''
+gcmulti = r'''
+
+
+letting coloursSet be domain set (size 1) of int(0..1)
+
+'''
 EFG = EFormatGraph.EFGraph()
-gp2str = EFG.FormToForm(gcmulti, "Emini","GP2StringDT")
-hostFileName = "gp2/gcmultifunc_DT.host"
+gp2str = EFG.FormToForm(gcmulti, "Emini","GP2StringB")
+hostFileName = "gp2/lettingset_B.host"
 with open(hostFileName, 'w') as file:
     file.write(gp2str)
-
-print(gp2str)
-spec_nx = EFG.FormToForm(gp2str, "GP2StringDT","NX")
-
-Eministr = EFG.FormToForm(spec_nx, "NX","Emini")
-print(Eministr)
 

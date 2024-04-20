@@ -3,6 +3,6 @@ import sys
 sys.path.append('.')
 from greee import gp2Interface
 
-progName = "gcmulti-func-ChainSawed.gp2"
+progName = "gcmultiRelToFunc4.gp2"
 
 gp2Interface.compileGP2Program(progName)

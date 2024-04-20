@@ -1,0 +1,97 @@
+Main = fromCountingRelToFunctionsAndSets;expand!;delete!;addFunction
+
+
+fromCountingRelToFunctionsAndSets(specName,decisionVariableName:string;findPos:int)
+[
+     // DecisionVariableType becomes function
+
+    (n0, specName)
+    (n1, "find")
+    (n2, decisionVariableName)
+    (n3, "relation")
+|
+    (e1, n0, n1, findPos)
+    (e2, n1, n2, 1)
+    (e3, n2, n3, 1)
+]
+=>
+[
+    (n0, specName)
+    (n1, "find")
+    (n2, decisionVariableName)
+    (n3, "relation"# red)
+|
+    (e1, n0, n1, findPos)
+    (e2, n1, n2, 1)
+    (e3, n2, n3, 1)
+]
+interface =
+{
+  n0,n1, n2, n3
+}
+
+expand(x,y:string; n:int) 
+[ 
+(n0, x # red) 
+(n1, y) 
+| 
+(e1, n0, n1, n) 
+] 
+=> 
+[ 
+(n0, x # red) 
+(n1, y # red) 
+| 
+(e1, n0, n1, n) 
+]
+interface = {n0, n1}
+
+delete(x,y:string; n:int)
+[ 
+(n0, x # red) 
+(n1, y # red) 
+| 
+(e1, n0, n1, n) 
+] 
+=> 
+[ 
+(n0, x # red) 
+| 
+]
+interface = {n0}
+
+addFunction()
+[
+     // DecisionVariableType becomes function
+
+    (n0, "relation"# red)
+|
+
+]
+=>
+[
+    (n0, "function")
+    (n1, "FunctionDomain")
+    (n2, "total")
+    (n3, "vertices")
+    (n4, "coloursSet")
+
+    (n12, "Attribute")
+    (n13, "ReferenceToNamedDomain")
+    (n14, "ReferenceToNamedDomain")
+
+|
+    (e0, n0, n1, 0)
+    (e2, n0, n2, 1)
+    (e3, n0, n3, 2)
+    (e4, n0, n4, 3)
+    
+    (e12, n2, n12, 0)
+    (e13, n3, n13, 0)
+    (e14, n4, n14, 0)
+]
+interface =
+{
+  n0
+}
+

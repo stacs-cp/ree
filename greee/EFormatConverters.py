@@ -201,6 +201,31 @@ def GP2GraphToGP2StringDT(GP2Graph):
     GP2String_DT += "]"
     return GP2String_DT   
 
+def GP2GraphToGP2StringB(GP2Graph):
+    '''
+    Produce a GP2 representation of the graph in string format.
+    '''
+    #random.shuffle(GP2Graph.nodes) #TODO seed with parameter
+    ID_shift = len(GP2Graph.nodes)
+    ID_shift_e = len(GP2Graph.edges)
+    GP2String_B = ""
+    GP2String_B += "[\n"
+    info_edges_B = ""
+    for i,node in enumerate(GP2Graph.nodes):
+        if type(node[0]) == str:
+            print(node[0])
+        nodeid = int(node[0])
+        GP2String_B += f'({nodeid},\"{node[1]}")\n'
+        GP2String_B += f'({nodeid+ID_shift},\"{node[2]}\")\n'
+        info_edges_B+= f'({i+ID_shift_e*2},{nodeid},{nodeid+ID_shift}, 0)\n'
+    GP2String_B += "| \n"
+    for edge in GP2Graph.edges:
+        GP2String_B += f'({edge[0]},{edge[1]},{edge[2]},{edge[3]})\n'
+        #GP2String_B += f'({int(edge[0])+ID_shift_e},{int(edge[1])+ID_shift},{int(edge[2])+ID_shift},{edge[3]})\n'
+
+    GP2String_B += info_edges_B
+    GP2String_B += "]"
+    return GP2String_B   
 ###
 
 def GP2StringDTToNX(gp2stringDT):
@@ -263,6 +288,70 @@ def GP2StringDTToNX(gp2stringDT):
 
             for e in out_edges:
                 if e[2]['index'] != '"info"':
+                    G.add_edge(e[0], e[1], ID=e[2]['ID'], index= e[2]['index'])
+    return G
+
+
+def GP2StringBToNX(gp2stringB):
+    '''
+    Create graph object from gp2 formatted string . 
+    '''
+    gp2graph = gp2Graph.Graph([],[])
+    tempG = nx.DiGraph()
+
+    graphStarts =  [match.start() for match in re.finditer(r'\[', gp2stringB)]
+    if len(graphStarts) != 1:
+        raise Exception("Some issue parsing [ found "+ str(len(graphStarts)))
+    leftParentheses = [match.start() for match in re.finditer(r'\(', gp2stringB)]
+    rightParentheses = [match.start() for match in re.finditer(r'\)', gp2stringB)]
+    if len(leftParentheses) != len(rightParentheses):
+        raise Exception("Number of ( does not match number of ): " + str(len(leftParentheses))+ "-" + str(len(rightParentheses)))
+    
+    nodeEdgeDivider = [match.start() for match in re.finditer(r'\|', gp2stringB)]
+    if len(nodeEdgeDivider) != 1:
+        raise Exception("Some issue parsing | found: " +str(len(nodeEdgeDivider))) ## THIS WILL BREAK When we start parsing essence absolute value and list comprehensions
+
+    graphEnds = [match.start() for match in re.finditer(r'\]', gp2stringB)]
+    if len(graphEnds) != 1:
+        raise Exception("Some issue parsing ] found: " +str(len(graphEnds)))
+    
+    if len(leftParentheses) == 0:
+        return "NullGraph"
+    
+    # parse nodes
+    index =0
+    while index < len(rightParentheses) and rightParentheses[index] < nodeEdgeDivider[0]:
+        ## BUG removing "strip" from the line below bricks the converter, while adding strip add inconsist spaces which makes the syntactic equality check fail (but semantic equality is preserved)
+        node = tuple([s.replace("\"","").strip() for s in gp2stringB[leftParentheses[index]+1:rightParentheses[index]].split(',')])         
+        if len(node) != 2:
+            raise Exception("Some issue parsing nodes, found this node: " + str(node))
+        else:
+            tempG.add_node(node[0],value=node[1])
+            #nodeLabelInfo = node[1].split("~")
+            #gp2graph.nodes.append((node[0],nodeLabelInfo[0],nodeLabelInfo[1]))
+        if index < len(rightParentheses): index += 1  ## if saveguards the case in which there are no edges in the spec
+    
+    # parse edges
+    while index < len(rightParentheses):
+        edge = tuple(s.strip() for s in gp2stringB[leftParentheses[index]+1:rightParentheses[index]].split(','))
+        if len(edge) != 4:
+            raise Exception("Some issue parsing edges, found this edges: " + str(edge))
+        else:
+            gp2graph.edges.append(edge)
+            tempG.add_edge(edge[1], edge[2], ID=edge[0], index= edge[3])
+
+        index += 1
+    
+    G = nx.DiGraph()
+    
+    for edge in tempG.edges(data=True):
+        if edge[2]['index'] == 0:
+            e_label = gp2Graph.ToEssenceHelper(tempG.nodes[edge[0]]['value'])
+            G.add_node(edge[0], label=e_label, info=tempG.nodes[edge[1]]['value'])
+            out_edges = tempG.out_edges(edge[0],data=True)
+
+            for e in out_edges:
+                if e[2]['index'] != 0:
                     G.add_edge(e[0], e[1], ID=e[2]['ID'], index= e[2]['index'])
     return G
 
