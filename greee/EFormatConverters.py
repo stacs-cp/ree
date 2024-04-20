@@ -345,13 +345,13 @@ def GP2StringBToNX(gp2stringB):
     G = nx.DiGraph()
     
     for edge in tempG.edges(data=True):
-        if edge[2]['index'] == 0:
+        if edge[2]['index'] == '0':
             e_label = gp2Graph.ToEssenceHelper(tempG.nodes[edge[0]]['value'])
             G.add_node(edge[0], label=e_label, info=tempG.nodes[edge[1]]['value'])
             out_edges = tempG.out_edges(edge[0],data=True)
 
             for e in out_edges:
-                if e[2]['index'] != 0:
+                if e[2]['index'] != '0':
                     G.add_edge(e[0], e[1], ID=e[2]['ID'], index= e[2]['index'])
     return G
 
