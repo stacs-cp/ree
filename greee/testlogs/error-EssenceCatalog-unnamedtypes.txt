@@ -1,0 +1,7 @@
+problems/csplib-prob116-Vellino/Vellino.essence
+problems/csplib-prob031-RackConfiguration/RackConfiguration.essence
+problems/csplib-prob002-TemplateDesign/TemplateDesign.essence
+problems/csplib-prob010-SocialGolfers/SocialGolfers.essence
+problems/csplib-prob028-BIBD/BIBD.essence
+problems/csplib-prob026-SportsTournamentScheduling/SportsTournamentScheduling.essence
+problems/csplib-prob025-Lam/Lam.essence
