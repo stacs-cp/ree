@@ -137,7 +137,8 @@ class EssenceParser:
         lines = spec.split('\n')
         newSpec = ""
         for line in lines:
-            newSpec += line.split('$',1)[0] + " "
+            if not (line.startswith('language')):
+                newSpec += line.split('$',1)[0] + " "
         return newSpec
     
     def parse(self, essenceSpec: str, specname: str = "unnamed") -> Node:
@@ -156,8 +157,8 @@ class EssenceParser:
         commentlessStr = commentlessStr.replace(r'/\\n', '/\\')
         self.tokens = re.findall(r'\.\.|-->|\->|\\/|/\\|>=|<=|>|<|!=|!|==|=|\+|[^=!<>+\s\w]|[\w]+', commentlessStr.replace('\n', ' '))
 
-        print(' '.join(self.tokens))
-        print(len(self.tokens))
+        #print(' '.join(self.tokens))
+        #print(len(self.tokens))
         while self.index < len(self.tokens):
             statement = self.parse_statement()
             if statement.info == "GivenStatement":
@@ -241,7 +242,7 @@ class EssenceParser:
         self.consume("letting")   
         name = self.consume()  # Name
         self.consume("be")  
-        constant = self.parse_constant()
+        constant = self.parse_expression()#self.parse_constant()
         return NameLettingStatement(name, constant)
 
     def parse_domain_name_letting_statement(self):
@@ -283,6 +284,8 @@ class EssenceParser:
             self.consume("int")  
             if not self.match("("):
                 print("Warning. Unbounded Int Domain.")
+                ###TODO: add better handling of unbounded domains. this is a patch for demo ICGT
+                return IntDomain(0,10)
             self.consume("(") 
             lower = self.parse_expression()  # Lower bound
             self.consume("..")  
