@@ -36,16 +36,17 @@ spec_ID = et.add_e_node(spec,"StartSpec.essence")
 #parentSolutionID = hash(solution)
 
 
-for _ in range(0,50):
+for _ in range(0,100):
     selected_node = et.select_current_node()
     et.expand_from_node(selected_node,solve_spec=True)
-print(et.graph.nodes(data=True))
+print("GRAPH DATA \n",et.graph.nodes(data=True))
 
  # PLOT
 #pos = nx.spring_layout(et.graph)
 pos = nx.spectral_layout(et.graph)
 nx.draw(et.graph, pos)
 node_labels = nx.get_node_attributes(et.graph,'file_name')
+print("NODE LABELS", node_labels)
 nx.draw_networkx_labels(et.graph, pos, node_labels)
 edge_labels = dict([((n1, n2), d['transformation']) for n1, n2, d in et.graph.edges(data=True)])
 nx.draw_networkx_edge_labels(et.graph, pos, edge_labels=edge_labels)
@@ -54,6 +55,6 @@ nx.write_gexf(et.graph, "transform_solve_test.gexf")
 data = json_graph.node_link_data(et.graph)
 import json
 s = json.dumps(data)
-with open("experiments/transform_solve_test.json", 'w') as file:
+with open("ICGT-Demo/transform_solve_test3.json", 'w') as file:
         s2 = s.replace("\\n", "<br/>")
         file.write(s2)

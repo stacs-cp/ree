@@ -23,9 +23,14 @@ $ enforce number of colours per node, another version
       coloursPerNode = (sum colourAssignment in c .
          toInt(colourAssignment[1] = u))
 '''
+
+gcmulti = r"""find x :int(0..100)
+such that
+ x <= 5*2"""
 EFG = EFormatGraph.EFGraph()
-gp2str = EFG.FormToForm(gcmulti, "Emini","GP2StringB")
+gp2str = EFG.FormToForm(gcmulti, "Emini","GP2String")
 hostFileName = "gp2/gcmultirel_B.host"
-with open(hostFileName, 'w') as file:
-    file.write(gp2str)
+print(gp2str)
+#with open(hostFileName, 'w') as file:
+#    file.write(gp2str)
 

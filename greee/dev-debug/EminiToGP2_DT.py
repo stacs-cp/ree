@@ -19,6 +19,14 @@ such that
 forAll (u,v) in edges .
       c(v) intersect c(u) = {}
 '''
+
+gcmulti = r"""
+
+
+find x :int(0..100)
+such that
+ x <= 5*2
+"""
 EFG = EFormatGraph.EFGraph()
 gp2str = EFG.FormToForm(gcmulti, "Emini","GP2StringDT")
 hostFileName = "gp2/gcmultifunc_DT.host"

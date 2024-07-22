@@ -11,7 +11,7 @@ import networkx as nx
 
 et = essence_transforms.EssenceTransforms()
 
-spec = r'''find i : int(0..100)
+spec = r'''find i : int(0..100) $
 such that
     i = 1 * 2 + 3 * 4
 find a : bool
@@ -27,7 +27,7 @@ with open("StartSpec.essence", 'w') as file:
     file.write(spec)
 
 spec_ID = et.add_e_node(spec,"StartSpec.essence")
-print(et.determine_node_role(spec_ID))
+#print(et.determine_node_role(spec_ID))
 print(et.instace_specs_list)
 #solution = etransform_graph.solve(spec_ID)
 #solveTime =time.time_ns() - start

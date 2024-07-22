@@ -1,8 +1,8 @@
 import sys
-sys.path.append('greee')
-import eminipyparser as ep
-import instaGen
-import EFormatGraph
+sys.path.append('.')
+from greee import eminipyparser as ep
+from greee import instaGen
+from greee import EFormatGraph
 test_strings = []
 
 #test 0
@@ -13,6 +13,18 @@ such that
     1*3=i
 """)
 
+
+#test 2
+test_strings.append(r'''
+
+                    
+
+given n : int(1..100)
+where n%2=0
+find x : int(0..50)
+''')
+
+test_string = []
 #test 1
 test_strings.append(r'''
 $ graph multicolouring for directed graphs
@@ -37,16 +49,6 @@ $ enforce number of colours per node, another version
 ,  forAll u in vertices .
       coloursPerNode = sum colourAssignment in c .
          toInt(colourAssignment[1] = u)
-''')
-
-#test 2
-test_strings.append(r'''
-
-                    
-
-given n : int(1..100)
-where n%2=0
-find x : int(0..50)
 ''')
 
 
