@@ -9,7 +9,7 @@ from greee import essence_transforms
 import networkx as nx
 import matplotlib.pyplot as plt
 
-catalogue_path = '/Users/cls29/EssenceCatalog/problems'
+
 
 def catalogue_to_dict(root_path):
     '''
@@ -65,10 +65,16 @@ def check_parsable_essence_files(root_folder):
                 # Store the results
                 results[folder].append({
                     'file': essence_file,
-                    'statements': raw_string
+                    'emini': raw_string,
+                    'error': ""
                 })
             except Exception as e:
                 error_count += 1
+                results[folder].append({
+                    'file': essence_file,
+                    'emini': raw_string,
+                    'error': str(e)
+                })
                 print(f"Error processing file {essence_file}: {str(e)}")
                 print(f"Total errors: {error_count}")
 
@@ -79,33 +85,38 @@ def transform_catalogue(catalogue_path):
 
     print("____________")
     print(specs_dict)
-
+    et = essence_transforms.EssenceTransforms()
     for folder, file_results in specs_dict.items():
             print(f"\nFolder: {folder}")
             for result in file_results:
-                print(f"  File: {result['file']}")
-                print(f"  Statements: {result['statements']}")
-                print()
+                if result['error'] == '':
+                    print(f"  File: {result['file']}")
+                    print(f"  Statements: {result['statements']}")
+                    print()
 
-                et = essence_transforms.EssenceTransforms()
+                    spec_ID = et.add_e_node(result['statements'],"StartSpec.essence")
+                    #solution = etransform_graph.solve(spec_ID)
+                    #solveTime =time.time_ns() - start
+                    #parentSolutionID = hash(solution)
+
+                    for _ in range(0,3):
+                        try: 
+                            et.expand_from_node(spec_ID)
+                        except Exception as e:
+                            print(f"Error processing file {result['file']}: {str(e)}")
+                            
+                    print(et.graph.nodes(data=True))
+                    pos = nx.spring_layout(et.graph)
+                    nx.draw(et.graph, pos)
+                    node_labels = nx.get_node_attributes(et.graph,'file_name')
+                    nx.draw_networkx_labels(et.graph, pos, node_labels)
+                    edge_labels = dict([((n1, n2), d['transformation']) for n1, n2, d in et.graph.edges(data=True)])
+                    nx.draw_networkx_edge_labels(et.graph, pos, edge_labels=edge_labels)
+    #print(specs_dict)
+    plt.show(block=True)
 
 
-                spec_ID = et.add_e_node(result['statements'],"StartSpec.essence")
-                #solution = etransform_graph.solve(spec_ID)
-                #solveTime =time.time_ns() - start
-                #parentSolutionID = hash(solution)
+if __name__ == "__main__":
+    catalogue_path = '/Users/cls29/EssenceCatalog/problems'
 
-                for _ in range(0,30):
-                    try: 
-                        et.expand_from_node(spec_ID)
-                    except Exception as e:
-                        print(f"Error processing file {result['file']}: {str(e)}")
-                        
-                print(et.graph.nodes(data=True))
-                pos = nx.spectral_layout(et.graph)
-                nx.draw(et.graph, pos)
-                node_labels = nx.get_node_attributes(et.graph,'file_name')
-                nx.draw_networkx_labels(et.graph, pos, node_labels)
-                edge_labels = dict([((n1, n2), d['transformation']) for n1, n2, d in et.graph.edges(data=True)])
-                nx.draw_networkx_edge_labels(et.graph, pos, edge_labels=edge_labels)
-                plt.show(block=True)
+    transform_catalogue(catalogue_path)

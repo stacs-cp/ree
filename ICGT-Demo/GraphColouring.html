@@ -9,39 +9,62 @@
     <div id="nodeGraph" style="display:none;"></div> <!-- Container for the node-specific graph, hidden initially -->
 
     <script>
-        // Function to create and manage the graph
+        const loadedImages = new Map();
+
+function getNodeImage(node) {
+    if (!node.image) return null;
+    if (loadedImages.has(node.image)) {
+        return loadedImages.get(node.image);
+    }
+    const img = new Image();
+    img.onload = () => {
+        loadedImages.set(node.image, img);
+    };
+    img.src = node.image;
+    return null; // Image is not yet loaded
+}
         function createGraph(containerId, dataUrl, centerNodeId = null) {
-            fetch(dataUrl).then(res => res.json()).then(data => {
+            fetch(dataUrl)
+            .then(res => res.json())
+            .then(data => {
+                // Initialize graph
                 const Graph = ForceGraph()(document.getElementById(containerId))
                     .graphData(data)
+                    .nodeLabel('emini') // Assuming 'name' as the label
                     .linkCurvature(0.25)
                     .linkDirectionalArrowLength(4)
                     .linkDirectionalArrowRelPos(1)
                     .linkCanvasObjectMode(() => 'after')
                     .nodeCanvasObject((node, ctx, globalScale) => {
-                        // Check if node has an image attribute
-                        if (node.image) {
-                            const img = new Image();
-                            img.onload = () => {
-                                const size = 16; // Example size, adjust as needed
-                                ctx.drawImage(img, node.x - size / 2, node.y - size / 2, size, size);
-                            };
-                            img.src = node.image; // Load and draw image when ready
+                        const img = getNodeImage(node);
+                        if (img && img.complete) {
+                            const size = 10;
+                            ctx.drawImage(img, node.x - size / 2, node.y - size / 2, size, size);
                         } else {
-                            // Draw a placeholder if no image is available
-                            const size = 10; // Placeholder size
+                            const size = 6;
                             ctx.beginPath();
-                            ctx.fillStyle = '#fa0'; // Placeholder color
+                            ctx.fillStyle = '#ccc';
                             ctx.arc(node.x, node.y, size, 0, 2 * Math.PI);
                             ctx.fill();
                         }
                     })
                     .onNodeClick(node => {
-                        // Function to create a graph based on node click
                         createNodeSpecificGraph(node);
                     });
-
+    
+                // Process nodes for fixed positioning if coordinates are precomputed
+                Graph.graphData().nodes.forEach(node => {
+                    if (node.x !== undefined && node.y !== undefined) {
+                        node.fx = node.x;
+                        node.fy = node.y;
+                    } else {
+                        node.fx = null; // Ensure these are not fixed if not specified
+                        node.fy = null;
+                    }
+                });
+    
                 renderLinkLabels(Graph);
+    
                 // Center on specific node if provided
                 if (centerNodeId) {
                     const node = Graph.graphData().nodes.find(n => n.id === centerNodeId);
@@ -49,13 +72,11 @@
                         Graph.centerAt(node.x, node.y, 1000);
                     }
                 }
-
             }).catch(error => console.error('Error:', error));
         }
-        // Function to render link labels
+    
         function renderLinkLabels(Graph) {
             Graph.linkCanvasObject((link, ctx) => {
-                // Rendering logic unchanged
                 const MAX_FONT_SIZE = 4;
                 const LABEL_NODE_MARGIN = Graph.nodeRelSize() * 1.5;
                 const start = link.source;
@@ -87,6 +108,7 @@
         });
 
         // Initialize the main graph
-        createGraph('mainGraph', 'graphcolourstest2.json');
+        createGraph('mainGraph', 'graphcolourstest3.json');
     </script>
+    
 </body>

@@ -31,13 +31,11 @@ def create_graph(graph_data):
     return G
 
 
-def solution_to_image(solution_path, instance = "dodec"):
-    with open(solution_path) as file:
-        solution = file.read()
-
-
-    G = nx.Graph()
+def solution_to_image(instance, solution_path = None):
     
+    imgtype = ".png"
+    G = nx.Graph()
+   
     if "dodecah" in instance:
         G = nx.dodecahedral_graph()
         # Generate initial positions
@@ -48,26 +46,38 @@ def solution_to_image(solution_path, instance = "dodec"):
         inner_nodes = [1, 11, 8, 12, 7, 16, 6, 17, 2, 18]
         custom_positions = assign_custom_names(positions, outer_nodes, inner_nodes)
     else:
+        
         G = parse_graph_file(instance)
         custom_positions = nx.spring_layout(G)
         
+    if solution_path == None:
+        nx.draw(G, node_size = 400)
+    
+        plt.ylim(-1.3,1.3)
+        plt.xlim(-1.3,1.3)
+        #plt.tight_layout()
+        inst_name = f"{os.path.split(instance)[-1]}.png"
+        instance_image_path = os.path.join("ICGT-Demo","imgs",inst_name )
+        plt.savefig(instance_image_path)
+        #plt.savefig(f"zzinst.png",bbox_inches='tight')
+        plt.close()
+        create_circular_image(instance_image_path)
+        return os.path.join("imgs", inst_name)
 
-    # needs instance!!
+    with open(solution_path) as file:
+        solution = file.read()
+    
     pattern = r'function(\(.*?\))'
     # Search for the pattern in the text
     match = re.search(pattern, solution, re.DOTALL)
     # If a match is found, return the content within the parentheses
-    print(match)
     s = match.group(1).split("},")
-    print("func: ", s)
     s2 = {}
     for substring in s:
         pair = substring.replace("(","").replace("{","").replace("}","").replace(")","").replace("\n","").split("-->")
-        print(pair)
         colours = pair[1].split(",")
         s2[int(pair[0])] = [int(c) for c in colours]
 
-    print(s2)
 
     # parameters for pie plot
     radius = 0.0715
@@ -109,26 +119,25 @@ def solution_to_image(solution_path, instance = "dodec"):
             wedgeprops={"edgecolor":"k",'linewidth': 0.5, 'antialiased': True},
             radius=radius)
 
-    # Print the customized positions
-    print(custom_positions)
+ 
     plt.ylim(-1,1)
     plt.xlim(-1,1)
     plt.tight_layout()
     
-    sol_name = f"{os.path.split(solution_path)[-1]}.jpg"
+    sol_name = f"{os.path.split(solution_path)[-1]}{imgtype}"
     solution_image_path = os.path.join("ICGT-Demo","imgs", sol_name)
-    plt.savefig(solution_image_path,bbox_inches='tight')
-    plt.savefig(f"zzsol.png",bbox_inches='tight')
-    plt.cla() 
+    plt.savefig(solution_image_path)
+    #plt.savefig(f"zzsol.png",bbox_inches='tight')
+    plt.close()
     nx.draw(G,pos=custom_positions, node_size = 400)
     
-    #plt.ylim(-1,1)
-    #plt.xlim(-1,1)
-    plt.tight_layout()
-    inst_name = f"{os.path.split(instance)[-1]}.jpg"
+    plt.ylim(-1.1,1.1)
+    plt.xlim(-1.1,1.1)
+    #plt.tight_layout()
+    inst_name = f"{os.path.split(instance)[-1]}{imgtype}"
     instance_image_path = os.path.join("ICGT-Demo","imgs",inst_name )
-    plt.savefig(instance_image_path,bbox_inches='tight')
-    plt.savefig(f"zzinst.png",bbox_inches='tight')
+    plt.savefig(instance_image_path)
+    #plt.savefig(f"zzinst.png",bbox_inches='tight')
     plt.close()
     return os.path.join("imgs", sol_name), os.path.join("imgs", inst_name)
 
@@ -161,11 +170,11 @@ def create_circular_image(image_path):
     transparent_img.paste(img, (0, 0), mask=img)
     
     # Save or display the result
-    transparent_img.save('circular_output.png')
-    transparent_img.show()
+    transparent_img.save(image_path)
+    #transparent_img.show()
 
     # Usage
-    create_circular_image('test.png')
+    #create_circular_image(image_path)
 
 def generate_positions(d1, d2):
         positions = {}
@@ -207,4 +216,4 @@ if __name__ == "__main__":
     solutionfile = "tests/gcmulti-func-n20e80c20cpn4.solution"
     paramfile = "tests/n20e80c20cpn4.param"
 
-    solution_to_image(solutionfile,paramfile)
+    solution_to_image(paramfile,solutionfile)
