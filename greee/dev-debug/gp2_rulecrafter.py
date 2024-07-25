@@ -28,3 +28,13 @@ plt.show()
 eministr = EFG.FormToForm(gp2_partial_rule2, "GP2StringB","Emini")
 print("______New Essence____\n",eministr)
 
+preserved_nodes= [0,1,2,3,4,5]
+param_nodes = [2,5]
+gp2_partial_rule2 = essence2rules_tools.GP2GraphToGP2StringB_rule_precursor(gp2g,preserved_nodes,param_nodes)
+print("______Partial Parametrised Rule____\n", gp2_partial_rule2)
+nxLeftover = EFG.FormToForm(gp2_partial_rule2,"GP2StringB", "NX")
+print("____", len(nxLeftover.nodes))
+nx.draw(nxLeftover, with_labels = True)
+plt.show()
+eministr = EFG.FormToForm(gp2_partial_rule2, "GP2StringB","Emini")
+print("______New Essence____\n",eministr)

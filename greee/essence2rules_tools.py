@@ -25,11 +25,11 @@ def GP2GraphToGP2StringDT_rule_precursor(GP2Graph,preserved_nodes_list = None):
     GP2String_DT += "]"
     return GP2String_DT   
 
-def GP2GraphToGP2StringB_rule_precursor(GP2Graph,preserved_nodes_list = None):
+def GP2GraphToGP2StringB_rule_precursor(GP2Graph,preserved_nodes_list = [], parametrised_nodes_list = []):
     '''
     Produce a GP2 representation of the graph in string format.
     '''
-    #random.shuffle(GP2Graph.nodes) #TODO seed with parameter
+    param_num = 0
     ID_shift = len(GP2Graph.nodes)
     ID_shift_e = len(GP2Graph.edges)
     GP2String_B = ""
@@ -39,10 +39,18 @@ def GP2GraphToGP2StringB_rule_precursor(GP2Graph,preserved_nodes_list = None):
         if type(node[0]) == str:
             print(node[0])
         nodeid = int(node[0])
-        if preserved_nodes_list == None or nodeid in preserved_nodes_list:
-            GP2String_B += f'(n{nodeid},\"{node[1]}")\n'
-            GP2String_B += f'(n{nodeid+ID_shift},\"{node[2]}\")\n'
-            info_edges_B+= f'(e{i+ID_shift_e*2},n{nodeid},n{nodeid+ID_shift}, 0)\n'
+        if preserved_nodes_list == [] or nodeid in preserved_nodes_list:
+            if nodeid not in parametrised_nodes_list:
+                GP2String_B += f'(n{nodeid},\"{node[1]}")\n'
+                GP2String_B += f'(n{nodeid+ID_shift},\"{node[2]}\")\n'
+                info_edges_B+= f'(e{i+ID_shift_e*2},n{nodeid},n{nodeid+ID_shift}, 0)\n'
+            else:
+                GP2String_B += f'(n{nodeid},param{param_num})\n'
+                param_num+=1
+                GP2String_B += f'(n{nodeid+ID_shift},\"{node[2]}\")\n'
+                info_edges_B+= f'(e{i+ID_shift_e*2},n{nodeid},n{nodeid+ID_shift}, 0)\n'
+                
+
     GP2String_B += "| \n"
     for edge in GP2Graph.edges:
         if preserved_nodes_list == None or (int(edge[1]) in preserved_nodes_list and int(edge[2]) in preserved_nodes_list):
