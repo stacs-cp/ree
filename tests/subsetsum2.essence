@@ -1,0 +1,8 @@
+given N : int(1..)
+given K : int(1..)
+letting T be domain int(1..N)
+find a,b : set (size K) of T
+such that 
+a subsetEq b,
+b subsetEq a
+maximising sum x in a . x
