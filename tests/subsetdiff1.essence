@@ -1,0 +1,6 @@
+given N : int(1..)
+letting T be domain int(1..N)
+letting a be toSet([i | i : int(1..4*N/5)])
+letting b be toSet([i | i : int(1*N/5..N)])
+find c : set of T
+such that c = (a - b) union (b - a)
