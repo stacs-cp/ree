@@ -1,0 +1,6 @@
+find a : int(1..6)
+find b : int(1..6)
+find c : int(1..6)
+find d : int(1..6)
+such that
+  a*b + c*d = 12

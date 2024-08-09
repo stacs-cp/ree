@@ -1,0 +1,1 @@
+find x : function function int(0..3) --> int(0..3) --> int(0..2)

@@ -1,0 +1,2 @@
+find s : int(1..200)
+such that s = sum i : int(1..10) . toInt(i%2 = 0) + 5
