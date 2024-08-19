@@ -35,10 +35,16 @@ def ToGP2Helper(label):
     
     return label
 
-def ToEssenceHelper(label):
+def ToEssenceHelper(label_full):
     '''
     Convert to GP2-safe string back to Essence. Use inside any converter that leads to Essence
     '''
+    parts = label_full.split(" # ")
+    label = parts[0]
+    flag = ""
+    if len(parts) >1:
+        flag = "# " + parts[1]
+        print(parts)
     if label == "AND":
         return "/\\"
     if label == "OR":
@@ -46,7 +52,7 @@ def ToEssenceHelper(label):
     if label == "NOT":
         return "!"
     if label == "IMPLY":
-        return '->'
+        return '->'+flag
     if label == "GREATER":
         return '>'
     if label == "SMALLER":
@@ -56,5 +62,5 @@ def ToEssenceHelper(label):
     if label == "SMALLERTN":
         return '<='
 
-    return label
+    return label+flag
 

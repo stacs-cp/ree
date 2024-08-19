@@ -1,0 +1,38 @@
+Main = findDoubleImplication
+
+findDoubleImplication(parent,p,q : string;i:int)
+[
+(n0,parent)
+(n8,"IMPLY")
+(n9,"IMPLY")
+(n10,p)
+(n11,q)
+(n12,p)
+| 
+(e0,n0,n8,i)
+(e8,n8,n9,1)
+(e9,n9,n10,1)
+(e10,n9,n11,2)
+(e11,n8,n12,2)
+
+]
+=>
+[
+(n0,parent#grey)
+(n8,"IMPLY"#grey)
+(n9,"IMPLY")
+(n10,p#red)
+(n11,q)
+(n12,p#red)
+| 
+(e0,n0,n8,i)
+(e8,n8,n9,1)
+(e9,n9,n10,1)
+(e10,n9,n11,2)
+(e11,n8,n12,2)
+
+]
+interface =
+{
+	n0,n8,n9,n10,n11,n12
+}

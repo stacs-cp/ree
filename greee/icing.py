@@ -161,7 +161,7 @@ def iceLocalVariables(variables):
     return localVariables
 
 def expressionInOrderTraversal(node, stack, parent):   
-    parentheses = needsParenethesis(node,parent)
+    parentheses = needsParenthesis(node,parent)
 
     if len(node.children) == 2 and node.label in binary_operators:  # check if it is binary subtree
         if parentheses: stack.append("(") # left parenthesis if needed
@@ -207,9 +207,14 @@ def iceMemberExpression(node):
     return memberExpression
 
 
-def needsParenethesis(node,parent):
-    if parent != None:
+def needsParenthesis(node,parent):
+    if parent != None and parent.label != "->":
         return precedence(node.label) < precedence(parent.label)
+    elif parent != None and parent.label == "->":
+        if parent.children[1].label == "->":
+            return True
+        else:
+            return False
     else:
         return False
     

@@ -24,13 +24,17 @@ $ enforce number of colours per node, another version
          toInt(colourAssignment[1] = u))
 '''
 
-gcmulti = r"""find x :int(0..100)
+gcmulti = r"""
+letting Q be true
+find P : bool
 such that
- x <= 5*2"""
+ (P -> Q) -> P """
 EFG = EFormatGraph.EFGraph()
-gp2str = EFG.FormToForm(gcmulti, "Emini","GP2String")
+gp2str = EFG.FormToForm(gcmulti, "Emini","GP2StringB")
 hostFileName = "gp2/gcmultirel_B.host"
 print(gp2str)
+eministr = EFG.FormToForm(gp2str, "GP2StringB", "Emini")
+print(eministr)
 #with open(hostFileName, 'w') as file:
 #    file.write(gp2str)
 
