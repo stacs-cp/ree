@@ -40,27 +40,20 @@ def ToEssenceHelper(label_full):
     Convert to GP2-safe string back to Essence. Use inside any converter that leads to Essence
     '''
     parts = label_full.split(" # ")
-    label = parts[0]
+    gp2_label = parts[0]
+    label = ''
     flag = ""
     if len(parts) >1:
         flag = "# " + parts[1]
-        print(parts)
-    if label == "AND":
-        return "/\\"
-    if label == "OR":
-        return "\\/"
-    if label == "NOT":
-        return "!"
-    if label == "IMPLY":
-        return '->'+flag
-    if label == "GREATER":
-        return '>'
-    if label == "SMALLER":
-        return '<'
-    if label == "GREATERTN":
-        return '>='
-    if label == "SMALLERTN":
-        return '<='
+    if gp2_label == "AND": label = "/\\"
+    elif gp2_label == "OR": label = "\\/"
+    elif gp2_label == "NOT": label = "!"
+    elif gp2_label == "IMPLY": label = '->'
+    elif gp2_label == "GREATER": label = '>'
+    elif gp2_label == "SMALLER": label = '<'
+    elif gp2_label == "GREATERTN": label = '>='
+    elif gp2_label == "SMALLERTN": label = '<='
+    else: label = gp2_label
 
     return label+flag
 
