@@ -10,9 +10,10 @@ Welcome to REE: Rewriting Essence Expressions's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   greee
+
 Indices and tables
 ==================
-
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
