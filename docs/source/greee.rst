@@ -1,4 +1,4 @@
-tools package
+greee package
 =============
 
 Submodules
@@ -19,24 +19,24 @@ EFormatGraph module
    :show-inheritance:
 
 
-GP2Graph module
+gp2Graph module
 ---------------------
 
-.. automodule:: GP2Graph
+.. automodule:: gp2Graph
    :members:
    :show-inheritance:
 
-GP2Interface module
+gp2Interface module
 -------------------------
 
-.. automodule:: GP2Interface
+.. automodule:: gp2Interface
    :members:
    :show-inheritance:
 
-Normalisers module
+normalisers module
 ------------------------
 
-.. automodule:: Normalisers
+.. automodule:: normalisers
    :members:
    :show-inheritance:
 
