@@ -11,6 +11,7 @@ Welcome to REE: Rewriting Essence Expressions's documentation!
    :caption: Contents:
 
    greee
+   building-docs
 
 Indices and tables
 ==================
