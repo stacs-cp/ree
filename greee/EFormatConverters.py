@@ -44,7 +44,7 @@ def ASTpyToGP2Graph(ASTpy):
     '''
     Turns an Abstract Syntax Tree of python objects into a Graph mapped to the GP2 format.
     '''
-    gp2g = gp2Graph.Graph([],[])
+    gp2g = gp2Graph.GP2Graph([],[])
     
     def buildTree(node, Tree, index=1, parentID=None):   
         nodeID = len(gp2g.nodes)             
@@ -145,7 +145,7 @@ def NXToGP2Graph(NXGraph):
     '''
     Converts a NetworkX Graph into a GP2Graph.
     '''
-    gp2graph = gp2Graph.Graph([],[])
+    gp2graph = gp2Graph.GP2Graph([],[])
     for id,node in NXGraph.nodes(data=True):
         label = node['label']
         info = node['info']
@@ -232,7 +232,7 @@ def GP2StringDTToNX(gp2stringDT):
     '''
     Create graph object from gp2 formatted string . 
     '''
-    gp2graph = gp2Graph.Graph([],[])
+    gp2graph = gp2Graph.GP2Graph([],[])
     tempG = nx.DiGraph()
 
     graphStarts =  [match.start() for match in re.finditer(r'\[', gp2stringDT)]
@@ -296,7 +296,7 @@ def GP2StringBToNX(gp2stringB):
     '''
     Create graph object from gp2 formatted string . 
     '''
-    gp2graph = gp2Graph.Graph([],[])
+    gp2graph = gp2Graph.GP2Graph([],[])
     tempG = nx.DiGraph()
 
     graphStarts =  [match.start() for match in re.finditer(r'\[', gp2stringB)]
@@ -361,7 +361,7 @@ def GP2StringToGP2Graph(gp2string):
     '''
     Create graph object from gp2 formatted string . 
     '''
-    gp2graph = gp2Graph.Graph([],[])
+    gp2graph = gp2Graph.GP2Graph([],[])
 
     graphStarts =  [match.start() for match in re.finditer(r'\[', gp2string)]
     if len(graphStarts) != 1:
