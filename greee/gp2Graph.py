@@ -1,6 +1,10 @@
 import re
 
 class GP2Graph:
+    '''
+    Intermediate representation for GP2 that matches its graph descriptions.
+    Vertices are tuples of indices and labels.
+    Edges are quadruples of indices, source, target and labels'''
     def __init__(self, nodes = [], edges =[]):
         self.nodes = nodes
         self.edges = edges
