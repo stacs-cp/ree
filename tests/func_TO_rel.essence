@@ -5,8 +5,6 @@ letting vertices be domain int(0..n-1)
 letting colours be domain int(1..numberColours)
 letting coloursSet be domain set (size coloursPerNode) of colours
 
-
-$$
 given solution : function (total) vertices --> coloursSet
 
 find c : relation (size n*coloursPerNode) of ( vertices * colours )

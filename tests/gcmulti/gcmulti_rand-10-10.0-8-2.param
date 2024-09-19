@@ -1,0 +1,4 @@
+letting n be 10
+letting edges be relation((0,7),(1,9),(1,6),(2,4),(3,4),(3,5),(5,9),(6,9),(7,9),(7,8)) 
+letting numberColours be 8 
+letting coloursPerNode be 2 

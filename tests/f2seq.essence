@@ -34,9 +34,9 @@ $ if a solution of the new spec is found, the solution should be used as a param
 $ of the following spec, which turns the solution back to its original type.
 
 given n : int(1..) $$ THIS must be taken from original spec file. The letting associated to this must be taken from the parameter file and glued into the solution file
-$alternatively to adding a given one can just place the letting n ... of the original parameter here.
-letting Index be domain int(1..n) 
-letting Value be domain ...
+$alternatively one can just place the letting n ... of the original parameter here.
+letting Index be domain int(1..n)
+letting Value be domain ... 
 letting fType be domain function Index --> Value
 given fSeq : sequence of Value
 find f : fType

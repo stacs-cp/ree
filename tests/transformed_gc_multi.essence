@@ -1,0 +1,13 @@
+given n : int(1..100)
+letting vertices be domain int(0..n - 1)
+given edges : relation (irreflexive ) of (vertices*vertices)
+given numberColours : int(1..n)
+given coloursPerNode : int(1..n)
+letting colours be domain int(1..numberColours)
+letting coloursSet be domain set (size coloursPerNode) of colours
+find c : function (total) vertices --> coloursSet
+such that
+ true
+   ,
+ forAll (u,v) in edges .
+     c(v) intersect c(u) = {}
