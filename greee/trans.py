@@ -6,6 +6,22 @@ from pathlib import Path
 from greee import EFormatGraph
 
 
+def needPickling(format) -> bool:
+    '''
+    valid formats are:
+    Emini ASTpy Json GP2String GP2StringB GP2StringDT GP2Graph NX
+    corresponding treatment:
+    txt   py    txt  txt       txt        txt         py       py
+    '''
+    match format:
+        case 'ASTpy' | 'GP2Graph' | 'NX':
+            return True
+        case 'Emini' | 'Json' | 'GP2String' | 'GP2StringB' | 'GP2StringDT':
+            return False
+        case _:
+            sys.exit('unknown format ' + format + ', quitting')
+
+
 def trans() -> int:
     '''
     General translator frontend
@@ -34,10 +50,14 @@ def trans() -> int:
     if debug: print(args)
     if args.fromFormat: fromFormat = args.fromFormat
     if args.toFormat: toFormat = args.toFormat
-    if args.outfile == 'STDOUT' and not args.toFormat:
-        sys.exit('--toFormat is required when OUTFILE is absent, quitting')
-    # check valid
-    # Emini ASTpy JSON GP2String GP2StringB GP2StringDT GP2Graph NX
+    if args.outfile == 'STDOUT':
+        if needPickling(toFormat):
+            sys.exit('Need an output file with -t ' + toFormat + ', quitting')
+        if not args.toFormat:
+            sys.exit('--toFormat is required when OUTFILE is absent, quitting')
+    # TODO: allow more relaxed input format names, JSON json Json
+    # for each canonical name, check lowercase against lowercase of given format
+    # argparse currently enforces strict matching
 
     if 0:
         specfile = ''
