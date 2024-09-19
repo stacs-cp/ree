@@ -10,10 +10,11 @@ progName = "peirce.gp2"
 gp2Interface.compileGP2Program(progName)
 
 peirce_test = r"""
+letting X be false
 letting Q be true
 find P : bool
 such that
- (P -> Q) -> P """
+ (P -> Q) -> X """
 
 EFG = EFormatGraph.EFGraph()
 ast1 = EFG.FormToForm(peirce_test, "Emini","ASTpy")
@@ -52,15 +53,34 @@ def simplify(ast):
             findGrey(n,found)
         return found
 
+
     parentFound = findGrey(new_ast)
-    for i,found in enumerate(parentFound):
-        print(i,found)
-    for i,child in enumerate(parentFound[0].children):
-        content = child.label.split("# ")
-        if len(content)>1:
-            if content[1] == "grey":
-                parentFound[0].children[i] = findRed(ast)[0]
-        print(parentFound[0])
+    candidate_subtrees = findRed(ast)
+    if eminipyparser.treeEquality(candidate_subtrees[0],candidate_subtrees[1]):
+        for i,child in enumerate(parentFound[0].children):
+            content = child.label.split("# ")
+            if len(content)>1:
+                if content[1] == "grey":
+                    # substitute implication with P
+                    parentFound[0].children[i] = candidate_subtrees[0]
+                    # remove red flag
+                    parentFound[0].children[i].label = parentFound[0].children[i].label.split("# ")[0]
+                    # remove grey flag
+                    parentFound[0].label = parentFound[0].label.split("# ")[0]
+            print(parentFound[0])
+    else:
+        for i,child in enumerate(parentFound[0].children):
+            content = child.label.split("# ")
+            if len(content)>1:
+                if content[1] == "grey":
+                    # Add blue flag
+                    parentFound[0].children[i].label = parentFound[0].children[i].label.split("# ")[0]
+                    parentFound[0].children[i].label += "#blue"
+                    # remove grey flag
+                    parentFound[0].label = parentFound[0].label.split("# ")[0]
+                
+            print(parentFound[0])
+    
 
     eminipyparser.printTree(ast)
 

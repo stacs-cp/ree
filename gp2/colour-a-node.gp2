@@ -1,0 +1,19 @@
+Main = colour
+
+colour(root:string)
+[
+    (n0, root)
+    |
+
+]
+=>
+[
+    
+    (n0, root #red)
+    |
+
+]
+interface = 
+{
+  n0
+}

@@ -1,13 +1,13 @@
 Main = findDoubleImplication
 
-findDoubleImplication(parent,p,q : string;i:int)
+findDoubleImplication(parent,p,q,r : string;i:int)
 [
 (n0,parent)
 (n8,"IMPLY")
 (n9,"IMPLY")
 (n10,p)
 (n11,q)
-(n12,p)
+(n12,r)
 | 
 (e0,n0,n8,i)
 (e8,n8,n9,1)
@@ -23,7 +23,7 @@ findDoubleImplication(parent,p,q : string;i:int)
 (n9,"IMPLY")
 (n10,p#red)
 (n11,q)
-(n12,p#red)
+(n12,r#red)
 | 
 (e0,n0,n8,i)
 (e8,n8,n9,1)

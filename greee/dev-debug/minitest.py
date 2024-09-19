@@ -43,7 +43,7 @@ mystr = '''
     (7, 2, 4, 6:6:6:6:5:6:6 # dashed)
 ] '''
 
-g = gp2Graph.Graph()
+g = gp2Graph.GP2Graph()
 g = EFC.GP2StringToGP2Graph(mystr)
 gp2string = EFC.GP2GraphToGP2String(g)
 h = EFC.GP2StringToGP2Graph(gp2string)

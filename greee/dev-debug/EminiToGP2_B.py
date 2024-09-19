@@ -25,10 +25,10 @@ $ enforce number of colours per node, another version
 '''
 
 gcmulti = r"""
-letting Q be true
-find P : bool
+find x :int(0..100)
 such that
- (P -> Q) -> P """
+ x <= 5
+"""
 EFG = EFormatGraph.EFGraph()
 gp2str = EFG.FormToForm(gcmulti, "Emini","GP2StringB")
 hostFileName = "gp2/gcmultirel_B.host"

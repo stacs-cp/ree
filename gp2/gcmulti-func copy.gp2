@@ -1,0 +1,153 @@
+Main = fromCountingRelToFunctionsAndSets
+
+
+fromCountingRelToFunctionsAndSets(decisionVariableRef,graphReference,specName,decisionVariableName,edgesParameter,referenceToVertices:string)
+[
+    // nodes that will be turned into function, Root, FindStatement and DecisionVariable preserved
+    // DecisionVariableType becomes function
+    // we need to check that there is a quantifier over the decision variable
+    (n0, specName)
+    (n1, "find~FindStatement")
+    (n2, decisionVariableName)
+    (n3, "relation~RelationDomain")
+
+    (n4, "given~GivenStatement")
+    (n5, edgesParameter)
+    (n6, "relation~RelationDomain")
+    (n7, referenceToVertices)
+    (n8, referenceToVertices)
+
+    // check quantifications over graphs edges this is preserved up to the . concatenation 
+    (n9, "forAll~QuantificationExpression")
+    (n10, "in~Preposition")
+    (n11, graphReference)
+    (n12, ".~BinaryExpression")
+
+    // check quantifications over decision variable
+    (n13, "forAll~QuantificationExpression")
+    (n14, ":~Preposition")
+    (n15, decisionVariableRef)
+
+    // check sum over pseudoboolean - counting pattern
+    (n16, "sum~QuantificationExpression")
+    (n17, "in~Preposition")
+    (n18, decisionVariableRef)
+
+    // should have edges from the above summation - these will be all deleted
+    (n19, ".~BinaryExpression") 
+    (n20, "toInt~UnaryExpression")
+    (n21, "=~BinaryExpression")
+
+    |
+
+    // decision variable edges
+    (e1, n0, n1, 2)
+    (e2, n1, n2, 1)
+    (e3, n2, n3, 1)
+    // parameter edges
+    (e4, n4, n5, 1)
+    (e5, n5, n6, 1)
+    (e6, n6, n7, 2)
+    (e7, n6, n8, 3)
+
+    // quantification over reference to graph edges
+    (e8, n9, n10, 2)
+    (e9, n10, n11, 1)
+
+    // counting pattern edges
+    (e10, n16, n17, 2)
+    (e11, n17, n18, 1)
+
+    (e12, n19, n20, 2)
+    (e13, n20, n21, 1)
+    
+    // quantification over decision variable
+    (e14, n13, n14, 2)
+    (e15, n14, n15, 2)
+
+    (e16, n12, n9,2)
+]
+=>
+[
+    (n0, specName)
+    (n1, "find~FindStatement")
+    (n2, decisionVariableName)
+
+    (n4, "given~GivenStatement")
+    (n5, edgesParameter)
+    (n6, "relation~RelationDomain")
+    (n7, referenceToVertices)
+    (n8, referenceToVertices)
+    // Create Auxiliary variable coloursSet
+    (n22, "letting~DomainNameLettingStatement")
+    (n23, "coloursSet~Node")
+    (n24, "set~SetDomain")
+    (n25, "size~Attribute")
+    (n26, "colours~ReferenceToNamedDomain")
+    (n27, "coloursPerNode~ReferenceToParameter")
+
+    // Function that replaces Relation
+    (n3, "function~FunctionDomain")
+
+     // Preserve quantification over graph
+    (n9, "forAll~QuantificationExpression")
+    (n10, "in~Preposition")
+    (n11, graphReference)
+    (n12, ".~BinaryExpression")
+
+     // Sets Intersect that replaces the 2 constraint
+    (n28, "=~BinaryExpression")
+    (n29, "intersect~BinaryExpression")
+    (n30, "set~SetConstant")
+    (n31, "c~MemberExpression")
+    (n32, "tuple~TupleConstant")
+    (n33, "v~Literal")
+
+    (n34, "c~MemberExpression")
+    (n35,"tuple~TupleConstant")
+    (n36, "u~Literal")
+
+    |
+
+     //preserved FindStatement edges
+    (e1, n0, n1, 2)
+    (e2, n1, n2, 1)
+    (e3, n2, n3, 1)
+    // parameter edges
+    (e4, n4, n5, 1)
+    (e5, n5, n6, 1)
+    (e6, n6, n7, 2)
+    (e7, n6, n8, 3)
+
+    // AUX set edges
+    (e20, n0, n22, 0)
+    (e21, n22, n23, 1)
+    (e22, n23, n24, 1)
+    (e23, n24, n25, 1)
+    (e24, n24, n26, 2)
+    (e25, n25, n27, 1)
+
+    // preserved quantification over graph
+    // quantification over reference to graph edges
+    (e19, n12, n9, 1)
+    (e8, n9, n10, 2)
+    (e9, n10, n11, 1)
+
+    // New constraint edges 
+
+    (e10, n12,n28, 2)
+    (e11, n28, n29, 1)
+    (e12, n28, n30, 2)
+    (e13, n29, n31, 1)
+    (e14, n31, n32, 1)
+    (e15, n32, n33, 1)
+
+    (e16, n29, n34, 2)
+    (e17, n34, n35, 1)
+    (e18, n35, n36, 1)
+]
+interface =
+{
+  n0,n1, n2, n4, n5,n6, n9, n10, n11
+}
+
