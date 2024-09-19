@@ -1,0 +1,7 @@
+SpecName,NewSpec,OldSpec
+tests/gcmulti_rand-10-10-8-2.param,2.02,1.64
+tests/gcmulti_rand-10-10-10-3.param,1.22,1.85
+tests/gcmulti_rand-10-10-10-4.param,1.38,1.83
+tests/gcmulti_rand-10-10-10-2.param,1.08,1.87
+tests/gcmulti_rand-10-10-10-3.param,1.28,1.93
+tests/gcmulti_rand-10-10-10-4.param,60.04,60.1
