@@ -255,7 +255,7 @@ class EFGraph:
 
 
 def funcTests():
-    teststr = """
+    teststr = r"""
     letting vertices be domain int(1..3)
     letting colours be domain int(1..3)
     letting G be relation((1,2),(1,3),(2,3))
@@ -301,7 +301,7 @@ def funcTests():
     plt.show()
 
 def postMantest():
-    teststr = """
+    teststr = r"""
     letting vertices be domain int(1..3)
     letting colours be domain int(1..3)
     letting G be relation((1,2),(1,3),(2,3))
