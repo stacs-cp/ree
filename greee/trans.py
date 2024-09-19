@@ -4,6 +4,7 @@ import argparse
 import fileinput
 from pathlib import Path
 from greee import EFormatGraph
+import pickle
 
 
 def needPickling(format) -> bool:
@@ -39,7 +40,7 @@ def trans() -> int:
     p = argparse.ArgumentParser(description='translate file to another format')
     p.add_argument('-d', '--debug', action='store_true',
         help='print additional diagnostic information')
-    p.add_argument('infile', action='store',
+    p.add_argument('infile', nargs='?', action='store', default='STDIN',
         help='input file')
     p.add_argument('outfile', nargs='?', action='store', default='STDOUT',
         help='output file (required if --toFormat is omitted)')
@@ -51,42 +52,33 @@ def trans() -> int:
     if args.fromFormat: fromFormat = args.fromFormat
     if args.toFormat: toFormat = args.toFormat
     if args.outfile == 'STDOUT':
-        if needPickling(toFormat):
-            sys.exit('Need an output file with -t ' + toFormat + ', quitting')
         if not args.toFormat:
             sys.exit('--toFormat is required when OUTFILE is absent, quitting')
+        if needPickling(toFormat):
+            sys.exit('Need an output file with -t ' + toFormat + ', quitting')
     # TODO: allow more relaxed input format names, JSON json Json
     # for each canonical name, check lowercase against lowercase of given format
     # argparse currently enforces strict matching
 
-    if 0:
-        specfile = ''
-        paramFilenames = []
-        for f in args.file:
-            if specfile == '':
-                specfile = Path(f)
-                if specfile.is_file():
-                    if debug: print('found spec file ' + str(specfile))
-                else:
-                    sys.exit(str(specfile) + ' is not a valid file, quitting')
-            else:
-                paramfile = Path(f)
-                if paramfile.is_file():
-                    if debug: print('found param file', paramfile)
-                    paramFilenames.append(paramfile)
-                else:
-                    sys.exit('param file ' + str(paramfile) + ' not found, quitting'
-    )
+    if needPickling(fromFormat):
+        inObject.new()
+        pickle.load(inObject, open('file.pickle', 'rb'))
+    else:
+        if args.infile == 'STDIN':
+            inObject = sys.stdin.read()
+        else:
+            inObject = open(args.infile).read()
+    outObject = EFG.FormToForm(inObject,fromFormat,toFormat)
+    if needPickling(toFormat):
+        pickle.dump(outObject, open('file.pickle', 'wb'))
+    else:
+        if args.outfile == 'STDOUT':
+            sys.stdout.write(outObject)
+        else:
+            outf = open(args.outfile)
+            outf.write(outObject)
+            outf.close()
 
-        filenames = paramFilenames.copy()
-        filenames.append(specfile)
-        if debug: print('0:', filenames)
-
-
-    teststr = ''
-    ETG = EFormatGraph.EFGraph()
-    # GP2 = ETG.FormToForm(teststr,fromFormat,toFormat)
-    # print(GP2)
     return 0
 
 if __name__ == '__main__':
