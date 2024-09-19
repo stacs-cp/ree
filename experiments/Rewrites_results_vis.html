@@ -9,7 +9,7 @@
     <div id="graph"></div>
   
     <script>
-      fetch('transform_solve_test.json').then(res => res.json()).then(data => {
+      fetch('../transform_solve_test.json').then(res => res.json()).then(data => {
         const Graph = ForceGraph()
         (document.getElementById('graph'))
           .graphData(data)

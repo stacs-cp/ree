@@ -35,7 +35,6 @@ letting numberColours be {c}
 letting coloursPerNode be {cpn}
 {filtered_content}'''
         
-        # You can now print or process the formatted string as needed
         #print(formatted_string)
         name = file[:-9].split("/")[-1]
         verification_file = f"experiments/verify-converted/{name}SOL.param"

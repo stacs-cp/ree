@@ -13,7 +13,7 @@ fields = ['SpecName', 'nodes','edges','colours','coloursPerNode','NewSpec', 'Old
    
 # data rows of csv file 
 rows = []
-filename = 'ParamSpanResults.csv'
+filename = 'ParamSpanResults3.csv'
  
 with open(filename, 'a') as f:
      
@@ -22,9 +22,9 @@ with open(filename, 'a') as f:
      
     write.writerow(fields)
 
-
+maxTime = 180
 for i in range(1,5): # 1,5
-    for j in range(2,7): #2,7
+    for j in range(4,16): #2,7
         for k in range(4,6):
             for l in range(2,5):
                 test_string = ""
@@ -40,7 +40,7 @@ for i in range(1,5): # 1,5
                 test_string += f"letting coloursPerNode be {l} \n"
 
                 #print(test_string)
-                graphcolouring_file = f"tests/gcmulti_rand-{nodes}-{edges}-{availableColours}-{l}.param"
+                graphcolouring_file = f"tests/n{nodes}e{edges}c{availableColours}cpn{l}.param"
 
                 spec = "tests/gcmulti-func.essence"
                 specOld = "tests/gcmulti.essence"
@@ -56,7 +56,7 @@ for i in range(1,5): # 1,5
 
                 try:
                     # Wait for the process to complete, or kill it after a timeout
-                    proc.wait(timeout=60)
+                    proc.wait(timeout=maxTime)
                 except subprocess.TimeoutExpired:
                     # Send the signal to all the processes in the process group
                     os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
@@ -64,7 +64,7 @@ for i in range(1,5): # 1,5
                 solveTime =time.time_ns() - start
                 solveTime = round(solveTime/1000000000,2)
                 print(solveTime)
-                if solveTime > 59:
+                if solveTime >= maxTime:
                     solveTime = "TO"
 
 
@@ -80,7 +80,7 @@ for i in range(1,5): # 1,5
 
                 try:
                     # Wait for the process to complete, or kill it after a timeout
-                    proc.wait(timeout=60)
+                    proc.wait(timeout=maxTime)
                 except subprocess.TimeoutExpired:
                     # Send the signal to all the processes in the process group
                     os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
@@ -88,7 +88,7 @@ for i in range(1,5): # 1,5
                 solveTime2 =time.time_ns() - start2
                 solveTime2 = round(solveTime2/1000000000,2)
                 print(solveTime2)
-                if solveTime2 > 59:
+                if solveTime2 >= maxTime:
                     solveTime2 = "TO"
                 with open(filename, 'a') as f:
      
