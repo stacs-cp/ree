@@ -2,16 +2,15 @@
 import sys
 import argparse
 import fileinput
-from pathlib import Path
 from greee import EFormatGraph
 import pickle
+import os
 
 
 def needPickling(format) -> bool:
     '''
-    valid formats are:
+    valid formats and corresponding treatmens:
     Emini ASTpy Json GP2String GP2StringB GP2StringDT GP2Graph NX
-    corresponding treatment:
     txt   py    txt  txt       txt        txt         py       py
     '''
     match format:
@@ -21,6 +20,27 @@ def needPickling(format) -> bool:
             return False
         case _:
             sys.exit('unknown format ' + format + ', quitting')
+
+def inferKind(f) -> str:
+    '''
+    Infer what kind of format is likely based on filename.
+    '''
+    ext = (os.path.splitext(f))[1].lower()
+    if debug: print('f =', f, 'ext =', ext)
+    match ext:
+        case '.host' | '.gp2':
+            return 'GP2String'
+        case '.json':
+            return 'Json'
+        case '.nx':
+            return 'NX'
+        case '.essence' | '.eprime' | '.emini':
+            return 'Emini'
+        case _:
+            return 'unknown'
+
+    #if os.path.isfile(f):
+    # TODO: look inside file
 
 
 def trans() -> int:
@@ -32,10 +52,9 @@ def trans() -> int:
     tries to derive toFormat from OUTFILE
     '''
 
-    fromFormat = 'GP2String'
-    toFormat = 'Emini'
     EFG = EFormatGraph.EFGraph()
     validFormats = EFG.formsGraph.nodes
+    global debug
     debug = False
     p = argparse.ArgumentParser(description='translate file to another format')
     p.add_argument('-d', '--debug', action='store_true',
@@ -50,7 +69,17 @@ def trans() -> int:
     debug = args.debug
     if debug: print(args)
     if args.fromFormat: fromFormat = args.fromFormat
+    else:
+        fromFormat = inferKind(args.infile)
+        if fromFormat == 'unknown':
+            sys.exit('cannot infer input format, quitting')
     if args.toFormat: toFormat = args.toFormat
+    else:
+        toFormat = inferKind(args.outfile)
+        if toFormat == 'unknown':
+            sys.exit('cannot infer output format, quitting')
+    if args.infile != 'STDIN' and not os.path.isfile(args.infile):
+        sys.exit('input file ' + args.infile + ' not found, quitting')
     if args.outfile == 'STDOUT':
         if not args.toFormat:
             sys.exit('--toFormat is required when OUTFILE is absent, quitting')
@@ -61,8 +90,8 @@ def trans() -> int:
     # argparse currently enforces strict matching
 
     if needPickling(fromFormat):
-        inObject.new()
-        pickle.load(inObject, open('file.pickle', 'rb'))
+        inObject = []
+        inObject = pickle.load(open(args.infile, 'rb'))
     else:
         if args.infile == 'STDIN':
             inObject = sys.stdin.read()
@@ -70,7 +99,7 @@ def trans() -> int:
             inObject = open(args.infile).read()
     outObject = EFG.FormToForm(inObject,fromFormat,toFormat)
     if needPickling(toFormat):
-        pickle.dump(outObject, open('file.pickle', 'wb'))
+        pickle.dump(outObject, open(args.outfile, 'wb'))
     else:
         if args.outfile == 'STDOUT':
             sys.stdout.write(outObject)
