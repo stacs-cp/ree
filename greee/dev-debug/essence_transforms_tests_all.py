@@ -17,7 +17,7 @@ def run_all_transforms(filename):
       data = file.read()
     spec_ID = et.add_e_node(data,filename)
     for transform in et.gp2arms:
-       et.transform_with_GP2(spec_ID,transform)
+       et.transform_with_GP2_and_record(spec_ID,transform)
 
 directory = "./tests/"
 errorslogfile = open('./greee/testlogs/errorslog-transform_all.txt', 'a')

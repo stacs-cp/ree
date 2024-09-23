@@ -29,7 +29,7 @@ class MultiArmedBandit():
     def run_n_trials(self, specID, num_trials):
         for _ in range(num_trials):
             chosen_func_index = self.epsilon_greedy(self.epsilon, self.rewards, self.arms, 0)
-            resultID = self.essence_graph.transform_with_GP2(specID,self.arms[chosen_func_index])
+            resultID = self.essence_graph.transform_with_GP2_and_record(specID,self.arms[chosen_func_index])
             reward = 0
             if resultID != specID:
                 reward = 1
