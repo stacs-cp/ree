@@ -54,6 +54,7 @@ In ``bin``:
 - ``gp22emini.py`` convert from GP2 to EMini
 - ``gp22json.py`` convert from GP2 to JSON
 - ``harness`` make AST, GP2, and PDF representation from Essence or EMini
+- ``trans`` translate from input to output format (e.g. AST,GP2,Emini,Json)
 
 
 ### Notes on building
@@ -64,7 +65,7 @@ This might become an option or something that is auto-detected.
 To build Judy on Windows or using XCode, look at the legacy build system `judy-1.0.5/src/sh_build` which simply runs the compiler and creates a library.
 This script would be easy to turn into a project file.
 On MacOS 12 `sh_build` can be used to build the library, although the shipped `configure` build system also works and will install man pages as well.
-(However, the automake files appear to be incompatible with recent versions of automake, so avoid regenerating the makefiles and the configure script.)
+(However, the automake files appear to be incompatible with some recent versions of automake, so be careful if regenerating the makefiles and the configure script.)
 
 To create the `greee` package, we use `setuptools`: `python3 -m build` creates the package in `dist`.
 The documentation in `docs` is built using `make html` and requires Sphinx to be installed (`brew install sphinx-doc` or follow the Sphinx official documentation).
