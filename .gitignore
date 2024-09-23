@@ -9,3 +9,7 @@ GREEEvenv/
 .vscode
 gp2/Compiled
 experiments/verify-converted
+docs/build/doctrees
+docs/build/latex
+docs/build/text
+greee-packaging/src/greee.egg-info
