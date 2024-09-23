@@ -1,6 +1,6 @@
-# Working notes
+# Working notes about REE/greee
 ## András Salamon and Christopher Stone
-### 2023-04-03
+### 2023--2024
 
 # 20230327
 
@@ -37,6 +37,9 @@ Normalisation rules that will be implemented first:
 
 Regarding the actual rewriting, the next-in-line test will investigate GP2 (taken care of by Andras), a graph transformation program and language developed in York.
 First we will look at basic arithmetic rewriting and De Morgan transformations.
+
+Check with Pete about how SR does normalisation: if we rewrite a+b as b+a will they both end up in the same SR normal form, making our rewrite useless?
+What SR normalisation happens?
 
 
 # 20230403
@@ -136,6 +139,7 @@ The semantics of nulls are not clear (what is their purpose?), probably need to 
 
 Once the Python parser output is stable it can be integrated into the harness as another way to create the GP2 instance graph.
 
+
 # 20230511
 
 ## rewriting meeting highlights
@@ -145,4 +149,53 @@ Once the Python parser output is stable it can be integrated into the harness as
 - ModRef paper. potential story: If we have a set of transformation rules, when is it a good time to use them so that they have a positive impact? We must generate lots instances and learn about their effect on them
 - Profiling conjure and savile row. Which spec/solver combination affect the translation?
 - For the future: How to generate rewrite rules? in particular so that a specific property of the graph is preserved
+
+
+# 20230612
+
+* Jimmy Lee automated dominance generation
+* implied constraints from symmetry breaking
+* "exploratory reformulation" as title
+
+
+# 20230615
+
+GP2 fix reordering of node numbers
+
+
+# 20230807
+
+Ian's high level view of work for CPAIOR:
+
+1. accept an Emini specification,
+2. apply variable introduction, and/or some simple de Morgan style rewrites,
+3. test sequences of rewrites against a test set of instances, hopefully at least one sequence works to improve performance.
+
+In PTHG paper we envisaged Monte Carlo tree search to investigate sequences of rewrites.
+
+Adding variables is powerful (as in the Steel Mill paper) because when we add a variable we also add a set of domain values that the variable can take, and this stores information that is updated when values are removed from the domain.
+Ian's hypothesis is that this storage of information in the domain of the new variables is why variable introduction allows increasing the power of a proof system (such as resolution versus extended resolution, where the domain of new variables is Boolean and yet is still enough to provably increase the power of the system).
+
+*Hypothesis:* reordering constraints a priori might (through introduction of variables and variable ordering heuristics) affect performance of a model.
+Can constraint ordering be ignored (which would allow normalisation), or is it important?
+
+Related issue is renaming of variables: superficially different, ideally want to identify isomorphism via renaming.
+
+If assuming a canonical constraint ordering makes no difference, we could then work with normalised formulas only.
+
+
+
+# 20231214
+
+Static rewrites versus dynamic rewrites
+
+The domoverwdeg heuristic is an example of a dynamic rewrite strategy: it applies rewriting of the tree during search, as the domains change.
+Class-level rewriting is a static rewrite strategy.
+
+
+# 20230408
+
+Validate solutions of the rewritten spec by reversing the transformation implemented by the rewriting, and applying this reverse function to the solutions found for the rewritten spec to obtain solutions for the original spec.
+In other words: find the inverse functor where the original functor maps the original spec to the rewritten spec, and apply it to the solution.
+
 
