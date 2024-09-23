@@ -56,7 +56,7 @@ such that
     # Transform with GP2 (could be done in parallel)
     progName = "DeMorganTwo.gp2"
 
-    spec2_ID= etransform_graph.transform_with_GP2(spec_ID,progName)
+    spec2_ID= etransform_graph.transform_with_GP2_and_record(spec_ID,progName)
     transformTime = time.time_ns() - start2
     
     # Solve new spec

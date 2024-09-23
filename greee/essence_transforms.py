@@ -123,17 +123,29 @@ class EssenceTransforms(EFGraph):
             print("error while reading solution")
         return  s
     
-    def transform_with_GP2(self,ID, program_name):
+    def transform_with_GP2(self,spec, program_name):
         """Transform Emini spec using GP2. The program is compiled automatically if needed
-
+        This does not store the results in the knowledge graph.
         Args:
-            emini_string (str): Emini spec in string format
+            ID (str): Search tree ID of the node containing Emini spec in string format 
             program_name (str): name of the program. It should match the name of an existing .gp2 file in the gp2 folder.
 
         Returns:
             str: Emini string of the transformed spec. If the transformation has no effect or is not applied the input string is return.
-        """        
-        emini_string = self.graph.nodes[ID]['emini']
+        """  
+        specType = type(spec)
+        emini_string = ""
+        if specType is int: # if input is an ID grab spec's text from graph
+            emini_string = self.graph.nodes[spec]['emini']
+        elif specType is str: # if it is a file path read file
+            if (os.path.splitext(spec))[1].lower() == ".essence":
+                with open(spec) as f:
+                    emini_string = f.read()
+            else: # otherwise take it as is
+                emini_string = spec
+        else:
+            print("unknown input type")
+        
         gp2string = self.FormToForm(emini_string,"Emini","GP2String")
         gp2hostfile = "emini_string.host"
         with open(gp2hostfile, 'w') as file:
@@ -147,27 +159,43 @@ class EssenceTransforms(EFGraph):
         gp2Interface.runPrecompiledProg(program_name,gp2hostfile)
 
         gp2_NEWstring = ""
-        # If trasform is applicable solve new spec
+        # Check if transform has been applied
         if os.path.isfile("gp2.output"):
             with open("gp2.output") as newGP2spec:
                 gp2_NEWstring = newGP2spec.read()
             if gp2_NEWstring[:15] == 'No output graph':
                 emini_transformed = emini_string # The transform is not applicable
-
+                print(f"Transform {program_name} not applied to graph")
             else:
                 emini_transformed = self.FormToForm(gp2_NEWstring,"GP2String","Emini")
               # Clear files
             os.remove("gp2.output")
             
         else:
-            print(f"Transform {program_name} not applied")
+            print(f"Transform {program_name} not applied. gp2.output not found")
             emini_transformed = emini_string # The transform has not been applied
-        emini_transformed_ID = self.add_e_node(emini_transformed)
-        self.add_e_edge(ID,emini_transformed_ID,program_name)
 
         if os.path.isfile("gp2.log"):
-                os.remove("gp2.log")
+            os.remove("gp2.log")
         os.remove(gp2hostfile)
+
+        return emini_transformed
+
+
+    def transform_with_GP2_and_record(self,ID, program_name):
+        """Transform Emini spec using GP2. The program is compiled automatically if needed. The outcome of the transformation  is logged in the knowledge graph.
+        
+        Args:
+            ID (str): Search tree ID of the node containing Emini spec in string format 
+            program_name (str): name of the program. It should match the name of an existing .gp2 file in the gp2 folder.
+
+        Returns:
+            str: ID of the transformed spec. If the transformation has no effect or is not applied the input ID is returned.
+        """        
+
+        emini_transformed = self.transform_with_GP2(ID, program_name)
+        emini_transformed_ID = self.add_e_node(emini_transformed)
+        self.add_e_edge(ID,emini_transformed_ID,program_name)
 
         return emini_transformed_ID
     
@@ -246,7 +274,7 @@ class EssenceTransforms(EFGraph):
                     self.graph.nodes[nodeID]["trials"][arm] = [0,0] # 0 number of trials and 0 rewards
 
             chosen_func = self.epsilon_greedy_arm_selection(self.graph.nodes[nodeID]["trials"])
-            new_nodeID = self.transform_with_GP2(nodeID,chosen_func)
+            new_nodeID = self.transform_with_GP2_and_record(nodeID,chosen_func)
             reward = 0 
             if new_nodeID != nodeID:
                 reward = 1 # change to some function based on performance

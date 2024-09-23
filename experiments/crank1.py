@@ -66,7 +66,7 @@ def SolveAndTransform() -> int:
     progName = "DeMorganTwo.gp2"
     if not os.path.isdir(os.path.join("gp2","Compiled",progName[-4])):
         gp2Interface.compileGP2Program(progName)
-    spec2= etransform_graph.transform_with_GP2(spec,progName)
+    spec2= etransform_graph.transform_with_GP2_and_record(spec,progName)
     transformTime = time.time_ns() - start2
 
     instanceID = hash(spec2)
