@@ -104,7 +104,7 @@ def trans() -> int:
         if args.outfile == 'STDOUT':
             sys.stdout.write(outObject)
         else:
-            outf = open(args.outfile)
+            outf = open(args.outfile, 'w')
             outf.write(outObject)
             outf.close()
 
