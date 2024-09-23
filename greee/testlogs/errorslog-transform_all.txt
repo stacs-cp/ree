@@ -20,3 +20,93 @@ Domain Parsing Error. Token: vertices. Token Num: 23
 gc.essence
 Domain Parsing Error. Token: set. Token Num: 17
 ----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2024-09-23 15:46:19.727996
+ 
+r-sum.essence
+'int' object has no attribute 'label'
+----------------------------- 
+subsetdiff3.essence
+Missing Expression at: 7
+----------------------------- 
+nestedfunctionpartialmatrix.essence
+Domain Parsing Error. Token: matrix. Token Num: 24
+----------------------------- 
+gcrel.essence
+Missing Expression at: 34
+----------------------------- 
+stalltest2.essence
+can only concatenate str (not "NoneType") to str
+----------------------------- 
+subsetdiff2.essence
+Missing Expression at: 7
+----------------------------- 
+tiny.essence
+can only concatenate str (not "NoneType") to str
+----------------------------- 
+nestedfunctiontotalset.essence
+list index out of range
+----------------------------- 
+gc-simple.essence
+'int' object has no attribute 'label'
+----------------------------- 
+nestedfunctionpartial.essence
+Domain Parsing Error. Token: functionAUXFUNC. Token Num: 24
+----------------------------- 
+r-sum-2.essence
+'int' object has no attribute 'label'
+----------------------------- 
+subsetdiff1.essence
+Missing Expression at: 7
+----------------------------- 
+nestedfunctiontotalmatrix.essence
+Domain Parsing Error. Token: matrix. Token Num: 24
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Parsing Error! Token num 2. Expected ':', but got ','.
+----------------------------- 
+nestedfunctionpartialminsize-smaller.essence
+Some issue parsing | found: 2
+----------------------------- 
+subsetdiff4.essence
+Missing Expression at: 7
+----------------------------- 
+streamliner0.essence
+pop from empty list
+----------------------------- 
+f2seq.essence
+Missing Expression at: 7
+----------------------------- 
+tiny1.essence
+can only concatenate str (not "NoneType") to str
+----------------------------- 
+subsetsum2.essence
+Missing Expression at: 7
+----------------------------- 
+gcmulti.essence
+Missing Expression at: 36
+----------------------------- 
+nestedfunctiontotalsetminsize.essence
+list index out of range
+----------------------------- 
+gcmulti-func-instanceRepair.essence
+list index out of range
+----------------------------- 
+gc.essence
+Missing Expression at: 31
+----------------------------- 
+nestedfunctionpartialminsize.essence
+Some issue parsing | found: 2
+----------------------------- 
+subsetsum1.essence
+Missing Expression at: 7
+----------------------------- 
+tiny2.essence
+can only concatenate str (not "NoneType") to str
+----------------------------- 
+gcmulti-func-instanceGenerator.essence
+Some issue parsing [ found 7
+----------------------------- 
+stalltest.essence
+can only concatenate str (not "NoneType") to str
+----------------------------- 
