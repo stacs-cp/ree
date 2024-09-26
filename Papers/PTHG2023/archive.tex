@@ -1,0 +1,62 @@
+\section{Background}
+
+We use the \essence constraint programming language in our work~\cite{frisch2008:essence}, in the form of a small but expressive subset that we refer to as Emini.
+\essence is purely declarative and is therefore highly suitable for automated approaches to model transformation.
+Constraint programming languages such as MiniZinc~\cite{nethercote2007:minizinc}, and libraries such as Gecode~\cite{gecode}, have imperative aspects and thus require more delicate analysis of rewriting to take into account the state changes inherent in imperative programming paradigms. 
+
+An Emini specification consists of definitions of constants and types using the \code{letting} keyword, declaration of parameters using the \code{given} keyword, decision variables specified using the \code{find} keyword, and constraints using the \code{such that} keyword.
+A class-based specification is a specification containing free parameters which have not been defined to have specific values.
+The free parameters specify an input for a class of problem instances, and each problem instance corresponds to one set of definitions to all the free parameters in a class-based specification.
+A specification without any free parameters itself constitutes a problem instance, but the problem it corresponds to only contains that single instance.
+We usually want to model a problem class, consisting of many problem instances that share constraints and decision variables, and only differ in the values provided for the free parameters.
+
+
+\section{Overview of system}
+
+\section{Exploratory reformulation}
+
+\section{Conclusions and future work}
+
+\section{Catchphrases}
+
+\begin{itemize}
+    \item We do Model Reformulation at the highest level of abstraction
+    \item "Opening new pathways"
+    \item A system for reformulating CSP specifications that can be used for the automated search and evaluation  of reformulations (rewrite rules)
+    \item Any missing link in Fig  \ref{fig:TMAP} could potentially be generated using various machine-learning techniques
+\end{itemize}
+
+\section{Old Summary}
+
+\begin{itemize}
+    \item Emini: a fragment of \essence that include Integers, bool, tuples and relations,
+    Arithmetic, inequalities, conditional logic,
+    Quantifiers, existentials and optimisation.
+    \item Emini and this kit of tools allows the exploration of \essence's specification lattice.
+    \item We can transform an \essence specification in several ways via existing and new programs and turn them into
+    \begin{itemize}
+        \item accessible abstract syntax trees
+        \item GP2 for rewriting
+        \item networkx graph (hub node that allows analysis, feature extraction and a bridge to several other programs + ML)
+        \item (more less interesting intermediary formats)
+        
+    \end{itemize}
+    \item -	The GP2 representation of the AST can be transformed via graph rewriting rules
+    \begin{itemize}
+        \item We can produce syntactically different but semantically idempotent transformations of a specification 
+        \item Normalise subtrees
+        \item We can produce variants of a specification (relaxation and strengthening )
+        
+    \end{itemize}
+    \item Implemented so far:
+    \begin{itemize}
+        \item Emini parser
+        \item AST to \essence (automatic placement of syntactic sugar and parenthesis)
+        \item Automatic test of transformations performed by GP2
+        \item Pipeline that goes from \essence, to rewritten specification to solution
+        \item syntactic equivalence verification
+        \item semantic equivalence verification
+        
+    \end{itemize}
+
+\end{itemize}

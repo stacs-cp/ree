@@ -1,0 +1,333 @@
+\begin{thebibliography}{10}
+
+\bibitem{Akgun2020:discriminating}
+{\"O}zg{\"u}r Akg{\"u}n, Nguyen Dang, Ian Miguel, Andr{\'a}s~Z. Salamon,
+  Patrick Spracklen, and Christopher Stone.
+\newblock Discriminating instance generation from abstract specifications: A
+  case study with {CP} and {MIP}.
+\newblock {\em CPAIOR}, LNCS 12296, pages 41--51, 2020.
+\newblock \href {https://doi.org/10.1007/978-3-030-58942-4_3}
+  {\path{doi:10.1007/978-3-030-58942-4_3}}.
+
+\bibitem{Akgun2019:instance}
+{\"O}zg{\"u}r Akg{\"u}n, Nguyen Dang, Ian Miguel, Andr{\'a}s~Z. Salamon, and
+  Christopher Stone.
+\newblock Instance generation via generator instances.
+\newblock {\em CP}, LNCS 11802, pages 3--19, 2019.
+\newblock \href {https://doi.org/10.1007/978-3-030-30048-7_1}
+  {\path{doi:10.1007/978-3-030-30048-7_1}}.
+
+\bibitem{Akgun2022:Conjure}
+{\"O}zg{\"u}r Akg{\"u}n, Alan~M. Frisch, Ian~P. Gent, Christopher Jefferson,
+  Ian Miguel, and Peter Nightingale.
+\newblock Conjure: Automatic generation of constraint models from problem
+  specifications.
+\newblock {\em Artificial Intelligence}, 310:103751, 2022.
+\newblock \href {https://doi.org/10.1016/j.artint.2022.103751}
+  {\path{doi:10.1016/j.artint.2022.103751}}.
+
+\bibitem{Akgun2021:towards}
+Özgür Akgün, Alan~M. Frisch, Ian~P. Gent, Christopher Jefferson, Ian Miguel,
+  Peter Nightingale, and András~Z. Salamon.
+\newblock Towards reformulating essence specifications for robustness.
+\newblock {\em ModRef}, 2021.
+\newblock \href {https://doi.org/10.48550/arXiv.2111.00821}
+  {\path{doi:10.48550/arXiv.2111.00821}}.
+
+\bibitem{Arcangioli2016:multiple}
+Robin Arcangioli, Christian Bessiere, and Nadjib Lazaar.
+\newblock Multiple constraint aquisition.
+\newblock {\em IJCAI}, pages 698--704, 2016.
+\newblock \url{https://www.ijcai.org/Proceedings/16/Papers/105.pdf}.
+
+\bibitem{Attieh2019:Athanor}
+Saad Attieh, Nguyen Dang, Christopher Jefferson, Ian Miguel, and Peter
+  Nightingale.
+\newblock Athanor: High-level local search over abstract constraint
+  specifications in essence.
+\newblock {\em IJCAI}, pages 1056--1063, 2019.
+\newblock \href {https://doi.org/10.24963/ijcai.2019/148}
+  {\path{doi:10.24963/ijcai.2019/148}}.
+
+\bibitem{Beldiceanu2012:model}
+Nicolas Beldiceanu and Helmut Simonis.
+\newblock A model seeker: Extracting global constraint models from positive
+  examples.
+\newblock {\em {CP}}, pages 141--157, 2012.
+\newblock \href {https://doi.org/10.1007/978-3-642-33558-7_13}
+  {\path{doi:10.1007/978-3-642-33558-7_13}}.
+
+\bibitem{Bessiere2014:boosting}
+Christian Bessiere, Remi Coletta, Abderrazak Daoudi, and Nadjib Lazaar.
+\newblock Boosting constraint acquisition via generalization queries.
+\newblock {\em ECAI}, pages 99--104, 2014.
+\newblock \href {https://doi.org/10.3233/978-1-61499-419-0-99}
+  {\path{doi:10.3233/978-1-61499-419-0-99}}.
+
+\bibitem{Bessiere2013:constraint}
+Christian Bessiere, Remi Coletta, Emmanuel Hebrard, George Katsirelos, Nadjib
+  Lazaar, Nina Narodytska, Claude-Guy Quimper, and Toby Walsh.
+\newblock Constraint acquisition via partial queries.
+\newblock {\em IJCAI}, pages 475--481, 2013.
+\newblock \url{https://www.ijcai.org/Proceedings/13/Papers/078.pdf}.
+
+\bibitem{Bessiere2007:learning}
+Christian Bessiere, Remi Coletta, and Thierry Petit.
+\newblock Learning implied global constraints.
+\newblock {\em IJCAI}, pages 44--49, 2007.
+\newblock \url{https://www.ijcai.org/Proceedings/07/Papers/005.pdf}.
+
+\bibitem{Bessiere2017:constraint}
+Christian Bessiere, Frédéric Koriche, Nadjib Lazaar, and Barry O'Sullivan.
+\newblock Constraint acquisition.
+\newblock {\em Artificial Intelligence}, 244:315--342, 2017.
+\newblock \href {https://doi.org/10.1016/j.artint.2015.08.001}
+  {\path{doi:10.1016/j.artint.2015.08.001}}.
+
+\bibitem{cadical}
+Armin Biere, Katalin Fazekas, Mathias Fleury, and Maximillian Heisinger.
+\newblock {CaDiCaL}, {Kissat}, {Paracooba}, {Plingeling} and {Treengeling}
+  entering the {SAT Competition 2020}.
+\newblock {\em Proceedings of {SAT} {Competition} 2020 -- Solver and Benchmark
+  Descriptions}, volume B-2020-1 of {\em Department of Computer Science Report
+  Series B}, pages 50--53. University of Helsinki, 2020.
+\newblock \url{https://hdl.handle.net/10138/318754}.
+
+\bibitem{browne2012survey}
+Cameron~B. Browne, Edward Powley, Daniel Whitehouse, Simon~M. Lucas, Peter~I.
+  Cowling, Philipp Rohlfshagen, Stephen Tavener, Diego Perez, Spyridon
+  Samothrakis, and Simon Colton.
+\newblock A survey of {Monte} {Carlo} tree search methods.
+\newblock {\em IEEE Transactions on Computational Intelligence and AI in
+  games}, 4(1):1--43, 2012.
+\newblock \href {https://doi.org/10.1109/TCIAIG.2012.2186810}
+  {\path{doi:10.1109/TCIAIG.2012.2186810}}.
+
+\bibitem{campbell2020improved}
+Graham Campbell, Jack Romo, and Detlef Plump.
+\newblock The improved {GP} 2 compiler.
+\newblock {\em GCM}, pages 206--217, 2020.
+\newblock
+  \url{https://pure.york.ac.uk/portal/files/71537390/Campbell_Romo_Plump.GCM.20_1.pdf}.
+
+\bibitem{charnley2006:automatic}
+John Charnley, Simon Colton, and Ian Miguel.
+\newblock Automatic generation of implied constraints.
+\newblock {\em ECAI}, pages 73--77, 2006.
+\newblock \url{https://ebooks.iospress.nl/volumearticle/2653}.
+
+\bibitem{colton2001:constraint}
+Simon Colton and Ian Miguel.
+\newblock Constraint generation via automated theory formation.
+\newblock {\em CP}, LNCS 2239, pages 575--579, 2001.
+\newblock \href {https://doi.org/10.1007/3-540-45578-7_42}
+  {\path{doi:10.1007/3-540-45578-7_42}}.
+
+\bibitem{DeRaedt2018:learning}
+Luc De~Raedt, Andrea Passerini, and Stefano Teso.
+\newblock Learning constraints from examples.
+\newblock {\em AAAI}, pages 7965--7970, 2018.
+\newblock \href {https://doi.org/10.1609/aaai.v32i1.12217}
+  {\path{doi:10.1609/aaai.v32i1.12217}}.
+
+\bibitem{Flener2003:esra}
+Pierre Flener, Justin Pearson, and Magnus \AA{}gren.
+\newblock Introducing {ESRA}, a relational language for modelling combinatorial
+  problems.
+\newblock {\em LOPSTR}, LNCS 3018, pages 214--232, 2003.
+\newblock \href {https://doi.org/10.1007/978-3-540-25938-1_18}
+  {\path{doi:10.1007/978-3-540-25938-1_18}}.
+
+\bibitem{freuder2018:progress}
+Eugene~C. Freuder.
+\newblock Progress towards the {Holy} {Grail}.
+\newblock {\em Constraints}, 23(2):158--171, 2018.
+\newblock \href {https://doi.org/10.1007/s10601-017-9275-0}
+  {\path{doi:10.1007/s10601-017-9275-0}}.
+
+\bibitem{frisch2008:essence}
+Alan~M. Frisch, Warwick Harvey, Chris Jefferson, Bernadette
+  Mart\'{\i}nez-Hern\'{a}ndez, and Ian Miguel.
+\newblock {Essence: A constraint language for specifying combinatorial
+  problems}.
+\newblock {\em Constraints}, 13(3):268--306, 2008.
+\newblock \href {https://doi.org/10.1007/s10601-008-9047-y}
+  {\path{doi:10.1007/s10601-008-9047-y}}.
+
+\bibitem{Frisch2005:rules}
+Alan~M. Frisch, Christopher Jefferson, Bernadette Mart\'{\i}nez-Hern\'{a}ndez,
+  and Ian Miguel.
+\newblock The rules of constraint modelling.
+\newblock {\em IJCAI}, pages 109--116, 2005.
+\newblock \url{https://www.ijcai.org/Proceedings/05/Papers/1667.pdf}.
+
+\bibitem{frisch2003:cgrass}
+Alan~M. Frisch, Ian Miguel, and Toby Walsh.
+\newblock {CGRASS}: A system for transforming constraint satisfaction problems.
+\newblock {\em Recent Advances in Constraints}, LNCS 2627, pages 15--30, 2003.
+\newblock \href {https://doi.org/10.1007/3-540-36607-5_2}
+  {\path{doi:10.1007/3-540-36607-5_2}}.
+
+\bibitem{Gent2006:minion}
+Ian~P. Gent, Christopher Jefferson, and Ian Miguel.
+\newblock {Minion}: A fast scalable constraint solver.
+\newblock {\em {ECAI}}, pages 98--102, 2006.
+\newblock \url{http://ebooks.iospress.nl/volumearticle/2658}.
+
+\bibitem{habel2001computational}
+Annegret Habel and Detlef Plump.
+\newblock Computational completeness of programming languages based on graph
+  transformation.
+\newblock {\em FoSSaCS}, LNCS 2030, pages 230--245, 2001.
+\newblock \href {https://doi.org/10.1007/3-540-45315-6_15}
+  {\path{doi:10.1007/3-540-45315-6_15}}.
+
+\bibitem{Hnich2003:function}
+Brahim Hnich.
+\newblock Function variables for constraint programming.
+\newblock {\em AI Communications}, 16(2):131--132, 2003.
+
+\bibitem{csplib:url}
+Christopher Jefferson and Özgür Akgün.
+\newblock {CSPLib}: A problem library for constraints.
+\newblock \url{https://www.csplib.org/}.
+
+\bibitem{Kiziltan2016:constraint}
+Zeynep Kiziltan, Marco Lippi, and Paolo Torroni.
+\newblock Constraint detection in natural language problem descriptions.
+\newblock {\em IJCAI}, pages 744--750, 2016.
+\newblock \url{https://www.ijcai.org/Proceedings/16/Papers/111.pdf}.
+
+\bibitem{ZincModref10}
+Leslie~De Koninck, Sebastian Brand, and Peter~J Stuckey.
+\newblock {Data Independent Type Reduction for Zinc}.
+\newblock {\em Proceedings of the 9th International Workshop on Reformulating
+  Constraint Satisfaction Problems}, 2010.
+
+\bibitem{Leo2013:globalizing}
+Kevin Leo, Christopher Mears, Guido Tack, and Maria~Garcia De~La~Banda.
+\newblock Globalizing constraint models.
+\newblock {\em CP}, pages 432--447, 2013.
+\newblock \href {https://doi.org/10.1007/978-3-642-40627-0_34}
+  {\path{doi:10.1007/978-3-642-40627-0_34}}.
+
+\bibitem{Little2003:using}
+James Little, Cormac Gebruers, Derek~G. Bridge, and Eugene~C. Freuder.
+\newblock Using case-based reasoning to write constraint programs.
+\newblock {\em {CP}}, page 983, 2003.
+\newblock \href {https://doi.org/10.1007/978-3-540-45193-8_107}
+  {\path{doi:10.1007/978-3-540-45193-8_107}}.
+
+\bibitem{marriott2008:design}
+Kim Marriott, Nicholas Nethercote, Reza Rafeh, Peter~J. Stuckey, Maria~Garcia
+  de~la Banda, and Mark Wallace.
+\newblock The design of the {Zinc} modelling language.
+\newblock {\em Constraints}, 13(3):229--267, 2008.
+\newblock \href {https://doi.org/10.1007/s10601-008-9041-4}
+  {\path{doi:10.1007/s10601-008-9041-4}}.
+
+\bibitem{Mills1999:eacl}
+Patrick Mills, Edward Tsang, Richard Williams, John Ford, and James Borrett.
+\newblock {EaCL} 1.5: An {Easy} abstract {Constraint} optimisation
+  {Programming} {Language}.
+\newblock Technical Report CSM-324, Department of Computer Science, University
+  of Essex, 1999.
+
+\bibitem{Mitchell2008:expressive}
+David~G. Mitchell and Eugenia Ternovska.
+\newblock Expressive power and abstraction in {Essence}.
+\newblock {\em Constraints}, 13(3):343--384, 2008.
+\newblock \href {https://doi.org/10.1007/s10601-008-9050-3}
+  {\path{doi:10.1007/s10601-008-9050-3}}.
+
+\bibitem{Nethercote2007:minizinc}
+Nicholas Nethercote, Peter~J. Stuckey, Ralph Becket, Sebastian Brand,
+  Gregory~J. Duck, and Guido Tack.
+\newblock {MiniZinc}: Towards a standard {CP} modelling language.
+\newblock {\em CP}, LNCS 4741, pages 529--543, 2007.
+\newblock \href {https://doi.org/10.1007/978-3-540-74970-7_38}
+  {\path{doi:10.1007/978-3-540-74970-7_38}}.
+
+\bibitem{sr-manual}
+Peter Nightingale.
+\newblock {Savile Row} manual.
+\newblock arXiv, 2021.
+\newblock \href {https://doi.org/10.48550/arXiv.2201.03472}
+  {\path{doi:10.48550/arXiv.2201.03472}}.
+
+\bibitem{savilerow}
+Peter Nightingale, {\"O}zg{\"u}r Akg{\"u}n, Ian~P. Gent, Christopher Jefferson,
+  Ian Miguel, and Patrick Spracklen.
+\newblock {Automatically improving constraint models in {Savile Row}}.
+\newblock {\em Artificial Intelligence}, 251:35--61, 2017.
+\newblock \href {https://doi.org/10.1016/j.artint.2017.07.001}
+  {\path{doi:10.1016/j.artint.2017.07.001}}.
+
+\bibitem{Nightingale2014:automatically}
+Peter Nightingale, Özgür Akgün, Ian~P. Gent, Christopher Jefferson, and Ian
+  Miguel.
+\newblock Automatically improving constraint models in {Savile Row} through
+  associative-commutative common subexpression elimination.
+\newblock {\em {CP}}, pages 590--605, 2014.
+\newblock \href {https://doi.org/10.1007/978-3-319-10428-7_43}
+  {\path{doi:10.1007/978-3-319-10428-7_43}}.
+
+\bibitem{Nightingale2015:automatically}
+Peter Nightingale, Patrick Spracklen, and Ian Miguel.
+\newblock Automatically improving {SAT} encoding of constraint problems through
+  common subexpression elimination in {Savile Row}.
+\newblock {\em {CP}}, pages 330--340, 2015.
+\newblock \href {https://doi.org/10.1007/978-3-319-23219-5_23}
+  {\path{doi:10.1007/978-3-319-23219-5_23}}.
+
+\bibitem{plump2017imperative}
+Detlef Plump.
+\newblock From imperative to rule-based graph programs.
+\newblock {\em Journal of Logical and Algebraic Methods in Programming},
+  88:154--173, 2017.
+\newblock \href {https://doi.org/10.1016/j.jlamp.2016.12.001}
+  {\path{doi:10.1016/j.jlamp.2016.12.001}}.
+
+\bibitem{Rafeh2016:linzinc}
+Reza Rafeh and Negar Jaberi.
+\newblock {LinZinc}: A library for linearizing {Zinc} models.
+\newblock {\em Iranian Journal of Science and Technology, Transactions of
+  Electrical Engineering}, 40(1):63--73, 2016.
+\newblock \href {https://doi.org/10.1007/s40998-016-0005-1}
+  {\path{doi:10.1007/s40998-016-0005-1}}.
+
+\bibitem{Rendl2010:thesis}
+Andrea Rendl.
+\newblock {\em Effective Compilation of Constraint Models}.
+\newblock PhD thesis, University of St Andrews, 2010.
+\newblock \url{http://hdl.handle.net/10023/973}.
+
+\bibitem{Rozemberczki2020:characteristic}
+Benedek Rozemberczki and Rik Sarkar.
+\newblock Characteristic functions on graphs: Birds of a feather, from
+  statistical descriptors to parametric models.
+\newblock {\em CIKM}, pages 1325--1334, 2020.
+\newblock \href {https://doi.org/10.1145/3340531.3411866}
+  {\path{doi:10.1145/3340531.3411866}}.
+
+\bibitem{Shchekotykhin2009:argumentation}
+K.~Shchekotykhin and G.~Friedrich.
+\newblock Argumentation based constraint acquisition.
+\newblock {\em ICDM}, pages 476--482, 2009.
+\newblock \href {https://doi.org/10.1109/ICDM.2009.62}
+  {\path{doi:10.1109/ICDM.2009.62}}.
+
+\bibitem{SPRACKLEN2023103915}
+Patrick Spracklen, Nguyen Dang, Özgür Akgün, and Ian Miguel.
+\newblock Automated streamliner portfolios for constraint satisfaction
+  problems.
+\newblock {\em Artificial Intelligence}, 319:103915, 2023.
+\newblock \href {https://doi.org/10.1016/j.artint.2023.103915}
+  {\path{doi:10.1016/j.artint.2023.103915}}.
+
+\bibitem{OPLBook}
+Pascal {Van Hentenryck}.
+\newblock {\em {The OPL Optimization Programming Language}}.
+\newblock MIT Press, Cambridge, MA, USA, 1999.
+
+\end{thebibliography}

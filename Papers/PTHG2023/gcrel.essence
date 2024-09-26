@@ -1,0 +1,9 @@
+given n : int
+letting vertices be domain int(1..n)
+given edges : relation (irreflexive) of ( vertices * vertices )
+given numberColours : int(1..)
+letting colours be domain int(1..numberColours)
+find c : function (total) vertices --> colours
+such that
+   forAll (u,v) in edges .
+      c(u) != c(v)
