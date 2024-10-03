@@ -1,0 +1,83 @@
+SUBMISSION: 29
+
+TITLE: A Graph Transformation-Based Engine for the Automated Exploration of Constraint Models
+AUTHORS: Christopher Stone, András Z. Salamon and Ian Miguel
+
+
+REVIEW 1
+
+SCORE: 1 (weak accept)
+----- TEXT:
+The paper is a demonstration paper for an implementation of model optimisation. Specifically, the authors aim to reformulate ESSENCE specifications into alternative formats that allow better solvers to be found for them. To this end, they parse ESSENCE specifications into a graph representation and then apply iterative incremental transformations using GP2 rules to find new variants of the specification.
+
+Generally, this is interesting work and fits well both in the ESSENCE/CONJURE approach and the graph transformation / MDE world. A demonstration would be a useful contribution to ICGT.
+
+However, several shortcomings of the work / presentation distract from the key contributions. I would suggest refocusing the demonstration somewhat to maximise the benefits to the conference audience as well as the authors:
+
+1. Representing models as graphs and using graph transformations to find "optimal" models is a technique that has been explored well already [1,2]. For me, the interesting contribution of the paper would be in the specific GP2 rules used to help find good reformulations of ESSENCE specifications as well as the specific ways in which the search is guided. Because the authors spend a lot of time and space "reinventing the wheel" of model-based optimisation, there is unfortunately not a lot of space left to discuss these interesting details.
+
+2. I would have liked to understand the value of the proposed technique in this specific context: does it actually manage to produce better ESSENCE specifications? How often? Improved by how much (and by what metric)?
+
+3. What determines success or failure of the approach? For example, are there particular rewriting rules that work better than others?
+
+4. If I understand correctly, the goal is to produce ESSENCE specifications that are efficient to solve -- presumably with the goal of shortening overall time to solve and improving the quality of the solutions found. However, the need to solve each rewrite found seems to work against this, in effect requiring significantly more time to solve a given problem. This was not explained well, I felt.
+
+5. Generation of rewrite rules has been explored in the context of MDEO [1, 3], which may help the authors make progress on their own goal in this direction.
+
+[1] Burdusel, A., Zschaler, S. & John, S. Automatic generation of atomic multiplicity-preserving search operators for search-based model engineering. Softw Syst Model 20, 1857–1887 (2021).
+doi: 10.1007/s10270-021-00914-w
+
+Burdusel2021:automatic
+
+[2] Fleck, M., Troya, J., Wimmer, M. (2016). Search-Based Model Transformations with MOMoT. In: Van Gorp, P., Engels, G. (eds) Theory and Practice of Model Transformations. ICMT 2016. Lecture Notes in Computer Science(), vol 9765. Springer, Cham.
+doi: 10.1007/978-3-319-42064-6_6
+
+Fleck2016:search
+
+[3] J.-M. Horcas, D. Strüber, A. Burdusel, J. Martinez and S. Zschaler, "We’re Not Gonna Break It! Consistency-Preserving Operators for Efficient Product Line Configuration," in IEEE Transactions on Software Engineering, vol. 49, no. 3, pp. 1102-1117, 1 March 2023,
+doi: 10.1109/TSE.2022.3171404
+
+Horcas2023:break
+
+
+REVIEW 2
+
+SCORE: 2 (accept)
+----- TEXT:
+This paper describes a demonstration of the graph-based technologies behind the Constraint Modelling Pipeline. This pipeline supports specifying constraint problems using the high-level language ESSENCE, which then can be reformulated using graph transformation rules. The system supports an exploration of the space of reformulations to find good ones in terms of performance.
+
+The tool-set looks interesting, and the underlying techniques fit well within the conference topics. The demo looks attractive, and I belive it can be of interest for the community and spark interesting discussions. Hence, overall I'd be in favour of acceptance the demo proposal.
+
+I just have a few comments on the manuscript:
+- Is the tool available to download? If so, please provide a link.
+- For the space exploration, have you considered using tools like MoMoT [1], which use graph transformation to guide a search process?
+- Fig 1: there seems to be some redundant transformations in this network. For example you can go from AST->NX->GP2, but also directly AST->GP2. Why do you explicitly need a transformation for the latter?
+- Essence string -> AST. Please explain the elements of the tuple T in the same order as they appear.
+- Sec 4: "K that has to exist". L needs to exist. K is the intersection of L and R (the invariant).
+
+Typos/minors:
+- Sec 2 "languages[" -> space missing
+
+[1] Robert Bill, Martin Fleck, Javier Troya, Tanja Mayerhofer, Manuel Wimmer: A local and global tour on MOMoT. Softw. Syst. Model. 18(2): 1017-1046 (2019)
+doi: 10.1007/s10270-017-0644-3
+
+Bill2019:local
+
+
+
+REVIEW 3
+
+SCORE: 0 (borderline paper)
+----- TEXT:
+This paper presents a tool that uses graph transformation to automatically reformulate constraint specifications in combinatorial search problems. It is integrated into a tool pipeline that starts with a high-level constraint specification in the Essence language and transforms this specification into an abstract syntax tree, which is represented as a labelled graph. The reformulation of constraint specifications is done using the graph transformation language GP2, which uses a curated set of handcrafted rewriting rules.The rewriting should be formulated so that the rewritten constraint specifications are sound and semantically invariant.
+
+The paper shows how graph transformation extends a Constraint Modeling Pipeline. The reader gets an idea of where graph transformation is used in this pipeline. However, the motivation for using graph transformation in this pipeline is not really clear. What is the open problem that graph transformation solves? Has automated reformulation of constraint specifications given in the Essence language not been done before? Or can it be done better now? In the sense that graph transformation can automatically generate several semantically equivalent constraint specifications from which the user can choose? Would the user choose an effective formulation of the specification? What formulations are effective? The authors should state more clearly the problems they are solving with graph transformation, and to what extent this problem has been considered in related work.
+
+The tool description in Sec. 3 presents several formats for constraint specifications and discusses converters for these formats. It is not clear which formats and converters are already given and which are newly provided by the tool. What exactly is the functionality of the tool? A diagram of the tool pipeline should be part of the main sections of the paper. Figures 5 and 6 show the pipeline and the architecture of the tool, but even these representations do not clearly state the input and output of the tool and its main functionality.  A specification in the Essence language seems to be the input, but what exactly is the output? A solution to the problem? Where in Fig. 5 is graph transformation used? Both figures are not sufficiently explained.
+Is the tool open source? If so, please provide readers with a link to the tool’s web site.
+
+Sec. 4 shows how to transform models with graph transformation. This part is quite clear. The example in Sec. 4.1 is easy to understand. Appendix A shows what an example specification looks like as a graph, and also shows a concrete graph transformation applying the De Morgan rule. The demo outline presents a somewhat larger example that may be useful for a deeper understanding. However, since some basic questions are not clearly answered, it is difficult to see the added value of this example.
+
+Finally, the abstract mentions that the rewriting should be formulated so that the rewritten constraint specifications are sound and semantically invariant. Where is soundness and semantic invariance shown?
+
+In summary, the application domain is interesting and presented tool may have its merits, but they are not stated clearly enough, especially with respect to related work. The open problem solved should be clearly stated, as well as the added value.
