@@ -1,0 +1,104 @@
+Validate solutions of the rewritten spec by reversing the transformation implemented by the rewriting, and applying this reverse function to the solutions found for the rewritten spec to obtain solutions for the original spec.
+In other words: find the inverse functor where the original functor maps the original spec to the rewritten spec, and apply it to the solution.
+
+find R : relation of (int(0..1) * int(0..1))
+such that toSet(R) = {(0,0),(0,1),(1,1)}
+
+find f : function int(0..1) --> int(0..1)
+such that toSet(f) = {(0,0),(1,1)}
+
+find g : function int(0..1) --> int(0..1)
+such that toRelation(g) = relation((0,0),(1,1))
+
+letting R be toRelation(function(0 --> 1, 1 -->1, 2 --> 3))
+$ R = relation((0,1),(1,1),(2,3))
+
+$$$$$$$$$$$ function to relation(int * set)  $$$$$$$$$
+given n : int(0..100)
+given numberColours : int(1..n)
+given coloursPerNode : int(1..n)
+letting vertices be domain int(0..n-1)
+letting coloursSet be domain set (size coloursPerNode) of colours
+letting colours be domain int(1..numberColours)
+
+$$
+given solution : function (total) vertices --> coloursSet
+
+find c : relation (size n*coloursPerNode) of ( vertices * colours )
+such that c = toRelation(solution)
+forAll item in defined(solution) .
+    forAll colour in solution(item) .
+        c(item, colour)
+
+current function: (function(0 -->{0,1,2}, 1 -->{2,3,4}))
+needed relation: relation((0,0),(0,1),(0,2)...)
+
+such that
+
+forAll (x,y) in c . (x in defined(solution) /\ y in solution(x))
+,
+forAll x in defined(solution) . (y in solution(x))
+
+
+
+letting n be 20
+letting numberColours be 7 
+letting coloursPerNode be 2 
+letting c be
+        function(0 --> {1, 2}, 1 --> {3, 4}, 2 --> {1, 2}, 3 --> {3, 4}, 4 --> {1, 2}, 5 --> {3, 4}, 6 --> {5, 6},
+                 7 --> {1, 2}, 8 --> {5, 6}, 9 --> {1, 2}, 10 --> {3, 4}, 11 --> {1, 2}, 12 --> {3, 4}, 13 --> {5, 6},
+                 14 --> {3, 4}, 15 --> {1, 2}, 16 --> {5, 6}, 17 --> {3, 7}, 18 --> {4, 5}, 19 --> {6, 7})
+
+--- spec: ---
+
+letting n be 20
+letting vertices be domain int(0..n-1)
+letting numberColours be 7
+letting coloursPerNode be 2
+letting colours be domain int(1..numberColours)
+letting coloursSet be domain set (size coloursPerNode) of colours
+
+letting c be
+        function(0 --> {1, 2}, 1 --> {3, 4}, 2 --> {1, 2}, 3 --> {3, 4}, 4 --> {1, 2}, 5 --> {3, 4}, 6 --> {5, 6},
+                 7 --> {1, 2}, 8 --> {5, 6}, 9 --> {1, 2}, 10 --> {3, 4}, 11 --> {1, 2}, 12 --> {3, 4}, 13 --> {5, 6},
+                 14 --> {3, 4}, 15 --> {1, 2}, 16 --> {5, 6}, 17 --> {3, 7}, 18 --> {4, 5}, 19 --> {6, 7})
+
+find cR : relation (size n*coloursPerNode) of ( vertices * colours )
+such that
+forAll item in defined(c) .
+    forAll colour in c(item) .
+        cR(item, colour)
+
+--- solution: ---
+
+letting cR be
+        relation((0, 1), (0, 2), (1, 3), (1, 4), (2, 1), (2, 2), (3, 3), (3, 4), (4, 1), (4, 2), (5, 3), (5, 4), (6, 5),
+                 (6, 6), (7, 1), (7, 2), (8, 5), (8, 6), (9, 1), (9, 2), (10, 3), (10, 4), (11, 1), (11, 2), (12, 3),
+                 (12, 4), (13, 5), (13, 6), (14, 3), (14, 4), (15, 1), (15, 2), (16, 5), (16, 6), (17, 3), (17, 7),
+                 (18, 4), (18, 5), (19, 6), (19, 7))
+
+
+              rewrite(GP2)
+c (relation)  ----->   c (function)
+  /|\                    |
+   |                     |
+   | validate            | solve
+   |                     |
+   |                    \|/
+c (relation) sol <===  c (function) sol
+  /|\            rev     |
+   |                     |
+   | rename rev          | rename
+   |                     |
+   |                    \|/
+cOrg (relation) <--   cRew (function)
+                reverse intermediate
+
+Can we do reverse via GP2 (can do via conjure, but might be regular enough to express using graph rewriting)?
+
+Auxiliary domains might need to be created, in this case coloursSet; these are used to define the nested type of the solution, compared to the original spec.
+
+ 
+ 
+ 
+ 

@@ -1,0 +1,154 @@
+\begin{thebibliography}{10}
+
+\bibitem{Akgun2022:Conjure}
+{\"O}zg{\"u}r Akg{\"u}n, Alan~M. Frisch, Ian~P. Gent, Christopher Jefferson,
+  Ian Miguel, and Peter Nightingale.
+\newblock Conjure: Automatic generation of constraint models from problem
+  specifications.
+\newblock {\em Artificial Intelligence}, 310:103751, 2022.
+\newblock \href {https://doi.org/10.1016/j.artint.2022.103751}
+  {\path{doi:10.1016/j.artint.2022.103751}}.
+
+\bibitem{Bessiere2007:learning}
+Christian Bessiere, Remi Coletta, and Thierry Petit.
+\newblock Learning implied global constraints.
+\newblock {\em IJCAI}, pages 44--49, 2007.
+\newblock \url{https://www.ijcai.org/Proceedings/07/Papers/005.pdf}.
+
+\bibitem{campbell2020improved}
+Graham Campbell, Jack Romo, and Detlef Plump.
+\newblock The improved {GP} 2 compiler.
+\newblock {\em GCM}, pages 206--217, 2020.
+\newblock
+  \url{https://pure.york.ac.uk/portal/files/71537390/Campbell_Romo_Plump.GCM.20_1.pdf}.
+
+\bibitem{charnley2006:automatic}
+John Charnley, Simon Colton, and Ian Miguel.
+\newblock Automatic generation of implied constraints.
+\newblock {\em ECAI}, pages 73--77, 2006.
+\newblock \url{https://ebooks.iospress.nl/volumearticle/2653}.
+
+\bibitem{colton2001:constraint}
+Simon Colton and Ian Miguel.
+\newblock Constraint generation via automated theory formation.
+\newblock {\em CP}, LNCS 2239, pages 575--579, 2001.
+\newblock \href {https://doi.org/10.1007/3-540-45578-7_42}
+  {\path{doi:10.1007/3-540-45578-7_42}}.
+
+\bibitem{freuder2018:progress}
+Eugene~C. Freuder.
+\newblock Progress towards the {Holy} {Grail}.
+\newblock {\em Constraints}, 23(2):158--171, 2018.
+\newblock \href {https://doi.org/10.1007/s10601-017-9275-0}
+  {\path{doi:10.1007/s10601-017-9275-0}}.
+
+\bibitem{frisch2008:essence}
+Alan~M. Frisch, Warwick Harvey, Chris Jefferson, Bernadette
+  Mart\'{\i}nez-Hern\'{a}ndez, and Ian Miguel.
+\newblock {Essence}: A constraint language for specifying combinatorial
+  problems.
+\newblock {\em Constraints}, 13(3):268--306, 2008.
+\newblock \href {https://doi.org/10.1007/s10601-008-9047-y}
+  {\path{doi:10.1007/s10601-008-9047-y}}.
+
+\bibitem{frisch2002cgrass}
+Alan~M Frisch, Ian Miguel, and Toby Walsh.
+\newblock {CGRASS:} a system for transforming constraint satisfaction problems.
+\newblock {\em International ERCIM Workshop on Constraint Solving and
+  Constraint Logic Programming}, pages 15--30. Springer, 2002.
+\newblock \href {https://doi.org/10.1007/3-540-36607-5_2}
+  {\path{doi:10.1007/3-540-36607-5_2}}.
+
+\bibitem{gent2007tailoring}
+Ian~P Gent, Ian Miguel, and Andrea Rendl.
+\newblock Tailoring solver-independent constraint models: A case study with
+  {Essence'} and {Minion}.
+\newblock {\em Abstraction, Reformulation, and Approximation: 7th International
+  Symposium, SARA 2007, Whistler, Canada, July 18-21}, pages 184--199.
+  Springer, 2007.
+\newblock \href {https://doi.org/10.1007/978-3-540-73580-9_16}
+  {\path{doi:10.1007/978-3-540-73580-9_16}}.
+
+\bibitem{gualandi2012exact}
+Stefano Gualandi and Federico Malucelli.
+\newblock Exact solution of graph coloring problems via constraint programming
+  and column generation.
+\newblock {\em INFORMS Journal on Computing}, 24(1):81--100, 2012.
+
+\bibitem{habel2001computational}
+Annegret Habel and Detlef Plump.
+\newblock Computational completeness of programming languages based on graph
+  transformation.
+\newblock {\em FoSSaCS}, LNCS 2030, pages 230--245, 2001.
+\newblock \href {https://doi.org/10.1007/3-540-45315-6_15}
+  {\path{doi:10.1007/3-540-45315-6_15}}.
+
+\bibitem{jansen2004preemptive}
+Klaus Jansen and Lorant Porkolab.
+\newblock Preemptive scheduling with dedicated processors: applications of
+  fractional graph coloring.
+\newblock {\em Journal of Scheduling}, 7:35--48, 2004.
+
+\bibitem{Leo2024:automatic}
+Kevin Leo, Grame Gange, Maria Garcia de~la Banda, and Mark Wallace.
+\newblock Automatic core-guided reformulation via constraint explanation and
+  condition learning.
+\newblock {\em Proceedings of the AAAI Conference on Artificial Intelligence},
+  38(8):8065--8072, Mar. 2024.
+\newblock \href {https://doi.org/10.1609/aaai.v38i8.28645}
+  {\path{doi:10.1609/aaai.v38i8.28645}}.
+
+\bibitem{leo2022globalizing}
+Kevin Leo, Christopher Mears, Guido Tack, and Maria~Garcia de~la Banda.
+\newblock Globalizing constraint models.
+\newblock {\em Artificial Intelligence}, 302:103599, 2022.
+
+\bibitem{Miguel2023:towards}
+Ian Miguel, Andr{\'a}s Salamon, and Christopher Stone.
+\newblock Towards exploratory reformulation of constraint models.
+\newblock {\em PTHG-23: The Sixth Workshop on Progress Towards the Holy Grail},
+  2023.
+\newblock
+  \url{https://research-repository.st-andrews.ac.uk/handle/10023/28735}.
+
+\bibitem{savilerow}
+Peter Nightingale, {\"O}zg{\"u}r Akg{\"u}n, Ian~P. Gent, Christopher Jefferson,
+  Ian Miguel, and Patrick Spracklen.
+\newblock {Automatically improving constraint models in {Savile Row}}.
+\newblock {\em Artificial Intelligence}, 251:35--61, 2017.
+\newblock \href {https://doi.org/10.1016/j.artint.2017.07.001}
+  {\path{doi:10.1016/j.artint.2017.07.001}}.
+
+\bibitem{nightingale2016essence}
+Peter Nightingale and Andrea Rendl.
+\newblock Essence' description, 2016.
+\newblock \href {https://arxiv.org/abs/1601.02865} {\path{arXiv:1601.02865}}.
+
+\bibitem{plump2017imperative}
+Detlef Plump.
+\newblock From imperative to rule-based graph programs.
+\newblock {\em Journal of Logical and Algebraic Methods in Programming},
+  88:154--173, 2017.
+\newblock \href {https://doi.org/10.1016/j.jlamp.2016.12.001}
+  {\path{doi:10.1016/j.jlamp.2016.12.001}}.
+
+\bibitem{prestwich2008generalised}
+Steven Prestwich.
+\newblock Generalised graph colouring by a hybrid of local search and
+  constraint programming.
+\newblock {\em Discrete Applied Mathematics}, 156(2):148--158, 2008.
+
+\bibitem{Regin2013:ACP}
+Jean-Charles R{\'e}gin.
+\newblock Simple solutions for complex problems: {ACP} {Research} {Excellence}
+  {Award} talk, 2013.
+\newblock Presented at CP.
+
+\bibitem{icgt2024}
+Christopher Stone, Andr{\'a}s~Z. Salamon, and Ian Miguel.
+\newblock A graph transformation-based engine for the automated exploration of
+  constraint models.
+\newblock {\em International Conference on Graph Transformation}, volume 14774
+  of {\em LNCS}. Springer, 2024.
+
+\end{thebibliography}

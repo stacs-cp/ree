@@ -1,0 +1,47 @@
+We thank the reviewers for their suggestions and feedback.
+
+All 3 reviewers rightly point out the preliminary nature of our work and the need for further extension or experimentation to validate the generality of our approach. However, unlike previous years, the call for papers specifically requested early results in a short format, and this inherently limits the space and level of detail we could provide. We would, therefore, like to ask the reviewers to reconsider their scores accordingly.
+
+
+Answers to Reviewer 1:
+
+The reviewer expresses concern about the generality of our approach. Our case study of k-fold fractional graph colouring illustrates one case of our method, but does not constrain its generality. The degree of applicability of each single rewrite rule shall be the subject of future studies.
+
+Based on Figure 2, they also suggest that the reformulation is done in one step, but it is, in fact, done in six numbered steps as listed before Figure 2.
+
+The reviewer suggests introducing new variables before attempting to rewrite the constraint. The transformation should be applied only if a particular pattern in the constraint is found. Therefore it requires matching the constraint before initiating the rewrite that adds the additional variable.
+
+The reviewer asks why we need to pose a CSP to convert the solution: this is much easier to implement and solve than creating a graph rewriting rule. It is also straightforward to automate.
+
+The approach is not restricted to models that use only one decision variable, as it can rewrite arbitrary specifications.
+
+We emphasise that our graph rewriting approach inherently takes into account context, and the potential dangers raised by the reviewer (appropriate for term-level rewriting) therefore do not apply.
+
+The rewrite rules are several hundred lines of text; Listing 2 shows a small fragment. We would be happy to add the full rules as an appendix or to make them accessible via a github repository.
+
+The second last line in Figure 2 is not blue due to the fact that we remove it by matching the previous line in the constraint.
+
+
+Answer to reviewer 2:
+
+The pipeline details are described in the cited publication. We did not repeat these details due to the limited space. We will remove the [redacted] citation that may have caused some confusion.
+
+
+Answers to reviewer 3:
+
+The construction of the AST makes use of a standard shunting yard algorithm to construct a minimal tree, and therefore was omitted.
+
+Figure 1 is explained in the redacted publication. Apologies for the confusion.
+
+Since we did not have space to discuss the rewriting formalism or the GP2 graph rewriting language in detail, which is available in the existing literature, we instead described in plain English the workings of the example in Listing 2 to convey the main ideas.
+
+We would be happy to provide the full rewrite rules either via an appendix or a github link.
+
+The solution converter still has one manual substep; however, we show how the procedure works, and this could be automated throughout. Converters can be reused for each specific type-to-type conversion.
+
+The goal was to show that the method is helpful for at least one solver; we will definitely evaluate the method across multiple solvers in future experiments.
+
+
+
+
+

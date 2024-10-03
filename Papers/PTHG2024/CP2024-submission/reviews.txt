@@ -1,0 +1,126 @@
+----------------------- REVIEW 1
+SUBMISSION: 78
+TITLE: Automating Reformulation of Essence Specifications via Graph Rewriting
+AUTHORS: Christopher Stone, András Z. Salamon and Ian Miguel
+
+----------- Overall evaluation
+SCORE: -1 (weak reject)
+----- TEXT:
+This paper examines the use of graph rewriting to rewrite Essence
+specifications to more efficient models. The paper shows for a single
+example how a rewriting of the model can lead to a far more efficient
+resulting model than the original model defines, by changing the view of the
+decision, and rewriting the constraints appropriately.
+
+The main weakness of this paper, is its not clear how generalizable the
+approach is. In the example the original relation decision is mapped to a
+fixed cardinality set mapping. This works for this particular example
+because the constraint "$ enforce number of colours per node", are detected,
+and the constraint "$ endpoints of edges do not share colours" can be
+rewritten to the new viewpoint efficiently. As described it appears the
+reformulation is done in one step (Figure 2).  For example, the explanation
+of the transformation seems to be unable to handle a second separate constraint
+that also quantifies over tuples in "colouring".  This seems to make the
+rewriting rule effectively on applicable to almost this exact problem.
+
+A more natural approach would first introduce the new "colourSet" variables
+and the constraints that ensure that "colourSet" and "colouring" agree, then
+try to rewrite each rule using "colouring" to make use of "colourSet", and
+finally if this is possible remove the redundant "colouring" variables. This
+also implicitly builds the CSP required to map "colourSet" solutions baek to
+"colouring".
+
+Another weakness is the relationship between the two views on the
+decision. In most model translations this relationship is functional, indeed
+for the example we can define
+
+colouring = {(u, c) | u in vertices, c in colourset[u] }
+
+Why do we need to solve a CSP to find the values of colouring? Surely this
+"output processing" can be made part of the rewrite. 
+ 
+Another question that arises is how the matching takes care of contextual
+information.  One of the challenges of rewriting constraints is that the
+constraints we want to rewrite can occur deeply nested in complex constraints.
+One has to be careful not to see the following
+
+find x: function (total) vertices -> colour
+such that
+     x[v1] = red \/ x[v2] = blue,
+     x[v1] = x[v3]
+
+and substitute red for the second use of x[v1], since the context of
+the equality is a disjunct, so it may not necessarily hold.
+
+Overall the work is too preliminary to be accepted, and much more detail
+needs to be provided to understand how the method works exactly, and how
+reusable tranformation rules are.
+
+
+Minor issues.
+
+Listing 1. Is the method restricted to models like this which have only one,
+albeit complex, decision variable?
+
+p4. [redacted]. Its better to include the reference so that the reviewers
+can see what you mean. Just because you "extend the work of" doesnt
+necessarily mean you are the same authors, although in practice it probably
+does, so I dont think this breaks double blind rules (which in a small
+community dont do much anyway).
+
+p5. It would be good to give the actual rule used to do the rewriting,
+so reader can judge the complexity of writing such rules.
+
+Figure 2. Why is the colouring variable on the second last line not in blue?
+
+Figure 4. The detailed empirical results are problably not necessary, the
+readers should understand that we can easily get exponential gains by
+changing the viewpoint of a CP problem, so simply some summary numbers
+relations average speedup, and number of problems solved would be enough to
+illustrate the potent effect of model transformation.
+
+Listing 4. Cant a functional definition like the one above be used, or
+incorporated as part of the rewrite?
+
+
+----------------------- REVIEW 2
+SUBMISSION: 78
+TITLE: Automating Reformulation of Essence Specifications via Graph Rewriting
+AUTHORS: Christopher Stone, András Z. Salamon and Ian Miguel
+
+----------- Overall evaluation
+SCORE: -2 (reject)
+----- TEXT:
+The paper presents a methodology to rewrite Essence specification using Graph Reformulation. The main difference with existing work is that the authors focus on rewriting a generic parametrized model rather than instances individually. They do so by formulating the Essence Specification into an intermediate language (GP2) and repeatingly reformulating the graph using a list of rules.
+
+I believe the paper does not cover enough material to be accepted. The explanation are either too superficial (mainly the first 3 pages) or far too fast. The pipeline is not described properly. For example, what are NX and GP2 String B in Figure 1? What is the purpose of JSON?
+
+The authors should extend their work and properly define their pipeline.
+
+
+----------------------- REVIEW 3
+SUBMISSION: 78
+TITLE: Automating Reformulation of Essence Specifications via Graph Rewriting
+AUTHORS: Christopher Stone, András Z. Salamon and Ian Miguel
+
+----------- Overall evaluation
+SCORE: -1 (weak reject)
+----- TEXT:
+The authors propose an automated method to reformulate constraint programming (CP) models given in Essence by utilizing the concept of Graph Rewriting. This transformation focuses on the problem itself rather than its instances, distinguishing it from previous approaches. The methodology involves constructing the abstract syntax tree (AST) of an input specification and then employing the Graph Programs 2 (GP2) library to execute the rewriting rules. The k-fold graph coloring problem is used as an illustrative example throughout the paper, including in the experimental section.
+
+
+While the proposed approach of using Graph Rewriting for CP model reformulation shows potential, the paper requires significant improvements in clarity, scope, and experimental validation. Below my detailed comments.
+
+*/ The paper does not clearly explain how the AST is constructed from the input specification. Further elaboration on this process is necessary.
+
+*/ Figure 1 is not well explained.
+
+*/ The paper does not provide a clear list or explanation of the rules used for the reformulation. A comprehensive list of these rules should be included.
+
+*/ Similar to the previous point, the rule used in Listing 2 (presented in GP2 format) is not clear. Before presenting Listing 2, it would be beneficial to explain the rules in a language-independent, mathematical manner.
+
+*/ Figure 4 is not explained.
+
+*/ It is unclear whether the solution converter is written manually or generated automatically by the reformulation procedure. If the solution converter is written manually, this indicates a flaw in the proposed approach, as each problem would need a manually constructed solution converter.
+
+*/ The experimental study lacks many details, particularly regarding the specific solver used. For a comprehensive assessment, the experimental design should include multiple solvers to verify that the new problem formulation is indeed better. The problem needs further attention if the authors used SAT, as high-level constraints might have different encodings.

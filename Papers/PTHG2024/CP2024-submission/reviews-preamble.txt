@@ -1,0 +1,51 @@
+Dear [*FIRST-NAME*],
+
+Thank you for your submission to CP 2024. The CP 2024 rebuttal period
+begins now and runs to 2024-06-02, end of day, anywhere on Earth.
+
+During this time, you will have access to the current state of your
+reviews and have the opportunity to submit a response.
+
+Please keep in mind the following during this process:
+
+* The response must focus on any factual errors in the reviews and
+any questions posed by the reviewers. It must not provide new
+research results or reformulate the presentation. Try to be as
+concise and to the point as possible.
+
+* The rebuttal period is an opportunity to react to the reviews, but
+not a requirement to do so. Thus, if you feel the reviews are
+accurate and the reviewers have not asked any questions, then you do
+not have to respond.
+
+* The reviews are as submitted by the PC members, without any
+coordination between them. Thus, there may be inconsistencies.
+Furthermore, these are not the final versions of the reviews. The
+reviews can later be updated to take into account discussions
+within the program committee, and we may find it necessary to
+solicit other outside reviews after the rebuttal period.
+
+* The program committee will read your responses carefully and take
+this information into account during the discussions. On the other
+hand, the program committee will not directly respond to your
+responses.
+
+* Your response will be seen by all PC members who have access to the
+discussion of your paper, so please try to be polite and constructive.
+
+The reviews on your paper are attached to this letter. To submit your
+response you should log on the EasyChair Web page for CP 2024 and
+select your submission on the menu.
+
+Nearly all papers have three reviews at this point, but a rare
+few may only have two. We are trying our best to chase up the few
+missing reviews and hope to have them very soon.
+
+
+Best wishes, and thank you again for submitting to CP 2024,
+
+
+The CP 2024 Chairs.
+
+
+[*REVIEWS*]
