@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.append('greee')
+sys.path.append('.')
 import greee.gp2Interface as gp2Interface
 import subprocess
 

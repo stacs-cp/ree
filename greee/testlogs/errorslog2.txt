@@ -436,3 +436,60 @@ Invalid statement:language Token Num: 0
 gc-simple.essence
 Invalid statement:of Token Num: 18
 ----------------------------- 
++++++++++++++++++++++++++++++++++++++ 
+2024-10-03 15:42:55.270859
+ 
+r-sum.essence
+'int' object has no attribute 'info'
+----------------------------- 
+subsetdiff3.essence
+Missing Expression at: 7
+----------------------------- 
+nestedfunctionpartialmatrix.essence
+Domain Parsing Error. Token: matrix. Token Num: 24
+----------------------------- 
+gcrel.essence
+Missing Expression at: 34
+----------------------------- 
+subsetdiff2.essence
+Missing Expression at: 7
+----------------------------- 
+gc-simple.essence
+'int' object has no attribute 'info'
+----------------------------- 
+r-sum-2.essence
+'int' object has no attribute 'info'
+----------------------------- 
+subsetdiff1.essence
+Missing Expression at: 7
+----------------------------- 
+nestedfunctiontotalmatrix.essence
+Domain Parsing Error. Token: matrix. Token Num: 24
+----------------------------- 
+graph-shortcheaptour-2017070301.essence
+Parsing Error! Token num 2. Expected ':', but got ','.
+----------------------------- 
+subsetdiff4.essence
+Missing Expression at: 7
+----------------------------- 
+streamliner0.essence
+pop from empty list
+----------------------------- 
+f2seq.essence
+Missing Expression at: 7
+----------------------------- 
+subsetsum2.essence
+Missing Expression at: 7
+----------------------------- 
+gcmulti.essence
+Missing Expression at: 36
+----------------------------- 
+gcmulti-func-instanceRepair.essence
+list index out of range
+----------------------------- 
+gc.essence
+Missing Expression at: 31
+----------------------------- 
+subsetsum1.essence
+Missing Expression at: 7
+----------------------------- 

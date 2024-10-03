@@ -1,7 +1,7 @@
 import sys
-sys.path.append('greee')
-import eminipyparser as ep
-import icing
+sys.path.append('.')
+import greee.eminipyparser as ep
+from greee import icing
 
 test_strings = []
 

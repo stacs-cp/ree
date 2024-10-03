@@ -1,6 +1,6 @@
 import sys
-sys.path.append('greee')
-import EFormatConverters as EFC
+sys.path.append('.')
+from greee import EFormatConverters as EFC
 import greee.gp2Graph as gp2Graph
 import json
 
@@ -19,12 +19,12 @@ print(j)
 with open('jsons/data.json', 'w') as f:
     f.write(j)
 
-astfj = EFC.JsonToASTpy('jsons/data.json')
+astfj = EFC.JsonToASTpy(j)
 EFC.ep.printTree(astfj)
 
-astj = json.loads(j, object_hook=lambda ASTpy: EFC.ep.Node(**ASTpy))
+#astj = json.loads(j, object_hook=lambda ASTpy: EFC.ep.Node(**ASTpy))
 print("Withoutfilesave")
-EFC.ep.printTree(astj)
+#EFC.ep.printTree(astj)
 
 gp2z = EFC.ASTpyToGP2Graph(ast)
 

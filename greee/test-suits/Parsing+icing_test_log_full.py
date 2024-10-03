@@ -1,20 +1,24 @@
+
 import sys
-sys.path.append('greee')
-import eminipyparser as ep
+sys.path.append('.')
+from greee import eminipyparser as ep
 import os
+from greee import icing
 from datetime import datetime
 
 def prettyPrintFile(filename):
     with open(filename, 'r') as file:
       data = file.read()
     parser = ep.EssenceParser()
-    statements = parser.parse(data,filename)
-    #rootTree = ep.Node(filename, statements)
-    ep.printTree(statements,printInfo=True)
-    ep.getNXTree(filename,statements)
+    rootTree = parser.parse(data,filename)
+    # = ep.Node(filename, statements)
+    ep.printTree(rootTree,printInfo=True)
+    ep.getNXTree(filename,rootTree)
+    spec = icing.ASTtoEssence(rootTree)
+    print(spec)
 
 directory = "./tests/"
-errorslogfile = open('./tools/testlogs/errorslog2.txt', 'a')
+errorslogfile = open('./greee/testlogs/errorslog-parse+icing.txt', 'a')
 errorslogfile.write("+++++++++++++++++++++++++++++++++++++ \n")
 errorslogfile.write(str(datetime.now()) + '\n \n')
 for filename in os.listdir(directory):
@@ -28,4 +32,5 @@ for filename in os.listdir(directory):
           print("--------------------------------------")
           print("ERROR in: " + filename)
           print(str(e))
+          print("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+")
 errorslogfile.close()

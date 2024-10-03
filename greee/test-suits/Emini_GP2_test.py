@@ -1,6 +1,6 @@
 import sys
-sys.path.append('greee')
-import EFormatGraph
+sys.path.append('.')
+from greee import EFormatGraph
 
 
 eminiSpec = """

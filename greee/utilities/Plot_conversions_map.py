@@ -1,7 +1,7 @@
 import sys
-sys.path.append('greee')
+sys.path.append('.')
 
-import EFormatConverters as EFC
+from greee import EFormatConverters as EFC
 import greee.gp2Graph as gp2Graph
 import networkx as nx
 from inspect import signature
@@ -34,4 +34,4 @@ def createFormatsGraph():
 
     return formsGraph
 
-#plotFormatsGraph()
+plotFormatsGraph()

@@ -1,8 +1,8 @@
 import sys
-sys.path.append('greee')
-import eminipyparser as ep
+sys.path.append('.')
+from greee import eminipyparser as ep
 import os
-import icing
+from greee import icing
 from datetime import datetime
 
 
@@ -16,7 +16,7 @@ def prettyPrintFile(filename):
     return (data,spec)
 
 directory = "./tests/"
-file = open('./tools/testlogs/icing-log.txt', 'a')
+file = open('./greee/testlogs/icing-log.txt', 'a')
 file.write("+++++++++++++++++++++++++++++++++++++ \n")
 file.write(str(datetime.now()) + '\n \n')
 for filename in os.listdir(directory):

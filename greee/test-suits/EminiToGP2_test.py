@@ -1,9 +1,8 @@
 import sys
-sys.path.append('greee')
-import EFormatConverters as EFC
-import EFormatGraph
+sys.path.append('.')
+from greee import EFormatConverters as EFC
+from greee import EFormatGraph
 import os
-import icing
 import greee.gp2Interface as gp2Interface
 from datetime import datetime
 import subprocess

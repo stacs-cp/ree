@@ -1,4 +1,7 @@
-import EFormatConverters as EFC
+import sys
+sys.path.append('.')
+
+from greee import EFormatConverters as EFC
 import greee.gp2Graph as gp2Graph
 
 teststr = """

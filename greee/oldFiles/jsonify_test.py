@@ -1,6 +1,6 @@
 import sys
-sys.path.append('greee')
-import eminipyparser as ep
+sys.path.append('.')
+from greee import eminipyparser as ep
 from typing import List
 import json
 import networkx as nx

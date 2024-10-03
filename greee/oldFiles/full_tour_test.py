@@ -1,8 +1,8 @@
 # place holder for full test including conjure and GP2 prog
 import sys
-sys.path.append('greee')
+sys.path.append('.')
 import subprocess
-import EFormatGraph
+from greee import EFormatGraph
 import os
 
 spec = '''

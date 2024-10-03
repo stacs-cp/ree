@@ -1,8 +1,8 @@
 import sys
-sys.path.append('greee')
-import eminipyparser as ep
+sys.path.append('.')
+from greee import eminipyparser as ep
 import os
-import icing
+from greee import icing
 from datetime import datetime
 
 
