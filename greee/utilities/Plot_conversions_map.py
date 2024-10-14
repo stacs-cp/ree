@@ -34,4 +34,5 @@ def createFormatsGraph():
 
     return formsGraph
 
-plotFormatsGraph()
+if __name__ == '__main__':
+    plotFormatsGraph()
