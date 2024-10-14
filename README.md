@@ -16,10 +16,11 @@ Noteworthy components:
 
 - ``tests/`` Essence snippets for testing
 
-In ``tools``:
+In ``greee``:
 - ``EFormatConverters.py`` convert between EMini and other formats
-- ``harness`` make AST, GP2, and PDF representation from Essence files
-- ``astize`` creates a JSON AST from an Essence spec by invoking Conjure
+- ``trans.py`` UI for conversion between formats
+- ``harness`` (old) make AST, GP2, and PDF representation from Essence files
+- ``astize`` (old) creates a JSON AST from an Essence spec by invoking Conjure
 
 In ``emini``:
 - ``emini.md`` description of EMini fragment of Essence

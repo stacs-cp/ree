@@ -1,4 +1,3 @@
-karateclub
 matplotlib
 networkx
 pandas

@@ -9,6 +9,10 @@ statementsOrder = {"NameLettingStatement": 1,
 binaryOpNormalisable = ["*","+","=", "!=", "/\\","\\/"]
 
 def normaliseASTpy(node):
+    '''
+    Put AST in normal form (preliminary code).
+    Currently only sorts children, aim is to extend this to full normal form.
+    '''
     if node.info in normalisable:
         node.children = reOrder(node)
     for child in node.children:
@@ -16,6 +20,11 @@ def normaliseASTpy(node):
 
 
 def reOrder(node):
+    '''
+    Sort children of node.
+    Currently applied to binary expressions and to group together
+    letting/find/such that statements.
+    '''
     if node.info == "RelationConstant":
         print("what to do with the tuples ?")
     elif node.info == "BinaryExpression":
@@ -26,6 +35,9 @@ def reOrder(node):
     return node.children
 
 def compareStatements(x,y):
+    '''
+    Classify statements by general category.
+    '''
     return statementsOrder[x] - statementsOrder[y]
 
 ## place holder

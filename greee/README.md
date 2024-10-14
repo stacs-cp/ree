@@ -50,9 +50,6 @@ The following software first needs to be installed:
 - GP 2 needs the [Judy](https://sourceforge.net/projects/judy/) library
 
 In ``bin``:
-- ``emini2gp2.py`` convert from EMini to GP2
-- ``gp22emini.py`` convert from GP2 to EMini
-- ``gp22json.py`` convert from GP2 to JSON
 - ``harness`` make AST, GP2, and PDF representation from Essence or EMini
 - ``trans`` translate from input to output format (e.g. AST,GP2,Emini,Json)
 
