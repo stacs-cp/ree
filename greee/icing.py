@@ -219,33 +219,33 @@ def needsParenthesis(node,parent):
         return False
     
 def precedence(op):
-            if op == "->":
-                return -4
-            if op == "/\\":
-                return -1
-            if op == "xor":
-                return -2
-            if op == "\\/":
-                return -3
-            if op in ["<", ">", "<=", ">=","=", "!="]:
-                return 0
-            if op == "in":
-                return 0
-            if op in ["subset","subsetEq"]:
-                return 1
-            if op in ["intersect", "union"]:
-                return 2
-            if op in ["+", "-"]:
-                return 3
-            if op in ["*", "/","%"]:
-                return 4
-            if op in ["u-", "u!"]:   ## UNARY OPERATORS
-                return 8
-            if op == ".":
-                return -11
-            if op == "(":
-                return 9
-            return 999
+    if op == "->":
+        return -4
+    if op == "/\\":
+        return -1
+    if op == "xor":
+        return -2
+    if op == "\\/":
+        return -3
+    if op in ["<", ">", "<=", ">=","=", "!="]:
+        return 0
+    if op == "in":
+        return 0
+    if op in ["subset","subsetEq"]:
+        return 1
+    if op in ["intersect", "union"]:
+        return 2
+    if op in ["+", "-"]:
+        return 3
+    if op in ["*", "/","%"]:
+        return 4
+    if op in ["u-", "u!"]:   ## UNARY OPERATORS
+        return 8
+    if op == ".":
+        return -11
+    if op == "(":
+        return 9
+    return 999
     
 
 def iceDomain(node):

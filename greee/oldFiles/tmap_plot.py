@@ -9,7 +9,7 @@ from networkx.drawing.nx_pydot import graphviz_layout
 #from karateclub import FeatherGraph ## Prune
 #forms = ["EminiSpec","ASTpy","1DTokens","ASTNX","ASTpyJson","GP2Graph","Neo4j"]
 import pandas as pd
-import umap.umap_ as umap
+#import umap.umap_ as umap
 import numpy as np
 
 def MainTMAP():
@@ -155,7 +155,7 @@ def expMapSkeleton():
 
     SavileRowOutputs = ["MiniZinc","FlatZinc","Minion","Gecode","SMT", "MaxSAT", "SAT"]
 
-    separation = 10;
+    separation = 10
     solversDist=0.7
     for i,output in enumerate(SavileRowOutputs):
         formsGraph.add_node(output)
