@@ -1,3 +1,6 @@
+'''
+basic template-based generator for Emini
+'''
 import random
 inequa = [">=","<=",">","<","="]
 operators = ["*","+","-","/"]   
@@ -34,21 +37,36 @@ def spawnEssence():
     return spec
 
 def addLetting(spec,variables):
+    '''
+    random letting statement
+    '''
     spec += f"letting resource{variables} be {random.randint(1,20)} \n" 
     return spec
 
 def addFind(spec,decision):
+    '''
+    random find statement
+    '''
     spec += f"find Y{decision}: int(0..100) \n"    
     return spec
 
 def addConstraint(spec,decision,variables):
+    '''
+    random constraint
+    '''
     spec += f"such that \n  {expression(decision,variables)} \n "
     return spec
 def expression(decision,variables):
+    '''
+    random expression
+    '''
     expression = f"Y{random.randint(1,decision)} {random.choice(inequa)} resource{binaryExpress(random.randint(1,variables))}\n"
     return expression
     
 def binaryExpress(inputExp):
+    '''
+    random binary expression
+    '''
     exp = str(inputExp)
     if random.random() > recursionProb:
         exp += f' {random.choice(operators)} resource{str(binaryExpress(exp))}'

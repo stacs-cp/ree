@@ -1,3 +1,6 @@
+'''
+Emini format conversion graph
+'''
 from greee import EFormatConverters as EFC
 from greee import gp2Graph
 import networkx as nx
@@ -22,6 +25,9 @@ class EFGraph:
     
     '''
     def __init__(self):
+        '''
+        constructor
+        '''
         self.formsGraph = nx.DiGraph()
 
         for val in EFC.__dict__.values():
@@ -50,7 +56,6 @@ class EFGraph:
         return AST
     
     def timedFormToForm(self, AST, fromForm, toForm):
-
         """Convert an Emini spec from one form to another by specifing the end points.
         Intermediate forms are chosen via shortest path in number of steps.
         returns an extra graph with the timings as edge attributes.
@@ -93,6 +98,9 @@ class EFGraph:
         return AST
     
     def TimedEulerTour(self, AST, origin):
+        '''
+        compute Euler circuit and its cost
+        '''
 
         timeGraph = nx.DiGraph()
         timeGraph.name = AST
@@ -105,6 +113,9 @@ class EFGraph:
         return AST, timeGraph
     
     def timedCycle(self, AST, origin):
+        '''
+        compute cycle and its cost
+        '''
 
         timeGraph = nx.DiGraph()
         timeGraph.name = AST
@@ -120,6 +131,9 @@ class EFGraph:
         return AST, timeGraph
     
     def timedCyclesTours(self, AST, origin):
+        '''
+        compute cycles and their costs
+        '''
 
         timeGraph = nx.DiGraph()
         timeGraph.name = AST
@@ -144,6 +158,9 @@ class EFGraph:
         return AST, timeGraph
             
     def allPathsFrom(self, AST, origin):
+        '''
+        compute all paths from origin node
+        '''
 
         timeGraph = nx.DiGraph()
         timeGraph.name = AST
@@ -163,6 +180,9 @@ class EFGraph:
         return AST, timeGraph
     
     def allEdgesFrom(self, AST, origin):
+        '''
+        find all edges from origin
+        '''
 
         timeGraph = nx.DiGraph()
         timeGraph.name = AST
@@ -193,7 +213,6 @@ class EFGraph:
         return AST, timeGraph
     
     def heuristicChinesePostman(self, AST, origin):
-
         """Poor man heuristic to solve the chinese postman problem.
         We need a closed cycle that passes over each edge at least once. It is ok if more than once.
         Likely suboptical. ok for very small graphs.
@@ -255,6 +274,9 @@ class EFGraph:
 
 
 def funcTests():
+    '''
+    test function
+    '''
     teststr = r"""
     letting vertices be domain int(1..3)
     letting colours be domain int(1..3)
@@ -301,6 +323,9 @@ def funcTests():
     plt.show()
 
 def postMantest():
+    '''
+    test function
+    '''
     teststr = r"""
     letting vertices be domain int(1..3)
     letting colours be domain int(1..3)

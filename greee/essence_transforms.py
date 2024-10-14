@@ -1,3 +1,6 @@
+'''
+Collection of helpers for all Essence transformations
+'''
 from greee.EFormatGraph import EFGraph
 from greee import EFormatConverters as EFC
 from greee import eminipyparser as ep
@@ -27,13 +30,16 @@ class EssenceTransforms(EFGraph):
         TODO: Spec2Vec?
         """
     def __init__(self):
+        '''
+        constructor
+        '''
         super().__init__() # Format converters are gathered and initalised here
         self.parser = ep.EssenceParser() # one parser one context?
         self.graph = nx.MultiDiGraph()
         self.gp2arms = gp2Interface.scanPrecompiledPrograms()
         self.epsilon = 0.5 # exploration parameter for multi armed bandit
         self.currentNode = None 
-        self.instace_specs_list = []
+        self.instance_specs_list = []
 
     def add_e_node(self, emini_string, file_name="", role ="",data ={}):            
         """Add a node to the graph, the hash of the input emini_string is computed and used as ID
@@ -54,7 +60,7 @@ class EssenceTransforms(EFGraph):
             attributes = {'emini': emini_string,'file_name': file_name,'role':node_role, **data}
             self.graph.add_node(ID, **attributes)
             if node_role=="instance_spec":
-                self.instace_specs_list.append(ID)
+                self.instance_specs_list.append(ID)
         return ID
     
     def add_e_edge(self, source, target, transformation_name, data ={}):
@@ -208,15 +214,24 @@ class EssenceTransforms(EFGraph):
         return emini_transformed_ID
     
     def IntSequence_to_Spec(sequence):
-        # maybe add to format converter
+        '''
+        currently just makes an empty spec
+        maybe add to format converter
+        '''
         emini_string = ""
         return emini_string
     
     def Spec_to_IntSequence(emini_string):
+        '''
+        currently just makes an empty integer sequence
+        '''
         sequence = []
         return sequence
     
     def normalise(format, spec):
+        '''
+        currently does nothing
+        '''
         return
     
     def Abstract_to_ConcreteSpec(abstract_spec,method=""):
@@ -236,7 +251,10 @@ class EssenceTransforms(EFGraph):
         return self.FormToForm(insta_gen, "ASTpy","Emini")
     
     def select_current_node(self, method=""):
-        self.currentNode = random.choice(self.instace_specs_list)
+        '''
+        randomly choose a spec
+        '''
+        self.currentNode = random.choice(self.instance_specs_list)
         return self.currentNode
     
     def determine_node_role(self, emini_string):
@@ -254,6 +272,9 @@ class EssenceTransforms(EFGraph):
         return ""
 
     def epsilon_greedy_arm_selection(self, rewards):
+        '''
+        simple greedy arm choice
+        '''
         if random.random() < self.epsilon:  # Exploration
             chosen_func = random.choice(self.gp2arms)
         else:  # Exploitation

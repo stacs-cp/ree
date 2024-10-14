@@ -1,3 +1,7 @@
+'''
+add back syntactic sugar elided in internal AST representation (not comments)
+'''
+
 binary_operators = [".","<",">", "<=", ">=", "+", "-", "*", "/", "%", "=","!=", "->", "/\\", "xor","\\/" , "and" , "in", "subset","subsetEq","intersect","union"]
 
 def ASTtoEssence(AST):
@@ -11,6 +15,9 @@ def ASTtoEssence(AST):
     return spec
 
 def iceStatement(node):
+    '''
+    deal with each type of statement
+    '''
     if node.info == 'GivenStatement':
         return iceGivenParameter(node)
     if node.info == "WhereStatement":
@@ -26,6 +33,9 @@ def iceStatement(node):
     
 
 def iceGivenParameter(node):
+    '''
+    given statement
+    '''
     statement = "given "
     statement += node.children[0].label # Name. The first child of a given statement is always the name
     statement += " : " 
@@ -33,6 +43,9 @@ def iceGivenParameter(node):
     return statement
 
 def iceWhere(node):
+    '''
+    where statement
+    '''
     statement = "where \n  "
     constraints = []
     for expression in node.children: # get all stacks for all comma separated expressions
@@ -43,6 +56,9 @@ def iceWhere(node):
     return statement
 
 def iceLettingConstant(node):
+    '''
+    letting statement, constant
+    '''
     statement = "letting "
     statement += node.children[0].label # The first child of a letting statement is always the name
     statement += " be " 
@@ -50,6 +66,9 @@ def iceLettingConstant(node):
     return statement
 
 def iceLettingDomain(node):
+    '''
+    letting statement, domain
+    '''
     statement = "letting "
     statement += node.children[0].label # The first child of a letting statement is always the name
     statement += " be domain " 
@@ -57,6 +76,9 @@ def iceLettingDomain(node):
     return statement
 
 def iceFind(node):
+    '''
+    find statement
+    '''
     statement = "find "
     statement += node.children[0].label # The first child of a find statement is always the name
     statement += " : " 
@@ -64,6 +86,9 @@ def iceFind(node):
     return statement
 
 def iceSuchThat(node):
+    '''
+    such that statement
+    '''
     statement = "such that\n"
     constraints = []
     for expression in node.children: # get all stacks for all comma separated expressions
@@ -74,6 +99,9 @@ def iceSuchThat(node):
     return statement
 
 def iceConstraints(node, constraints, spacer=""):
+    '''
+    constraints
+    '''
     
     constraints.append(spacer)
     spacer += " " 
@@ -90,6 +118,9 @@ def iceConstraints(node, constraints, spacer=""):
        
 
 def iceConstants(node):
+    '''
+    constants
+    '''
     if node.info in ["Integer", "Literal", "Boolean", "ReferenceToNamedConstant","ReferenceToParameter","ReferenceToDecisionVariable"]:
         return node.label
     elif node.label == "relation":
@@ -129,6 +160,9 @@ def iceConstants(node):
         raise Exception(f"Something went wrong when icing Constant: {node.label} Info:{node.info}")
     
 def iceExpression(node):
+    '''
+    expression
+    '''
     expression = ""
     stack = []
     expressionInOrderTraversal(node,stack,None)
@@ -136,6 +170,9 @@ def iceExpression(node):
     return expression
 
 def iceQuantifier(node):
+    '''
+    quantifier
+    '''
     quantifier = node.label + " "
     quantifier += iceLocalVariables(node.children[:-1]) + " "
     quantifier += node.children[-1].label + " " # preposition
@@ -146,6 +183,9 @@ def iceQuantifier(node):
     return quantifier
 
 def iceLocalVariables(variables):
+    '''
+    local variables
+    '''
     localVariables = ""
     if type(variables) == list:
         vars = []
@@ -161,6 +201,9 @@ def iceLocalVariables(variables):
     return localVariables
 
 def expressionInOrderTraversal(node, stack, parent):   
+    '''
+    expression, respecting ordered children
+    '''
     parentheses = needsParenthesis(node,parent)
 
     if len(node.children) == 2 and node.label in binary_operators:  # check if it is binary subtree
@@ -192,6 +235,9 @@ def expressionInOrderTraversal(node, stack, parent):
         stack.append(node.label)
 
 def iceMemberExpression(node):
+    '''
+    member expression
+    '''
     memberExpression = ""
     memberExpression += node.label
     if node.children[0].label == "tuple":
@@ -208,6 +254,9 @@ def iceMemberExpression(node):
 
 
 def needsParenthesis(node,parent):
+    '''
+    put back parenthesis if it is needed to maintain semantics
+    '''
     if parent != None and parent.label != "->":
         return precedence(node.label) < precedence(parent.label)
     elif parent != None and parent.label == "->":
@@ -219,6 +268,10 @@ def needsParenthesis(node,parent):
         return False
     
 def precedence(op):
+    '''
+    compute operator precedence
+    should this be merged with eminipyparser.precedence()?
+    '''
     if op == "->":
         return -4
     if op == "/\\":
@@ -249,6 +302,9 @@ def precedence(op):
     
 
 def iceDomain(node):
+    '''
+    domains
+    '''
     domain = ""
     if node.info == "IntDomain":
         domain += "int("

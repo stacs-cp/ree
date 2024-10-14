@@ -47,6 +47,9 @@ def ASTpyToGP2Graph(ASTpy):
     gp2g = gp2Graph.GP2Graph([],[])
     
     def buildTree(node, Tree, index=1, parentID=None):   
+        '''
+        Build GP2 graph tree from AST
+        '''
         nodeID = len(gp2g.nodes)             
         Tree.addNode(nodeID, node.label,node.info) 
         if parentID != None: 
@@ -106,6 +109,9 @@ def ASTpyToNX(ASTpy):
     '''
     G = nx.DiGraph()
     def buildTreeNX(node, Tree, index=1, parentID=None): 
+        '''
+        Build NetworkX tree from AST
+        '''
         nodeID = len(G.nodes())                
         Tree.add_node(nodeID, label = node.label, info=node.info) 
         if parentID != None: 
@@ -123,8 +129,10 @@ def NXToASTpy(NXGraph):
     '''
     
     def buildNode(vertex, G): 
+        '''
+        Sort node's children according to the index attribute stored in the edge
+        '''
        
-       # Sort node's children according to the index attribute stored in the edge
         neighbours = sorted(G[vertex].items(), key=lambda edge: int(edge[1]['index']))
 
         children = []
@@ -294,7 +302,7 @@ def GP2StringDTToNX(gp2stringDT):
 
 def GP2StringBToNX(gp2stringB):
     '''
-    Create graph object from gp2 formatted string . 
+    Create graph object from gp2 formatted string. 
     '''
     gp2graph = gp2Graph.GP2Graph([],[])
     tempG = nx.DiGraph()

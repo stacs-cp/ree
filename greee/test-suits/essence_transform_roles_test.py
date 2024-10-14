@@ -28,7 +28,7 @@ with open("StartSpec.essence", 'w') as file:
 
 spec_ID = et.add_e_node(spec,"StartSpec.essence")
 #print(et.determine_node_role(spec_ID))
-print(et.instace_specs_list)
+print(et.instance_specs_list)
 #solution = etransform_graph.solve(spec_ID)
 #solveTime =time.time_ns() - start
 #parentSolutionID = hash(solution)
@@ -36,7 +36,7 @@ print(et.instace_specs_list)
 print("MAB")
 for _ in range(0,20):
     et.expand_from_node(spec_ID)
-print(et.instace_specs_list)
+print(et.instance_specs_list)
 
  # PLOT
 pos = nx.spring_layout(et.graph)
