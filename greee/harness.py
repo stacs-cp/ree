@@ -36,6 +36,9 @@ class AST:
     to keep our list-based representation in synch with nx.
     '''
     def __init__(self):
+        '''
+        Make an AST instance.
+        '''
         self._ei = 0
         self._edgeLabel = []
         self._edgeFrom = []
@@ -45,9 +48,15 @@ class AST:
         self._G = nx.DiGraph()
 
     def __repr__(self):
+        '''
+        Make a representation of AST for debugging.
+        '''
         return f'<{type(self).__name__} at 0x{id(self):x}, size={len(self)}>'
 
     def makeEdge(self, u, v, attribute):
+        '''
+        Create edge u->v with given attribute.
+        '''
         self._edgeLabel.append(attribute)
         self._edgeFrom.append(u)
         self._edgeTo.append(v)
@@ -56,6 +65,9 @@ class AST:
         self._ei += 1
         return rv
     def makeNode(self, attribute):
+        '''
+        Create node with given attribute.
+        '''
         self._nodeLabel.append(attribute)
         self._G.add_node(self._ni, label=attribute)
         rv = self._ni
@@ -119,6 +131,9 @@ class AST:
         print(']')
 
     def draw(self, instanceName):
+        '''
+        Make a PDF representing the AST.
+        '''
         from networkx.drawing.nx_agraph import graphviz_layout
         # for looser layout:
         plt.figure(figsize=(20,20), dpi=40)
@@ -193,6 +208,9 @@ def harness() -> int:
             with open(fname, 'r') as infile:
                 outfile.write(infile.read())
     def cleanup():
+        '''
+        Remove temporary file on exit, unless debugging.
+        '''
         if not debug: os.remove(tmpfile)
     atexit.register(cleanup)
 

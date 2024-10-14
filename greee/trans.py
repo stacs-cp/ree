@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+'''
+Front-end for running translations between different internal formats.
+'''
 import sys
 import argparse
 import fileinput
@@ -56,7 +59,8 @@ def trans() -> int:
     validFormats = EFG.formsGraph.nodes
     global debug
     debug = False
-    p = argparse.ArgumentParser(description='translate file to another format')
+    p = argparse.ArgumentParser(description='translate file to another format',
+        epilog='Example: trans test.essence -t Json')
     p.add_argument('-d', '--debug', action='store_true',
         help='print additional diagnostic information')
     p.add_argument('infile', nargs='?', action='store', default='STDIN',

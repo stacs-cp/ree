@@ -1,3 +1,6 @@
+'''
+Methods to transform an AST into normal form; currently quite limited.
+'''
 import functools
 
 normalisable = ["RelationConstant", "BinaryExpression", "root"]
@@ -40,6 +43,8 @@ def compareStatements(x,y):
     '''
     return statementsOrder[x] - statementsOrder[y]
 
-## place holder
 def compareExpression(exp1, exp2):
+    '''
+    currently just a placeholder
+    '''
     return 0
