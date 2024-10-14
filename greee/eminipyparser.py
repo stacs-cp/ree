@@ -1,3 +1,6 @@
+'''
+Parser and associated ASTpy object
+'''
 import re
 import networkx as nx
 import copy
@@ -11,6 +14,9 @@ class Node:
             info(str, optional): Syntactic information
     """
     def __init__(self, label, children=[],info = ""):
+        '''
+        Make an ASTpy node
+        '''
         self.label = label
         self.children = children
         if info == "":
@@ -19,102 +25,150 @@ class Node:
             self.info = info
 
 ### Statements
+# docstr-coverage:excused `single-line constructors`
 class GivenStatement(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, name, domain):
         super().__init__("given", [Node(name,[domain], "Parameter")])
 
+# docstr-coverage:excused `single-line constructors`
 class WhereStatement(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, constraints):
         super().__init__("where", constraints)
 
+# docstr-coverage:excused `single-line constructors`
 class NameLettingStatement(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, name, constant):
         super().__init__("letting", [Node(name,[constant])])
 
+# docstr-coverage:excused `single-line constructors`
 class DomainNameLettingStatement(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, name, domain):
         super().__init__("letting", [Node(name,[domain])])
 
+# docstr-coverage:excused `single-line constructors`
 class FindStatement(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, name, domain):
         super().__init__("find", [Node(name,[domain], "DecisionVariable")])
     
+# docstr-coverage:excused `single-line constructors`
 class SuchThatStatement(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, constraints):
         super().__init__("such that", constraints)
     
 ### Domains
+# docstr-coverage:excused `single-line constructors`
 class IntDomain(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, lower,upper):
         super().__init__("int", [lower,upper])
     
+# docstr-coverage:excused `single-line constructors`
 class TupleDomain(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, domains):
         super().__init__("tuple", domains)
     
+# docstr-coverage:excused `single-line constructors`
 class RelationDomain(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, domains):
         super().__init__("relation", domains)
 
+# docstr-coverage:excused `single-line constructors`
 class SetDomain(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, domain):
         super().__init__("set", domain)
 
+# docstr-coverage:excused `single-line constructors`
 class FunctionDomain(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, domains):
         super().__init__("function", domains)
 
+# docstr-coverage:excused `single-line constructors`
 class BoolDomain(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self):
         super().__init__("bool")
     
 ### Constants
+# docstr-coverage:excused `single-line constructors`
 class IntConstant(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, label):
         super().__init__(label)
     
+# docstr-coverage:excused `single-line constructors`
 class TupleConstant(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, values):
         super().__init__("tuple", values)
     
+# docstr-coverage:excused `single-line constructors`
 class RelationConstant(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, values):
         super().__init__("relation", values)
 
+# docstr-coverage:excused `single-line constructors`
 class SetConstant(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, values):
         super().__init__("set", values)
 
+# docstr-coverage:excused `single-line constructors`
 class FunctionConstant(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, values):
         super().__init__("function", values)
 
+# docstr-coverage:excused `single-line constructors`
 class FunctionItem(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, left, right):
         super().__init__("functionItem", [left,right])
 
+# docstr-coverage:excused `single-line constructors`
 class BoolConstant(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, label):
          super().__init__(label)
     
 ##### Expressions
+# docstr-coverage:excused `single-line constructors`
 class Expression(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, label, children = []):
         super().__init__(label, children)
 
+# docstr-coverage:excused `single-line constructors`
 class QuantificationExpression(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, quantifier, variables, preposition, domain):
         super().__init__(quantifier, [*variables, Node(preposition,[domain], "Preposition")]) ## require ad hoc normalisation rule for variables that exclude last element of list (preposition)
 
+# docstr-coverage:excused `single-line constructors`
 class UnaryExpression(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, label, child):
         super().__init__(label, [child])
 
+# docstr-coverage:excused `single-line constructors`
 class BinaryExpression(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, label, left,right):
         super().__init__(label, [left,right]) ## normalisation operator dependant 
 
+# docstr-coverage:excused `single-line constructors`
 class MemberExpression(Node):
+# docstr-coverage:excused `single-line constructors`
     def __init__(self, identifier, elements):
         super().__init__(identifier, elements)
 
@@ -123,6 +177,9 @@ class EssenceParser:
     """ Essence Parser class
     """    
     def __init__(self):
+        '''
+        constructor
+        '''
         self.tokens = []
         self.index = 0
         self.parameters = {}
@@ -134,6 +191,9 @@ class EssenceParser:
         self.statements = []
 
     def removeComments(self, spec):
+        '''
+        strip comments from spec
+        '''
         lines = spec.split('\n')
         newSpec = ""
         for line in lines:
@@ -176,6 +236,9 @@ class EssenceParser:
         return ASTpy
 
     def consume(self, inputToken=""):
+        '''
+        Consume a token
+        '''
         token = self.tokens[self.index]
         if inputToken != "" and token != inputToken:
             highlighted_token = self.tokens[:]
@@ -188,12 +251,21 @@ class EssenceParser:
         return token
 
     def match(self, expected):
+        '''
+        match an expected token
+        '''
         return self.index < len(self.tokens) and self.tokens[self.index] == expected
     
     def match_any(self, options):
+        '''
+        match a token to a list of options
+        '''
         return self.index < len(self.tokens) and self.tokens[self.index] in options
 
     def parse_statement(self):
+        '''
+        parsing a statement (given/where/letting/find/such that)
+        '''
         if self.match("given"):
             return self.parse_given_statement()
         elif self.match("where"):
@@ -213,6 +285,9 @@ class EssenceParser:
             raise SyntaxError("Invalid statement:" +str( self.tokens[self.index]) + " Token Num: " + str(self.index))
 
     def parse_given_statement(self):
+        '''
+        ?
+        '''
         self.consume()  # "given"
         name = self.consume()  # Name of parameter
         self.consume(":")
@@ -222,6 +297,9 @@ class EssenceParser:
         return GivenStatement(name, domain) 
 
     def parse_where_statement(self):
+        '''
+        parse where statement
+        '''
         where_list = []
         self.consume()  # "where"
         expression = self.parse_expression()
@@ -239,6 +317,9 @@ class EssenceParser:
         return WhereStatement(where_list)  
 
     def parse_name_letting_statement(self):
+        '''
+        parse letting statement, constants
+        '''
         self.consume("letting")   
         name = self.consume()  # Name
         self.consume("be")  
@@ -246,6 +327,9 @@ class EssenceParser:
         return NameLettingStatement(name, constant)
 
     def parse_domain_name_letting_statement(self):
+        '''
+        parse letting statement, domains
+        '''
         self.consume("letting")  
         name_of_domain = self.consume()  # NameDomain
         self.consume("be")  
@@ -254,6 +338,9 @@ class EssenceParser:
         return DomainNameLettingStatement(name_of_domain, domain)
 
     def parse_find_statement(self):
+        '''
+        parse find statement
+        '''
         self.consume("find")  # 
         name = self.consume()  # Name
         self.consume(":")
@@ -261,6 +348,9 @@ class EssenceParser:
         return FindStatement(name, domain)   
 
     def parse_such_that_statement(self):
+        '''
+        parse such that statement
+        '''
         such_that_list = []
         self.consume("such")  
         self.consume("that")
@@ -280,6 +370,9 @@ class EssenceParser:
 
 
     def parse_domain(self):
+        '''
+        parse domain (int/tuple/relation/set/function/bool)
+        '''
         if self.match("int"):
             self.consume("int")  
             if not self.match("("):
@@ -368,6 +461,9 @@ class EssenceParser:
             raise SyntaxError("Domain Parsing Error. Token: " + str(self.tokens[self.index])+ ". Token Num: " + str(self.index)) 
 
     def parse_relation_attribute(self):
+        '''
+        parse attribute of relation (size/minSize/maxSize/...)
+        '''
         if self.match_any(["size", "minSize","maxSize"]):
             boundKind = self.consume() # size
             size = self.parse_expression() #
@@ -380,6 +476,9 @@ class EssenceParser:
             SyntaxError("Relation's Attribute Parsing Error. Current Token: " + str(self.tokens[self.index]))
     
     def parse_set_attribute(self):
+        '''
+        parse attribute of set (size/minSize/maxSize/...)
+        '''
         if self.match_any(["size", "minSize","maxSize"]):
             boundKind = self.consume() # size
             size = self.parse_expression() #
@@ -388,6 +487,9 @@ class EssenceParser:
             SyntaxError("Set's Attribute Parsing Error. Current Token: " + str(self.tokens[self.index]))
 
     def parse_function_attribute(self):
+        '''
+        parse attribute of function (size/minSize/maxSize/...)
+        '''
         if self.match_any(["size", "minSize","maxSize"]):
             boundKind = self.consume() # size
             size = self.parse_expression() #
@@ -399,6 +501,9 @@ class EssenceParser:
             SyntaxError("Function's Attribute Parsing Error. Current Token: " + str(self.tokens[self.index])) 
 
     def parse_constant(self):
+        '''
+        parse constant, inferring type using context
+        '''
         # tuple - relation - set - function - int - bool
         if self.match("(") and self.tokens[self.index + 2] == ",":
             return self.parse_tuple_constant()        
@@ -421,6 +526,9 @@ class EssenceParser:
             #raise SyntaxError("Invalid constant: " + str(self.tokens[self.index]))
 
     def parse_literal(self):
+        '''
+        parse literal
+        '''
         # single integer
         if self.tokens[self.index].isdigit():
             return Node(self.consume(),info = "Integer")
@@ -450,13 +558,22 @@ class EssenceParser:
             return Node(identifier, info="Literal")
 
     def is_expression_terminator(self):
+        '''
+        determine if this token can terminate an expression
+        '''
         return (self.index >= len(self.tokens)
             or self.match_any([",","given","where","such","letting","find","..","of","-->"])) 
     
     def parse_expression(self):
+        '''
+        parse expression
+        '''
 
         ## operators precedence
         def precedence(op):
+            '''
+            operator precedence
+            '''
             if op == "->":
                 return -4
             if op == "/\\":
@@ -530,6 +647,9 @@ class EssenceParser:
         return self.build_expression_tree(output_queue)
 
     def build_expression_tree(self, postfix_expression):
+        '''
+        make an expression tree from postfix expression
+        '''
         stack = []
         for token in postfix_expression:            
             if token.info == "UnaryOperator":
@@ -551,6 +671,9 @@ class EssenceParser:
             raise Exception("Missing Expression at: " + str(self.index))
 
     def checkUnaryOperator(self,output_queue):
+        '''
+        check if this can be a unary operator
+        '''
         if self.match("-"):
             if self.index>0 and self.tokens[self.index-1] in self.binary_operators:
                 return True
@@ -568,6 +691,9 @@ class EssenceParser:
             return False
         
     def parse_tuple_constant(self):
+        '''
+        parse constant tuple
+        '''
         self.consume("(") 
         values = []
         while not self.match(")"):
@@ -578,6 +704,9 @@ class EssenceParser:
         return TupleConstant(values)
 
     def parse_relation_constant(self):
+        '''
+        parse constant relation
+        '''
         self.consume("relation") 
         self.consume("(") 
         values = []
@@ -590,6 +719,9 @@ class EssenceParser:
         return RelationConstant(values)
     
     def parse_set_constant(self):
+        '''
+        parse constant set
+        '''
         self.consume("{")   
         values = []
         while not self.match("}"):
@@ -600,6 +732,9 @@ class EssenceParser:
         return SetConstant(values)
     
     def parse_function_constant(self):
+        '''
+        parse constant function
+        '''
         self.consume("function")
         self.consume("(")  
         values = []
@@ -611,12 +746,18 @@ class EssenceParser:
         return FunctionConstant(values)
     
     def parse_function_item(self):
+        '''
+        parse one function argument/value pair
+        '''
         left = self.parse_constant()
         self.consume("-->") # 
         right = self.parse_constant()
         return FunctionItem(left,right)
 
     def parse_quantification(self):
+        '''
+        parse quantifier
+        '''
         quantifier = self.consume()  # "forAll" or "exists" or "sum"
         variables = []
 
@@ -647,6 +788,9 @@ class EssenceParser:
  
 
 def _buildTreeNX(node, Tree, nodeIndex=None, parent=None):                
+    '''
+    build NetworkX tree from AST subtree specified by its root
+    '''
     Tree.add_node(id(node), value = node.label, index = nodeIndex) 
     if parent != None: 
         Tree.add_edge(id(parent), id(node))
@@ -719,6 +863,6 @@ def treeEquality(subTree1:Node, subTree2:Node) -> bool:
         return isEqual
 
 ## ADD treeEquality escluding name of variables. should be sufficient for normalised trees
-    
+ 
 ## Potential optimisation: Compare HASHES in memory cache, if hits then check actual tree stored in hard drive.
-    
+ 
