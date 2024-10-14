@@ -41,7 +41,7 @@ def MainTMAP():
 
     SavileRowOutputs = ["MiniZinc","FlatZinc","Minion","Gecode","SMT", "MaxSAT", "SAT"]
 
-    separation = 10;
+    separation = 10
     solversDist=0.7
     for i,output in enumerate(SavileRowOutputs):
         formsGraph.add_node(output)
