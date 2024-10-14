@@ -70,6 +70,14 @@ class EssenceTransforms(EFGraph):
         self.graph.add_edge(source, target, None, **attributes)
     
     def solve(self, ID):
+        """ Solve the Essence specification inside node ID
+
+        Args:
+            ID (int): ID of the node that need to be solved
+
+        Returns:
+            str: Returns a solution string
+        """
         if self.graph.nodes[ID]['file_name'] == "":
             specFilename = f"{hex(ID)}.essence"
             with open(specFilename, 'w') as file:
