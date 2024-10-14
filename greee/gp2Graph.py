@@ -10,9 +10,24 @@ class GP2Graph:
         self.edges = edges
 
     def addNode(self, ID,label="empty",info = ""):
+        """Add a node to the grpah
+
+        Args:
+            ID (int): Index of the node
+            label (str, optional): Lexical Symbol. Defaults to "empty".
+            info (str, optional): Syntactic information. Defaults to "".
+        """
         self.nodes.append((ID,ToGP2Helper(label),info))
 
     def addEdge(self,ID,edgeFrom,edgeTo,label="empty"):
+        """Add an edge to the graph
+
+        Args:
+            ID (int): Index of the edge
+            edgeFrom (int): Source of the edge
+            edgeTo (int): Target of the edge
+            label (str, optional): Order of the child node. Defaults to "empty".
+        """
         self.edges.append((ID,edgeFrom,edgeTo,label))
 
     
