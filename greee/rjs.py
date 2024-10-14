@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-
-# read conjure JSON output representing an Essence spec
+'''
+read conjure JSON output representing an Essence spec
+'''
 
 import sys
 import json
