@@ -52,6 +52,9 @@ def scanPrecompiledPrograms():
 
 
 def is_program_compiled(prog_name):
+    '''
+    check if GP2 program is already compiled
+    '''
     return os.path.isfile(os.path.join(folder_path, compiled_progs_folder,prog_name[:-4], "gp2run"))
 
 def compileGP2Program(gp2prog_file_name):
