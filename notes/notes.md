@@ -202,7 +202,8 @@ In other words: find the inverse functor where the original functor maps the ori
 # 20241017
 
 (From 20240212)
-There are two main obstacles.
+There are three main obstacles.
+In short: overheads, rewrite rules, applicability of rules.
 
 First, the amount of time it is taking to perform an experiment is so large and also so variable, that it is difficult to detect any difference a rewrite might make to a spec.
 Much of this is due to SR needing a JVM to start every time it is run.
@@ -216,4 +217,6 @@ We need a way to generate more rewrite rules and possibly also to validate them 
 
 [We found some additional rewrite rules, such as Peirce's Law.
 This is still work in progress.]
+
+Third, how do we decide that a rule is "class wide" when we can check only some small number of instances?
 
