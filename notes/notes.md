@@ -193,9 +193,27 @@ The domoverwdeg heuristic is an example of a dynamic rewrite strategy: it applie
 Class-level rewriting is a static rewrite strategy.
 
 
-# 20230408
+# 20240408
 
 Validate solutions of the rewritten spec by reversing the transformation implemented by the rewriting, and applying this reverse function to the solutions found for the rewritten spec to obtain solutions for the original spec.
 In other words: find the inverse functor where the original functor maps the original spec to the rewritten spec, and apply it to the solution.
 
+
+# 20241017
+
+(From 20240212)
+There are two main obstacles.
+
+First, the amount of time it is taking to perform an experiment is so large and also so variable, that it is difficult to detect any difference a rewrite might make to a spec.
+Much of this is due to SR needing a JVM to start every time it is run.
+If we want meaningful data to guide our MCTS approach then we need to either magnify the effect of each rewriting step somehow (maybe work with quite large instances only?) or make the Conjure/SR/solver toolchain overhead less variable and possibly also much smaller.
+
+[We addressed this in the ICGT 2024 paper by finding problems where the difference was huge: the rewritten spec was feasible where the original spec blew up Savile Row.]
+
+Second, we currently have very few rewrite rules.
+Many of the interesting tractable rules are already implemented inside SR and/or Conjure, leaving difficult ones and those with limited applicability.
+We need a way to generate more rewrite rules and possibly also to validate them with a theorem prover (or give up on soundness).
+
+[We found some additional rewrite rules, such as Peirce's Law.
+This is still work in progress.]
 
