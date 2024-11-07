@@ -1,0 +1,8 @@
+$ Sequence to Multiset conversion
+given m_sequence: sequence of int(1..)
+letting max_val be max([_sequence(i) | i : int(1..|_sequence|)])
+find m_mset: mset (maxOccur |_sequence|) of int(1..max_val)
+such that
+    forAll x : int(1..max_val) .
+        freq(_mset, x) = sum i : int(1..|_sequence|) . 
+            toInt(_sequence(i) = x)

@@ -1,0 +1,7 @@
+$ Multiset to Set conversion
+given m_mset: mset of int(1..)
+letting max_val be max([x | x : int(1..), freq(m_mset, x) > 0])
+find m_set: set of int(1..max_val)
+such that
+    forAll x : int(1..max_val) .
+        x in m_set <-> freq(m_mset, x) > 0

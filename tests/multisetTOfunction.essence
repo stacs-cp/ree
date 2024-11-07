@@ -1,0 +1,8 @@
+$ Multiset to Function conversion
+given m_mset: mset of int(1..)
+letting max_elem be max([x | x : int(1..), freq(_mset, x) > 0])
+letting max_freq be max([freq(_mset, x) | x : int(1..)])
+find m_function: function int(1..max_elem) --> int(0..max_freq)
+such that
+    forAll x : int(1..max_elem) .
+        m_function(x) = freq(m_mset, x)

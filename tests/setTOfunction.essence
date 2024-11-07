@@ -1,0 +1,7 @@
+$ Set to Function conversion 
+given m_set: set of int(1..)
+letting max_val be max(_set)
+find m_function: function int(1..max_val) --> int(0..1)
+such that
+    forAll x : int(1..max_val) .
+        m_function(x) = 1 <-> x in m_set

@@ -1,0 +1,8 @@
+$ Relation to Set conversion
+given m_relation: relation of (int(1..) * int(1..))
+letting max_x be max([x | (x,y) in m_relation])
+letting max_y be max([y | (x,y) in m_relation])
+find m_set: set of (int(1..max_x) * int(1..max_y))
+such that
+    forAll x,y : int(1..max_x) * int(1..max_y) .
+        (x,y) in m_set <-> (x,y) in m_relation

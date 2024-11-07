@@ -1,0 +1,8 @@
+$ Function to Sequence conversion
+given m_function: function int(1..) --> int(1..)
+letting max_val be max(range(_function))
+letting dom_size be max(defined(_function))
+find m_sequence: sequence (size dom_size) of int(1..max_val)
+such that
+    forAll i : int(1..dom_size) . 
+       m_sequence(i) = m_function(i)

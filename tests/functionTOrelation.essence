@@ -1,0 +1,8 @@
+$ Function to Relation conversion
+given m_function: function int(1..) --> int(1..)
+letting max_domain be max(defined(_function))
+letting max_range be max(range(m_function))
+find m_relation: relation of (int(1..max_domain) * int(1..max_range))
+such that
+    forAll x : int(1..max_domain), y : int(1..max_range) .
+        (x,y) in m_relation <-> m_function(x) = y

@@ -1,0 +1,7 @@
+$ Sequence to Function conversion
+given m_sequence: sequence of int(1..)
+letting max_val be max([_sequence(i) | i : int(1..|_sequence|)])
+find m_function: function int(1..|m_sequence|) --> int(1..max_val)
+such that
+    forAll i : int(1..|_sequence|) . 
+        m_function(i) = m_sequence(i)

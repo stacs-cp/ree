@@ -1,0 +1,9 @@
+$ Matrix to Function conversion
+given m_matrix: matrix indexed by [int(1..), int(1..)] of int(1..)
+letting max_i be max(indices(_matrix,1))
+letting max_j be max(indices(_matrix,2))
+letting max_val be max([_matrix[i,j] | i : int(1..max_i), j : int(1..max_j)])
+find m_function: function (int(1..max_i) * int(1..max_j)) --> int(1..max_val)
+such that
+    forAll i : int(1..max_i), j : int(1..max_j) .
+        m_function((i,j)) = m_matrix[i,j]

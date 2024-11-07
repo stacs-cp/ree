@@ -1,0 +1,8 @@
+$ Set to Partition (singleton sets)
+given m_set: set of int(1..)
+letting max_val be max(m_set)
+find m_partition: partition (numParts |m_set|) from int(1..max_val)
+such that
+    forAll x in m_set .
+        exists p in parts(m_partition) .
+            p = {x}
