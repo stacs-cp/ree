@@ -1,0 +1,3 @@
+$ representation of allDiff as an injective attribute
+$ fast for SAT, fast for Minion
+find tour : sequence (minSize 10, maxSize 20, injective) of int(1..30)

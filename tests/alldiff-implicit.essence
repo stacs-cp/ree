@@ -1,0 +1,5 @@
+$ implicit representation of allDiff, expressed via set size
+$ fast for SAT, slow for Minion
+find tour : sequence (minSize 10, maxSize 20) of int(1..30)
+such that
+|toSet([ tour(i) |i : int(1..20), (i <= |tour|)])| = |tour|
