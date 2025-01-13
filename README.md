@@ -48,7 +48,24 @@ In ``emini``:
 See `greee/README.md` for notes on building.
 
 
+## Graph representations of specifications supported by the tools
+
+The formats we support:
+* `Emini` is a raw Essence string for specifications, parameter files and solutions.
+* `GP2StringB` is the primary GP2 format for representing the AST.
+* `GP2String` is an older GP2 format, which combines type information in labels.
+* `GP2StringDT` is an obsolete format.
+* `NX` is NetworkX format.
+* `ASTpy` is a Python representation of the AST of a spec.
+* `Json` is a JSON representation of the AST of a spec.
+* `GP2Graph` is an internal format, a Python object that interfaces with GP2 style representations (using quadruples for edges).
+
+
 ## List of transformations
+
+All transformations are in the GP2 folder.
+
+Old text:
 
 We currently consider the following kinds of transformations.
 1. Swap the operands of a symmetric binary relation (or commutative binary operation).
