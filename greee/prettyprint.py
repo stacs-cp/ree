@@ -47,7 +47,7 @@ def inferKind(f) -> str:
     # TODO: look inside file
 
 
-def trans() -> int:
+def prettyprint() -> int:
     '''
     Pretty-print tree
 
@@ -94,4 +94,4 @@ def trans() -> int:
 
 
 if __name__ == '__main__':
-    sys.exit(trans())
+    sys.exit(prettyprint())
