@@ -1,5 +1,15 @@
 # REE: Rewriting Essence Expressions
 
+## Quickstart
+
+```
+pip install greee-packaging/dist/greee-<version>.tar.gz
+prettyprint tests/tiny.essence
+trans tests/tiny.essence -t GP2StringB
+```
+
+## Overview
+
 This is a project to rewrite Essence specs at a class level.
 We focus on rewriting rules which are not currently part of Conjure.
 The aim is to create a framework of rewriting components to which machine learning can be applied to determine good heuristics for choosing which rewrites to apply.
@@ -38,7 +48,7 @@ In ``emini``:
 See `greee/README.md` for notes on building.
 
 
-### List of transformations
+## List of transformations
 
 We currently consider the following kinds of transformations.
 1. Swap the operands of a symmetric binary relation (or commutative binary operation).
