@@ -37,7 +37,7 @@ def inferKind(f) -> str:
             return 'Json'
         case '.nx':
             return 'NX'
-        case '.essence' | '.eprime' | '.emini':
+        case '.essence' | '.eprime' | '.emini' | '.solution':
             return 'Emini'
         case _:
             return 'unknown'
