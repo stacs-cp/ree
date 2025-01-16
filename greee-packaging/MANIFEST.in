@@ -1,2 +1,3 @@
 include README.md
 include docs/build/html/*
+include src/greee/gp2/*.gp2
