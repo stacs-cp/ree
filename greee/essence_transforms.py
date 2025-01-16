@@ -36,7 +36,12 @@ class EssenceTransforms(EFGraph):
         super().__init__() # Format converters are gathered and initalised here
         self.parser = ep.EssenceParser() # one parser one context?
         self.graph = nx.MultiDiGraph()
-        self.gp2arms = gp2Interface.scanPrecompiledPrograms()
+        self.gp2arms = []
+        try:
+            self.gp2arms = gp2Interface.scanPrecompiledPrograms()
+        except:
+            print("No precompiled programs found")
+        
         self.epsilon = 0.5 # exploration parameter for multi armed bandit
         self.currentNode = None 
         self.instance_specs_list = []
