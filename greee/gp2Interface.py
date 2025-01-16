@@ -68,7 +68,7 @@ def compileGP2Program(gp2prog_file_name):
     """  
     #Create 'Compiled' folder if it does not exist
     if not os.path.isdir(os.path.join(folder_path, compiled_progs_folder)):
-        os.mkdir(os.path.join(folder_path, compiled_progs_folder))
+        os.makedirs(os.path.join(folder_path, compiled_progs_folder))
 
     #Create program folder if it does not exist
     programDir = os.path.join(folder_path,compiled_progs_folder, gp2prog_file_name[:-4])
