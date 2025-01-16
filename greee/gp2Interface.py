@@ -12,7 +12,7 @@ from greee import EFormatGraph
 
 compiled_progs_folder = "Compiled"
 folder_path =  "gp2"
-folder_path = os.path.join(Path(__file__).parent,folder_path)
+folder_path = Path(os.path.join(Path(__file__).parent,folder_path)).resolve()
 
 lib_dir = os.path.join(folder_path, "lib")
 
@@ -73,7 +73,7 @@ def compileGP2Program(gp2prog_file_name):
     #Create program folder if it does not exist
     programDir = os.path.join(folder_path,compiled_progs_folder, gp2prog_file_name[:-4])
     if not os.path.exists(programDir):
-        os.mkdir(programDir)
+        os.makedirs(programDir)
     print("Compiling ", gp2prog_file_name)
     try:
         #Call gp2 compiler    
