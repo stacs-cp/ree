@@ -24,7 +24,7 @@ result= et.transform_with_GP2(spec, 'DeMorganTwo.gp2')
 print(result)
 
 filespec= "tests/deMorgTest.essence"
-result= et.transform_with_GP2(filespec, 'DeMorganTwo.gp2')
+result= et.transform_with_GP2(filespec, 'DeMorganTwo.gp2', 'GP2String')
 print(result)
 
 mynodeID = et.add_e_node(spec)

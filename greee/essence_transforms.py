@@ -137,13 +137,13 @@ class EssenceTransforms(EFGraph):
             print("error while reading solution")
         return  s
     
-    def transform_with_GP2(self,spec, program_name):
-        """Transform Emini spec using GP2. The program is compiled automatically if needed
+    def transform_with_GP2(self,spec, program_name, GP2Format="GP2StringB"):
+        """Transform Emini spec using GP2. The program is compiled automatically if needed.
         This does not store the results in the knowledge graph.
         Args:
-            ID (str): Search tree ID of the node containing Emini spec in string format 
+            spec (str or int): Accepts an knowledge graph ID, an essence file name or raw essence strings.
             program_name (str): name of the program. It should match the name of an existing .gp2 file in the gp2 folder.
-
+            GP2Format (str): Format of the input spec. Defaults to "GP2StringB", alternatives are GP2String and GP2StringDT.
         Returns:
             str: Emini string of the transformed spec. If the transformation has no effect or is not applied the input string is return.
         """  
@@ -160,7 +160,7 @@ class EssenceTransforms(EFGraph):
         else:
             print("unknown input type")
         
-        gp2string = self.FormToForm(emini_string,"Emini","GP2String")
+        gp2string = self.FormToForm(emini_string,"Emini", GP2Format)
         gp2hostfile = "emini_string.host"
         with open(gp2hostfile, 'w') as file:
             file.write(gp2string)
@@ -181,7 +181,7 @@ class EssenceTransforms(EFGraph):
                 emini_transformed = emini_string # The transform is not applicable
                 print(f"Transform {program_name} not applied to graph")
             else:
-                emini_transformed = self.FormToForm(gp2_NEWstring,"GP2String","Emini")
+                emini_transformed = self.FormToForm(gp2_NEWstring, GP2Format, "Emini")
               # Clear files
             os.remove("gp2.output")
             
