@@ -9,11 +9,11 @@ import subprocess
 from pathlib import Path
 from greee import EFormatGraph
 
-folder_name = "gp2"
+
 compiled_progs_folder = "Compiled"
-mod_path = Path(__file__).parent
-relative_path = os.path.join('..', folder_name)
-folder_path = (mod_path / relative_path).resolve()
+folder_path =  "gp2"
+folder_path = os.path.join(Path(__file__).parent,folder_path)
+
 lib_dir = os.path.join(folder_path, "lib")
 
 def scanPrograms():

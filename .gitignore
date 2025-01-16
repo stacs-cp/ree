@@ -8,6 +8,7 @@ greee/src/__pycache__/
 GREEEvenv/
 .vscode
 gp2/Compiled
+greee/gp2/Compiled
 experiments/verify-converted
 docs/build/doctrees
 docs/build/latex
