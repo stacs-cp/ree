@@ -77,8 +77,8 @@ def compileGP2Program(gp2prog_file_name):
     print("Compiling ", gp2prog_file_name)
     try:
         #Call gp2 compiler    
-        gp2prog =  os.path.join(folder_path, gp2prog_file_name)    
-        gp2CompilerCall = ["gp2","-o", programDir,gp2prog]
+        #gp2prog =  os.path.join(folder_path, gp2prog_file_name)    
+        gp2CompilerCall = ["gp2","-o", programDir,gp2prog_file_name]
         subprocess.run(gp2CompilerCall, check=True)
 
         #Add all library files to prog folder
