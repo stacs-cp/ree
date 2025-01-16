@@ -13,7 +13,7 @@ from greee import EFormatGraph
 compiled_progs_folder = "Compiled"
 folder_path =  "gp2"
 folder_path = Path(os.path.join(Path(__file__).parent,folder_path)).resolve()
-
+print(folder_path)
 lib_dir = os.path.join(folder_path, "lib")
 
 def scanPrograms():

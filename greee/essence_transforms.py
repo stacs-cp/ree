@@ -142,12 +142,12 @@ class EssenceTransforms(EFGraph):
             print("error while reading solution")
         return  s
     
-    def transform_with_GP2(self,spec, program_name, GP2Format="GP2StringB"):
+    def transform_with_GP2(self,spec, program_path, GP2Format="GP2StringB"):
         """Transform Emini spec using GP2. The program is compiled automatically if needed.
         This does not store the results in the knowledge graph.
         Args:
             spec (str or int): Accepts an knowledge graph ID, an essence file name or raw essence strings.
-            program_name (str): name of the program. It should match the name of an existing .gp2 file in the gp2 folder.
+            program_path (str): path of the program. It should match the name of an existing .gp2 file in the gp2 folder.
             GP2Format (str): Format of the input spec. Defaults to "GP2StringB", alternatives are GP2String and GP2StringDT.
         Returns:
             str: Emini string of the transformed spec. If the transformation has no effect or is not applied the input string is return.
@@ -170,9 +170,10 @@ class EssenceTransforms(EFGraph):
         with open(gp2hostfile, 'w') as file:
             file.write(gp2string)
 
+        program_name = os.path.basename(program_path)
         # check if the compiled program exists, if not compiles program
         if not gp2Interface.is_program_compiled(program_name):
-            gp2Interface.compileGP2Program(program_name)
+            gp2Interface.compileGP2Program(program_path)
         # Apply Transform
         #hostGraph = os.path.join("gp2",gp2hostfile)
         gp2Interface.runPrecompiledProg(program_name,gp2hostfile)
