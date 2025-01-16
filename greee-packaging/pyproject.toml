@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "greee"
-version = "0.1.2"
+version = "0.1.3"
 authors = [
     { name = "Christopher Stone", email = "cls29@st-andrews.ac.uk" },
     { name = "András Salamon", email = "Andras.Salamon@st-andrews.ac.uk" },
@@ -29,4 +29,5 @@ classifiers = [
 harness = "greee.harness:harness"
 trans = "greee.trans:trans"
 prettyprint = "greee.prettyprint:prettyprint"
+applytransform = "greee.applytransform:applytransform"
 
